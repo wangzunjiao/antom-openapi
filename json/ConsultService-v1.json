@@ -1,0 +1,639 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/payments"
+    }
+  ],
+  "info": {
+    "version": "1",
+    "x-publicVersion": true,
+    "title": "Payment API",
+    "description": "Payment API is used for xxx. Refer [doc](https://global.alipay.com/docs/ac/ams/consult)\n# Auth",
+    "termsOfService": "https://www.antom.com/legal/terms-and-conditions",
+    "contact": {
+      "name": "Antom Developer Experience team",
+      "url": "https://github.com/Antom/antom-openapi"
+    }
+  },
+  "tags": [],
+  "paths": {
+    "/consult": {
+      "post": {
+        "tags": [],
+        "summary": "consult payment methods",
+        "description": "Use the **consult** API to initiate a payment consultation request to Alipay. This request is returned to the merchant with information on the different payment methods and its corresponding amount, country, currency, rules, and configuration.\n\nThe **consult** API enables merchants to:\n\n- Provide consumers with multiple payment methods without bearing any additional costs caused by a change in these payment methods, or managing the logic of selecting and sorting these payment methods.\n\n- Automate the selection and sorting of multiple payment methods.",
+        "x-addedInVersion": "5",
+        "operationId": "post-consultPayment",
+        "x-sortIndex": 3,
+        "x-methodName": "consultPayment",
+        "security": [
+          {
+            "Signature": []
+          },
+          {
+            "Client-Id": []
+          },
+          {
+            "Request-Time": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "basic": {
+                  "$ref": "#/components/examples/post-consult-basic"
+                }
+              },
+              "schema": {
+                "$ref": "#/components/schemas/PayConsultRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayConsultResponse"
+                }
+              }
+            },
+            "description": "OK - the request has succeeded."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Amount": {
+        "description": "The payment amount that the merchant requests to receive in the order currency.",
+        "properties": {
+          "currency": {
+            "description": "The 3-letter currency code that follows the ISO 4217 standard.",
+            "maxLength": 3,
+            "minLength": 3,
+            "type": "string"
+          },
+          "value": {
+            "description": "The value of the amount as a positive integer in the smallest currency unit. For example, if the currency is USD and the amount is $1.00, set the value of this parameter to 100; or if the currency is JPY and the amount is ￥1, set the value of this parameter to 1.",
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "value",
+          "currency"
+        ],
+        "type": "object"
+      },
+      "PayConsultRequest": {
+        "properties": {
+          "productCode": {
+            "description": "Represents the payment product that is being used. The payment product that can be used is stipulated in the contract. The fixed value is:",
+            "enum": [
+              "CASHIER_PAYMENT"
+            ],
+            "type": "string"
+          },
+          "paymentAmount": {
+            "description": "The payment amount that the merchant requests to receive in the order currency.",
+            "$ref": "#/components/schemas/PaymentAmount"
+          },
+          "userRegion": {
+            "description": "The 2-letter country or region code. For more information, see ISO 3166 Country Codes standard. The payment methods will be sorted based on payment method relevance for the given user's region.",
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "merchantRegion": {
+            "description": "The country or region where the merchant operates the business. The parameter is a 2-letter country or region code that follows ISO 3166 Country Codes standard.",
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "settlementStrategy": {
+            "description": "The settlement strategy.",
+            "$ref": "#/components/schemas/SettlementStrategy"
+          },
+          "allowedPaymentMethodRegions": {
+            "description": "A list of region codes that represent the countries or regions of payment methods. The value of this parameter is a 2-letter ISO country code or GLOBAL. \n\nSpecify this parameter if you want available payment methods from specific regions to be returned. For example, if you pass in GLOBAL, global cards Visa and Mastercard are returned.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "env": {
+            "description": "Information about the environment where the order is placed, such as the device information.",
+            "$ref": "#/components/schemas/Env"
+          },
+          "buyer": {
+            "description": "Information about the environment where the order is placed, such as the device information.",
+            "$ref": "#/components/schemas/Buyer"
+          },
+          "merchantAccountId": {
+            "description": "The unique ID to identify a merchant account.\n\nSpecify this parameter when you use a single client ID across multiple locations.\n\nMore information about this field",
+            "type": "string",
+            "maxLength": 32
+          },
+          "paymentFactor": {
+            "description": "Information about the environment where the order is placed, such as the device information.",
+            "$ref": "#/components/schemas/PaymentFactor"
+          }
+        },
+        "required": [
+          "productCode",
+          "paymentAmount",
+          "env"
+        ],
+        "type": "object"
+      },
+      "PayConsultResponse": {
+        "properties": {
+          "result": {
+            "description": "The request result that contains information such as status and error codes.",
+            "$ref": "#/components/schemas/Result"
+          },
+          "paymentOptions": {
+            "description": "The payment option list.",
+            "items": {
+              "$ref": "#/components/schemas/PaymentOption"
+            },
+            "type": "array"
+          }
+        }
+      },
+      "PaymentAmount": {
+        "properties": {
+          "currency": {
+            "description": "The 3-letter currency code that follows the ISO 4217 standard.",
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+          },
+          "value": {
+            "description": "The amount of the payment.",
+            "format": "double",
+            "type": "number"
+          }
+        },
+        "required": [
+          "currency",
+          "value"
+        ],
+        "type": "object"
+      },
+      "SettlementStrategy": {
+        "properties": {
+          "settlementCurrency": {
+            "description": "The ISO currency code of the currency that the merchant wants to settle against. This field is required if the merchant signed up for multiple settlement currencies. Otherwise, the error code,SETTLE_CONTRACT_NOT_MATCH, will be returned.",
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+          }
+        },
+        "type": "object"
+      },
+      "Env": {
+        "properties": {
+          "terminalType": {
+            "description": "Terminal type used by the merchant. Valid values are:",
+            "type": "string",
+            "enum": [
+              "WEB",
+              "WAP",
+              "APP",
+              "MINI_APP"
+            ]
+          },
+          "osType": {
+            "description": "Type of the operation system. Valid values are:",
+            "type": "string",
+            "enum": [
+              "IOS",
+              "ANDROID"
+            ]
+          },
+          "userAgent": {
+            "description": "The user agent.",
+            "type": "string",
+            "maxLength": 1024
+          },
+          "deviceTokenId": {
+            "description": "Token identifier of the device.",
+            "type": "string",
+            "maxLength": 64
+          },
+          "clientIp": {
+            "description": "IP address of the client device.",
+            "type": "string",
+            "maxLength": 32
+          },
+          "cookieId": {
+            "description": "The cookie ID of the buyer.",
+            "type": "string",
+            "maxLength": 64
+          }
+        },
+        "type": "object",
+        "required": [
+          "terminalType"
+        ]
+      },
+      "Buyer": {
+        "properties": {
+          "referenceBuyerId": {
+            "description": "The unique ID to identify the buyer.",
+            "type": "string",
+            "maxLength": 64
+          }
+        },
+        "type": "object"
+      },
+      "PaymentOption": {
+        "properties": {
+          "paymentMethodType": {
+            "description": "The payment method type. See Payment methods to check the valid values.",
+            "type": "string",
+            "maxLength": 64
+          },
+          "paymentMethodCategory": {
+            "description": "The category of the payment method. Valid values are:",
+            "type": "string",
+            "enum": [
+              "ALIPAY_PLUS",
+              "WALLET",
+              "MOBILE_BANKING_APP",
+              "BANK_TRANSFER",
+              "ONLINE_BANKING",
+              "CARD",
+              "OTC"
+            ],
+            "maxLength": 32
+          },
+          "paymentMethodRegion": {
+            "description": "A list of region codes that represent the countries or regions of payment methods. The value of this parameter is a 2-letter ISO country code or GLOBAL",
+            "type": "string",
+            "maxLength": 6
+          },
+          "paymentOptionDetail": {
+            "description": "Details about the payment option.",
+            "$ref": "#/components/schemas/PaymentOptionDetail"
+          },
+          "enabled": {
+            "description": "Indicates whether the payment method is available.",
+            "type": "boolean"
+          },
+          "disableReason": {
+            "description": "The payment method type. See Payment methods to check the valid values.",
+            "type": "string",
+            "enum": [
+              "PAYMENT_ACCOUNT_NOT_AVAILABLE",
+              "EXCEED_CHANNEL_LIMIT_RULE",
+              "SERVICE_DEGRADE",
+              "CHANNEL_NOT_SUPPORT_CURRENCY",
+              "CHANNEL_DISABLE",
+              "CHANNEL_NOT_IN_SERVICE_TIME",
+              "QUERY_IPP_INFO_FAILED",
+              "LIMIT_CENTER_ACCESS_FAIL",
+              "CURRENT_CHANNEL_NOT_EXIST"
+            ],
+            "maxLength": 64
+          },
+          "logo": {
+            "description": "The logo information about the payment method.",
+            "$ref": "#/components/schemas/Logo"
+          },
+          "promoNames": {
+            "description": "The list of the promotion names. In JSON format. The keys are returned as a language and a country code, connected by an underscore, such as zh_CN, while the value is the promotion name, such as RM1 Voucher.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 512
+            }
+          },
+          "installment": {
+            "description": "Information about installments.",
+            "$ref": "#/components/schemas/Installment"
+          },
+          "promotionInfos": {
+            "description": "The payment method type. See Payment methods to check the valid values.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PromotionInfo"
+            }
+          }
+        },
+        "type": "object"
+      },
+      "PaymentFactor": {
+        "properties": {
+          "presentmentMode": {
+            "description": "The presentation mode chosen by the merchant to display the payment methods on the cashier page. Valid values are:",
+            "type": "string",
+            "enum": [
+              "TILE",
+              "UNIFIED"
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "PaymentOptionDetail": {
+        "properties": {
+          "supportCardBrands": {
+            "description": "The list of supported card brands.  \n\nThis parameter is returned when the value of paymentMethodType is CARD.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SupportCardBrand"
+            }
+          },
+          "logo": {
+            "description": "The logo information about the payment method.",
+            "$ref": "#/components/schemas/Logo"
+          },
+          "funding": {
+            "description": "The funding type of the card. Valid values are:",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "CREDIT",
+                "DEBIT",
+                "PREPAID",
+                "CHARGE",
+                "DEFERRED_DEBIT"
+              ]
+            }
+          },
+          "supportBanks": {
+            "description": "The list of supported banks. \n\nThis parameter is returned when the value of paymentMethodType is IDEAL or ONLINEBANKING_FPX.\n\n",
+            "$ref": "#/components/schemas/SupportBank"
+          }
+        },
+        "type": "object"
+      },
+      "Logo": {
+        "properties": {
+          "logoName": {
+            "description": "The logo name of the card brand. See the Card brand list to check the valid values.",
+            "type": "string",
+            "maxLength": 12
+          },
+          "logoUrl": {
+            "description": "The logo URL of the card brand.",
+            "type": "string",
+            "maxLength": 2048
+          }
+        }
+      },
+      "Result": {
+        "properties": {
+          "resultCode": {
+            "description": "The result code.",
+            "type": "string"
+          },
+          "resultStatus": {
+            "description": "The result status. Valid values are:",
+            "type": "string",
+            "enum": [
+              "S",
+              "F",
+              "U"
+            ]
+          },
+          "resultMessage": {
+            "description": "The result message.",
+            "type": "string",
+            "maxLength": 256
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus"
+        ],
+        "type": "object"
+      },
+      "SupportCardBrand": {
+        "properties": {
+          "cardBrand": {
+            "description": "The name of the card brand. Valid values are:",
+            "type": "string",
+            "enum": [
+              "VISA",
+              "MASTERCARD",
+              "AMEX",
+              "HIPERCARD",
+              "ELO"
+            ]
+          },
+          "logo": {
+            "description": "The logo of the card brand.",
+            "$ref": "#/components/schemas/Logo"
+          }
+        }
+      },
+      "Installment": {
+        "properties": {
+          "supportCardBrands": {
+            "description": "The logo information about the payment method.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SupportCardBrand"
+            }
+          },
+          "plans": {
+            "description": "The list of installment plans for payment methods that support installments. ",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Plan"
+            }
+          }
+        }
+      },
+      "PromotionInfo": {
+        "properties": {
+          "promotionType": {
+            "description": "Promotion type. Valid values are:",
+            "type": "string",
+            "enum": [
+              "DISCOUNT",
+              "INTEREST_FREE"
+            ]
+          },
+          "discount": {
+            "description": "Discount information.\n\nThis parameter is returned when the payment method offers a promotion to the buyer.",
+            "$ref": "#/components/schemas/Discount"
+          },
+          "interestFree": {
+            "description": "The information about interest-free installment plans.",
+            "$ref": "#/components/schemas/InterestFree"
+          }
+        }
+      },
+      "SupportBank": {
+        "properties": {
+          "bankIdentifierCode": {
+            "description": "The unique code of the bank. See Bank list to check the valid values.",
+            "type": "string"
+          },
+          "bankShortName": {
+            "description": "The short name of the bank. The unique code of the bank. See Bank list to check the valid values.",
+            "type": "string"
+          },
+          "bankLogo": {
+            "description": "The logo information about the bank. \n\nThis parameter is returned when the value of paymentMethodType is ONLINEBANKING_FPX.",
+            "$ref": "#/components/schemas/Logo"
+          }
+        }
+      },
+      "Plan": {
+        "properties": {
+          "interestRate": {
+            "description": "The interest rate the customer is charged on the installments.",
+            "type": "string",
+            "maxLength": 8
+          },
+          "minInstallmentAmount": {
+            "description": "The minimum amount that can be paid by installments.",
+            "$ref": "#/components/schemas/Amount"
+          },
+          "maxInstallmentAmount": {
+            "description": "The maximum amount that can be paid by installments.",
+            "$ref": "#/components/schemas/Amount"
+          },
+          "installmentNum": {
+            "description": "The number of installment payments. The valid value is from 2 to 12.",
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 12
+          },
+          "interval": {
+            "description": "The interval of each installment payment. The valid value is MONTH.",
+            "type": "string",
+            "enum": [
+              "MONTH"
+            ]
+          },
+          "enabled": {
+            "description": "Indicates whether the installment payment is available.",
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "required": [
+          "minInstallmentAmount",
+          "maxInstallmentAmount",
+          "installmentNum",
+          "installmentNum",
+          "enabled"
+        ]
+      },
+      "Discount": {
+        "properties": {
+          "discountTag": {
+            "description": "The discount tag is displayed as a superscript next to the discount name.",
+            "type": "string",
+            "maxLength": 64
+          },
+          "discountName": {
+            "description": "The discount name displayed in the default language.",
+            "type": "string",
+            "maxLength": 128
+          },
+          "estimateSavingsAmount": {
+            "description": "The estimated discount amount.",
+            "$ref": "#/components/schemas/Amount"
+          }
+        }
+      },
+      "InterestFree": {
+        "properties": {
+          "provider": {
+            "description": "Issuing banks or financial institutions that offer interest-free installment plans.",
+            "type": "string",
+            "maxLength": 128
+          },
+          "expireTime": {
+            "description": "The promotion expiration time.",
+            "type": "string",
+            "format": "date"
+          },
+          "installmentFreeNums": {
+            "description": "The number of interest-free installments.",
+            "type": "integer",
+            "minimum": 2
+          },
+          "minPaymentAmount": {
+            "description": "The minimum payment amount required for the promotion.",
+            "$ref": "#/components/schemas/Amount"
+          },
+          "maxPaymentAmount": {
+            "description": "The maximum payment amount required for the promotion. The empty value indicates that there is no restriction on the maximum amount.",
+            "$ref": "#/components/schemas/Amount"
+          },
+          "freePercentage": {
+            "description": "The interest-free percentage. A value of 0 indicates no interest-free, 100% indicates the buyer is completely interest-free, while the value between 0-100% indicates partial interest-free.",
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Signature": {
+        "in": "header",
+        "name": "Signature",
+        "type": "apiKey",
+        "description": "Refer [Antom Signature](https://global.alipay.com/docs/ac/ams/digital_signature)"
+      },
+      "Client-Id": {
+        "in": "header",
+        "name": "Client-Id",
+        "type": "apiKey",
+        "description": "Refer [Antom Signature](https://global.alipay.com/docs/ac/ams/digital_signature)"
+      },
+      "Request-Time": {
+        "in": "header",
+        "name": "Request-Time",
+        "type": "apiKey",
+        "description": "Refer [Antom Signature](https://global.alipay.com/docs/ac/ams/digital_signature)"
+      }
+    },
+    "examples": {
+      "generic-400": {
+        "summary": "Response code 400. Bad Request.",
+        "value": {
+          "status": 400,
+          "errorCode": "702",
+          "message": "Unexpected input: I",
+          "errorType": "validation"
+        }
+      },
+      "generic-403": {
+        "summary": "Response code 403. Forbidden.",
+        "value": {
+          "status": 403,
+          "errorCode": "10_003",
+          "message": "Failed to authorize user",
+          "errorType": "security"
+        }
+      },
+      "post-consult-basic": {
+        "summary": "Consult payment",
+        "value": {
+          "productCode": "CASHIER_PAYMENT",
+          "env": {
+            "terminalType": "WEB"
+          },
+          "paymentAmount": {
+            "currency": "USD",
+            "value": 100
+          }
+        }
+      }
+    }
+  }
+}
