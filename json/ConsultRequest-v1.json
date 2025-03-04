@@ -95,7 +95,9 @@
           "productCode": {
             "description": "Represents the payment product that is being used. The payment product that can be used is stipulated in the contract. The fixed value is:",
             "enum": [
-              "CASHIER_PAYMENT"
+              "CASHIER_PAYMENT",
+              "AGREEMENT_PAYMENT",
+              "IN_STORE_PAYMENT"
             ],
             "type": "string"
           },

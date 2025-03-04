@@ -92,6 +92,8 @@ components:
             value is:
           enum:
             - CASHIER_PAYMENT
+            - AGREEMENT_PAYMENT
+            - IN_STORE_PAYMENT
           type: string
         paymentAmount:
           description: >-
