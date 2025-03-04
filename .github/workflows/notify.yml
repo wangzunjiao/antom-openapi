@@ -12,4 +12,4 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.ADYEN_AUTOMATION_BOT_ACCESS_TOKEN }}
     steps:
       - name: SDK Automation
-        run: gh workflow run gradle.yml -R wangzunjiao/antom-sdk-automation
+        run: gh workflow run gradle.yml -R wangzunjiao/antom-adk-automation
