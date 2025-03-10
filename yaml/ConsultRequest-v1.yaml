@@ -5,6 +5,7 @@ servers:
 info:
   version: '1'
   x-publicVersion: true
+  x-basePath: ams/api/v1/payments
   title: Payment API
   description: >-
     Payment API is used for xxx. Refer
