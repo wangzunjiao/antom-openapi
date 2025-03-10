@@ -3,13 +3,13 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/payments",
-      "x-basePath": "ams/api/v1/payments"
+      "x-basePath": "/ams/api/v1/payments"
     }
   ],
   "info": {
     "version": "1",
     "x-publicVersion": true,
-    "x-basePath": "ams/api/v1/payments",
+    "x-basePath": "/ams/api/v1/payments",
     "title": "Payment API   ",
     "description": "Payment API is used for xxx. Refer [doc](https://global.alipay.com/docs/ac/ams/consult)\n# Auth",
     "termsOfService": "https://www.antom.com/legal/terms-and-conditions",
