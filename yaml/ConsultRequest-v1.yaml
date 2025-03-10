@@ -1,6 +1,7 @@
 openapi: 3.1.0
 servers:
   - url: https://open-sea-global.alipay.com/ams/api/v1/payments
+    x-basePath: ams/api/v1/payments
 info:
   version: '1'
   x-publicVersion: true
@@ -28,7 +29,6 @@ paths:
 
 
         The **consult** API enables merchants to:
-123124214
 
         - Provide consumers with multiple payment methods without bearing any
         additional costs caused by a change in these payment methods, or
