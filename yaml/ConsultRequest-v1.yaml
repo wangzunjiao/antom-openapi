@@ -1,6 +1,6 @@
 openapi: 3.1.0
 servers:
-- url: https://open-sea-global.alipay.com/ams/api/v1/payments
+- url: /ams/api/v1/payments
 info:
   version: '1'
   x-publicVersion: true
