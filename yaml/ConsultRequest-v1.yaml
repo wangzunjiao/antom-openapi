@@ -37,6 +37,7 @@ paths:
 
         - Automate the selection and sorting of multiple payment methods.
       x-addedInVersion: '5'
+      x-basePath: ams/api/v1/payments
       operationId: post-consultPayment
       x-sortIndex: 3
       x-methodName: consultPayment

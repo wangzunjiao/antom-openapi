@@ -25,6 +25,7 @@
         "summary": "consult payment methods",
         "description": "Use the **consult** API to initiate a payment consultation request to Alipay. This request is returned to the merchant with information on the different payment methods and its corresponding amount, country, currency, rules, and configuration.\n\nThe **consult** API enables merchants to:\n\n- Provide consumers with multiple payment methods without bearing any additional costs caused by a change in these payment methods, or managing the logic of selecting and sorting these payment methods.\n\n- Automate the selection and sorting of multiple payment methods.",
         "x-addedInVersion": "5",
+        "x-basePath": "ams/api/v1/payments",
         "operationId": "post-consultPayment",
         "x-sortIndex": 3,
         "x-methodName": "consultPayment",
