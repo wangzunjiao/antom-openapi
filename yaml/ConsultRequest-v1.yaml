@@ -168,6 +168,7 @@ components:
     PayConsultResponse:
       properties:
         result:
+          x-generate: false
           description: >-
             The request result that contains information such as status and
             error codes.

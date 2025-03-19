@@ -158,6 +158,7 @@
       "PayConsultResponse": {
         "properties": {
           "result": {
+            "readOnly": true,
             "description": "The request result that contains information such as status and error codes.",
             "$ref": "#/components/schemas/Result"
           },
