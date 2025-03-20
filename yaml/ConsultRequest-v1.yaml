@@ -43,87 +43,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
               properties:
-                productCode:
-                  description: >-
-                    Represents the payment product that is being used. The
-                    payment product that can be used is stipulated in the
-                    contract. The fixed value is:
-                  enum:
-                    - CASHIER_PAYMENT
-                  type: string
-                paymentAmount:
-                  description: >-
-                    The payment amount that the merchant requests to receive in
-                    the order currency.
-                  type: object
-                  properties: {}
-                userRegion:
-                  description: >-
-                    The 2-letter country or region code. For more information,
-                    see ISO 3166 Country Codes standard. The payment methods
-                    will be sorted based on payment method relevance for the
-                    given user's region.
-                  type: string
-                  minLength: 2
-                  maxLength: 2
-                merchantRegion:
-                  description: >-
-                    The country or region where the merchant operates the
-                    business. The parameter is a 2-letter country or region code
-                    that follows ISO 3166 Country Codes standard.
-                  type: string
-                  minLength: 2
-                  maxLength: 2
-                settlementStrategy:
-                  description: The settlement strategy.
-                  type: object
-                  properties: {}
-                allowedPaymentMethodRegions:
-                  description: >-
-                    A list of region codes that represent the countries or
-                    regions of payment methods. The value of this parameter is a
-                    2-letter ISO country code or GLOBAL. 
-
-
-                    Specify this parameter if you want available payment methods
-                    from specific regions to be returned. For example, if you
-                    pass in GLOBAL, global cards Visa and Mastercard are
-                    returned.
-                  items:
-                    type: string
-                  type: array
-                env:
-                  description: >-
-                    Information about the environment where the order is placed,
-                    such as the device information.
-                  type: object
-                  properties: {}
-                buyer:
-                  description: >-
-                    Information about the environment where the order is placed,
-                    such as the device information.
-                  type: object
-                  properties: {}
-                merchantAccountId:
-                  description: >-
-                    The unique ID to identify a merchant account.
-
-
-                    Specify this parameter when you use a single client ID
-                    across multiple locations.
-
-
-                    More information about this field
-                  type: string
-                  maxLength: 32
-                paymentFactor:
-                  description: >-
-                    Information about the environment where the order is placed,
-                    such as the device information.
-                  type: object
-                  properties: {}
                 allowedPaymentMethods:
                   type: array
                   items:
@@ -157,22 +77,17 @@ paths:
                 - extendInfo
                 - merchant
                 - allowedPspRegions
-                - productCode
-                - paymentAmount
-                - env
-            examples:
-              '1':
-                value:
-                  settlementStrategy:
-                    settlementCurrency: USD
-                  productCode: CASHIER_PAYMENT
-                  env:
-                    osType: IOS
-                    terminalType: WEB
-                  paymentAmount:
-                    currency: HKD
-                    value: '100'
-                description: ''
+              $ref: '#/components/schemas/PayConsultRequest'
+            example:
+              settlementStrategy:
+                settlementCurrency: USD
+              productCode: CASHIER_PAYMENT
+              env:
+                osType: IOS
+                terminalType: WEB
+              paymentAmount:
+                currency: HKD
+                value: '100'
       responses:
         '200':
           description: OK - the request has succeeded.
@@ -183,7 +98,6 @@ paths:
               examples:
                 '1':
                   summary: 成功示例
-                  description: ''
                   value:
                     result:
                       resultStatus: S
@@ -990,6 +904,142 @@ paths:
       security: []
 components:
   schemas:
+    PaymentMethodInfo:
+      type: object
+      properties:
+        paymentMethodType:
+          type: string
+        paymentMethodDetail:
+          type: string
+        enabled:
+          type: boolean
+        preferred:
+          type: boolean
+        extendInfo:
+          type: string
+      required:
+        - paymentMethodType
+        - paymentMethodDetail
+        - enabled
+        - preferred
+        - extendInfo
+    InterestFree:
+      properties:
+        provider:
+          description: >-
+            Issuing banks or financial institutions that offer interest-free
+            installment plans.
+          type: string
+          maxLength: 128
+        expireTime:
+          description: The promotion expiration time.
+          type: string
+          format: date
+        installmentFreeNums:
+          description: The number of interest-free installments.
+          type: integer
+          minimum: 2
+        minPaymentAmount:
+          description: The minimum payment amount required for the promotion.
+          $ref: '#/components/schemas/Amount'
+        maxPaymentAmount:
+          description: The minimum payment amount required for the promotion.
+          $ref: '#/components/schemas/Amount'
+        freePercentage:
+          description: >-
+            The interest-free percentage. A value of 0 indicates no
+            interest-free, 100% indicates the buyer is completely interest-free,
+            while the value between 0-100% indicates partial interest-free.
+          type: integer
+      type: object
+    Amount:
+      description: >-
+        The payment amount that the merchant requests to receive in the order
+        currency.
+      properties:
+        currency:
+          description: The 3-letter currency code that follows the ISO 4217 standard.
+          maxLength: 3
+          minLength: 3
+          type: string
+        value:
+          description: >-
+            The value of the amount as a positive integer in the smallest
+            currency unit. For example, if the currency is USD and the amount is
+            $1.00, set the value of this parameter to 100; or if the currency is
+            JPY and the amount is ￥1, set the value of this parameter to 1.
+          format: int64
+          type: integer
+      required:
+        - value
+        - currency
+      type: object
+    Discount:
+      properties:
+        discountTag:
+          description: >-
+            The discount tag is displayed as a superscript next to the discount
+            name.
+          type: string
+          maxLength: 64
+        discountName:
+          description: The discount name displayed in the default language.
+          type: string
+          maxLength: 128
+        estimateSavingsAmount:
+          description: The minimum payment amount required for the promotion.
+          $ref: '#/components/schemas/Amount'
+      type: object
+    PromotionInfo:
+      properties:
+        promotionType:
+          description: 'Promotion type. Valid values are:'
+          type: string
+          enum:
+            - DISCOUNT
+            - INTEREST_FREE
+        discount:
+          description: >-
+            Discount information.
+
+
+            This parameter is returned when the payment method offers a
+            promotion to the buyer.
+          $ref: '#/components/schemas/Discount'
+        interestFree:
+          description: The information about interest-free installment plans.
+          $ref: '#/components/schemas/InterestFree'
+      type: object
+    Merchant:
+      type: object
+      properties:
+        referenceMerchantId:
+          type: string
+        merchantMCC:
+          type: string
+        merchantName:
+          type: string
+        merchantDisplayName:
+          type: string
+        merchantAddress:
+          properties: {}
+          $ref: '#/components/schemas/Address'
+        merchantRegisterDate:
+          type: string
+        store:
+          properties: {}
+          $ref: '#/components/schemas/Store'
+        merchantType:
+          type: string
+      required:
+        - referenceMerchantId
+        - merchantMCC
+        - merchantName
+        - merchantDisplayName
+        - merchantAddress
+        - merchantRegisterDate
+        - store
+        - merchantType
     Store:
       type: object
       properties:
@@ -1005,7 +1055,8 @@ components:
           type: string
         storeOperatorId:
           type: string
-        storeAddress: &ref_1
+        storeAddress:
+          properties: {}
           $ref: '#/components/schemas/Address'
         storePhoneNo:
           type: string
@@ -1043,44 +1094,271 @@ components:
         - address2
         - zipCode
         - label
-    Discount:
+    PayConsultRequest:
+      type: object
       properties:
-        discountTag:
+        productCode:
           description: >-
-            The discount tag is displayed as a superscript next to the discount
-            name.
+            Represents the payment product that is being used. The payment
+            product that can be used is stipulated in the contract. The fixed
+            value is:
+          enum:
+            - CASHIER_PAYMENT
+          type: string
+        paymentAmount:
+          description: >-
+            The payment amount that the merchant requests to receive in the
+            order currency.
+          $ref: '#/components/schemas/PaymentAmount'
+        userRegion:
+          description: >-
+            The 2-letter country or region code. For more information, see ISO
+            3166 Country Codes standard. The payment methods will be sorted
+            based on payment method relevance for the given user's region.
+          type: string
+          minLength: 2
+          maxLength: 2
+        merchantRegion:
+          description: >-
+            The country or region where the merchant operates the business. The
+            parameter is a 2-letter country or region code that follows ISO 3166
+            Country Codes standard.
+          type: string
+          minLength: 2
+          maxLength: 2
+        settlementStrategy:
+          description: The settlement strategy.
+          $ref: '#/components/schemas/SettlementStrategy'
+        allowedPaymentMethodRegions:
+          description: >-
+            A list of region codes that represent the countries or regions of
+            payment methods. The value of this parameter is a 2-letter ISO
+            country code or GLOBAL. 
+
+
+            Specify this parameter if you want available payment methods from
+            specific regions to be returned. For example, if you pass in GLOBAL,
+            global cards Visa and Mastercard are returned.
+          items:
+            type: string
+          type: array
+        env:
+          description: >-
+            Information about the environment where the order is placed, such as
+            the device information.
+          $ref: '#/components/schemas/Env'
+        buyer:
+          description: >-
+            Information about the environment where the order is placed, such as
+            the device information.
+          $ref: '#/components/schemas/Buyer'
+        merchantAccountId:
+          description: >-
+            The unique ID to identify a merchant account.
+
+
+            Specify this parameter when you use a single client ID across
+            multiple locations.
+
+
+            More information about this field
+          type: string
+          maxLength: 32
+        paymentFactor:
+          description: >-
+            Information about the environment where the order is placed, such as
+            the device information.
+          $ref: '#/components/schemas/PaymentFactor'
+        allowedPaymentMethods:
+          type: array
+          items:
+            type: string
+        blockedPaymentMethods:
+          type: array
+          items:
+            type: string
+        region:
+          type: string
+        customerId:
+          type: string
+        referenceUserId:
+          type: string
+        extendInfo:
+          type: string
+        merchant:
+          properties: {}
+          $ref: '#/components/schemas/Merchant'
+          type: object
+        allowedPspRegions:
+          type: array
+          items:
+            type: string
+      required:
+        - allowedPaymentMethods
+        - blockedPaymentMethods
+        - region
+        - customerId
+        - referenceUserId
+        - extendInfo
+        - merchant
+        - allowedPspRegions
+        - productCode
+        - paymentAmount
+        - env
+    PaymentFactor:
+      properties:
+        presentmentMode:
+          type: string
+          description: >-
+            The presentation mode chosen by the merchant to display the payment
+            methods on the cashier page. Valid values are:
+        isPaymentEvaluation:
+          type: string
+        inStorePaymentScenario:
+          type: string
+        captureMode:
+          type: string
+        isAuthorization:
+          type: boolean
+      type: object
+      required:
+        - isPaymentEvaluation
+        - inStorePaymentScenario
+        - captureMode
+        - isAuthorization
+    Buyer:
+      properties:
+        referenceBuyerId:
+          description: The unique ID to identify the buyer.
           type: string
           maxLength: 64
-        discountName:
-          description: The discount name displayed in the default language.
+        buyerName:
+          type: object
+          properties:
+            firstName:
+              type: string
+          required:
+            - firstName
+          $ref: '#/components/schemas/UserName'
+        buyerPhoneNo:
           type: string
-          maxLength: 128
-        estimateSavingsAmount: &ref_0
-          description: The estimated discount amount.
-          $ref: '#/components/schemas/Amount'
-      type: object
-    Amount:
-      description: >-
-        The payment amount that the merchant requests to receive in the order
-        currency.
-      properties:
-        currency:
-          description: The 3-letter currency code that follows the ISO 4217 standard.
-          maxLength: 3
-          minLength: 3
+        buyerEmail:
           type: string
-        value:
-          description: >-
-            The value of the amount as a positive integer in the smallest
-            currency unit. For example, if the currency is USD and the amount is
-            $1.00, set the value of this parameter to 100; or if the currency is
-            JPY and the amount is ￥1, set the value of this parameter to 1.
-          format: int64
+        buyerRegistrationTime:
+          type: string
+        isAccountVerified:
+          type: boolean
+        successfulOrderCount:
           type: integer
-      required:
-        - value
-        - currency
       type: object
+      required:
+        - buyerName
+        - buyerPhoneNo
+        - buyerEmail
+        - buyerRegistrationTime
+        - isAccountVerified
+        - successfulOrderCount
+    UserName:
+      type: object
+      properties:
+        firstName:
+          type: string
+        middleName:
+          type: string
+        lastName:
+          type: string
+        fullName:
+          type: string
+      required:
+        - firstName
+        - middleName
+        - lastName
+        - fullName
+    Env:
+      properties:
+        terminalType:
+          description: 'Terminal type used by the merchant. Valid values are:'
+          type: string
+          enum:
+            - WEB
+            - WAP
+            - APP
+            - MINI_APP
+        osType:
+          description: 'Type of the operation system. Valid values are:'
+          type: string
+          enum:
+            - IOS
+            - ANDROID
+        userAgent:
+          description: The user agent.
+          type: string
+          maxLength: 1024
+        deviceTokenId:
+          description: Token identifier of the device.
+          type: string
+          maxLength: 64
+        clientIp:
+          description: IP address of the client device.
+          type: string
+          maxLength: 32
+        cookieId:
+          description: The cookie ID of the buyer.
+          type: string
+          maxLength: 64
+        storeTerminalId:
+          type: string
+        storeTerminalRequestTime:
+          type: string
+        browserInfo:
+          type: object
+          properties:
+            acceptHeader:
+              type: string
+            javaEnabled:
+              type: string
+            javaScriptEnabled:
+              type: string
+            language:
+              type: string
+            userAgent:
+              type: string
+          required:
+            - acceptHeader
+            - javaEnabled
+            - javaScriptEnabled
+            - language
+            - userAgent
+          $ref: '#/components/schemas/BrowserInfo'
+        colorDepth:
+          type: string
+        screenHeight:
+          type: string
+        screenWidth:
+          type: string
+        timeZoneOffset:
+          type: string
+        deviceBrand:
+          type: integer
+        deviceModel:
+          type: string
+        deviceLanguage:
+          type: string
+        deviceId:
+          type: string
+      type: object
+      required:
+        - terminalType
+        - storeTerminalId
+        - storeTerminalRequestTime
+        - browserInfo
+        - colorDepth
+        - screenHeight
+        - screenWidth
+        - timeZoneOffset
+        - deviceModel
+        - deviceLanguage
+        - deviceId
     BrowserInfo:
       type: object
       properties:
@@ -1100,111 +1378,33 @@ components:
         - javaScriptEnabled
         - language
         - userAgent
-    SupportBank:
+    SettlementStrategy:
       properties:
-        bankIdentifierCode:
+        settlementCurrency:
           description: >-
-            The unique code of the bank. See Bank list to check the valid
-            values.
+            The ISO currency code of the currency that the merchant wants to
+            settle against. This field is required if the merchant signed up for
+            multiple settlement currencies. Otherwise, the error
+            code,SETTLE_CONTRACT_NOT_MATCH, will be returned.
           type: string
-        bankShortName:
-          description: >-
-            The short name of the bank. The unique code of the bank. See Bank
-            list to check the valid values.
-          type: string
-        bankLogo: &ref_2
-          description: >-
-            The logo information about the bank. 
-
-
-            This parameter is returned when the value of paymentMethodType is
-            ONLINEBANKING_FPX.
-          $ref: '#/components/schemas/Logo'
+          minLength: 3
+          maxLength: 3
       type: object
-    Logo:
+    PaymentAmount:
       properties:
-        logoName:
-          description: >-
-            The logo name of the card brand. See the Card brand list to check
-            the valid values.
+        currency:
+          description: The 3-letter currency code that follows the ISO 4217 standard.
           type: string
-          maxLength: 12
-        logoUrl:
-          description: The logo URL of the card brand.
-          type: string
-          maxLength: 2048
-      type: object
-    UserName:
-      type: object
-      properties:
-        firstName:
-          type: string
-        middleName:
-          type: string
-        lastName:
-          type: string
-        fullName:
-          type: string
+          minLength: 3
+          maxLength: 3
+        value:
+          description: The amount of the payment.
+          format: double
+          type: number
       required:
-        - firstName
-        - middleName
-        - lastName
-        - fullName
-    Plan:
-      properties:
-        interestRate:
-          description: The interest rate the customer is charged on the installments.
-          type: string
-          maxLength: 8
-        minInstallmentAmount: *ref_0
-        maxInstallmentAmount: *ref_0
-        installmentNum:
-          description: The number of installment payments. The valid value is from 2 to 12.
-          type: integer
-          minimum: 2
-          maximum: 12
-        interval:
-          description: The interval of each installment payment. The valid value is MONTH.
-          type: string
-          enum:
-            - MONTH
-        enabled:
-          description: Indicates whether the installment payment is available.
-          type: boolean
+        - currency
+        - value
       type: object
-      required:
-        - minInstallmentAmount
-        - maxInstallmentAmount
-        - installmentNum
-        - enabled
-    Merchant:
-      type: object
-      properties:
-        referenceMerchantId:
-          type: string
-        merchantMCC:
-          type: string
-        merchantName:
-          type: string
-        merchantDisplayName:
-          type: string
-        merchantAddress: *ref_1
-        merchantRegisterDate:
-          type: string
-        store:
-          properties: {}
-          $ref: '#/components/schemas/Store'
-        merchantType:
-          type: string
-      required:
-        - referenceMerchantId
-        - merchantMCC
-        - merchantName
-        - merchantDisplayName
-        - merchantAddress
-        - merchantRegisterDate
-        - store
-        - merchantType
     PayConsultResponse:
       properties:
         result:
@@ -1216,164 +1416,12 @@ components:
         paymentOptions:
           description: The payment option list.
           items:
-            $ref: '#/components/schemas/PaymentOption'
+            type: object
+            properties: {}
           type: array
         paymentMethodInfos:
           $ref: '#/components/schemas/PaymentMethodInfo'
       type: object
       required:
         - paymentMethodInfos
-    PaymentMethodInfo:
-      type: object
-      properties:
-        paymentMethodType:
-          type: string
-        paymentMethodDetail:
-          type: string
-        enabled:
-          type: boolean
-        preferred:
-          type: boolean
-        extendInfo:
-          type: string
-      required:
-        - paymentMethodType
-        - paymentMethodDetail
-        - enabled
-        - preferred
-        - extendInfo
-    PaymentOption:
-      properties:
-        paymentMethodType:
-          description: >-
-            The payment method type. See Payment methods to check the valid
-            values.
-          type: string
-          maxLength: 64
-        paymentMethodCategory:
-          description: 'The category of the payment method. Valid values are:'
-          type: string
-          enum:
-            - ALIPAY_PLUS
-            - WALLET
-            - MOBILE_BANKING_APP
-            - BANK_TRANSFER
-            - ONLINE_BANKING
-            - CARD
-            - OTC
-          maxLength: 32
-        paymentMethodRegion:
-          type: array
-          items:
-            type: string
-          description: >-
-            A list of region codes that represent the countries or regions of
-            payment methods. The value of this parameter is a 2-letter ISO
-            country code or GLOBAL
-        paymentOptionDetail:
-          description: Details about the payment option.
-          type: object
-          properties: {}
-        enabled:
-          description: Indicates whether the payment method is available.
-          type: boolean
-        disableReason:
-          description: >-
-            The payment method type. See Payment methods to check the valid
-            values.
-          type: string
-          enum:
-            - PAYMENT_ACCOUNT_NOT_AVAILABLE
-            - EXCEED_CHANNEL_LIMIT_RULE
-            - SERVICE_DEGRADE
-            - CHANNEL_NOT_SUPPORT_CURRENCY
-            - CHANNEL_DISABLE
-            - CHANNEL_NOT_IN_SERVICE_TIME
-            - QUERY_IPP_INFO_FAILED
-            - LIMIT_CENTER_ACCESS_FAIL
-            - CURRENT_CHANNEL_NOT_EXIST
-          maxLength: 64
-        logo: *ref_2
-        promoNames:
-          description: >-
-            The list of the promotion names. In JSON format. The keys are
-            returned as a language and a country code, connected by an
-            underscore, such as zh_CN, while the value is the promotion name,
-            such as RM1 Voucher.
-          type: array
-          items:
-            type: string
-            maxLength: 512
-        installment:
-          description: Information about installments.
-          type: object
-          properties: {}
-        promotionInfos:
-          description: >-
-            The payment method type. See Payment methods to check the valid
-            values.
-          type: array
-          items:
-            $ref: '#/components/schemas/PromotionInfo'
-        preferred:
-          type: boolean
-        amountLimitInfoMap:
-          type: string
-        supportedCurrencies:
-          type: array
-          items:
-            type: string
-        extendInfo:
-          type: string
-      type: object
-      required:
-        - preferred
-        - supportedCurrencies
-        - extendInfo
-    PromotionInfo:
-      properties:
-        promotionType:
-          description: 'Promotion type. Valid values are:'
-          type: string
-          enum:
-            - DISCOUNT
-            - INTEREST_FREE
-        discount:
-          description: >-
-            Discount information.
-
-
-            This parameter is returned when the payment method offers a
-            promotion to the buyer.
-          $ref: '#/components/schemas/Discount'
-        interestFree:
-          description: The information about interest-free installment plans.
-          $ref: '#/components/schemas/InterestFree'
-      type: object
-    InterestFree:
-      properties:
-        provider:
-          description: >-
-            Issuing banks or financial institutions that offer interest-free
-            installment plans.
-          type: string
-          maxLength: 128
-        expireTime:
-          description: The promotion expiration time.
-          type: string
-          format: date
-        installmentFreeNums:
-          description: The number of interest-free installments.
-          type: integer
-          minimum: 2
-        minPaymentAmount: *ref_0
-        maxPaymentAmount: *ref_0
-        freePercentage:
-          description: >-
-            The interest-free percentage. A value of 0 indicates no
-            interest-free, 100% indicates the buyer is completely interest-free,
-            while the value between 0-100% indicates partial interest-free.
-          type: integer
-      type: object
   securitySchemes: {}
-security: []
