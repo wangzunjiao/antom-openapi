@@ -2,13 +2,13 @@
   "openapi": "3.1.0",
   "servers": [
     {
-      "url": "https://open-sea-global.alipay.com/ams/v1/payments/consult"
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/payments"
     }
   ],
   "info": {
     "version": "1",
     "x-publicVersion": true,
-    "title": "Payment API   ",
+    "title": "Payment API",
     "description": "Payment API is used for xxx. Refer [doc](https://global.alipay.com/docs/ac/ams/consult)\n# Auth",
     "termsOfService": "https://www.antom.com/legal/terms-and-conditions",
     "contact": {
@@ -20,56 +20,1298 @@
   "paths": {
     "/consult": {
       "post": {
-        "tags": [],
         "summary": "consult payment methods",
+        "deprecated": false,
         "description": "Use the **consult** API to initiate a payment consultation request to Alipay. This request is returned to the merchant with information on the different payment methods and its corresponding amount, country, currency, rules, and configuration.\n\nThe **consult** API enables merchants to:\n\n- Provide consumers with multiple payment methods without bearing any additional costs caused by a change in these payment methods, or managing the logic of selecting and sorting these payment methods.\n\n- Automate the selection and sorting of multiple payment methods.",
-        "x-addedInVersion": "5",
-        "x-basePath": "ams/api/v1/payments",
         "operationId": "post-consultPayment",
-        "x-sortIndex": 3,
-        "x-methodName": "consultPayment",
-        "security": [
-          {
-            "Signature": []
-          },
-          {
-            "Client-Id": []
-          },
-          {
-            "Request-Time": []
-          }
-        ],
+        "tags": [],
+        "parameters": [],
         "requestBody": {
           "content": {
             "application/json": {
-              "examples": {
-                "basic": {
-                  "$ref": "#/components/examples/post-consult-basic"
-                }
-              },
               "schema": {
-                "$ref": "#/components/schemas/PayConsultRequest"
+                "type": "object",
+                "properties": {
+                  "productCode": {
+                    "description": "Represents the payment product that is being used. The payment product that can be used is stipulated in the contract. The fixed value is:",
+                    "enum": [
+                      "CASHIER_PAYMENT"
+                    ],
+                    "type": "string"
+                  },
+                  "paymentAmount": {
+                    "description": "The payment amount that the merchant requests to receive in the order currency.",
+                    "type": "object",
+                    "properties": {}
+                  },
+                  "userRegion": {
+                    "description": "The 2-letter country or region code. For more information, see ISO 3166 Country Codes standard. The payment methods will be sorted based on payment method relevance for the given user's region.",
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 2
+                  },
+                  "merchantRegion": {
+                    "description": "The country or region where the merchant operates the business. The parameter is a 2-letter country or region code that follows ISO 3166 Country Codes standard.",
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 2
+                  },
+                  "settlementStrategy": {
+                    "description": "The settlement strategy.",
+                    "type": "object",
+                    "properties": {}
+                  },
+                  "allowedPaymentMethodRegions": {
+                    "description": "A list of region codes that represent the countries or regions of payment methods. The value of this parameter is a 2-letter ISO country code or GLOBAL. \n\nSpecify this parameter if you want available payment methods from specific regions to be returned. For example, if you pass in GLOBAL, global cards Visa and Mastercard are returned.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "env": {
+                    "description": "Information about the environment where the order is placed, such as the device information.",
+                    "type": "object",
+                    "properties": {}
+                  },
+                  "buyer": {
+                    "description": "Information about the environment where the order is placed, such as the device information.",
+                    "type": "object",
+                    "properties": {}
+                  },
+                  "merchantAccountId": {
+                    "description": "The unique ID to identify a merchant account.\n\nSpecify this parameter when you use a single client ID across multiple locations.\n\nMore information about this field",
+                    "type": "string",
+                    "maxLength": 32
+                  },
+                  "paymentFactor": {
+                    "description": "Information about the environment where the order is placed, such as the device information.",
+                    "type": "object",
+                    "properties": {}
+                  },
+                  "allowedPaymentMethods": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "blockedPaymentMethods": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "region": {
+                    "type": "string"
+                  },
+                  "customerId": {
+                    "type": "string"
+                  },
+                  "referenceUserId": {
+                    "type": "string"
+                  },
+                  "extendInfo": {
+                    "type": "string"
+                  },
+                  "merchant": {
+                    "properties": {},
+                    "$ref": "#/components/schemas/Merchant"
+                  },
+                  "allowedPspRegions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "paymentAmount"
+                ]
+              },
+              "examples": {
+                "1": {
+                  "value": {
+                    "settlementStrategy": {
+                      "settlementCurrency": "USD"
+                    },
+                    "productCode": "CASHIER_PAYMENT",
+                    "env": {
+                      "osType": "IOS",
+                      "terminalType": "WEB"
+                    },
+                    "paymentAmount": {
+                      "currency": "HKD",
+                      "value": "100"
+                    }
+                  },
+                  "description": ""
+                }
               }
             }
           }
         },
         "responses": {
           "200": {
+            "description": "OK - the request has succeeded.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PayConsultResponse"
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "description": "",
+                    "value": {
+                      "result": {
+                        "resultStatus": "S",
+                        "resultCode": "SUCCESS",
+                        "resultMessage": "success."
+                      },
+                      "paymentOptions": [
+                        {
+                          "paymentMethodRegion": [
+                            "HK",
+                            "TH",
+                            "KR",
+                            "PH",
+                            "ID",
+                            "CN",
+                            "MY"
+                          ],
+                          "paymentMethodCategory": "ALIPAY_PLUS",
+                          "logo": {
+                            "logoName": "Alipay+",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/AlipayPlus.svg"
+                          },
+                          "paymentMethodType": "CONNECT_WALLET",
+                          "enabled": true
+                        },
+                        {
+                          "paymentOptionDetailJson": "{\"supportCardBrands\":[{\"cardBrand\":\"MASTERCARD\",\"logo\":{\"logoName\":\"MASTERCARD\",\"logoUrl\":\"https://cdn.marmot-cloud.com/storage/2022/8/2/bc7cb991-c8e2-4379-945f-aadae2bdf932.svg\"}},{\"cardBrand\":\"VISA\",\"logo\":{\"logoName\":\"VISA\",\"logoUrl\":\"https://cdn.marmot-cloud.com/storage/2022/9/26/dfd471f3-da7d-4ef1-8486-cfa4301045c6.svg\"}}]}",
+                          "paymentMethodRegion": [
+                            "PE",
+                            "GLOBAL",
+                            "CL",
+                            "MX"
+                          ],
+                          "paymentMethodCategory": "CARD",
+                          "paymentOptionDetail": {
+                            "supportCardBrands": [
+                              {
+                                "logo": {
+                                  "logoName": "MASTERCARD",
+                                  "logoUrl": "https://cdn.marmot-cloud.com/storage/2022/8/2/bc7cb991-c8e2-4379-945f-aadae2bdf932.svg"
+                                },
+                                "cardBrand": "MASTERCARD"
+                              },
+                              {
+                                "logo": {
+                                  "logoName": "VISA",
+                                  "logoUrl": "https://cdn.marmot-cloud.com/storage/2022/9/26/dfd471f3-da7d-4ef1-8486-cfa4301045c6.svg"
+                                },
+                                "cardBrand": "VISA"
+                              }
+                            ]
+                          },
+                          "logo": {
+                            "logoName": "Credit and Debit Card",
+                            "logoUrl": "https://gw.alipay.com/icon/medium/default/ALIPAY_GENERAL_CARD.svg"
+                          },
+                          "paymentMethodType": "CARD",
+                          "enabled": true
+                        },
+                        {
+                          "paymentMethodRegion": [],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "Antom Business Account",
+                            "logoUrl": "https://cdn.marmot-cloud.com/storage/2025/01/09/912e17b0-27e4-4c66-a1e6-b044666ea80f.svg "
+                          },
+                          "paymentMethodType": "ANTOM_BIZ_ACCOUNT",
+                          "enabled": true
+                        },
+                        {
+                          "paymentOptionDetailJson": "{\"supportCardBrands\":[{\"cardBrand\":\"MASTERCARD\"},{\"cardBrand\":\"VISA\"}]}",
+                          "paymentMethodRegion": [
+                            "PE",
+                            "GLOBAL",
+                            "CL",
+                            "MX"
+                          ],
+                          "paymentMethodCategory": "MIXEDCARD",
+                          "paymentOptionDetail": {
+                            "supportCardBrands": [
+                              {
+                                "cardBrand": "MASTERCARD"
+                              },
+                              {
+                                "cardBrand": "VISA"
+                              }
+                            ]
+                          },
+                          "paymentMethodType": "GOOGLEPAY",
+                          "enabled": true
+                        },
+                        {
+                          "paymentOptionDetailJson": "{\"supportCardBrands\":[{\"cardBrand\":\"MASTERCARD\"},{\"cardBrand\":\"VISA\"}]}",
+                          "paymentMethodRegion": [
+                            "PE",
+                            "GLOBAL",
+                            "CL",
+                            "MX"
+                          ],
+                          "paymentMethodCategory": "MIXEDCARD",
+                          "paymentOptionDetail": {
+                            "supportCardBrands": [
+                              {
+                                "cardBrand": "MASTERCARD"
+                              },
+                              {
+                                "cardBrand": "VISA"
+                              }
+                            ]
+                          },
+                          "paymentMethodType": "APPLEPAY",
+                          "enabled": true
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "PL"
+                          ],
+                          "paymentMethodCategory": "ONLINE_BANKING",
+                          "logo": {
+                            "logoName": "Przelewy24",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/Przelewy24.svg"
+                          },
+                          "paymentMethodType": "P24",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "DE"
+                          ],
+                          "paymentMethodCategory": "ONLINE_BANKING",
+                          "logo": {
+                            "logoName": "Sofort",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/sofort.svg"
+                          },
+                          "paymentMethodType": "SOFORT",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "BE"
+                          ],
+                          "paymentMethodCategory": "ONLINE_BANKING",
+                          "logo": {
+                            "logoName": "Bancontact",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/Bancontact.svg"
+                          },
+                          "paymentMethodType": "BANCONTACT",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "DE"
+                          ],
+                          "paymentMethodCategory": "ONLINE_BANKING",
+                          "logo": {
+                            "logoName": "GiroPay",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/giropay.svg"
+                          },
+                          "paymentMethodType": "GIROPAY",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "NL"
+                          ],
+                          "paymentMethodCategory": "ONLINE_BANKING",
+                          "logo": {
+                            "logoName": "iDEAL",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/iDEAL.svg"
+                          },
+                          "paymentMethodType": "IDEAL",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "PL"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "Blik",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/blik.svg"
+                          },
+                          "paymentMethodType": "BLIK",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "AT"
+                          ],
+                          "paymentMethodCategory": "ONLINE_BANKING",
+                          "logo": {
+                            "logoName": "EPS",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/EPS.svg"
+                          },
+                          "paymentMethodType": "EPS",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "PL"
+                          ],
+                          "paymentMethodCategory": "ONLINE_BANKING",
+                          "logo": {
+                            "logoName": "PayU",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/Payu.svg"
+                          },
+                          "paymentMethodType": "PAYU",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "TH"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "Bangkok Bank",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/BangkokBank.svg"
+                          },
+                          "paymentMethodType": "BANKTRANSFER_BANGKOKBANK",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "TH"
+                          ],
+                          "paymentMethodCategory": "ONLINE_BANKING",
+                          "logo": {
+                            "logoName": "Krung Thai Bank Online Banking",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/KrungThaiBank.svg"
+                          },
+                          "paymentMethodType": "ONLINEBANKING_KRUNGTHAIBANK",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "TH"
+                          ],
+                          "paymentMethodCategory": "ONLINE_BANKING",
+                          "logo": {
+                            "logoName": "Bangkok Bank Online Banking",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/BangkokBank.svg"
+                          },
+                          "paymentMethodType": "ONLINEBANKING_BANGKOKBANK",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "TH"
+                          ],
+                          "paymentMethodCategory": "ONLINE_BANKING",
+                          "logo": {
+                            "logoName": "Kasikorn Bank Online Banking",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/KasikornBank.svg"
+                          },
+                          "paymentMethodType": "ONLINEBANKING_KASIKORNBANK",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "TH"
+                          ],
+                          "paymentMethodCategory": "ONLINE_BANKING",
+                          "logo": {
+                            "logoName": "Siam Commerical Bank Online Banking",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/SiamCommercialBank.svg"
+                          },
+                          "paymentMethodType": "ONLINEBANKING_SIAMCOMMERICALBANK",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "TH"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "Krung Thai Bank",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/KrungThaiBank.svg"
+                          },
+                          "paymentMethodType": "BANKTRANSFER_KRUNGTHAIBANK",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "TH"
+                          ],
+                          "paymentMethodCategory": "ONLINE_BANKING",
+                          "logo": {
+                            "logoName": "Bank of Ayudhya Online Banking",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/BankofAyutthaya.svg"
+                          },
+                          "paymentMethodType": "ONLINEBANKING_BANKOFAYUDHYA",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "TH"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "Bank of Ayudhya",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/BankofAyutthaya.svg"
+                          },
+                          "paymentMethodType": "BANKTRANSFER_BANKOFAYUDHYA",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "TH"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "Government Savings Bank",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/governmentsavingsbank.png"
+                          },
+                          "paymentMethodType": "BANKTRANSFER_GOVERNMENTSAVINGSBANK",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "TH"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "Siam Commerical Bank",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/SiamCommercialBank.svg"
+                          },
+                          "paymentMethodType": "BANKTRANSFER_SIAMCOMMERICALBANK",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "BR"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "Pix",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/pix.svg"
+                          },
+                          "paymentMethodType": "PIX",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "TH"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "Kasikorn Bank",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/KasikornBank.svg"
+                          },
+                          "paymentMethodType": "BANKTRANSFER_KASIKORNBANK",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "TH"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "Promptpay",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/PromptPay.png"
+                          },
+                          "paymentMethodType": "PROMPTPAY",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "SG"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "Grabpay",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/GrabPay.png"
+                          },
+                          "paymentMethodType": "GRABPAY_SG",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "TH"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "Dolfin",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/Dolfin.png"
+                          },
+                          "paymentMethodType": "DOLFIN",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "SG"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "Paynow",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/Paynow.png"
+                          },
+                          "paymentMethodType": "PAYNOW",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "SG"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "Shopeepay",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/shopeepay.png"
+                          },
+                          "paymentMethodType": "SHOPEEPAY_SG",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "TH"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "Shopeepay",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/shopeepay.png"
+                          },
+                          "paymentMethodType": "SHOPEEPAY_TH",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "MY"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "Shopeepay",
+                            "logoUrl": "https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2023/07/31/778f4988-2f73-4417-9d41-caaabaf006d0.png"
+                          },
+                          "paymentMethodType": "SHOPEEPAY_MY",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "MY"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "GrabPay",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/GrabPay.png"
+                          },
+                          "paymentMethodType": "GRABPAY_MY",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "MY"
+                          ],
+                          "paymentMethodCategory": "VA",
+                          "logo": {
+                            "logoName": "DoitNow",
+                            "logoUrl": "https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2024/02/22/4f563831-b061-495e-b262-5ba4baec7cdd.svg"
+                          },
+                          "paymentMethodType": "DUITNOW",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "ID"
+                          ],
+                          "paymentMethodCategory": "ONLINE_BANKING",
+                          "logo": {
+                            "logoName": "BRI Online Banking",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/BRI.png"
+                          },
+                          "paymentMethodType": "ONLINEBANKING_BRI",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "PH"
+                          ],
+                          "paymentMethodCategory": "ONLINE_BANKING",
+                          "logo": {
+                            "logoName": "UnionBank",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/UnionBank.png"
+                          },
+                          "paymentMethodType": "ONLINEBANKING_UBP",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "ID"
+                          ],
+                          "paymentMethodCategory": "ONLINE_BANKING",
+                          "logo": {
+                            "logoName": "Mandiri",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/Mandiri.png"
+                          },
+                          "paymentMethodType": "ONLINEBANKING_MANDIRI",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "ID"
+                          ],
+                          "paymentMethodCategory": "ONLINE_BANKING",
+                          "logo": {
+                            "logoName": "OCTOClicks",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/OCTO.png"
+                          },
+                          "paymentMethodType": "OCTOCLICKS",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "ID"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "CIMBNiaga",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/cimbNiaga.png"
+                          },
+                          "paymentMethodType": "CIMBNIAGA",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "ID"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "Alto Bersama Prima ATM",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/atmTransferId.png"
+                          },
+                          "paymentMethodType": "ATMTRANSFER_ID",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "ID"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "Maybank",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/Maybank.png"
+                          },
+                          "paymentMethodType": "BANKTRANSFER_MAYBANK",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "ID"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "Permata",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/Permata.png"
+                          },
+                          "paymentMethodType": "BANKTRANSFER_PERMATA",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "ID"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "Gopay",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/gopay.png"
+                          },
+                          "paymentMethodType": "GOPAY_ID",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "PH"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "Shopeepay",
+                            "logoUrl": "https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2023/07/31/5943054c-b469-42c8-964f-16afea539ee1.png"
+                          },
+                          "paymentMethodType": "SHOPEEPAY_PH",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "ID"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "Shopeepay",
+                            "logoUrl": "https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2023/07/31/96a7905a-3998-4376-a2d1-ad55446e47cf.png"
+                          },
+                          "paymentMethodType": "SHOPEEPAY_ID",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "ID"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "BSI",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/BSI.png"
+                          },
+                          "paymentMethodType": "BANKTRANSFER_BSI",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "ID"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "Mandiri",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/Mandiri.png"
+                          },
+                          "paymentMethodType": "BANKTRANSFER_MANDIRI",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "ID"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "BNI",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/BNI.png"
+                          },
+                          "paymentMethodType": "BANKTRANSFER_BNI",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "PH"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "Maya",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/paymaya.png"
+                          },
+                          "paymentMethodType": "MAYA",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "ID"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "LinkAja",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/LinkAja.png"
+                          },
+                          "paymentMethodType": "LINKAJA",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "PH"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "Grabpay",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/GrabPay.png"
+                          },
+                          "paymentMethodType": "GRABPAY_PH",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "ID"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "OVO",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/OVO.png"
+                          },
+                          "paymentMethodType": "OVO",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "IT"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "BANCOMATPAY",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/BancomatPay.svg"
+                          },
+                          "paymentMethodType": "BANCOMATPAY",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "ID"
+                          ],
+                          "paymentMethodCategory": "BANK_TRANSFER",
+                          "logo": {
+                            "logoName": "QRIS",
+                            "logoUrl": "https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2023/02/01/0a40230a-ac4f-4566-9369-95372e1cb02a.svg"
+                          },
+                          "paymentMethodType": "QRIS",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "BR"
+                          ],
+                          "paymentMethodCategory": "CHECKOUT",
+                          "logo": {
+                            "logoName": "mercado pago",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/MercadoPagoCheckout.svg"
+                          },
+                          "paymentMethodType": "MERCADOPAGO_BR",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "CL"
+                          ],
+                          "paymentMethodCategory": "CHECKOUT",
+                          "logo": {
+                            "logoName": "mercado pago",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/MercadoPagoCheckout.svg"
+                          },
+                          "paymentMethodType": "MERCADOPAGO_CL",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "MX"
+                          ],
+                          "paymentMethodCategory": "CHECKOUT",
+                          "logo": {
+                            "logoName": "mercado pago",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/MercadoPagoCheckout.svg"
+                          },
+                          "paymentMethodType": "MERCADOPAGO_MX",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "PE"
+                          ],
+                          "paymentMethodCategory": "CHECKOUT",
+                          "logo": {
+                            "logoName": "mercado pago",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/MercadoPagoCheckout.svg"
+                          },
+                          "paymentMethodType": "MERCADOPAGO_PE",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "MY"
+                          ],
+                          "paymentMethodCategory": "ONLINE_BANKING",
+                          "logo": {
+                            "logoName": "FPX",
+                            "logoUrl": "https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2024/06/13/e08cb444-be0d-45b9-8a8d-44966aad5825.png"
+                          },
+                          "paymentMethodType": "ONLINEBANKING_FPX",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "JP"
+                          ],
+                          "paymentMethodCategory": "OTC",
+                          "logo": {
+                            "logoName": "Konbini",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/konbini.svg"
+                          },
+                          "paymentMethodType": "KONBINI",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "VN"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "ZALOPAY",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/ZaloPay.svg"
+                          },
+                          "paymentMethodType": "ZALOPAY",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "JP"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "LINEPAY",
+                            "logoUrl": "https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2024/02/01/5c9caa1a-dcd6-400e-ae07-2ea1c2e4271f.png"
+                          },
+                          "paymentMethodType": "LINEPAY",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "JP"
+                          ],
+                          "paymentMethodCategory": "BANKTRANSFER",
+                          "logo": {
+                            "logoName": "Pay-easy ATM",
+                            "logoUrl": "https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2024/03/18/99382c04-a91d-4a57-8201-523533393885.png"
+                          },
+                          "paymentMethodType": "BANKTRANSFER_PAYEASY",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "JP"
+                          ],
+                          "paymentMethodCategory": "ONLINEBANKING",
+                          "logo": {
+                            "logoName": "Pay-easy",
+                            "logoUrl": "https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2024/03/18/99382c04-a91d-4a57-8201-523533393885.png"
+                          },
+                          "paymentMethodType": "ONLINEBANKING_PAYEASY",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "TW"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "JKOPay",
+                            "logoUrl": "https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2023/10/10/89d1c69a-695d-4764-844d-800277360d6e.png"
+                          },
+                          "paymentMethodType": "JKOPAY",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "BR"
+                          ],
+                          "paymentMethodCategory": "CREDIT_PAY",
+                          "logo": {
+                            "logoName": "pagaleve",
+                            "logoUrl": "https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2024/02/21/0044b02e-3c3f-4fe4-8a1b-d0f4c32c331a.svg"
+                          },
+                          "paymentMethodType": "PAGALEVE",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "DE",
+                            "NO",
+                            "BE",
+                            "FI",
+                            "PT",
+                            "BG",
+                            "DK",
+                            "LT",
+                            "LU",
+                            "HR",
+                            "LV",
+                            "FR",
+                            "HU",
+                            "SE",
+                            "UK",
+                            "SI",
+                            "SK",
+                            "GB",
+                            "IE",
+                            "EE",
+                            "GL",
+                            "MT",
+                            "IS",
+                            "GR",
+                            "IT",
+                            "ES",
+                            "AT",
+                            "CY",
+                            "CZ",
+                            "PL",
+                            "LI",
+                            "RO"
+                          ],
+                          "paymentMethodCategory": "ONLINE_BANKING",
+                          "logo": {
+                            "logoName": "Pay by bank",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/AlipayPlus.svg"
+                          },
+                          "paymentMethodType": "ONLINEBANKING_YAPILY",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "JP"
+                          ],
+                          "paymentMethodCategory": "OTC",
+                          "logo": {
+                            "logoName": "7-Eleven",
+                            "logoUrl": "https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2024/03/18/19d7cc1b-c950-4fa5-a379-ead65f6b7421.png"
+                          },
+                          "paymentMethodType": "7-Eleven",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "JP"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "PayPay",
+                            "logoUrl": "https://gw.alipay.com/antom/icon/medium/default/PayPay.png"
+                          },
+                          "paymentMethodType": "PAYPAY",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "KR"
+                          ],
+                          "paymentMethodCategory": "Online banking",
+                          "logo": {
+                            "logoName": "Express Bank Transfer",
+                            "logoUrl": "https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2024/05/09/b7a8f72d-6188-4267-b6ef-72082a4c6769.svg"
+                          },
+                          "paymentMethodType": "Express Bank Transfer",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [],
+                          "paymentMethodCategory": "DIGITAL_WALLET",
+                          "paymentMethodType": "MOMO",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [],
+                          "paymentMethodCategory": "MPESA",
+                          "paymentMethodType": "MPESA",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "JP"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "paymentMethodType": "AUPAY",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "JP"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "paymentMethodType": "MERPAY",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "JP"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "paymentMethodType": "FAMIPAY",
+                          "enabled": false
+                        },
+                        {
+                          "disableReason": "CURRENT_CHANNEL_NOT_EXIST",
+                          "paymentMethodRegion": [
+                            "CN"
+                          ],
+                          "paymentMethodCategory": "WALLET",
+                          "logo": {
+                            "logoName": "WECHATPAY",
+                            "logoUrl": "https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2025/01/02/aae5f80c-c5d1-4f3d-b93e-c90c4d06eae1.png"
+                          },
+                          "paymentMethodType": "WECHATPAY",
+                          "enabled": false
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             },
-            "description": "OK - the request has succeeded."
+            "headers": {}
           }
-        }
+        },
+        "security": []
       }
     }
   },
   "components": {
     "schemas": {
+      "Store": {
+        "type": "object",
+        "properties": {
+          "referenceStoreId": {
+            "type": "string"
+          },
+          "storeName": {
+            "type": "string"
+          },
+          "storeMCC": {
+            "type": "string"
+          },
+          "storeDisplayName": {
+            "type": "string"
+          },
+          "storeTerminalId": {
+            "type": "string"
+          },
+          "storeOperatorId": {
+            "type": "string"
+          },
+          "storeAddress": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "storePhoneNo": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "referenceStoreId",
+          "storeName",
+          "storeMCC",
+          "storeDisplayName",
+          "storeTerminalId",
+          "storeOperatorId",
+          "storeAddress",
+          "storePhoneNo"
+        ]
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "region": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "address1": {
+            "type": "string"
+          },
+          "address2": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "region",
+          "state",
+          "city",
+          "address1",
+          "address2",
+          "zipCode",
+          "label"
+        ]
+      },
+      "Discount": {
+        "properties": {
+          "discountTag": {
+            "description": "The discount tag is displayed as a superscript next to the discount name.",
+            "type": "string",
+            "maxLength": 64
+          },
+          "discountName": {
+            "description": "The discount name displayed in the default language.",
+            "type": "string",
+            "maxLength": 128
+          },
+          "estimateSavingsAmount": {
+            "description": "The estimated discount amount.",
+            "$ref": "#/components/schemas/Amount"
+          }
+        },
+        "type": "object"
+      },
       "Amount": {
         "description": "The payment amount that the merchant requests to receive in the order currency.",
         "properties": {
@@ -91,290 +1333,46 @@
         ],
         "type": "object"
       },
-      "PayConsultRequest": {
+      "BrowserInfo": {
+        "type": "object",
         "properties": {
-          "productCode": {
-            "description": "Represents the payment product that is being used. The payment product that can be used is stipulated in the contract. The fixed value is:",
-            "enum": [
-              "CASHIER_PAYMENT",
-              "AGREEMENT_PAYMENT",
-              "IN_STORE_PAYMENT"
-            ],
+          "acceptHeader": {
             "type": "string"
           },
-          "paymentAmount": {
-            "description": "The payment amount that the merchant requests to receive in the order currency.",
-            "$ref": "#/components/schemas/PaymentAmount"
-          },
-          "userRegion": {
-            "description": "The 2-letter country or region code. For more information, see ISO 3166 Country Codes standard. The payment methods will be sorted based on payment method relevance for the given user's region.",
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 2
-          },
-          "merchantRegion": {
-            "description": "The country or region where the merchant operates the business. The parameter is a 2-letter country or region code that follows ISO 3166 Country Codes standard.",
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 2
-          },
-          "settlementStrategy": {
-            "description": "The settlement strategy.",
-            "$ref": "#/components/schemas/SettlementStrategy"
-          },
-          "allowedPaymentMethodRegions": {
-            "description": "A list of region codes that represent the countries or regions of payment methods. The value of this parameter is a 2-letter ISO country code or GLOBAL. \n\nSpecify this parameter if you want available payment methods from specific regions to be returned. For example, if you pass in GLOBAL, global cards Visa and Mastercard are returned.",
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "env": {
-            "description": "Information about the environment where the order is placed, such as the device information.",
-            "$ref": "#/components/schemas/Env"
-          },
-          "buyer": {
-            "description": "Information about the environment where the order is placed, such as the device information.",
-            "$ref": "#/components/schemas/Buyer"
-          },
-          "merchantAccountId": {
-            "description": "The unique ID to identify a merchant account.\n\nSpecify this parameter when you use a single client ID across multiple locations.\n\nMore information about this field",
-            "type": "string",
-            "maxLength": 32
-          },
-          "paymentFactor": {
-            "description": "Information about the environment where the order is placed, such as the device information.",
-            "$ref": "#/components/schemas/PaymentFactor"
-          }
-        },
-        "required": [
-          "productCode",
-          "paymentAmount",
-          "env"
-        ],
-        "type": "object"
-      },
-      "PayConsultResponse": {
-        "properties": {
-          "result": {
-            "description": "The request result that contains information such as status and error codes.",
-            "$ref": "#/components/schemas/Result"
-          },
-          "paymentOptions": {
-            "description": "The payment option list.",
-            "items": {
-              "$ref": "#/components/schemas/PaymentOption"
-            },
-            "type": "array"
-          }
-        }
-      },
-      "PaymentAmount": {
-        "properties": {
-          "currency": {
-            "description": "The 3-letter currency code that follows the ISO 4217 standard.",
-            "type": "string",
-            "minLength": 3,
-            "maxLength": 3
-          },
-          "value": {
-            "description": "The amount of the payment.",
-            "format": "double",
-            "type": "number"
-          }
-        },
-        "required": [
-          "currency",
-          "value"
-        ],
-        "type": "object"
-      },
-      "SettlementStrategy": {
-        "properties": {
-          "settlementCurrency": {
-            "description": "The ISO currency code of the currency that the merchant wants to settle against. This field is required if the merchant signed up for multiple settlement currencies. Otherwise, the error code,SETTLE_CONTRACT_NOT_MATCH, will be returned.",
-            "type": "string",
-            "minLength": 3,
-            "maxLength": 3
-          }
-        },
-        "type": "object"
-      },
-      "Env": {
-        "properties": {
-          "terminalType": {
-            "description": "Terminal type used by the merchant. Valid values are:",
-            "type": "string",
-            "enum": [
-              "WEB",
-              "WAP",
-              "APP",
-              "MINI_APP"
-            ]
-          },
-          "osType": {
-            "description": "Type of the operation system. Valid values are:",
-            "type": "string",
-            "enum": [
-              "IOS",
-              "ANDROID"
-            ]
-          },
-          "userAgent": {
-            "description": "The user agent.",
-            "type": "string",
-            "maxLength": 1024
-          },
-          "deviceTokenId": {
-            "description": "Token identifier of the device.",
-            "type": "string",
-            "maxLength": 64
-          },
-          "clientIp": {
-            "description": "IP address of the client device.",
-            "type": "string",
-            "maxLength": 32
-          },
-          "cookieId": {
-            "description": "The cookie ID of the buyer.",
-            "type": "string",
-            "maxLength": 64
-          }
-        },
-        "type": "object",
-        "required": [
-          "terminalType"
-        ]
-      },
-      "Buyer": {
-        "properties": {
-          "referenceBuyerId": {
-            "description": "The unique ID to identify the buyer.",
-            "type": "string",
-            "maxLength": 64
-          }
-        },
-        "type": "object"
-      },
-      "PaymentOption": {
-        "properties": {
-          "paymentMethodType": {
-            "description": "The payment method type. See Payment methods to check the valid values.",
-            "type": "string",
-            "maxLength": 64
-          },
-          "paymentMethodCategory": {
-            "description": "The category of the payment method. Valid values are:",
-            "type": "string",
-            "enum": [
-              "ALIPAY_PLUS",
-              "WALLET",
-              "MOBILE_BANKING_APP",
-              "BANK_TRANSFER",
-              "ONLINE_BANKING",
-              "CARD",
-              "OTC"
-            ],
-            "maxLength": 32
-          },
-          "paymentMethodRegion": {
-            "description": "A list of region codes that represent the countries or regions of payment methods. The value of this parameter is a 2-letter ISO country code or GLOBAL",
-            "type": "string",
-            "maxLength": 6
-          },
-          "paymentOptionDetail": {
-            "description": "Details about the payment option.",
-            "$ref": "#/components/schemas/PaymentOptionDetail"
-          },
-          "enabled": {
-            "description": "Indicates whether the payment method is available.",
+          "javaEnabled": {
             "type": "boolean"
           },
-          "disableReason": {
-            "description": "The payment method type. See Payment methods to check the valid values.",
-            "type": "string",
-            "enum": [
-              "PAYMENT_ACCOUNT_NOT_AVAILABLE",
-              "EXCEED_CHANNEL_LIMIT_RULE",
-              "SERVICE_DEGRADE",
-              "CHANNEL_NOT_SUPPORT_CURRENCY",
-              "CHANNEL_DISABLE",
-              "CHANNEL_NOT_IN_SERVICE_TIME",
-              "QUERY_IPP_INFO_FAILED",
-              "LIMIT_CENTER_ACCESS_FAIL",
-              "CURRENT_CHANNEL_NOT_EXIST"
-            ],
-            "maxLength": 64
+          "javaScriptEnabled": {
+            "type": "string"
           },
-          "logo": {
-            "description": "The logo information about the payment method.",
-            "$ref": "#/components/schemas/Logo"
+          "language": {
+            "type": "string"
           },
-          "promoNames": {
-            "description": "The list of the promotion names. In JSON format. The keys are returned as a language and a country code, connected by an underscore, such as zh_CN, while the value is the promotion name, such as RM1 Voucher.",
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 512
-            }
-          },
-          "installment": {
-            "description": "Information about installments.",
-            "$ref": "#/components/schemas/Installment"
-          },
-          "promotionInfos": {
-            "description": "The payment method type. See Payment methods to check the valid values.",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PromotionInfo"
-            }
+          "userAgent": {
+            "type": "string"
           }
         },
-        "type": "object"
+        "required": [
+          "acceptHeader",
+          "javaEnabled",
+          "javaScriptEnabled",
+          "language",
+          "userAgent"
+        ]
       },
-      "PaymentFactor": {
+      "SupportBank": {
         "properties": {
-          "presentmentMode": {
-            "description": "The presentation mode chosen by the merchant to display the payment methods on the cashier page. Valid values are:",
-            "type": "string",
-            "enum": [
-              "TILE",
-              "UNIFIED"
-            ]
-          }
-        },
-        "type": "object"
-      },
-      "PaymentOptionDetail": {
-        "properties": {
-          "supportCardBrands": {
-            "description": "The list of supported card brands.  \n\nThis parameter is returned when the value of paymentMethodType is CARD.",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SupportCardBrand"
-            }
+          "bankIdentifierCode": {
+            "description": "The unique code of the bank. See Bank list to check the valid values.",
+            "type": "string"
           },
-          "logo": {
-            "description": "The logo information about the payment method.",
+          "bankShortName": {
+            "description": "The short name of the bank. The unique code of the bank. See Bank list to check the valid values.",
+            "type": "string"
+          },
+          "bankLogo": {
+            "description": "The logo information about the bank. \n\nThis parameter is returned when the value of paymentMethodType is ONLINEBANKING_FPX.",
             "$ref": "#/components/schemas/Logo"
-          },
-          "funding": {
-            "description": "The funding type of the card. Valid values are:",
-            "type": "array",
-            "items": {
-              "type": "string",
-              "enum": [
-                "CREDIT",
-                "DEBIT",
-                "PREPAID",
-                "CHARGE",
-                "DEFERRED_DEBIT"
-              ]
-            }
-          },
-          "supportBanks": {
-            "description": "The list of supported banks. \n\nThis parameter is returned when the value of paymentMethodType is IDEAL or ONLINEBANKING_FPX.\n\n",
-            "$ref": "#/components/schemas/SupportBank"
           }
         },
         "type": "object"
@@ -391,107 +1389,31 @@
             "type": "string",
             "maxLength": 2048
           }
-        }
+        },
+        "type": "object"
       },
-      "Result": {
+      "UserName": {
+        "type": "object",
         "properties": {
-          "resultCode": {
-            "description": "The result code.",
+          "firstName": {
             "type": "string"
           },
-          "resultStatus": {
-            "description": "The result status. Valid values are:",
-            "type": "string",
-            "enum": [
-              "S",
-              "F",
-              "U"
-            ]
+          "middleName": {
+            "type": "string"
           },
-          "resultMessage": {
-            "description": "The result message.",
-            "type": "string",
-            "maxLength": 256
+          "lastName": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
           }
         },
         "required": [
-          "resultCode",
-          "resultStatus"
-        ],
-        "type": "object"
-      },
-      "SupportCardBrand": {
-        "properties": {
-          "cardBrand": {
-            "description": "The name of the card brand. Valid values are:",
-            "type": "string",
-            "enum": [
-              "VISA",
-              "MASTERCARD",
-              "AMEX",
-              "HIPERCARD",
-              "ELO"
-            ]
-          },
-          "logo": {
-            "description": "The logo of the card brand.",
-            "$ref": "#/components/schemas/Logo"
-          }
-        }
-      },
-      "Installment": {
-        "properties": {
-          "supportCardBrands": {
-            "description": "The logo information about the payment method.",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SupportCardBrand"
-            }
-          },
-          "plans": {
-            "description": "The list of installment plans for payment methods that support installments. ",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Plan"
-            }
-          }
-        }
-      },
-      "PromotionInfo": {
-        "properties": {
-          "promotionType": {
-            "description": "Promotion type. Valid values are:",
-            "type": "string",
-            "enum": [
-              "DISCOUNT",
-              "INTEREST_FREE"
-            ]
-          },
-          "discount": {
-            "description": "Discount information.\n\nThis parameter is returned when the payment method offers a promotion to the buyer.",
-            "$ref": "#/components/schemas/Discount"
-          },
-          "interestFree": {
-            "description": "The information about interest-free installment plans.",
-            "$ref": "#/components/schemas/InterestFree"
-          }
-        }
-      },
-      "SupportBank": {
-        "properties": {
-          "bankIdentifierCode": {
-            "description": "The unique code of the bank. See Bank list to check the valid values.",
-            "type": "string"
-          },
-          "bankShortName": {
-            "description": "The short name of the bank. The unique code of the bank. See Bank list to check the valid values.",
-            "type": "string"
-          },
-          "bankLogo": {
-            "description": "The logo information about the bank. \n\nThis parameter is returned when the value of paymentMethodType is ONLINEBANKING_FPX.",
-            "$ref": "#/components/schemas/Logo"
-          }
-        }
+          "firstName",
+          "middleName",
+          "lastName",
+          "fullName"
+        ]
       },
       "Plan": {
         "properties": {
@@ -501,11 +1423,11 @@
             "maxLength": 8
           },
           "minInstallmentAmount": {
-            "description": "The minimum amount that can be paid by installments.",
+            "description": "The estimated discount amount.",
             "$ref": "#/components/schemas/Amount"
           },
           "maxInstallmentAmount": {
-            "description": "The maximum amount that can be paid by installments.",
+            "description": "The estimated discount amount.",
             "$ref": "#/components/schemas/Amount"
           },
           "installmentNum": {
@@ -531,27 +1453,219 @@
           "minInstallmentAmount",
           "maxInstallmentAmount",
           "installmentNum",
-          "installmentNum",
           "enabled"
         ]
       },
-      "Discount": {
+      "Merchant": {
+        "type": "object",
         "properties": {
-          "discountTag": {
-            "description": "The discount tag is displayed as a superscript next to the discount name.",
+          "referenceMerchantId": {
+            "type": "string"
+          },
+          "merchantMCC": {
+            "type": "string"
+          },
+          "merchantName": {
+            "type": "string"
+          },
+          "merchantDisplayName": {
+            "type": "string"
+          },
+          "merchantAddress": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "merchantRegisterDate": {
+            "type": "string"
+          },
+          "store": {
+            "properties": {},
+            "$ref": "#/components/schemas/Store"
+          },
+          "merchantType": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "referenceMerchantId",
+          "merchantMCC",
+          "merchantName",
+          "merchantDisplayName",
+          "merchantAddress",
+          "merchantRegisterDate",
+          "store",
+          "merchantType"
+        ]
+      },
+      "PayConsultResponse": {
+        "properties": {
+          "result": {
+            "description": "The request result that contains information such as status and error codes.",
+            "type": "object",
+            "properties": {}
+          },
+          "paymentOptions": {
+            "description": "The payment option list.",
+            "items": {
+              "$ref": "#/components/schemas/PaymentOption"
+            },
+            "type": "array"
+          },
+          "paymentMethodInfos": {
+            "$ref": "#/components/schemas/PaymentMethodInfo"
+          }
+        },
+        "type": "object",
+        "required": [
+          "paymentMethodInfos"
+        ]
+      },
+      "PaymentMethodInfo": {
+        "type": "object",
+        "properties": {
+          "paymentMethodType": {
+            "type": "string"
+          },
+          "paymentMethodDetail": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "preferred": {
+            "type": "boolean"
+          },
+          "extendInfo": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "paymentMethodType",
+          "paymentMethodDetail",
+          "enabled",
+          "preferred",
+          "extendInfo"
+        ]
+      },
+      "PaymentOption": {
+        "properties": {
+          "paymentMethodType": {
+            "description": "The payment method type. See Payment methods to check the valid values.",
             "type": "string",
             "maxLength": 64
           },
-          "discountName": {
-            "description": "The discount name displayed in the default language.",
+          "paymentMethodCategory": {
+            "description": "The category of the payment method. Valid values are:",
             "type": "string",
-            "maxLength": 128
+            "enum": [
+              "ALIPAY_PLUS",
+              "WALLET",
+              "MOBILE_BANKING_APP",
+              "BANK_TRANSFER",
+              "ONLINE_BANKING",
+              "CARD",
+              "OTC"
+            ],
+            "maxLength": 32
           },
-          "estimateSavingsAmount": {
-            "description": "The estimated discount amount.",
-            "$ref": "#/components/schemas/Amount"
+          "paymentMethodRegion": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "A list of region codes that represent the countries or regions of payment methods. The value of this parameter is a 2-letter ISO country code or GLOBAL"
+          },
+          "paymentOptionDetail": {
+            "description": "Details about the payment option.",
+            "type": "object",
+            "properties": {}
+          },
+          "enabled": {
+            "description": "Indicates whether the payment method is available.",
+            "type": "boolean"
+          },
+          "disableReason": {
+            "description": "The payment method type. See Payment methods to check the valid values.",
+            "type": "string",
+            "enum": [
+              "PAYMENT_ACCOUNT_NOT_AVAILABLE",
+              "EXCEED_CHANNEL_LIMIT_RULE",
+              "SERVICE_DEGRADE",
+              "CHANNEL_NOT_SUPPORT_CURRENCY",
+              "CHANNEL_DISABLE",
+              "CHANNEL_NOT_IN_SERVICE_TIME",
+              "QUERY_IPP_INFO_FAILED",
+              "LIMIT_CENTER_ACCESS_FAIL",
+              "CURRENT_CHANNEL_NOT_EXIST"
+            ],
+            "maxLength": 64
+          },
+          "logo": {
+            "description": "The logo information about the bank. \n\nThis parameter is returned when the value of paymentMethodType is ONLINEBANKING_FPX.",
+            "$ref": "#/components/schemas/Logo"
+          },
+          "promoNames": {
+            "description": "The list of the promotion names. In JSON format. The keys are returned as a language and a country code, connected by an underscore, such as zh_CN, while the value is the promotion name, such as RM1 Voucher.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 512
+            }
+          },
+          "installment": {
+            "description": "Information about installments.",
+            "type": "object",
+            "properties": {}
+          },
+          "promotionInfos": {
+            "description": "The payment method type. See Payment methods to check the valid values.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PromotionInfo"
+            }
+          },
+          "preferred": {
+            "type": "boolean"
+          },
+          "amountLimitInfoMap": {
+            "type": "string"
+          },
+          "supportedCurrencies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "extendInfo": {
+            "type": "string"
           }
-        }
+        },
+        "type": "object",
+        "required": [
+          "preferred",
+          "supportedCurrencies",
+          "extendInfo"
+        ]
+      },
+      "PromotionInfo": {
+        "properties": {
+          "promotionType": {
+            "description": "Promotion type. Valid values are:",
+            "type": "string",
+            "enum": [
+              "DISCOUNT",
+              "INTEREST_FREE"
+            ]
+          },
+          "discount": {
+            "description": "Discount information.\n\nThis parameter is returned when the payment method offers a promotion to the buyer.",
+            "$ref": "#/components/schemas/Discount"
+          },
+          "interestFree": {
+            "description": "The information about interest-free installment plans.",
+            "$ref": "#/components/schemas/InterestFree"
+          }
+        },
+        "type": "object"
       },
       "InterestFree": {
         "properties": {
@@ -571,72 +1685,21 @@
             "minimum": 2
           },
           "minPaymentAmount": {
-            "description": "The minimum payment amount required for the promotion.",
+            "description": "The estimated discount amount.",
             "$ref": "#/components/schemas/Amount"
           },
           "maxPaymentAmount": {
-            "description": "The maximum payment amount required for the promotion. The empty value indicates that there is no restriction on the maximum amount.",
+            "description": "The estimated discount amount.",
             "$ref": "#/components/schemas/Amount"
           },
           "freePercentage": {
             "description": "The interest-free percentage. A value of 0 indicates no interest-free, 100% indicates the buyer is completely interest-free, while the value between 0-100% indicates partial interest-free.",
             "type": "integer"
           }
-        }
+        },
+        "type": "object"
       }
     },
-    "securitySchemes": {
-      "Signature": {
-        "in": "header",
-        "name": "Signature",
-        "type": "apiKey",
-        "description": "Refer [Antom Signature](https://global.alipay.com/docs/ac/ams/digital_signature)"
-      },
-      "Client-Id": {
-        "in": "header",
-        "name": "Client-Id",
-        "type": "apiKey",
-        "description": "Refer [Antom Signature](https://global.alipay.com/docs/ac/ams/digital_signature)"
-      },
-      "Request-Time": {
-        "in": "header",
-        "name": "Request-Time",
-        "type": "apiKey",
-        "description": "Refer [Antom Signature](https://global.alipay.com/docs/ac/ams/digital_signature)"
-      }
-    },
-    "examples": {
-      "generic-400": {
-        "summary": "Response code 400. Bad Request.",
-        "value": {
-          "status": 400,
-          "errorCode": "702",
-          "message": "Unexpected input: I",
-          "errorType": "validation"
-        }
-      },
-      "generic-403": {
-        "summary": "Response code 403. Forbidden.",
-        "value": {
-          "status": 403,
-          "errorCode": "10_003",
-          "message": "Failed to authorize user",
-          "errorType": "security"
-        }
-      },
-      "post-consult-basic": {
-        "summary": "Consult payment",
-        "value": {
-          "productCode": "CASHIER_PAYMENT",
-          "env": {
-            "terminalType": "WEB"
-          },
-          "paymentAmount": {
-            "currency": "USD",
-            "value": 100
-          }
-        }
-      }
-    }
+    "securitySchemes": {}
   }
 }
