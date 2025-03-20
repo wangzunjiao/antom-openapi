@@ -1,6 +1,6 @@
 openapi: 3.1.0
 servers:
-  - url: https://open-sea-global.alipay.com//ams/api/v1/payments/consult
+  - url: https://open-sea-global.alipay.com/ams/api/v1/payments/consult
 info:
   version: '1'
   x-publicVersion: true
