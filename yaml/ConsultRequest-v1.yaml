@@ -1,10 +1,9 @@
 openapi: 3.1.0
 servers:
-- url: /ams/api/v1/payments
+- url: https://open-sea-global.alipay.com/ams/v1/payments/consult
 info:
   version: '1'
   x-publicVersion: true
-  x-basePath: "/ams/api/v1/payments"
   title: Payment API
   description: >-
     Payment API is used for xxx. Refer
@@ -168,7 +167,6 @@ components:
     PayConsultResponse:
       properties:
         result:
-          x-skip-result: true
           description: >-
             The request result that contains information such as status and
             error codes.
