@@ -114,7 +114,8 @@
                   },
                   "merchant": {
                     "properties": {},
-                    "$ref": "#/components/schemas/Merchant"
+                    "$ref": "#/components/schemas/Merchant",
+                    "type": "object"
                   },
                   "allowedPspRegions": {
                     "type": "array",
@@ -124,7 +125,17 @@
                   }
                 },
                 "required": [
-                  "paymentAmount"
+                  "allowedPaymentMethods",
+                  "blockedPaymentMethods",
+                  "region",
+                  "customerId",
+                  "referenceUserId",
+                  "extendInfo",
+                  "merchant",
+                  "allowedPspRegions",
+                  "productCode",
+                  "paymentAmount",
+                  "env"
                 ]
               },
               "examples": {
@@ -1701,5 +1712,6 @@
       }
     },
     "securitySchemes": {}
-  }
+  },
+  "security": []
 }

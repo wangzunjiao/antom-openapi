@@ -143,12 +143,23 @@ paths:
                 merchant:
                   properties: {}
                   $ref: '#/components/schemas/Merchant'
+                  type: object
                 allowedPspRegions:
                   type: array
                   items:
                     type: string
               required:
+                - allowedPaymentMethods
+                - blockedPaymentMethods
+                - region
+                - customerId
+                - referenceUserId
+                - extendInfo
+                - merchant
+                - allowedPspRegions
+                - productCode
                 - paymentAmount
+                - env
             examples:
               '1':
                 value:
@@ -1365,3 +1376,4 @@ components:
           type: integer
       type: object
   securitySchemes: {}
+security: []
