@@ -1095,9 +1095,7 @@ components:
             Represents the payment product that is being used. The payment
             product that can be used is stipulated in the contract. The fixed
             value is:
-          enum:
-            - CASHIER_PAYMENT
-          type: string
+          $ref: '#/components/schemas/ProductCodeType'
         paymentAmount: *ref_0
         userRegion:
           description: >-
@@ -1374,6 +1372,12 @@ components:
           minLength: 3
           maxLength: 3
       type: object
+    ProductCodeType:
+      type: string
+      enum:
+        - CASHIER_PAYMENT
+        - AGREEMENT_PAYMENT
+        - IN_STORE_PAYMENT
     AlipayPayConsultResponse:
       properties:
         result:
@@ -1394,3 +1398,4 @@ components:
       required:
         - paymentMethodInfos
   securitySchemes: {}
+

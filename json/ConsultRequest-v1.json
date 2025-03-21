@@ -1405,10 +1405,7 @@
         "properties": {
           "productCode": {
             "description": "Represents the payment product that is being used. The payment product that can be used is stipulated in the contract. The fixed value is:",
-            "enum": [
-              "CASHIER_PAYMENT"
-            ],
-            "type": "string"
+            "$ref": "#/components/schemas/ProductCodeType"
           },
           "paymentAmount": {
             "description": "The minimum payment amount required for the promotion.",
@@ -1748,6 +1745,14 @@
           }
         },
         "type": "object"
+      },
+      "ProductCodeType": {
+        "type": "string",
+        "enum": [
+          "CASHIER_PAYMENT",
+          "AGREEMENT_PAYMENT",
+          "IN_STORE_PAYMENT"
+        ]
       },
       "AlipayPayConsultResponse": {
         "properties": {
