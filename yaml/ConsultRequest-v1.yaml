@@ -891,6 +891,34 @@ paths:
       security: []
 components:
   schemas:
+    Store2333:
+      type: object
+      properties:
+        referenceStoreId:
+          type: string
+        storeName:
+          type: string
+        storeMCC:
+          type: string
+        storeDisplayName:
+          type: string
+        storeTerminalId:
+          type: string
+        storeOperatorId:
+          type: string
+        storeAddress: &ref_1
+          $ref: '#/components/schemas/Address'
+        storePhoneNo:
+          type: string
+      required:
+        - referenceStoreId
+        - storeName
+        - storeMCC
+        - storeDisplayName
+        - storeTerminalId
+        - storeOperatorId
+        - storeAddress
+        - storePhoneNo
     Store:
       type: object
       properties:
