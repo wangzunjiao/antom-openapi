@@ -4,6 +4,7 @@ servers:
 info:
   version: '1'
   x-publicVersion: true
+  x-publicVersion1: true
   title: Payment API
   description: >-
     Payment API is used for xxx. Refer

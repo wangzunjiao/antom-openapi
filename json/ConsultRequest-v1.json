@@ -8,6 +8,7 @@
   "info": {
     "version": "1",
     "x-publicVersion": true,
+    "x-publicVersion1": true,
     "title": "Payment API",
     "description": "Payment API is used for xxx. Refer [doc](https://global.alipay.com/docs/ac/ams/consult)\n# Auth",
     "termsOfService": "https://www.antom.com/legal/terms-and-conditions",
