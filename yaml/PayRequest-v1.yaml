@@ -1,8 +1,21 @@
 openapi: 3.1.0
+servers:
+  - url: https://open-sea-global.alipay.com/ams/api/v1/payments/pay
+    description: 正式环境
 info:
-  title: pay接口
-  description: ''
-  version: 1.0.0
+  version: '1'
+  x-publicVersion: true
+  x-publicVersion1: true
+  title: Payment API
+  description: >-
+    Payment API is used for xxx. Refer
+    [doc](https://global.alipay.com/docs/ac/ams/consult)
+
+    # Auth
+  termsOfService: https://www.antom.com/legal/terms-and-conditions
+  contact:
+    name: Antom Developer Experience team
+    url: https://github.com/Antom/antom-openapi
 tags: []
 paths:
   /ams/api/v1/payments/pay:
@@ -617,7 +630,4 @@ components:
         - PLAINTEXT_CARD_NO
         - CARD_EXPIRE_DATE
   securitySchemes: {}
-servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/payments/pay
-    description: 正式环境
 security: []
