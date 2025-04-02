@@ -1,0 +1,847 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "pay接口",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/ams/api/v1/payments/pay": {
+      "post": {
+        "summary": "pay (Checkout Payment)",
+        "deprecated": false,
+        "description": "Use this API to get the cashier page address. After getting the cashier page address, you can redirect the user to the cashier page to make a payment.\n",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlipayPayRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlipayPayResponse"
+                },
+                "example": {
+                  "result": {
+                    "resultStatus": "U",
+                    "resultCode": "PAYMENT_IN_PROCESS",
+                    "resultMessage": "payment in process"
+                  },
+                  "normalUrl": "https://open-sea-global.alipayplus.com/api/open/v1/ac/cashier/self/codevalue/checkout.htm?codeValue=https%3A%2F%2Fglobal.alipay.com%2F281002040097PyI431LRh9gVAJ30FBT2tmGy&loadMode=2",
+                  "orderCodeForm": {
+                    "expireTime": "2025-03-31T00:03:05-07:00",
+                    "codeDetails": [
+                      {
+                        "displayType": "TEXT",
+                        "codeValue": "https://global.alipay.com/281002040097PyI431LRh9gVAJ30FBT2tmGy"
+                      },
+                      {
+                        "displayType": "BIGIMAGE",
+                        "codeValue": "https://global.alipay.com/merchant/order/showQrImage.htm?code=https%3A%2F%2Fglobal.alipay.com%2F281002040097PyI431LRh9gVAJ30FBT2tmGy&picSize=L"
+                      },
+                      {
+                        "displayType": "MIDDLEIMAGE",
+                        "codeValue": "https://global.alipay.com/merchant/order/showQrImage.htm?code=https%3A%2F%2Fglobal.alipay.com%2F281002040097PyI431LRh9gVAJ30FBT2tmGy&picSize=M"
+                      },
+                      {
+                        "displayType": "SMALLIMAGE",
+                        "codeValue": "https://global.alipay.com/merchant/order/showQrImage.htm?code=https%3A%2F%2Fglobal.alipay.com%2F281002040097PyI431LRh9gVAJ30FBT2tmGy&picSize=S"
+                      }
+                    ]
+                  },
+                  "paymentId": "202503311940108001001885J0229408391",
+                  "paymentRequestId": "amsdmpay_wangzunjiao_wzj_20250330_234905_698",
+                  "redirectActionForm": {
+                    "redirectUrl": "https://open-sea-global.alipayplus.com/api/open/v1/ac/cashier/self/codevalue/checkout.htm?codeValue=https%3A%2F%2Fglobal.alipay.com%2F281002040097PyI431LRh9gVAJ30FBT2tmGy&loadMode=2",
+                    "method": "GET"
+                  },
+                  "paymentAmount": {
+                    "currency": "HKD",
+                    "value": "100"
+                  },
+                  "paymentActionForm": "{\"method\":\"GET\",\"paymentActionFormType\":\"RedirectActionForm\",\"redirectUrl\":\"https://open-sea-global.alipayplus.com/api/open/v1/ac/cashier/self/codevalue/checkout.htm?codeValue=https%3A%2F%2Fglobal.alipay.com%2F281002040097PyI431LRh9gVAJ30FBT2tmGy&loadMode=2\"}",
+                  "paymentCreateTime": "2025-03-30T23:49:06-07:00"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PaymentFactor": {
+        "properties": {
+          "presentmentMode": {
+            "type": "string",
+            "description": "The presentation mode chosen by the merchant to display the payment methods on the cashier page. Valid values are:"
+          },
+          "isPaymentEvaluation": {
+            "type": "string"
+          },
+          "inStorePaymentScenario": {
+            "type": "string"
+          },
+          "captureMode": {
+            "type": "string"
+          },
+          "isAuthorization": {
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "required": [
+          "isPaymentEvaluation",
+          "inStorePaymentScenario",
+          "captureMode",
+          "isAuthorization"
+        ]
+      },
+      "PaymentMethod": {
+        "type": "object",
+        "properties": {
+          "paymentMethodType": {
+            "type": "string"
+          },
+          "paymentMethodId": {
+            "type": "string"
+          },
+          "paymentMethodMetaData": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            }
+          },
+          "customerId": {
+            "type": "string"
+          },
+          "extendInfo": {
+            "type": "string"
+          },
+          "requireIssuerAuthentication": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "paymentMethodType",
+          "paymentMethodId",
+          "paymentMethodMetaData",
+          "customerId",
+          "extendInfo",
+          "requireIssuerAuthentication"
+        ]
+      },
+      "Env": {
+        "properties": {
+          "terminalType": {
+            "description": "Terminal type used by the merchant. Valid values are:",
+            "$ref": "#/components/schemas/TerminalType"
+          },
+          "osType": {
+            "description": "Type of the operation system. Valid values are:",
+            "$ref": "#/components/schemas/OsType"
+          },
+          "userAgent": {
+            "description": "The user agent.",
+            "type": "string",
+            "maxLength": 1024
+          },
+          "deviceTokenId": {
+            "description": "Token identifier of the device.",
+            "type": "string",
+            "maxLength": 64
+          },
+          "clientIp": {
+            "description": "IP address of the client device.",
+            "type": "string",
+            "maxLength": 32
+          },
+          "cookieId": {
+            "description": "The cookie ID of the buyer.",
+            "type": "string",
+            "maxLength": 64
+          },
+          "storeTerminalId": {
+            "type": "string"
+          },
+          "storeTerminalRequestTime": {
+            "type": "string"
+          },
+          "browserInfo": {
+            "properties": {
+              "acceptHeader": {
+                "type": "string"
+              },
+              "javaEnabled": {
+                "type": "string"
+              },
+              "javaScriptEnabled": {
+                "type": "string"
+              },
+              "language": {
+                "type": "string"
+              },
+              "userAgent": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "acceptHeader",
+              "javaEnabled",
+              "javaScriptEnabled",
+              "language",
+              "userAgent"
+            ],
+            "$ref": "#/components/schemas/BrowserInfo"
+          },
+          "colorDepth": {
+            "type": "string"
+          },
+          "screenHeight": {
+            "type": "string"
+          },
+          "screenWidth": {
+            "type": "string"
+          },
+          "timeZoneOffset": {
+            "type": "string"
+          },
+          "deviceBrand": {
+            "type": "integer"
+          },
+          "deviceModel": {
+            "type": "string"
+          },
+          "deviceLanguage": {
+            "type": "string"
+          },
+          "deviceId": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "terminalType",
+          "storeTerminalId",
+          "storeTerminalRequestTime",
+          "browserInfo",
+          "colorDepth",
+          "screenHeight",
+          "screenWidth",
+          "timeZoneOffset",
+          "deviceModel",
+          "deviceLanguage",
+          "deviceId"
+        ]
+      },
+      "BrowserInfo": {
+        "type": "object",
+        "properties": {
+          "acceptHeader": {
+            "type": "string"
+          },
+          "javaEnabled": {
+            "type": "boolean"
+          },
+          "javaScriptEnabled": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "userAgent": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "acceptHeader",
+          "javaEnabled",
+          "javaScriptEnabled",
+          "language",
+          "userAgent"
+        ]
+      },
+      "OsType": {
+        "type": "string",
+        "enum": [
+          "IOS",
+          "ANDROID"
+        ]
+      },
+      "TerminalType": {
+        "type": "string",
+        "enum": [
+          "WEB",
+          "WAP",
+          "APP",
+          "MINI_APP"
+        ]
+      },
+      "PaymentVerificationData": {
+        "type": "object",
+        "properties": {
+          "verifyRequestId": {
+            "type": "string"
+          },
+          "authenticationCode": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "verifyRequestId",
+          "authenticationCode"
+        ]
+      },
+      "SettlementStrategy": {
+        "properties": {
+          "settlementCurrency": {
+            "description": "The ISO currency code of the currency that the merchant wants to settle against. This field is required if the merchant signed up for multiple settlement currencies. Otherwise, the error code,SETTLE_CONTRACT_NOT_MATCH, will be returned.",
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+          }
+        },
+        "type": "object"
+      },
+      "Quote": {
+        "type": "object",
+        "properties": {
+          "quoteId": {
+            "type": "string"
+          },
+          "quoteCurrencyPair": {
+            "type": "string"
+          },
+          "quotePrice": {
+            "type": "number"
+          },
+          "quoteStartTime": {
+            "type": "string"
+          },
+          "quoteExpiryTime": {
+            "type": "string"
+          },
+          "guaranteed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "quoteId",
+          "quoteCurrencyPair",
+          "quoteStartTime",
+          "quoteExpiryTime",
+          "guaranteed"
+        ]
+      },
+      "Amount": {
+        "description": "The payment amount that the merchant requests to receive in the order currency.",
+        "properties": {
+          "currency": {
+            "description": "The 3-letter currency code that follows the ISO 4217 standard.",
+            "maxLength": 3,
+            "minLength": 3,
+            "type": "string"
+          },
+          "value": {
+            "type": "string",
+            "description": "The value of the amount as a positive integer in the smallest currency unit. For example, if the currency is USD and the amount is $1.00, set the value of this parameter to 100; or if the currency is JPY and the amount is ￥1, set the value of this parameter to 1."
+          }
+        },
+        "required": [
+          "value",
+          "currency"
+        ],
+        "type": "object"
+      },
+      "PspCustomerInfo": {
+        "type": "object",
+        "properties": {
+          "pspName": {
+            "type": "string"
+          },
+          "pspCustomerId": {
+            "type": "string"
+          },
+          "displayCustomerId": {
+            "type": "string"
+          },
+          "displayCustomerName": {
+            "type": "string"
+          },
+          "customer2088Id": {
+            "type": "string"
+          },
+          "extendInfo": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "pspName",
+          "pspCustomerId",
+          "displayCustomerId",
+          "displayCustomerName",
+          "customer2088Id",
+          "extendInfo"
+        ]
+      },
+      "AlipayPayRequest": {
+        "type": "object",
+        "properties": {
+          "productCode": {
+            "type": "object",
+            "properties": {}
+          },
+          "paymentRequestId": {
+            "type": "string"
+          },
+          "order": {
+            "type": "string"
+          },
+          "paymentAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "paymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethod"
+          },
+          "paymentExpiryTime": {
+            "type": "string"
+          },
+          "paymentRedirectUrl": {
+            "type": "string"
+          },
+          "paymentNotifyUrl": {
+            "type": "string"
+          },
+          "paymentFactor": {
+            "$ref": "#/components/schemas/PaymentFactor"
+          },
+          "settlementStrategy": {
+            "$ref": "#/components/schemas/SettlementStrategy"
+          },
+          "creditPayPlan": {
+            "type": "string"
+          },
+          "appId": {
+            "type": "string"
+          },
+          "merchantRegion": {
+            "type": "string"
+          },
+          "userRegion": {
+            "type": "string"
+          },
+          "env": {
+            "$ref": "#/components/schemas/Env"
+          },
+          "payToMethod": {
+            "$ref": "#/components/schemas/PaymentMethod"
+          },
+          "isAuthorization": {
+            "type": "boolean"
+          },
+          "merchant": {
+            "type": "object",
+            "properties": {}
+          },
+          "paymentVerificationData": {
+            "$ref": "#/components/schemas/PaymentVerificationData"
+          },
+          "extendInfo": {
+            "type": "string"
+          },
+          "merchantAccountId": {
+            "type": "string"
+          },
+          "dualOfflinePayment": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "productCode",
+          "paymentRequestId",
+          "order",
+          "paymentAmount",
+          "paymentMethod",
+          "paymentExpiryTime",
+          "paymentRedirectUrl",
+          "paymentNotifyUrl",
+          "settlementStrategy",
+          "creditPayPlan",
+          "appId",
+          "merchantRegion",
+          "userRegion",
+          "env",
+          "payToMethod",
+          "isAuthorization",
+          "merchant",
+          "paymentVerificationData",
+          "extendInfo",
+          "merchantAccountId",
+          "dualOfflinePayment"
+        ]
+      },
+      "AlipayPayResponse": {
+        "type": "object",
+        "properties": {
+          "paymentRequestId": {
+            "type": "string"
+          },
+          "paymentId": {
+            "type": "string"
+          },
+          "paymentAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "paymentData": {
+            "type": "string"
+          },
+          "actualPaymentAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "paymentQuote": {
+            "$ref": "#/components/schemas/Quote"
+          },
+          "paymentTime": {
+            "type": "string"
+          },
+          "paymentCreateTime": {
+            "type": "string"
+          },
+          "authExpiryTime": {
+            "type": "string"
+          },
+          "nonGuaranteeCouponValue": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "paymentActionForm": {
+            "type": "string"
+          },
+          "pspCustomerInfo": {
+            "$ref": "#/components/schemas/PspCustomerInfo"
+          },
+          "challengeActionForm": {
+            "$ref": "#/components/schemas/ChallengeActionForm"
+          },
+          "redirectActionForm": {
+            "$ref": "#/components/schemas/RedirectActionForm"
+          },
+          "orderCodeForm": {
+            "type": "string"
+          },
+          "grossSettlementAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "settlementQuote": {
+            "$ref": "#/components/schemas/Quote"
+          },
+          "extendInfo": {
+            "type": "string"
+          },
+          "normalUrl": {
+            "type": "string"
+          },
+          "schemeUrl": {
+            "type": "string"
+          },
+          "applinkUrl": {
+            "type": "string"
+          },
+          "appIdentifier": {
+            "type": "string"
+          },
+          "paymentResultInfo": {
+            "$ref": "#/components/schemas/PaymentResultInfo"
+          },
+          "acquirerInfo": {
+            "$ref": "#/components/schemas/AcquirerInfo"
+          },
+          "promotionResult": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PromotionResult"
+            }
+          },
+          "result": {
+            "$ref": "#/components/schemas/Result"
+          }
+        },
+        "required": [
+          "paymentRequestId",
+          "paymentId",
+          "paymentAmount",
+          "paymentData",
+          "actualPaymentAmount",
+          "paymentQuote",
+          "paymentTime",
+          "paymentCreateTime",
+          "authExpiryTime",
+          "nonGuaranteeCouponValue",
+          "paymentActionForm",
+          "pspCustomerInfo",
+          "challengeActionForm",
+          "redirectActionForm",
+          "orderCodeForm",
+          "grossSettlementAmount",
+          "settlementQuote",
+          "extendInfo",
+          "normalUrl",
+          "schemeUrl",
+          "applinkUrl",
+          "appIdentifier",
+          "paymentResultInfo",
+          "acquirerInfo",
+          "promotionResult",
+          "result"
+        ]
+      },
+      "Result": {
+        "properties": {
+          "resultCode": {
+            "description": "The result code.",
+            "type": "string"
+          },
+          "resultStatus": {
+            "description": "The result status. Valid values are:",
+            "type": "string",
+            "enum": [
+              "S",
+              "F",
+              "U"
+            ]
+          },
+          "resultMessage": {
+            "description": "The result message.",
+            "type": "string",
+            "maxLength": 256
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus"
+        ],
+        "type": "object"
+      },
+      "PromotionResult": {
+        "type": "object",
+        "properties": {
+          "promotionType": {
+            "$ref": "#/components/schemas/PromotionType"
+          },
+          "discount": {
+            "$ref": "#/components/schemas/Discount"
+          }
+        },
+        "required": [
+          "promotionType",
+          "discount"
+        ]
+      },
+      "Discount": {
+        "properties": {
+          "discountTag": {
+            "description": "The discount tag is displayed as a superscript next to the discount name.",
+            "type": "string",
+            "maxLength": 64
+          },
+          "discountName": {
+            "description": "The discount name displayed in the default language.",
+            "type": "string",
+            "maxLength": 128
+          },
+          "estimateSavingsAmount": {
+            "$ref": "#/components/schemas/Amount"
+          }
+        },
+        "type": "object"
+      },
+      "PromotionType": {
+        "type": "string",
+        "enum": [
+          "DISCOUNT",
+          "INTEREST_FREE"
+        ]
+      },
+      "AcquirerInfo": {
+        "type": "object",
+        "properties": {
+          "acquirerName": {
+            "type": "string"
+          },
+          "referenceRequestId": {
+            "type": "string"
+          },
+          "acquirerTransactionId": {
+            "type": "string"
+          },
+          "acquirerMerchantId": {
+            "type": "string"
+          },
+          "acquirerResultMessage": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "acquirerName",
+          "referenceRequestId",
+          "acquirerTransactionId",
+          "acquirerMerchantId",
+          "acquirerResultMessage"
+        ]
+      },
+      "PaymentResultInfo": {
+        "type": "object",
+        "properties": {
+          "cardNo": {
+            "type": "string"
+          },
+          "cardBrand": {
+            "type": "string"
+          },
+          "cardToken": {
+            "type": "string"
+          },
+          "issuingCountry": {
+            "type": "string"
+          },
+          "funding": {
+            "type": "string"
+          },
+          "paymentMethodRegion": {
+            "type": "string"
+          },
+          "threeDSResult": {
+            "type": "string"
+          },
+          "avsResultRaw": {
+            "type": "string"
+          },
+          "cvvResultRaw": {
+            "type": "string"
+          },
+          "networkTransactionId": {
+            "type": "string"
+          },
+          "creditPayPlan": {
+            "type": "string"
+          },
+          "cardholderName": {
+            "type": "string"
+          },
+          "cardBin": {
+            "type": "string"
+          },
+          "lastFour": {
+            "type": "string"
+          },
+          "expiryMonth": {
+            "type": "string"
+          },
+          "expiryYear": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "cardNo",
+          "cardBrand",
+          "cardToken",
+          "issuingCountry",
+          "funding",
+          "paymentMethodRegion",
+          "threeDSResult",
+          "avsResultRaw",
+          "cvvResultRaw",
+          "networkTransactionId",
+          "creditPayPlan",
+          "cardholderName",
+          "cardBin",
+          "lastFour",
+          "expiryMonth",
+          "expiryYear"
+        ]
+      },
+      "RedirectActionForm": {
+        "type": "object",
+        "properties": {
+          "method": {
+            "type": "string"
+          },
+          "parameters": {
+            "type": "string"
+          },
+          "redirectUrl": {
+            "type": "string"
+          },
+          "actionFormType": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "method",
+          "parameters",
+          "redirectUrl",
+          "actionFormType"
+        ]
+      },
+      "ChallengeActionForm": {
+        "type": "object",
+        "properties": {
+          "challengeType": {
+            "$ref": "#/components/schemas/ChallengeType"
+          },
+          "challengeRenderValue": {
+            "type": "string"
+          },
+          "triggerSource": {
+            "$ref": "#/components/schemas/ChallengeTriggerSourceType"
+          },
+          "extendInfo": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "challengeType",
+          "challengeRenderValue",
+          "triggerSource",
+          "extendInfo"
+        ]
+      },
+      "ChallengeTriggerSourceType": {
+        "type": "string",
+        "enum": [
+          "AMS",
+          "CHANNEL"
+        ]
+      },
+      "ChallengeType": {
+        "type": "string",
+        "enum": [
+          "SMS_OTP",
+          "PLAINTEXT_CARD_NO",
+          "CARD_EXPIRE_DATE"
+        ]
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/pay",
+      "description": "正式环境"
+    }
+  ],
+  "security": []
+}
