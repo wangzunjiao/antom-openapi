@@ -130,12 +130,12 @@ components:
           description: 'Terminal type used by the merchant. Valid values are:'
           $ref: '#/components/schemas/TerminalType'
         osType:
-          description: 'Type of the operation system. Valid values are:'
           $ref: '#/components/schemas/OsType'
+          description: 'Type of the operation system. Valid values are:'
         userAgent:
-          description: The user agent.
           type: string
           maxLength: 1024
+          description: The user agent.
         deviceTokenId:
           description: Token identifier of the device.
           type: string
@@ -200,37 +200,9 @@ components:
         - deviceModel
         - deviceLanguage
         - deviceId
-    BrowserInfo:
-      type: object
-      properties:
-        acceptHeader:
-          type: string
-        javaEnabled:
-          type: boolean
-        javaScriptEnabled:
-          type: string
-        language:
-          type: string
-        userAgent:
-          type: string
-      required:
-        - acceptHeader
-        - javaEnabled
-        - javaScriptEnabled
-        - language
-        - userAgent
-    OsType:
-      type: string
-      enum:
-        - IOS
-        - ANDROID
-    TerminalType:
-      type: string
-      enum:
-        - WEB
-        - WAP
-        - APP
-        - MINI_APP
+      description: >-
+        Information about the environment where the order is placed, such as the
+        device information.
     PaymentVerificationData:
       type: object
       properties:
@@ -321,8 +293,24 @@ components:
       type: object
       properties:
         productCode:
-          type: object
-          properties: {}
+          $ref: '#/components/schemas/ProductCodeType'
+          description: >-
+            The country or region where the merchant operates the business. The
+            parameter is a 2-letter country or region code that follows ISO 3166
+            Country Codes standard.
+
+
+            Some possible values are US, SG, HK, PK, JP, CN, BR, AU, and MY.  
+
+
+            Note: This parameter is required when you use the Global Acquirer
+            Gateway (GAGW) product.
+
+
+            More information:
+
+
+            Maximum length: 2 characters
         paymentRequestId:
           type: string
         order:
@@ -349,20 +337,48 @@ components:
           type: string
         userRegion:
           type: string
+          description: >-
+            A 2-letter country or region code based on the standard of ISO 3166
+            Country Codes. This parameter is used to sort Alipay+ payment
+            methods according to the user's region. For example, if ALIPAY_CN
+            and KAKAOPAYare both on your payment method list and the user is
+            from South Korea, KAKAOPAY will be listed first on the Alipay+
+            cashier page.
+
+
+            Note: This parameter is only for the merchant that has integrated
+            the Alipay+ cashier page.  
+
+
+            More information:
+
+
+            Maximum length: 2 characters
         env:
           $ref: '#/components/schemas/Env'
         payToMethod: *ref_0
         isAuthorization:
           type: boolean
         merchant:
-          type: object
-          properties: {}
+          $ref: '#/components/schemas/Merchant'
         paymentVerificationData:
           $ref: '#/components/schemas/PaymentVerificationData'
         extendInfo:
           type: string
         merchantAccountId:
           type: string
+          description: >-
+            The unique ID to identify a merchant account.
+
+
+            Note: Specify this parameter when you use a single client ID across
+            multiple locations.
+
+
+            More information:
+
+
+            Maximum length: 32 characters
         dualOfflinePayment:
           type: boolean
       required:
@@ -387,6 +403,235 @@ components:
         - extendInfo
         - merchantAccountId
         - dualOfflinePayment
+    ChallengeType:
+      type: string
+      enum:
+        - SMS_OTP
+        - PLAINTEXT_CARD_NO
+        - CARD_EXPIRE_DATE
+    OsType:
+      type: string
+      enum:
+        - IOS
+        - ANDROID
+    ChallengeTriggerSourceType:
+      type: string
+      enum:
+        - AMS
+        - CHANNEL
+    Result:
+      properties:
+        resultCode:
+          description: The result code.
+          type: string
+        resultStatus:
+          description: 'The result status. Valid values are:'
+          type: string
+          enum:
+            - S
+            - F
+            - U
+        resultMessage:
+          description: The result message.
+          type: string
+          maxLength: 256
+      required:
+        - resultCode
+        - resultStatus
+      type: object
+    ChallengeActionForm:
+      type: object
+      properties:
+        challengeType:
+          $ref: '#/components/schemas/ChallengeType'
+        challengeRenderValue:
+          type: string
+        triggerSource:
+          $ref: '#/components/schemas/ChallengeTriggerSourceType'
+        extendInfo:
+          type: string
+      required:
+        - challengeType
+        - challengeRenderValue
+        - triggerSource
+        - extendInfo
+    ProductCodeType:
+      type: string
+      enum:
+        - CASHIER_PAYMENT
+        - AGREEMENT_PAYMENT
+        - IN_STORE_PAYMENT
+    RedirectActionForm:
+      type: object
+      properties:
+        method:
+          type: string
+        parameters:
+          type: string
+        redirectUrl:
+          type: string
+        actionFormType:
+          type: string
+      required:
+        - method
+        - parameters
+        - redirectUrl
+        - actionFormType
+    Address:
+      type: object
+      properties:
+        region:
+          type: string
+        state:
+          type: string
+        city:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        zipCode:
+          type: string
+        label:
+          type: string
+      required:
+        - region
+        - state
+        - city
+        - address1
+        - address2
+        - zipCode
+        - label
+    PaymentResultInfo:
+      type: object
+      properties:
+        cardNo:
+          type: string
+        cardBrand:
+          type: string
+        cardToken:
+          type: string
+        issuingCountry:
+          type: string
+        funding:
+          type: string
+        paymentMethodRegion:
+          type: string
+        threeDSResult:
+          type: string
+        avsResultRaw:
+          type: string
+        cvvResultRaw:
+          type: string
+        networkTransactionId:
+          type: string
+        creditPayPlan:
+          type: string
+        cardholderName:
+          type: string
+        cardBin:
+          type: string
+        lastFour:
+          type: string
+        expiryMonth:
+          type: string
+        expiryYear:
+          type: string
+      required:
+        - cardNo
+        - cardBrand
+        - cardToken
+        - issuingCountry
+        - funding
+        - paymentMethodRegion
+        - threeDSResult
+        - avsResultRaw
+        - cvvResultRaw
+        - networkTransactionId
+        - creditPayPlan
+        - cardholderName
+        - cardBin
+        - lastFour
+        - expiryMonth
+        - expiryYear
+    TerminalType:
+      type: string
+      description: >+
+        Terminal type of which the merchant service applies to. Valid values
+        are:
+
+      enum:
+        - WEB
+        - WAP
+        - APP
+        - MINI_APP
+    AcquirerInfo:
+      type: object
+      properties:
+        acquirerName:
+          type: string
+        referenceRequestId:
+          type: string
+        acquirerTransactionId:
+          type: string
+        acquirerMerchantId:
+          type: string
+        acquirerResultMessage:
+          type: string
+      required:
+        - acquirerName
+        - referenceRequestId
+        - acquirerTransactionId
+        - acquirerMerchantId
+        - acquirerResultMessage
+    BrowserInfo:
+      type: object
+      properties:
+        acceptHeader:
+          type: string
+        javaEnabled:
+          type: boolean
+        javaScriptEnabled:
+          type: string
+        language:
+          type: string
+        userAgent:
+          type: string
+      required:
+        - acceptHeader
+        - javaEnabled
+        - javaScriptEnabled
+        - language
+        - userAgent
+    PromotionType:
+      type: string
+      enum:
+        - DISCOUNT
+        - INTEREST_FREE
+    Discount:
+      properties:
+        discountTag:
+          description: >-
+            The discount tag is displayed as a superscript next to the discount
+            name.
+          type: string
+          maxLength: 64
+        discountName:
+          description: The discount name displayed in the default language.
+          type: string
+          maxLength: 128
+        estimateSavingsAmount: *ref_1
+      type: object
+    PromotionResult:
+      type: object
+      properties:
+        promotionType:
+          $ref: '#/components/schemas/PromotionType'
+        discount:
+          $ref: '#/components/schemas/Discount'
+      required:
+        - promotionType
+        - discount
     AlipayPayResponse:
       type: object
       properties:
@@ -466,168 +711,61 @@ components:
         - acquirerInfo
         - promotionResult
         - result
-    Result:
-      properties:
-        resultCode:
-          description: The result code.
-          type: string
-        resultStatus:
-          description: 'The result status. Valid values are:'
-          type: string
-          enum:
-            - S
-            - F
-            - U
-        resultMessage:
-          description: The result message.
-          type: string
-          maxLength: 256
-      required:
-        - resultCode
-        - resultStatus
-      type: object
-    PromotionResult:
+    Store:
       type: object
       properties:
-        promotionType:
-          $ref: '#/components/schemas/PromotionType'
-        discount:
-          $ref: '#/components/schemas/Discount'
-      required:
-        - promotionType
-        - discount
-    Discount:
-      properties:
-        discountTag:
-          description: >-
-            The discount tag is displayed as a superscript next to the discount
-            name.
+        referenceStoreId:
           type: string
-          maxLength: 64
-        discountName:
-          description: The discount name displayed in the default language.
+        storeName:
           type: string
-          maxLength: 128
-        estimateSavingsAmount: *ref_1
-      type: object
-    PromotionType:
-      type: string
-      enum:
-        - DISCOUNT
-        - INTEREST_FREE
-    AcquirerInfo:
-      type: object
-      properties:
-        acquirerName:
+        storeMCC:
           type: string
-        referenceRequestId:
+        storeDisplayName:
           type: string
-        acquirerTransactionId:
+        storeTerminalId:
           type: string
-        acquirerMerchantId:
+        storeOperatorId:
           type: string
-        acquirerResultMessage:
+        storeAddress: &ref_3
+          $ref: '#/components/schemas/Address'
+        storePhoneNo:
           type: string
       required:
-        - acquirerName
-        - referenceRequestId
-        - acquirerTransactionId
-        - acquirerMerchantId
-        - acquirerResultMessage
-    PaymentResultInfo:
+        - referenceStoreId
+        - storeName
+        - storeMCC
+        - storeDisplayName
+        - storeTerminalId
+        - storeOperatorId
+        - storeAddress
+        - storePhoneNo
+    Merchant:
       type: object
       properties:
-        cardNo:
+        referenceMerchantId:
           type: string
-        cardBrand:
+        merchantMCC:
           type: string
-        cardToken:
+        merchantName:
           type: string
-        issuingCountry:
+        merchantDisplayName:
           type: string
-        funding:
+        merchantAddress: *ref_3
+        merchantRegisterDate:
           type: string
-        paymentMethodRegion:
-          type: string
-        threeDSResult:
-          type: string
-        avsResultRaw:
-          type: string
-        cvvResultRaw:
-          type: string
-        networkTransactionId:
-          type: string
-        creditPayPlan:
-          type: string
-        cardholderName:
-          type: string
-        cardBin:
-          type: string
-        lastFour:
-          type: string
-        expiryMonth:
-          type: string
-        expiryYear:
+        store:
+          properties: {}
+          $ref: '#/components/schemas/Store'
+        merchantType:
           type: string
       required:
-        - cardNo
-        - cardBrand
-        - cardToken
-        - issuingCountry
-        - funding
-        - paymentMethodRegion
-        - threeDSResult
-        - avsResultRaw
-        - cvvResultRaw
-        - networkTransactionId
-        - creditPayPlan
-        - cardholderName
-        - cardBin
-        - lastFour
-        - expiryMonth
-        - expiryYear
-    RedirectActionForm:
-      type: object
-      properties:
-        method:
-          type: string
-        parameters:
-          type: string
-        redirectUrl:
-          type: string
-        actionFormType:
-          type: string
-      required:
-        - method
-        - parameters
-        - redirectUrl
-        - actionFormType
-    ChallengeActionForm:
-      type: object
-      properties:
-        challengeType:
-          $ref: '#/components/schemas/ChallengeType'
-        challengeRenderValue:
-          type: string
-        triggerSource:
-          $ref: '#/components/schemas/ChallengeTriggerSourceType'
-        extendInfo:
-          type: string
-      required:
-        - challengeType
-        - challengeRenderValue
-        - triggerSource
-        - extendInfo
-    ChallengeTriggerSourceType:
-      type: string
-      enum:
-        - AMS
-        - CHANNEL
-    ChallengeType:
-      type: string
-      enum:
-        - SMS_OTP
-        - PLAINTEXT_CARD_NO
-        - CARD_EXPIRE_DATE
+        - referenceMerchantId
+        - merchantMCC
+        - merchantName
+        - merchantDisplayName
+        - merchantAddress
+        - merchantRegisterDate
+        - store
+        - merchantType
   securitySchemes: {}
 security: []
