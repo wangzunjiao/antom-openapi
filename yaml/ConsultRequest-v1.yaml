@@ -19,991 +19,293 @@ tags: []
 paths:
   /ams/api/v1/payments/consult:
     post:
-      summary: consult payment methods
+      summary: consult
       deprecated: false
-      description: >-
-        Use the **consult** API to initiate a payment consultation request to
-        Alipay. This request is returned to the merchant with information on the
-        different payment methods and its corresponding amount, country,
-        currency, rules, and configuration.
-
-
-        The **consult** API enables merchants to:
-
-
-        - Provide consumers with multiple payment methods without bearing any
-        additional costs caused by a change in these payment methods, or
-        managing the logic of selecting and sorting these payment methods.
-
-
-        - Automate the selection and sorting of multiple payment methods.
-      operationId: post-consultPayment
+      description: >
+        Use this API to get the cashier page address. After getting the cashier
+        page address, you can redirect the user to the cashier page to make a
+        payment.
       tags: []
       parameters: []
       requestBody:
         content:
           application/json:
             schema:
-              properties:
-                allowedPaymentMethods:
-                  type: array
-                  items:
-                    type: string
-                blockedPaymentMethods:
-                  type: array
-                  items:
-                    type: string
-                region:
-                  type: string
-                customerId:
-                  type: string
-                referenceUserId:
-                  type: string
-                extendInfo:
-                  type: string
-                merchant: &ref_3
-                  properties: {}
-                  $ref: '#/components/schemas/Merchant'
-                allowedPspRegions:
-                  type: array
-                  items:
-                    type: string
-              required:
-                - allowedPaymentMethods
-                - blockedPaymentMethods
-                - region
-                - customerId
-                - referenceUserId
-                - extendInfo
-                - merchant
-                - allowedPspRegions
               $ref: '#/components/schemas/AlipayPayConsultRequest'
-            example:
-              settlementStrategy:
-                settlementCurrency: USD
-              productCode: CASHIER_PAYMENT
-              env:
-                osType: IOS
-                terminalType: WEB
-              paymentAmount:
-                currency: HKD
-                value: '100'
       responses:
         '200':
-          description: OK - the request has succeeded.
+          description: ''
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AlipayPayConsultResponse'
-              example:
-                result:
-                  resultStatus: S
-                  resultCode: SUCCESS
-                  resultMessage: success.
-                paymentOptions:
-                  - paymentMethodRegion:
-                      - HK
-                      - TH
-                      - KR
-                      - PH
-                      - ID
-                      - CN
-                      - MY
-                    paymentMethodCategory: ALIPAY_PLUS
-                    logo:
-                      logoName: Alipay+
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/AlipayPlus.svg
-                    paymentMethodType: CONNECT_WALLET
-                    enabled: true
-                  - paymentOptionDetailJson: >-
-                      {"supportCardBrands":[{"cardBrand":"MASTERCARD","logo":{"logoName":"MASTERCARD","logoUrl":"https://cdn.marmot-cloud.com/storage/2022/8/2/bc7cb991-c8e2-4379-945f-aadae2bdf932.svg"}},{"cardBrand":"VISA","logo":{"logoName":"VISA","logoUrl":"https://cdn.marmot-cloud.com/storage/2022/9/26/dfd471f3-da7d-4ef1-8486-cfa4301045c6.svg"}}]}
-                    paymentMethodRegion:
-                      - PE
-                      - GLOBAL
-                      - CL
-                      - MX
-                    paymentMethodCategory: CARD
-                    paymentOptionDetail:
-                      supportCardBrands:
-                        - logo:
-                            logoName: MASTERCARD
-                            logoUrl: >-
-                              https://cdn.marmot-cloud.com/storage/2022/8/2/bc7cb991-c8e2-4379-945f-aadae2bdf932.svg
-                          cardBrand: MASTERCARD
-                        - logo:
-                            logoName: VISA
-                            logoUrl: >-
-                              https://cdn.marmot-cloud.com/storage/2022/9/26/dfd471f3-da7d-4ef1-8486-cfa4301045c6.svg
-                          cardBrand: VISA
-                    logo:
-                      logoName: Credit and Debit Card
-                      logoUrl: >-
-                        https://gw.alipay.com/icon/medium/default/ALIPAY_GENERAL_CARD.svg
-                    paymentMethodType: CARD
-                    enabled: true
-                  - paymentMethodRegion: []
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: Antom Business Account
-                      logoUrl: >-
-                        https://cdn.marmot-cloud.com/storage/2025/01/09/912e17b0-27e4-4c66-a1e6-b044666ea80f.svg
-                    paymentMethodType: ANTOM_BIZ_ACCOUNT
-                    enabled: true
-                  - paymentOptionDetailJson: >-
-                      {"supportCardBrands":[{"cardBrand":"MASTERCARD"},{"cardBrand":"VISA"}]}
-                    paymentMethodRegion:
-                      - PE
-                      - GLOBAL
-                      - CL
-                      - MX
-                    paymentMethodCategory: MIXEDCARD
-                    paymentOptionDetail:
-                      supportCardBrands:
-                        - cardBrand: MASTERCARD
-                        - cardBrand: VISA
-                    paymentMethodType: GOOGLEPAY
-                    enabled: true
-                  - paymentOptionDetailJson: >-
-                      {"supportCardBrands":[{"cardBrand":"MASTERCARD"},{"cardBrand":"VISA"}]}
-                    paymentMethodRegion:
-                      - PE
-                      - GLOBAL
-                      - CL
-                      - MX
-                    paymentMethodCategory: MIXEDCARD
-                    paymentOptionDetail:
-                      supportCardBrands:
-                        - cardBrand: MASTERCARD
-                        - cardBrand: VISA
-                    paymentMethodType: APPLEPAY
-                    enabled: true
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - PL
-                    paymentMethodCategory: ONLINE_BANKING
-                    logo:
-                      logoName: Przelewy24
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/Przelewy24.svg
-                    paymentMethodType: P24
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - DE
-                    paymentMethodCategory: ONLINE_BANKING
-                    logo:
-                      logoName: Sofort
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/sofort.svg
-                    paymentMethodType: SOFORT
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - BE
-                    paymentMethodCategory: ONLINE_BANKING
-                    logo:
-                      logoName: Bancontact
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/Bancontact.svg
-                    paymentMethodType: BANCONTACT
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - DE
-                    paymentMethodCategory: ONLINE_BANKING
-                    logo:
-                      logoName: GiroPay
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/giropay.svg
-                    paymentMethodType: GIROPAY
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - NL
-                    paymentMethodCategory: ONLINE_BANKING
-                    logo:
-                      logoName: iDEAL
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/iDEAL.svg
-                    paymentMethodType: IDEAL
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - PL
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: Blik
-                      logoUrl: https://gw.alipay.com/antom/icon/medium/default/blik.svg
-                    paymentMethodType: BLIK
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - AT
-                    paymentMethodCategory: ONLINE_BANKING
-                    logo:
-                      logoName: EPS
-                      logoUrl: https://gw.alipay.com/antom/icon/medium/default/EPS.svg
-                    paymentMethodType: EPS
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - PL
-                    paymentMethodCategory: ONLINE_BANKING
-                    logo:
-                      logoName: PayU
-                      logoUrl: https://gw.alipay.com/antom/icon/medium/default/Payu.svg
-                    paymentMethodType: PAYU
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - TH
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: Bangkok Bank
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/BangkokBank.svg
-                    paymentMethodType: BANKTRANSFER_BANGKOKBANK
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - TH
-                    paymentMethodCategory: ONLINE_BANKING
-                    logo:
-                      logoName: Krung Thai Bank Online Banking
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/KrungThaiBank.svg
-                    paymentMethodType: ONLINEBANKING_KRUNGTHAIBANK
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - TH
-                    paymentMethodCategory: ONLINE_BANKING
-                    logo:
-                      logoName: Bangkok Bank Online Banking
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/BangkokBank.svg
-                    paymentMethodType: ONLINEBANKING_BANGKOKBANK
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - TH
-                    paymentMethodCategory: ONLINE_BANKING
-                    logo:
-                      logoName: Kasikorn Bank Online Banking
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/KasikornBank.svg
-                    paymentMethodType: ONLINEBANKING_KASIKORNBANK
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - TH
-                    paymentMethodCategory: ONLINE_BANKING
-                    logo:
-                      logoName: Siam Commerical Bank Online Banking
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/SiamCommercialBank.svg
-                    paymentMethodType: ONLINEBANKING_SIAMCOMMERICALBANK
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - TH
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: Krung Thai Bank
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/KrungThaiBank.svg
-                    paymentMethodType: BANKTRANSFER_KRUNGTHAIBANK
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - TH
-                    paymentMethodCategory: ONLINE_BANKING
-                    logo:
-                      logoName: Bank of Ayudhya Online Banking
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/BankofAyutthaya.svg
-                    paymentMethodType: ONLINEBANKING_BANKOFAYUDHYA
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - TH
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: Bank of Ayudhya
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/BankofAyutthaya.svg
-                    paymentMethodType: BANKTRANSFER_BANKOFAYUDHYA
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - TH
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: Government Savings Bank
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/governmentsavingsbank.png
-                    paymentMethodType: BANKTRANSFER_GOVERNMENTSAVINGSBANK
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - TH
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: Siam Commerical Bank
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/SiamCommercialBank.svg
-                    paymentMethodType: BANKTRANSFER_SIAMCOMMERICALBANK
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - BR
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: Pix
-                      logoUrl: https://gw.alipay.com/antom/icon/medium/default/pix.svg
-                    paymentMethodType: PIX
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - TH
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: Kasikorn Bank
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/KasikornBank.svg
-                    paymentMethodType: BANKTRANSFER_KASIKORNBANK
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - TH
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: Promptpay
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/PromptPay.png
-                    paymentMethodType: PROMPTPAY
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - SG
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: Grabpay
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/GrabPay.png
-                    paymentMethodType: GRABPAY_SG
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - TH
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: Dolfin
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/Dolfin.png
-                    paymentMethodType: DOLFIN
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - SG
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: Paynow
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/Paynow.png
-                    paymentMethodType: PAYNOW
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - SG
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: Shopeepay
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/shopeepay.png
-                    paymentMethodType: SHOPEEPAY_SG
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - TH
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: Shopeepay
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/shopeepay.png
-                    paymentMethodType: SHOPEEPAY_TH
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - MY
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: Shopeepay
-                      logoUrl: >-
-                        https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2023/07/31/778f4988-2f73-4417-9d41-caaabaf006d0.png
-                    paymentMethodType: SHOPEEPAY_MY
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - MY
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: GrabPay
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/GrabPay.png
-                    paymentMethodType: GRABPAY_MY
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - MY
-                    paymentMethodCategory: VA
-                    logo:
-                      logoName: DoitNow
-                      logoUrl: >-
-                        https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2024/02/22/4f563831-b061-495e-b262-5ba4baec7cdd.svg
-                    paymentMethodType: DUITNOW
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - ID
-                    paymentMethodCategory: ONLINE_BANKING
-                    logo:
-                      logoName: BRI Online Banking
-                      logoUrl: https://gw.alipay.com/antom/icon/medium/default/BRI.png
-                    paymentMethodType: ONLINEBANKING_BRI
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - PH
-                    paymentMethodCategory: ONLINE_BANKING
-                    logo:
-                      logoName: UnionBank
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/UnionBank.png
-                    paymentMethodType: ONLINEBANKING_UBP
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - ID
-                    paymentMethodCategory: ONLINE_BANKING
-                    logo:
-                      logoName: Mandiri
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/Mandiri.png
-                    paymentMethodType: ONLINEBANKING_MANDIRI
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - ID
-                    paymentMethodCategory: ONLINE_BANKING
-                    logo:
-                      logoName: OCTOClicks
-                      logoUrl: https://gw.alipay.com/antom/icon/medium/default/OCTO.png
-                    paymentMethodType: OCTOCLICKS
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - ID
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: CIMBNiaga
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/cimbNiaga.png
-                    paymentMethodType: CIMBNIAGA
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - ID
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: Alto Bersama Prima ATM
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/atmTransferId.png
-                    paymentMethodType: ATMTRANSFER_ID
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - ID
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: Maybank
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/Maybank.png
-                    paymentMethodType: BANKTRANSFER_MAYBANK
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - ID
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: Permata
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/Permata.png
-                    paymentMethodType: BANKTRANSFER_PERMATA
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - ID
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: Gopay
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/gopay.png
-                    paymentMethodType: GOPAY_ID
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - PH
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: Shopeepay
-                      logoUrl: >-
-                        https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2023/07/31/5943054c-b469-42c8-964f-16afea539ee1.png
-                    paymentMethodType: SHOPEEPAY_PH
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - ID
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: Shopeepay
-                      logoUrl: >-
-                        https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2023/07/31/96a7905a-3998-4376-a2d1-ad55446e47cf.png
-                    paymentMethodType: SHOPEEPAY_ID
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - ID
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: BSI
-                      logoUrl: https://gw.alipay.com/antom/icon/medium/default/BSI.png
-                    paymentMethodType: BANKTRANSFER_BSI
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - ID
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: Mandiri
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/Mandiri.png
-                    paymentMethodType: BANKTRANSFER_MANDIRI
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - ID
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: BNI
-                      logoUrl: https://gw.alipay.com/antom/icon/medium/default/BNI.png
-                    paymentMethodType: BANKTRANSFER_BNI
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - PH
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: Maya
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/paymaya.png
-                    paymentMethodType: MAYA
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - ID
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: LinkAja
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/LinkAja.png
-                    paymentMethodType: LINKAJA
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - PH
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: Grabpay
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/GrabPay.png
-                    paymentMethodType: GRABPAY_PH
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - ID
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: OVO
-                      logoUrl: https://gw.alipay.com/antom/icon/medium/default/OVO.png
-                    paymentMethodType: OVO
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - IT
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: BANCOMATPAY
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/BancomatPay.svg
-                    paymentMethodType: BANCOMATPAY
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - ID
-                    paymentMethodCategory: BANK_TRANSFER
-                    logo:
-                      logoName: QRIS
-                      logoUrl: >-
-                        https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2023/02/01/0a40230a-ac4f-4566-9369-95372e1cb02a.svg
-                    paymentMethodType: QRIS
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - BR
-                    paymentMethodCategory: CHECKOUT
-                    logo:
-                      logoName: mercado pago
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/MercadoPagoCheckout.svg
-                    paymentMethodType: MERCADOPAGO_BR
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - CL
-                    paymentMethodCategory: CHECKOUT
-                    logo:
-                      logoName: mercado pago
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/MercadoPagoCheckout.svg
-                    paymentMethodType: MERCADOPAGO_CL
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - MX
-                    paymentMethodCategory: CHECKOUT
-                    logo:
-                      logoName: mercado pago
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/MercadoPagoCheckout.svg
-                    paymentMethodType: MERCADOPAGO_MX
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - PE
-                    paymentMethodCategory: CHECKOUT
-                    logo:
-                      logoName: mercado pago
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/MercadoPagoCheckout.svg
-                    paymentMethodType: MERCADOPAGO_PE
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - MY
-                    paymentMethodCategory: ONLINE_BANKING
-                    logo:
-                      logoName: FPX
-                      logoUrl: >-
-                        https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2024/06/13/e08cb444-be0d-45b9-8a8d-44966aad5825.png
-                    paymentMethodType: ONLINEBANKING_FPX
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - JP
-                    paymentMethodCategory: OTC
-                    logo:
-                      logoName: Konbini
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/konbini.svg
-                    paymentMethodType: KONBINI
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - VN
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: ZALOPAY
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/ZaloPay.svg
-                    paymentMethodType: ZALOPAY
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - JP
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: LINEPAY
-                      logoUrl: >-
-                        https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2024/02/01/5c9caa1a-dcd6-400e-ae07-2ea1c2e4271f.png
-                    paymentMethodType: LINEPAY
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - JP
-                    paymentMethodCategory: BANKTRANSFER
-                    logo:
-                      logoName: Pay-easy ATM
-                      logoUrl: >-
-                        https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2024/03/18/99382c04-a91d-4a57-8201-523533393885.png
-                    paymentMethodType: BANKTRANSFER_PAYEASY
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - JP
-                    paymentMethodCategory: ONLINEBANKING
-                    logo:
-                      logoName: Pay-easy
-                      logoUrl: >-
-                        https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2024/03/18/99382c04-a91d-4a57-8201-523533393885.png
-                    paymentMethodType: ONLINEBANKING_PAYEASY
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - TW
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: JKOPay
-                      logoUrl: >-
-                        https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2023/10/10/89d1c69a-695d-4764-844d-800277360d6e.png
-                    paymentMethodType: JKOPAY
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - BR
-                    paymentMethodCategory: CREDIT_PAY
-                    logo:
-                      logoName: pagaleve
-                      logoUrl: >-
-                        https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2024/02/21/0044b02e-3c3f-4fe4-8a1b-d0f4c32c331a.svg
-                    paymentMethodType: PAGALEVE
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - DE
-                      - 'NO'
-                      - BE
-                      - FI
-                      - PT
-                      - BG
-                      - DK
-                      - LT
-                      - LU
-                      - HR
-                      - LV
-                      - FR
-                      - HU
-                      - SE
-                      - UK
-                      - SI
-                      - SK
-                      - GB
-                      - IE
-                      - EE
-                      - GL
-                      - MT
-                      - IS
-                      - GR
-                      - IT
-                      - ES
-                      - AT
-                      - CY
-                      - CZ
-                      - PL
-                      - LI
-                      - RO
-                    paymentMethodCategory: ONLINE_BANKING
-                    logo:
-                      logoName: Pay by bank
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/AlipayPlus.svg
-                    paymentMethodType: ONLINEBANKING_YAPILY
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - JP
-                    paymentMethodCategory: OTC
-                    logo:
-                      logoName: 7-Eleven
-                      logoUrl: >-
-                        https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2024/03/18/19d7cc1b-c950-4fa5-a379-ead65f6b7421.png
-                    paymentMethodType: 7-Eleven
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - JP
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: PayPay
-                      logoUrl: >-
-                        https://gw.alipay.com/antom/icon/medium/default/PayPay.png
-                    paymentMethodType: PAYPAY
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - KR
-                    paymentMethodCategory: Online banking
-                    logo:
-                      logoName: Express Bank Transfer
-                      logoUrl: >-
-                        https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2024/05/09/b7a8f72d-6188-4267-b6ef-72082a4c6769.svg
-                    paymentMethodType: Express Bank Transfer
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion: []
-                    paymentMethodCategory: DIGITAL_WALLET
-                    paymentMethodType: MOMO
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion: []
-                    paymentMethodCategory: MPESA
-                    paymentMethodType: MPESA
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - JP
-                    paymentMethodCategory: WALLET
-                    paymentMethodType: AUPAY
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - JP
-                    paymentMethodCategory: WALLET
-                    paymentMethodType: MERPAY
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - JP
-                    paymentMethodCategory: WALLET
-                    paymentMethodType: FAMIPAY
-                    enabled: false
-                  - disableReason: CURRENT_CHANNEL_NOT_EXIST
-                    paymentMethodRegion:
-                      - CN
-                    paymentMethodCategory: WALLET
-                    logo:
-                      logoName: WECHATPAY
-                      logoUrl: >-
-                        https://resource.alipayplus.com/storage/ipaymentmngfd5e514400714344/2025/01/02/aae5f80c-c5d1-4f3d-b93e-c90c4d06eae1.png
-                    paymentMethodType: WECHATPAY
-                    enabled: false
           headers: {}
       security: []
 components:
   schemas:
-    Store2333:
+    PromotionType:
+      type: string
+      enum:
+        - DISCOUNT
+        - INTEREST_FREE
+    Result:
       type: object
       properties:
-        referenceStoreId:
+        resultCode:
           type: string
-        storeName:
+          description: |-
+            The result code.
+
+            More information:
+
+            Maximum length: 64 characters
+        resultStatus:
+          description: |-
+            The result status. Valid values are:  
+
+            S: Indicates that the result status is successful. 
+            F: Indicates that the result status is failed. 
+            U: Indicates that the result status is unknown.
+          $ref: '#/components/schemas/ResultStatusType'
+        resultMessage:
           type: string
-        storeMCC:
-          type: string
-        storeDisplayName:
-          type: string
-        storeTerminalId:
-          type: string
-        storeOperatorId:
-          type: string
-        storeAddress: &ref_1
-          $ref: '#/components/schemas/Address'
-        storePhoneNo:
-          type: string
+          description: |-
+            The result message.
+
+            More information:
+
+            Maximum length: 256 characters
       required:
-        - referenceStoreId
-        - storeName
-        - storeMCC
-        - storeDisplayName
-        - storeTerminalId
-        - storeOperatorId
-        - storeAddress
-        - storePhoneNo
-    Store:
+        - resultCode
+        - resultStatus
+    ProductCodeType:
+      type: string
+      enum:
+        - CASHIER_PAYMENT
+        - AGREEMENT_PAYMENT
+        - IN_STORE_PAYMENT
+    Amount:
       type: object
       properties:
-        referenceStoreId:
+        currency:
           type: string
-        storeName:
+          description: |-
+            The 3-letter currency code that follows the ISO 4217 standard. 
+
+            More information:
+
+            Maximum length: 3 characters
+        value:
           type: string
-        storeMCC:
-          type: string
-        storeDisplayName:
-          type: string
-        storeTerminalId:
-          type: string
-        storeOperatorId:
-          type: string
-        storeAddress: &ref_1
-          $ref: '#/components/schemas/Address'
-        storePhoneNo:
-          type: string
+          description: >
+            The value of the amount as a positive integer in the smallest
+            currency unit. For example, if the currency is USD and the amount is
+            $1.00, set the value of this parameter to 100; or if the currency is
+            JPY and the amount is ￥1, set the value of this parameter to 1.  
+
+
+            For details about the smallest currency unit, see Smallest unit of
+            the currency .
+
+
+            For details about the minimum payment amount allowed for each
+            payment method, see Minimum amount rules. 
+
+
+            Note: Due to the currency practices in Indonesia, when the currency
+            is IDR, round the amount with banker's rounding and fix the last two
+            digits of this parameter as 00.  
+
+
+            More information:
+
+
+            Value range: 0 - unlimited
       required:
-        - referenceStoreId
-        - storeName
-        - storeMCC
-        - storeDisplayName
-        - storeTerminalId
-        - storeOperatorId
-        - storeAddress
-        - storePhoneNo
-    Discount:
+        - currency
+        - value
+    InStorePaymentScenario:
+      type: string
+      enum:
+        - PaymentCode
+        - OrderCode
+        - EntryCode
+    PresentmentMode:
+      type: string
+      enum:
+        - BUNDLE
+        - TILE
+        - UNIFIED
+    PaymentFactor:
+      type: object
       properties:
-        discountTag:
+        isPaymentEvaluation:
+          type: boolean
+        inStorePaymentScenario:
+          $ref: '#/components/schemas/InStorePaymentScenario'
+        presentmentMode:
+          $ref: '#/components/schemas/PresentmentMode'
           description: >-
-            The discount tag is displayed as a superscript next to the discount
-            name.
+            The presentation mode chosen by the merchant to display the payment
+            methods on the cashier page. Valid values are:
+
+
+            TILE: specify this presentation mode when presenting wallets in a
+            separate list with individual logos. The same applies when the value
+            is empty or when you do not specify this parameter.
+
+            UNIFIED: specify this presentation mode when presenting the unified
+            Alipay+ payment method on the checkout page, allowing the buyer to
+            choose a specific wallet at a later page.
+        captureMode:
           type: string
-          maxLength: 64
-        discountName:
-          description: The discount name displayed in the default language.
-          type: string
-          maxLength: 128
-        estimateSavingsAmount: &ref_0
-          description: The estimated discount amount.
-          $ref: '#/components/schemas/Amount'
+        isAuthorization:
+          type: boolean
+    SettlementStrategy:
       type: object
+      properties:
+        settlementCurrency:
+          type: string
+          description: >-
+            The ISO currency code of the currency that the merchant wants to
+            settle against. This field is required if the merchant signed up for
+            multiple settlement currencies. Otherwise, the error
+            code,SETTLE_CONTRACT_NOT_MATCH, will be returned. 
+
+
+            More information:
+
+
+            Maximum length: 3 characters
+    TerminalType:
+      type: string
+      enum:
+        - WEB
+        - WAP
+        - APP
+        - MINI_APP
     BrowserInfo:
       type: object
       properties:
         acceptHeader:
           type: string
+          description: The accept header of the user's browser
         javaEnabled:
           type: boolean
+          description: Indicates whether the user's browser is able to run Java
         javaScriptEnabled:
-          type: string
+          type: boolean
+          description: Indicates whether the user's browser is able to run Java
         language:
           type: string
+          description: The language of the user's browser
         userAgent:
           type: string
-      required:
-        - acceptHeader
-        - javaEnabled
-        - javaScriptEnabled
-        - language
-        - userAgent
-    SupportBank:
-      properties:
-        bankIdentifierCode:
-          description: >-
-            The unique code of the bank. See Bank list to check the valid
-            values.
-          type: string
-        bankShortName:
-          description: >-
-            The short name of the bank. The unique code of the bank. See Bank
-            list to check the valid values.
-          type: string
-        bankLogo: &ref_4
-          description: >-
-            The logo information about the bank. 
-
-
-            This parameter is returned when the value of paymentMethodType is
-            ONLINEBANKING_FPX.
-          $ref: '#/components/schemas/Logo'
+          description: The user agent of the user's browser
+    OsType:
+      type: string
+      enum:
+        - IOS
+        - ANDROID
+    Env:
       type: object
+      properties:
+        terminalType:
+          $ref: '#/components/schemas/TerminalType'
+          description: >-
+            Terminal type used by the merchant. Valid values are:
+
+
+            WEB: The terminal type of the merchant side is a website.
+
+            WAP: The terminal type of the merchant side is a mobile website (H5
+            page) on a phone.
+
+            APP: The terminal type of the merchant side is an app on a phone.
+
+            MINI_APP: The terminal type of the merchant side is a mini program
+            on a phone.
+
+            Note: This field is required when productCodeType is
+            CASHIER_PAYMENT.
+        osType:
+          $ref: '#/components/schemas/OsType'
+          description: >-
+            Type of the operation system. Valid values are:
+
+
+            IOS: The OS type is iOS.
+
+            ANDROID: The OS type is Android. 
+
+            Note: This field is required for all terminalType values except
+            WEB.
+        userAgent:
+          type: string
+          description: |-
+            The user agent.
+
+            More information:
+
+            Maximum length: 1024 characters
+        deviceTokenId:
+          type: string
+          description: |-
+            Token identifier of the device.
+
+            More information:
+
+            Maximum length: 64 characters
+        clientIp:
+          type: string
+          description: |-
+            IP address of the client device. 
+
+            More information:
+
+            Maximum length: 32 characters
+        cookieId:
+          type: string
+          description: |-
+            The cookie ID of the buyer. 
+
+            More information:
+
+            Maximum length: 64 characters
+        extendInfo:
+          type: string
+        storeTerminalId:
+          type: string
+        storeTerminalRequestTime:
+          type: string
+        browserInfo:
+          $ref: '#/components/schemas/BrowserInfo'
+        colorDepth:
+          type: string
+        screenHeight:
+          type: string
+        screenWidth:
+          type: string
+        timeZoneOffset:
+          type: integer
+        deviceBrand:
+          type: string
+        deviceModel:
+          type: string
+        deviceLanguage:
+          type: string
+        deviceId:
+          type: string
+      required:
+        - terminalType
+    ResultStatusType:
+      type:
+        - string
+        - 'null'
+      enum:
+        - S
+        - F
+        - U
     UserName:
       type: object
       properties:
@@ -1020,85 +322,6 @@ components:
         - middleName
         - lastName
         - fullName
-    Plan:
-      properties:
-        interestRate:
-          description: The interest rate the customer is charged on the installments.
-          type: string
-          maxLength: 8
-        minInstallmentAmount: *ref_0
-        maxInstallmentAmount: *ref_0
-        installmentNum:
-          description: The number of installment payments. The valid value is from 2 to 12.
-          type: integer
-          minimum: 2
-          maximum: 12
-        interval:
-          description: The interval of each installment payment. The valid value is MONTH.
-          type: string
-          enum:
-            - MONTH
-        enabled:
-          description: Indicates whether the installment payment is available.
-          type: boolean
-      type: object
-      required:
-        - minInstallmentAmount
-        - maxInstallmentAmount
-        - installmentNum
-        - enabled
-    Merchant:
-      type: object
-      properties:
-        referenceMerchantId:
-          type: string
-        merchantMCC:
-          type: string
-        merchantName:
-          type: string
-        merchantDisplayName:
-          type: string
-        merchantAddress: *ref_1
-        merchantRegisterDate:
-          type: string
-        store:
-          properties: {}
-          $ref: '#/components/schemas/Store'
-        merchantType:
-          type: string
-      required:
-        - referenceMerchantId
-        - merchantMCC
-        - merchantName
-        - merchantDisplayName
-        - merchantAddress
-        - merchantRegisterDate
-        - store
-        - merchantType
-    InterestFree:
-      properties:
-        provider:
-          description: >-
-            Issuing banks or financial institutions that offer interest-free
-            installment plans.
-          type: string
-          maxLength: 128
-        expireTime:
-          description: The promotion expiration time.
-          type: string
-        installmentFreeNums:
-          description: The number of interest-free installments.
-          type: integer
-          minimum: 2
-        minPaymentAmount: *ref_0
-        maxPaymentAmount: *ref_0
-        freePercentage:
-          description: >-
-            The interest-free percentage. A value of 0 indicates no
-            interest-free, 100% indicates the buyer is completely interest-free,
-            while the value between 0-100% indicates partial interest-free.
-          type: integer
-      type: object
     Address:
       type: object
       properties:
@@ -1116,144 +339,168 @@ components:
           type: string
         label:
           type: string
-      required:
-        - region
-        - state
-        - city
-        - address1
-        - address2
-        - zipCode
-        - label
-    AmountLimitInfo:
+    Store:
       type: object
       properties:
-        singleLimit: &ref_2
-          properties: {}
-          $ref: '#/components/schemas/AmountLimit'
-        dayLimit: *ref_2
-        monthLimit: *ref_2
+        referenceStoreId:
+          type: string
+        storeName:
+          type: string
+        storeMCC:
+          type: string
+        storeDisplayName:
+          type: string
+        storeTerminalId:
+          type: string
+        storeOperatorId:
+          type: string
+        storeAddress: &ref_0
+          $ref: '#/components/schemas/Address'
+        storePhoneNo:
+          type: string
       required:
-        - singleLimit
-        - dayLimit
-        - monthLimit
-    PromotionInfo:
+        - storeName
+        - storeMCC
+        - storeDisplayName
+        - storeTerminalId
+        - storeOperatorId
+        - storeAddress
+        - storePhoneNo
+        - referenceStoreId
+    MerchantType:
+      type: string
+      enum:
+        - INDIVIDUAL
+        - ENTERPRISE
+    Merchant:
+      type: object
       properties:
-        promotionType:
-          description: 'Promotion type. Valid values are:'
-          $ref: '#/components/schemas/PromotionType'
-        discount:
+        referenceMerchantId:
+          type: string
+        merchantMCC:
+          type: string
+        merchantName:
+          type: string
+        merchantDisplayName:
+          type: string
+        merchantAddress: *ref_0
+        merchantRegisterDate:
+          type: string
+        store:
+          $ref: '#/components/schemas/Store'
+        merchantType:
+          $ref: '#/components/schemas/MerchantType'
+      required:
+        - referenceMerchantId
+        - merchantMCC
+        - merchantName
+        - merchantDisplayName
+        - merchantAddress
+        - merchantRegisterDate
+        - merchantType
+        - store
+    Buyer:
+      type: object
+      properties:
+        referenceBuyerId:
+          type: string
           description: >-
-            Discount information.
+            The unique ID to identify the buyer.
 
 
-            This parameter is returned when the payment method offers a
-            promotion to the buyer.
-          $ref: '#/components/schemas/Discount'
-        interestFree:
-          description: The information about interest-free installment plans.
-          $ref: '#/components/schemas/InterestFree'
-      type: object
-    AmountLimit:
+            Note: Specify this parameter when you want to use the promotion
+            offered by Antom to this order.
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+        buyerName:
+          $ref: '#/components/schemas/UserName'
+        buyerPhoneNo:
+          type: string
+        buyerEmail:
+          type: string
+        buyerRegistrationTime:
+          type: string
+        isAccountVerified:
+          type: boolean
+        successfulOrderCount:
+          type: integer
+    Discount:
       type: object
       properties:
-        maxAmount:
+        discountTag:
           type: string
-        minAmount:
+          description: >-
+            The discount tag is displayed as a superscript next to the discount
+            name.  More information:  Maximum length: 64 characters
+        discountName:
           type: string
-        remainAmount:
-          type: string
-      required:
-        - maxAmount
-        - minAmount
-        - remainAmount
-    PaymentMethodInfo:
-      type: object
-      properties:
-        paymentMethodType:
-          type: string
-        paymentMethodDetail:
-          type: string
-        enabled:
-          type: boolean
-        preferred:
-          type: boolean
-        extendInfo:
-          type: string
-      required:
-        - paymentMethodType
-        - paymentMethodDetail
-        - enabled
-        - preferred
-        - extendInfo
+          description: >-
+            The discount name displayed in the default language.  More
+            information:  Maximum length: 128 characters
+        savingsAmount: &ref_1
+          $ref: '#/components/schemas/Amount'
+        estimateSavingsAmount: *ref_1
     AlipayPayConsultRequest:
       type: object
       properties:
         productCode:
+          $ref: '#/components/schemas/ProductCodeType'
           description: >-
             Represents the payment product that is being used. The payment
             product that can be used is stipulated in the contract. The fixed
             value is:
-          $ref: '#/components/schemas/ProductCodeType'
-        paymentAmount: *ref_0
-        userRegion:
-          description: >-
-            The 2-letter country or region code. For more information, see ISO
-            3166 Country Codes standard. The payment methods will be sorted
-            based on payment method relevance for the given user's region.
-          type: string
-          minLength: 2
-          maxLength: 2
+
+
+            CASHIER_PAYMENT: Indicates that this API is used for the Cashier
+            Payment scenario.
+
+            More information:
+
+
+            Maximum length: 32 characters
+        paymentAmount: *ref_1
         merchantRegion:
+          type: string
           description: >-
             The country or region where the merchant operates the business. The
             parameter is a 2-letter country or region code that follows ISO 3166
             Country Codes standard.
-          type: string
-          minLength: 2
-          maxLength: 2
-        settlementStrategy:
-          description: The settlement strategy.
-          $ref: '#/components/schemas/SettlementStrategy'
+
+
+            Some possible values are US, SG, HK, PK, JP, CN, BR, AU, and MY.  
+
+
+            Note: This parameter is required when you use the Global Acquirer
+            Gateway (GAGW) product.
+
+
+            More information:
+
+
+            Maximum length: 2 characters
         allowedPaymentMethodRegions:
+          type: array
+          items:
+            type: string
           description: >-
             A list of region codes that represent the countries or regions of
             payment methods. The value of this parameter is a 2-letter ISO
             country code or GLOBAL. 
 
 
-            Specify this parameter if you want available payment methods from
-            specific regions to be returned. For example, if you pass in GLOBAL,
-            global cards Visa and Mastercard are returned.
-          items:
-            type: string
-          type: array
-        env:
-          description: >-
-            Information about the environment where the order is placed, such as
-            the device information.
-          $ref: '#/components/schemas/Env'
-        buyer:
-          description: >-
-            Information about the environment where the order is placed, such as
-            the device information.
-          $ref: '#/components/schemas/Buyer'
-        merchantAccountId:
-          description: >-
-            The unique ID to identify a merchant account.
+            Note: Specify this parameter if you want available payment methods
+            from specific regions to be returned. For example, if you pass in
+            GLOBAL, global cards Visa and Mastercard are returned.  
 
 
-            Specify this parameter when you use a single client ID across
-            multiple locations.
+            More information:
 
 
-            More information about this field
-          type: string
-          maxLength: 32
-        paymentFactor:
-          description: >-
-            Information about the environment where the order is placed, such as
-            the device information.
-          $ref: '#/components/schemas/PaymentFactor'
+            Maximum length: 6 characters
         allowedPaymentMethods:
           type: array
           items:
@@ -1268,48 +515,64 @@ components:
           type: string
         referenceUserId:
           type: string
+        env:
+          $ref: '#/components/schemas/Env'
+          description: >-
+            Information about the environment where the order is placed, such as
+            the device information.
         extendInfo:
           type: string
-        merchant: *ref_3
+        userRegion:
+          type: string
+          description: >-
+            The 2-letter country or region code. For more information, see ISO
+            3166 Country Codes standard. The payment methods will be sorted
+            based on payment method relevance for the given user's region. 
+
+
+            More information:
+
+
+            Maximum length: 2 characters
+        paymentFactor:
+          $ref: '#/components/schemas/PaymentFactor'
+          description: >-
+            Factors that impact the payment. This field is used to indicate the
+            payment scenario.
+
+
+            Note: Specify this parameter when the value of paymentMethodType is
+            CARD.
+        settlementStrategy:
+          $ref: '#/components/schemas/SettlementStrategy'
+          description: The settlement strategy.
+        merchant:
+          $ref: '#/components/schemas/Merchant'
         allowedPspRegions:
           type: array
           items:
             type: string
+        buyer:
+          $ref: '#/components/schemas/Buyer'
+          description: Buyer information.
+        merchantAccountId:
+          type: string
+          description: >-
+            The unique ID to identify a merchant account.
+
+
+            Note: Specify this parameter when you use a single client ID across
+            multiple locations.
+
+
+            More information:
+
+
+            Maximum length: 32 characters
       required:
-        - allowedPaymentMethods
-        - blockedPaymentMethods
-        - region
-        - customerId
-        - referenceUserId
-        - extendInfo
-        - merchant
-        - allowedPspRegions
         - productCode
         - paymentAmount
         - env
-    ProductCodeType:
-      type: string
-      enum:
-        - CASHIER_PAYMENT
-        - AGREEMENT_PAYMENT
-        - IN_STORE_PAYMENT
-    TerminalType:
-      type: string
-      enum:
-        - WEB
-        - WAP
-        - APP
-        - MINI_APP
-    OsType:
-      type: string
-      enum:
-        - IOS
-        - ANDROID
-    PromotionType:
-      type: string
-      enum:
-        - DISCOUNT
-        - INTEREST_FREE
     PaymentMethodCategoryType:
       type: string
       enum:
@@ -1320,147 +583,406 @@ components:
         - ONLINE_BANKING
         - CARD
         - OTC
+    Logo:
+      type: object
+      properties:
+        logoName:
+          type: string
+          description: >-
+            The logo name of the card brand. See the Card brands to check the
+            valid values. 
+
+
+            More information:
+
+
+            Maximum length: 12 characters
+        logoUrl:
+          type: string
+          description: >-
+            The logo URL of the card brand.    More information:  Maximum
+            length: 2048 characters
+      required:
+        - logoName
+    SupportCardBrand:
+      type: object
+      properties:
+        cardBrand:
+          type: string
+          description: |-
+            The name of the card brand. Valid values are:
+
+            VISA: indicates Visa. 
+            MASTERCARD: indicates Mastercard.  
+            AMEX: indicates American Express (Amex).
+            HIPERCARD: indicates Hipercard.
+            ELO: indicates Elo.
+        logo: &ref_2
+          $ref: '#/components/schemas/Logo'
+          description: 'The logo of the card brand. '
+      required:
+        - cardBrand
+        - logo
+    SupportBank:
+      type: object
+      properties:
+        bankIdentifierCode:
+          type: string
+          description: >-
+            The unique code of the bank. See the Bank list to check the valid
+            values.
+        bankShortName:
+          type: string
+          description: >-
+            The short name of the bank. The unique code of the bank. See the
+            Bank list to check the valid values.
+        bankLogo: *ref_2
+    PaymentOptionDetail:
+      type: object
+      properties:
+        supportCardBrands:
+          type: array
+          items: &ref_3
+            $ref: '#/components/schemas/SupportCardBrand'
+          description: >-
+            The list of supported card brands.  
+
+
+            Note: This parameter is returned when the value of paymentMethodType
+            is ​CARD​.
+        funding:
+          type: array
+          items:
+            type: string
+          description: >-
+            The funding type of the card. Valid values are: 
+
+
+            CREDIT: indicates a credit card. 
+
+            DEBIT: indicates a debit card. 
+
+            PREPAID: indicates a prepaid card
+
+            CHARGE: indicates a charge card
+
+            DEFERRED_DEBIT: indicates a deferred debit card
+
+            This parameter is returned when all the following conditions are
+            met:
+
+
+            The value of paymentMethodType is CARD.
+
+            The value of cardNo is valid.
+
+            The information is available in the Antom card database.
+        supportBanks:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupportBank'
+          description: >+
+            The list of supported banks. 
+
+
+            This parameter is returned when the value of paymentMethodType is
+            ​P24​ or ONLINEBANKING_FPX.
+
+      required:
+        - supportCardBrands
+        - supportBanks
+    Plan:
+      type: object
+      properties:
+        interestRate:
+          type: string
+          description: |-
+            The interest rate the customer is charged on the installments.  
+
+            More information:
+
+            Maximum length: 8 characters
+        minInstallmentAmount: *ref_1
+        maxInstallmentAmount: *ref_1
+        installmentNum:
+          type: string
+          description: >-
+            The number of installment payments. The valid value is from 2 to
+            12.    More information:  Maximum length: 8 characters
+        interval:
+          type: string
+          description: >-
+            The interval of each installment payment. The valid value is
+            MONTH.   More information:  Maximum length: 16 characters
+        enabled:
+          type: boolean
+          description: 'Indicates whether the installment payment is available. '
+      required:
+        - minInstallmentAmount
+        - maxInstallmentAmount
+        - installmentNum
+        - interval
+        - enabled
     Installment:
       type: object
       properties:
         supportCardBrands:
           type: array
-          items: &ref_6
-            $ref: '#/components/schemas/SupportCardBrand'
+          items: *ref_3
+          description: >-
+            The list of card brands that support the installment plans.  
+
+
+            This parameter is returned when the value of paymentMethodType is
+            CARD.
         plans:
           type: array
           items:
             $ref: '#/components/schemas/Plan'
+          description: >-
+            The list of installment plans for payment methods that support
+            installments.
       required:
         - supportCardBrands
         - plans
+    InterestFree:
+      type: object
+      properties:
+        provider:
+          type: string
+          description: >-
+            Issuing banks or financial institutions that offer interest-free
+            installment plans.  More information:  Maximum length: 128
+            characters
+        expireTime:
+          type: string
+          description: >-
+            The promotion expiration time.  More information:  The value follows
+            the ISO 8601 standard format. For example,
+            "2019-11-27T12:01:01+08:00".
+        installmentFreeNums:
+          type: array
+          items:
+            type: integer
+          description: >-
+            The number of interest-free installments.  More information:  Value
+            range: 2-unlimited
+        minPaymentAmount: *ref_1
+        maxPaymentAmount: *ref_1
+        freePercentage:
+          type: integer
+          description: >-
+            The interest-free percentage. A value of 0 indicates no
+            interest-free, 100% indicates the buyer is completely interest-free,
+            while the value between 0-100% indicates partial interest-free.
+      required:
+        - provider
+        - expireTime
+        - installmentFreeNums
+        - minPaymentAmount
+        - freePercentage
+    PromotionInfo:
+      type: object
+      properties:
+        promotionType:
+          $ref: '#/components/schemas/PromotionType'
+          description: >-
+            Promotion type. Valid values are:  DISCOUNT: a deduction from the
+            regular price.  INTEREST_FREE: payment in interest-free
+            installments.  More information:  Maximum length: 32 characters
+        discount:
+          $ref: '#/components/schemas/Discount'
+          description: >-
+            Discount information.  Note: This parameter is returned when the
+            payment method offers a promotion to the buyer.
+        interestFree:
+          $ref: '#/components/schemas/InterestFree'
+          description: The information about interest-free installment plans.
+      required:
+        - promotionType
     PaymentOption:
       type: object
       properties:
+        paymentMethodType:
+          type: string
+          description: >-
+            The payment method type. See Payment methods to check the valid
+            values.  
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+        paymentMethodCategory:
+          $ref: '#/components/schemas/PaymentMethodCategoryType'
+          description: >-
+            The category of the payment method. Valid values are:
+
+
+            ALIPAY_PLUS: indicates that the payment method category is an
+            Alipay+ payment method.  
+
+            WALLET: indicates that the payment method category is a wallet. 
+
+            MOBILE_BANKING_APP: indicates that the payment method category is a
+            mobile banking app. 
+
+            BANK_TRANSFER: indicates that the payment method category is bank
+            transfer. 
+
+            ONLINE_BANKING: indicates that the payment method category is online
+            banking.  
+
+            CARD: indicates that the payment method category is a card. 
+
+            OTC: indicates that the payment method category is over the
+            counter. 
+
+            More information:
+
+
+            Maximum length: 32 characters
         paymentMethodRegion:
           type: array
           items:
             type: string
-        paymentMethodCategory:
-          $ref: '#/components/schemas/PaymentMethodCategoryType'
-        logo: *ref_4
-        paymentMethodType:
-          type: string
+          description: >-
+            A list of region codes that represent the countries or regions of
+            payment methods. The value of this parameter is a 2-letter ISO
+            country code or GLOBAL.  
+
+
+            More information:
+
+
+            Maximum length: 6 characters
         enabled:
           type: boolean
-        paymentOptionDetail:
-          $ref: '#/components/schemas/PaymentOptionDetail'
-        disableReason:
-          type: string
+          description: Indicates whether the payment method is available.
         preferred:
           type: boolean
+        disableReason:
+          type: string
+          description: >-
+            The reason why the payment method is not available. Valid values
+            are:
+
+
+            PAYMENT_ACCOUNT_NOT_AVAILABLE
+
+            EXCEED_CHANNEL_LIMIT_RULE
+
+            SERVICE_DEGRADE
+
+            CHANNEL_NOT_SUPPORT_CURRENCY
+
+            CHANNEL_DISABLE
+
+            CHANNEL_NOT_IN_SERVICE_TIME
+
+            QUERY_IPP_INFO_FAILED
+
+            LIMIT_CENTER_ACCESS_FAIL 
+
+            CURRENT_CHANNEL_NOT_EXIST
         amountLimitInfoMap:
           type: object
           properties: {}
-          additionalProperties: *ref_2
+          additionalProperties:
+            type: object
+            properties:
+              01JS3F5DXTJYCDAEK601Z6138Z:
+                type: string
+            required:
+              - 01JS3F5DXTJYCDAEK601Z6138Z
         supportedCurrencies:
           type: array
           items:
             type: string
+        paymentOptionDetail:
+          $ref: '#/components/schemas/PaymentOptionDetail'
+          description: >-
+            Details about the payment option. 
+
+
+            This parameter is returned when one of the following conditions is
+            met: 
+
+
+            When the value of paymentMethodType is CARD: paymentOptionDetail
+            returns information relating to the cards.
+
+            When the value of paymentMethodType is ​P24​: paymentOptionDetail
+            returns information relating to the Przelewy24 payment method.
+
+            When the value of paymentMethodType is ONLINEBANKING_FPX:
+            paymentOptionDetail returns information relating to the FPX payment
+            method.
         extendInfo:
           type: string
+        logo: *ref_2
         promoNames:
           type: array
           items:
             type: string
+          description: >-
+            The list of the promotion names. In JSON format. The keys are
+            returned as a language and a country code, connected by an
+            underscore, such as zh_CN, while the value is the promotion name,
+            such as RM1 Voucher.  
+
+
+            More information:
+
+
+            Maximum length: 512 characters
         installment:
           $ref: '#/components/schemas/Installment'
+          description: >-
+            Information about installments. 
+
+
+            Note: This parameter is returned when the payment method supports
+            installments.
         promotionInfos:
-          $ref: '#/components/schemas/PromotionInfo'
+          type: array
+          items:
+            $ref: '#/components/schemas/PromotionInfo'
+          description: >-
+            Promotion information.
+
+
+            This parameter is returned when the payment method offers a
+            promotion to the buyer.
       required:
-        - paymentMethodRegion
-        - paymentMethodCategory
-        - logo
         - paymentMethodType
         - enabled
-        - paymentOptionDetail
-        - disableReason
-        - preferred
-        - supportedCurrencies
-        - extendInfo
-        - promoNames
-    SupportCardBrand:
-      properties:
-        cardBrand:
-          description: 'The name of the card brand. Valid values are:'
-          $ref: '#/components/schemas/CardBrandType'
-        logo: *ref_4
-      type: object
-      required:
-        - logo
-    CardBrandType:
-      type: string
-      enum:
-        - VISA
-        - MASTERCARD
-        - AMEX
-        - HIPERCARD
-        - ELO
-    lightMeasuredPayload:
+    PaymentMethodInfo:
       type: object
       properties:
-        lumens:
-          type: integer
-          minimum: 0
-          description: Light intensity measured in lumens.
-        sentAt: &ref_5
-          $ref: '#/components/schemas/sentAt'
-    turnOnOffPayload:
-      type: object
-      properties:
-        command:
+        paymentMethodType:
           type: string
-          enum:
-            - 'on'
-            - 'off'
-          description: Whether to turn on or off the light.
-        sentAt: *ref_5
-    dimLightPayload:
-      type: object
-      properties:
-        percentage:
-          type: integer
-          description: Percentage to which the light should be dimmed to.
-          minimum: 0
-          maximum: 100
-        sentAt: *ref_5
-    sentAt:
-      type: string
-      format: date-time
-      description: Date and time when the message was sent.
-    Amount:
-      description: >-
-        The payment amount that the merchant requests to receive in the order
-        currency.
-      properties:
-        currency:
-          description: The 3-letter currency code that follows the ISO 4217 standard.
-          maxLength: 3
-          minLength: 3
+        paymentMethodDetail:
           type: string
-        value:
+        enabled:
+          type: boolean
+        preferred:
+          type: boolean
+        extendInfo:
           type: string
-          description: >-
-            The value of the amount as a positive integer in the smallest
-            currency unit. For example, if the currency is USD and the amount is
-            $1.00, set the value of this parameter to 100; or if the currency is
-            JPY and the amount is ￥1, set the value of this parameter to 1.
-      required:
-        - value
-        - currency
-      type: object
     AlipayPayConsultResponse:
+      type: object
       properties:
         result:
+          $ref: '#/components/schemas/Result'
           description: >-
             The request result that contains information such as status and
             error codes.
-          $ref: '#/components/schemas/Result'
+
+
+            Note: This field doesn't indicate the payment result. This field
+            only indicates whether the consult API is called successfully.
         paymentOptions:
           type: array
           items:
@@ -1472,230 +994,7 @@ components:
             $ref: '#/components/schemas/PaymentMethodInfo'
         extendInfo:
           type: string
-      type: object
       required:
-        - paymentMethodInfos
-        - extendInfo
-        - paymentOptions
-    PaymentAmount:
-      properties:
-        currency:
-          description: The 3-letter currency code that follows the ISO 4217 standard.
-          type: string
-          minLength: 3
-          maxLength: 3
-        value:
-          description: The amount of the payment.
-          format: double
-          type: number
-      required:
-        - currency
-        - value
-      type: object
-    SettlementStrategy:
-      properties:
-        settlementCurrency:
-          description: >-
-            The ISO currency code of the currency that the merchant wants to
-            settle against. This field is required if the merchant signed up for
-            multiple settlement currencies. Otherwise, the error
-            code,SETTLE_CONTRACT_NOT_MATCH, will be returned.
-          type: string
-          minLength: 3
-          maxLength: 3
-      type: object
-    Env:
-      properties:
-        terminalType:
-          description: 'Terminal type used by the merchant. Valid values are:'
-          $ref: '#/components/schemas/TerminalType'
-        osType:
-          description: 'Type of the operation system. Valid values are:'
-          $ref: '#/components/schemas/OsType'
-        userAgent:
-          description: The user agent.
-          type: string
-          maxLength: 1024
-        deviceTokenId:
-          description: Token identifier of the device.
-          type: string
-          maxLength: 64
-        clientIp:
-          description: IP address of the client device.
-          type: string
-          maxLength: 32
-        cookieId:
-          description: The cookie ID of the buyer.
-          type: string
-          maxLength: 64
-        storeTerminalId:
-          type: string
-        storeTerminalRequestTime:
-          type: string
-        browserInfo:
-          properties:
-            acceptHeader:
-              type: string
-            javaEnabled:
-              type: string
-            javaScriptEnabled:
-              type: string
-            language:
-              type: string
-            userAgent:
-              type: string
-          required:
-            - acceptHeader
-            - javaEnabled
-            - javaScriptEnabled
-            - language
-            - userAgent
-          $ref: '#/components/schemas/BrowserInfo'
-        colorDepth:
-          type: string
-        screenHeight:
-          type: string
-        screenWidth:
-          type: string
-        timeZoneOffset:
-          type: string
-        deviceBrand:
-          type: integer
-        deviceModel:
-          type: string
-        deviceLanguage:
-          type: string
-        deviceId:
-          type: string
-      type: object
-      required:
-        - terminalType
-        - storeTerminalId
-        - storeTerminalRequestTime
-        - browserInfo
-        - colorDepth
-        - screenHeight
-        - screenWidth
-        - timeZoneOffset
-        - deviceModel
-        - deviceLanguage
-        - deviceId
-    Buyer:
-      properties:
-        referenceBuyerId:
-          description: The unique ID to identify the buyer.
-          type: string
-          maxLength: 64
-        buyerName:
-          properties:
-            firstName:
-              type: string
-          required:
-            - firstName
-          $ref: '#/components/schemas/UserName'
-        buyerPhoneNo:
-          type: string
-        buyerEmail:
-          type: string
-        buyerRegistrationTime:
-          type: string
-        isAccountVerified:
-          type: boolean
-        successfulOrderCount:
-          type: integer
-      type: object
-      required:
-        - buyerName
-        - buyerPhoneNo
-        - buyerEmail
-        - buyerRegistrationTime
-        - isAccountVerified
-        - successfulOrderCount
-    PaymentFactor:
-      properties:
-        presentmentMode:
-          type: string
-          description: >-
-            The presentation mode chosen by the merchant to display the payment
-            methods on the cashier page. Valid values are:
-        isPaymentEvaluation:
-          type: string
-        inStorePaymentScenario:
-          type: string
-        captureMode:
-          type: string
-        isAuthorization:
-          type: boolean
-      type: object
-      required:
-        - isPaymentEvaluation
-        - inStorePaymentScenario
-        - captureMode
-        - isAuthorization
-    PaymentOptionDetail:
-      properties:
-        supportCardBrands:
-          description: >-
-            The list of supported card brands.  
-
-
-            This parameter is returned when the value of paymentMethodType is
-            CARD.
-          type: array
-          items: *ref_6
-        funding:
-          description: 'The funding type of the card. Valid values are:'
-          type: array
-          items:
-            type: string
-            enum:
-              - CREDIT
-              - DEBIT
-              - PREPAID
-              - CHARGE
-              - DEFERRED_DEBIT
-        supportBanks:
-          description: >+
-            The list of supported banks. 
-
-
-            This parameter is returned when the value of paymentMethodType is
-            IDEAL or ONLINEBANKING_FPX.
-
-          $ref: '#/components/schemas/SupportBank'
-      type: object
-    Logo:
-      properties:
-        logoName:
-          description: >-
-            The logo name of the card brand. See the Card brand list to check
-            the valid values.
-          type: string
-          maxLength: 12
-        logoUrl:
-          description: The logo URL of the card brand.
-          type: string
-          maxLength: 2048
-      type: object
-    Result:
-      properties:
-        resultCode:
-          description: The result code.
-          type: string
-        resultStatus:
-          description: 'The result status. Valid values are:'
-          type: string
-          enum:
-            - S
-            - F
-            - U
-        resultMessage:
-          description: The result message.
-          type: string
-          maxLength: 256
-      required:
-        - resultCode
-        - resultStatus
-      type: object
+        - result
   securitySchemes: {}
 security: []
