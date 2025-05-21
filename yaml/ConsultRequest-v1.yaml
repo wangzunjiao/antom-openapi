@@ -637,6 +637,19 @@ components:
             The short name of the bank. The unique code of the bank. See the
             Bank list to check the valid values.
         bankLogo: *ref_2
+    AmountLimit:
+      type: object
+      properties:
+        maxAmount:
+          type: string
+        minAmount:
+          type: string
+        remainAmount:
+          type: string
+      required:
+        - maxAmount
+        - minAmount
+        - remainAmount
     PaymentOptionDetail:
       type: object
       properties:
@@ -888,14 +901,9 @@ components:
             CURRENT_CHANNEL_NOT_EXIST
         amountLimitInfoMap:
           type: object
-          properties: {}
+          properties: { }
           additionalProperties:
-            type: object
-            properties:
-              01JS3F5DXTJYCDAEK601Z6138Z:
-                type: string
-            required:
-              - 01JS3F5DXTJYCDAEK601Z6138Z
+            $ref: '#/components/schemas/AmountLimit'
         supportedCurrencies:
           type: array
           items:
