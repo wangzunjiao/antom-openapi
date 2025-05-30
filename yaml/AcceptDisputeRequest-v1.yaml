@@ -1,0 +1,115 @@
+openapi: 3.1.0
+info:
+  title: payments_acceptDispute
+  description: ''
+  version: 1.0.0
+tags: []
+paths:
+  /ams/api/v1/payments/acceptDispute:
+    post:
+      summary: acceptDispute
+      deprecated: false
+      description: >
+        Use this API to get the cashier page address. After getting the cashier
+        page address, you can redirect the user to the cashier page to make a
+        payment.
+      tags: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlipayAcceptDisputeRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlipayAcceptDisputeResponse'
+          headers: {}
+      security: []
+components:
+  schemas:
+    Result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The result code.
+        resultStatus:
+          description: |-
+            The result status. Valid values are:
+
+            S: indicates that the result status is successful.
+            F: indicates that the result status is failed. 
+            U: indicates that the result status is unknown. 
+          $ref: '#/components/schemas/ResultStatusType'
+        resultMessage:
+          type: string
+          description: The result message.
+      required:
+        - resultCode
+        - resultStatus
+    ResultStatusType:
+      type:
+        - string
+        - 'null'
+      enum:
+        - S
+        - F
+        - U
+    AlipayAcceptDisputeRequest:
+      type: object
+      properties:
+        disputeId:
+          type: string
+          description: |-
+            The unique ID assigned by Antom to identify a dispute.
+
+            More information:
+
+            Maximum length: 64 characters
+      required:
+        - disputeId
+    AlipayAcceptDisputeResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+          description: The result of the API call.
+        disputeId:
+          type: string
+          description: >-
+            The unique ID assigned by Antom to identify a dispute.
+
+
+            Note: This prameter is returned when the value of resultCode is
+            SUCCESS.
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+        disputeResolutionTime:
+          type: string
+          description: >-
+            The time when you accept the dispute.
+
+
+            Note: This prameter is returned when the value of resultCode is
+            SUCCESS.
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+      required:
+        - result
+  securitySchemes: {}
+servers:
+  - url: https://open-sea-global.alipay.com/ams/api/v1/payments/acceptDispute
+    description: 正式环境
+security: []

@@ -1,0 +1,155 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "marketplace_submitAttachment",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/ams/api/open/openapiv2_file/v1/business/attachment/submitAttachment": {
+      "post": {
+        "summary": "submitAttachment",
+        "deprecated": false,
+        "description": "Use this API to get the cashier page address. After getting the cashier page address, you can redirect the user to the cashier page to make a payment.\n",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlipaySubmitAttachmentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlipaySubmitAttachmentResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Result": {
+        "type": "object",
+        "properties": {
+          "resultCode": {
+            "type": "string",
+            "description": "The result code."
+          },
+          "resultStatus": {
+            "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
+            "$ref": "#/components/schemas/ResultStatusType"
+          },
+          "resultMessage": {
+            "type": "string",
+            "description": "The result message."
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus",
+          "resultMessage"
+        ]
+      },
+      "ResultStatusType": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "S",
+          "F",
+          "U"
+        ]
+      },
+      "AttachmentType": {
+        "type": "string",
+        "enum": [
+          "SIGNATURE_AUTHORIZATION_LETTER",
+          "ARTICLES_OF_ASSOCIATION",
+          "LOGO",
+          "AUTHORIZER_SIGNATURE_CONFIRMATION_LETTER",
+          "ASSOCIATION_ARTICLE",
+          "FINANCIAL_REPORT",
+          "OWNERSHIP_STRUCTURE_PIC",
+          "ADDRESS_PROOF",
+          "UBO_PROVE",
+          "ENTERPRISE_REGISTRATION",
+          "LICENSE_INFO",
+          "ID_CARD",
+          "PASSPORT",
+          "DRIVING_LICENSE",
+          "CPF",
+          "CNPJ"
+        ]
+      },
+      "AlipaySubmitAttachmentRequest": {
+        "type": "object",
+        "properties": {
+          "submitAttachmentRequestId": {
+            "type": "string",
+            "description": "The unique ID assigned by the marketplace to identify an attachment submission request.\n\nMore information:\n\nThis field is an API idempotency field. For attachment submission requests that are initiated with the same value of attachmentSubmissionRequestId and reach a final status of S or F, the same result is to be returned for the request.\nMaximum length: 32 characters"
+          },
+          "attachmentType": {
+            "$ref": "#/components/schemas/AttachmentType",
+            "description": "The type of the attachment that you submit. Valid values are:\n\n​AUTHORIZER_SIGNATURE_CONFIRMATION_LETTER​: indicates that the attachment is a document that someone signs on behalf of an individual or a company.\n​ASSOCIATION_ARTICLE​: indicates that the attachment contains the rules and regulations of the company.\n​FINANCIAL_REPORT​: indicates that the attachment is the company's financial report.\n​OWNERSHIP_STRUCTURE_PIC​: indicates that the attachment is the company's ownership structure chart.\n​ADDRESS_PROOF​: indicates that the attachment serves as proof of the company member's residential address.\n​UBO_PROVE​: indicates that the attachment is the declaration of the company's UBO whose shareholding ratio is less than 25%.\n​ENTERPRISE_REGISTRATION​: indicates the enterprise registration certificate.\n​LICENSE_INFO​: indicates that the certificate is a business license.\n​ID_CARD​: indicates that the certificate is an identity card.\n​PASSPORT​: indicates that the certificate is a passport.\n​DRIVING_LICENSE​: indicates that the certificate is a driving license.\n​CPF​: indicates that the certificate is the Cadastro Pessoal de Pessoa Física (CPF) of the Brazilian individual taxpayer.\n​CNPJ​: indicates that the certificate is the Cadastro Nacional da Pessoa Jurídica (CNPJ), which is a federal identification number assigned to companies and businesses operating in Brazil.\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "fileSha256": {
+            "type": "string",
+            "description": "The SHA-256 hash value of the file, used to uniquely identify and verify its integrity and authenticity.\n\nFor more information, see How to calculate the SHA256 digest of a file.\n\nMore information:\n\nMaximum length: 64 characters"
+          }
+        },
+        "required": [
+          "submitAttachmentRequestId",
+          "attachmentType",
+          "fileSha256"
+        ]
+      },
+      "AlipaySubmitAttachmentResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/Result",
+            "description": "The result of the API call."
+          },
+          "submitAttachmentRequestId": {
+            "type": "string",
+            "description": "The unique ID assigned by the marketplace to identify an attachment submission request.\n\nThis parameter is returned when the value of result.resultStatus is S.\n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "attachmentType": {
+            "$ref": "#/components/schemas/AttachmentType",
+            "description": "The type of the attachment that you submit. Valid values are:\n\n​AUTHORIZER_SIGNATURE_CONFIRMATION_LETTER​: indicates that the attachment is a document that someone signs on behalf of an individual or a company.\n​ASSOCIATION_ARTICLE​: indicates that the attachment contains the rules and regulations of the company.\n​FINANCIAL_REPORT​: indicates that the attachment is the company's financial report.\n​OWNERSHIP_STRUCTURE_PIC​: indicates that the attachment is the company's ownership structure chart.\n​ADDRESS_PROOF​: indicates that the attachment serves as proof of the company member's residential address.\n​UBO_PROVE​: indicates that the attachment is the declaration of the company's UBO whose shareholding ratio is less than 25%.\n​ENTERPRISE_REGISTRATION​: indicates the enterprise registration certificate.\n​LICENSE_INFO​: indicates that the certificate is a business license.\n​ID_CARD​: indicates that the certificate is an identity card.\n​PASSPORT​: indicates that the certificate is a passport.\n​DRIVING_LICENSE​: indicates that the certificate is a driving license.\n​CPF​: indicates that the certificate is the Cadastro Pessoal de Pessoa Física (CPF) of the Brazilian individual taxpayer.\n​CNPJ​: indicates that the certificate is the Cadastro Nacional da Pessoa Jurídica (CNPJ), which is a federal identification number assigned to companies and businesses operating in Brazil.\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "attachmentKey": {
+            "type": "string",
+            "description": "The unique key value of the attachment that you submit. The value of this parameter is used by the fileKeys or fileKey parameters in the register API.\n\nThis parameter is returned when the value of result.resultStatus is S.\n\nMore information:\n\nMaximum length: 256 characters"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/api/open/openapiv2_file/v1/business/attachment/submitAttachment",
+      "description": "正式环境"
+    }
+  ],
+  "security": []
+}

@@ -1,11 +1,5 @@
 {
   "openapi": "3.1.0",
-  "servers": [
-    {
-      "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/pay",
-      "description": "正式环境"
-    }
-  ],
   "info": {
     "version": "1",
     "x-publicVersion": true,
@@ -706,7 +700,7 @@
             "description": "The result code."
           },
           "resultStatus": {
-            "description": "The result status. Valid values are:",
+            "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
             "$ref": "#/components/schemas/ResultStatusType"
           },
           "resultMessage": {
@@ -1233,8 +1227,7 @@
             "description": "A 2-letter country or region code based on the standard of ISO 3166 Country Codes. This parameter is used to sort Alipay+ payment methods according to the user's region. For example, if ALIPAY_CN and KAKAOPAYare both on your payment method list and the user is from South Korea, KAKAOPAY will be listed first on the Alipay+ cashier page.\n\nNote: This parameter is only for the merchant that has integrated the Alipay+ cashier page.  \n\nMore information:\n\nMaximum length: 2 characters"
           },
           "env": {
-            "type": "string",
-            "description": "Information about the environment where the order is placed, such as the device information. "
+            "$ref": "#/components/schemas/Env"
           },
           "payToMethod": {
             "$ref": "#/components/schemas/PaymentMethod",
@@ -1377,5 +1370,11 @@
     },
     "securitySchemes": {}
   },
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/pay",
+      "description": "正式环境"
+    }
+  ],
   "security": []
 }

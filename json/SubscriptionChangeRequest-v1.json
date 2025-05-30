@@ -1,0 +1,195 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "subscriptions_change",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/ams/api/v1/subscriptions/change": {
+      "post": {
+        "summary": "change",
+        "deprecated": false,
+        "description": "Use this API to get the cashier page address. After getting the cashier page address, you can redirect the user to the cashier page to make a payment.\n",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlipaySubscriptionChangeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlipaySubscriptionChangeResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Result": {
+        "type": "object",
+        "properties": {
+          "resultCode": {
+            "type": "string",
+            "description": "The result code."
+          },
+          "resultStatus": {
+            "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
+            "$ref": "#/components/schemas/ResultStatusType"
+          },
+          "resultMessage": {
+            "type": "string",
+            "description": "The result message."
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus",
+          "resultMessage"
+        ]
+      },
+      "Amount": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string",
+            "description": "The transaction currency that is specified in the contract. A 3-letter currency code that follows the ISO 4217 standard. \n\nMore information:\n\nMaximum length: 3 characters"
+          },
+          "value": {
+            "type": "string",
+            "description": "The amount to charge as a positive integer in the smallest currency unit. (That is, 100 cents to charge $1.00, or 100 to charge JPY 100, a 0-decimal currency).\n\nNote: For details about the smallest currency unit, see Smallest unit of the currency.\n\nMore information:\n\nValue range: 1 - unlimited\n"
+          }
+        },
+        "required": [
+          "currency",
+          "value"
+        ]
+      },
+      "ResultStatusType": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "S",
+          "F",
+          "U"
+        ]
+      },
+      "PeriodRule": {
+        "type": "object",
+        "properties": {
+          "periodType": {
+            "type": "string",
+            "description": "The subscription period type. Valid values are:\n\nYEAR: indicates that the subscription period is measured in years. \nMONTH: indicates that the subscription period is measured in months. \nWEEK: indicates that the subscription period is measured in weeks. \nDAY: indicates that the subscription period is measured in days.  \nMore information:\n\nMaximum length: 20 characters"
+          },
+          "periodCount": {
+            "type": "integer",
+            "description": "The number of period types within one subscription period. For example, if the value of periodType is MONTH and the value of periodCount is 2, it means that the subscription period is two months.  \n\nMore information:\n\nValue range: 1 - unlimited"
+          }
+        },
+        "required": [
+          "periodType",
+          "periodCount"
+        ]
+      },
+      "OrderInfo": {
+        "type": "object",
+        "properties": {
+          "orderAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "The order amount of the merchant that directly provides services or goods to the customer. The value of this parameter is displayed on user consumption records or the payment result page."
+          }
+        },
+        "required": [
+          "orderAmount"
+        ]
+      },
+      "AlipaySubscriptionChangeRequest": {
+        "type": "object",
+        "properties": {
+          "subscriptionChangeRequestId": {
+            "type": "string",
+            "description": "The unique ID assigned by a merchant to identify a subscription change request. Antom uses this field for idempotency control. \n\nNote: For subscription change requests that are initiated with the same value of subscriptionChangeRequestId and reach a final status of ​S​ or​F​, the same result is to be returned for the request.\n\nMore information:\n\nThis field is an API idempotency field.\nMaximum length: 64 characters"
+          },
+          "subscriptionId": {
+            "type": "string",
+            "description": "The unique ID assigned by Antom to identify a subscription. The value of this parameter is the value of the same parameter that is returned by notifyPayment and notifySubscription for the original subscription.  \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "subscriptionDescription": {
+            "type": "string",
+            "description": "The description of the subscription, used for displaying user consumption records and other actions.\n\nNote: Specify this parameter if you want to change this information.\n\nMore information:\n\nMaximum length: 256 characters"
+          },
+          "subscriptionStartTime": {
+            "type": "string",
+            "description": "The date and time when the subscription becomes active. \n\nNote: Specify this parameter when you want to designate the start time of the changed subscription. If you leave this parameter empty, the default value of this parameter is the time when Antom receives this request.  \n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
+          },
+          "subscriptionEndTime": {
+            "type": "string",
+            "description": "The date and time when the subscription ends. The default value of this parameter is 2099-12-31T23:59:59+08:00. \n\nNote: Specify this parameter when you want to change this information.  \n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
+          },
+          "periodRule": {
+            "$ref": "#/components/schemas/PeriodRule",
+            "description": "The subscription period rule, used to define a subscription's billing period.\n\nNote: Specify this parameter if you want to change this information.  "
+          },
+          "subscriptionExpiryTime": {
+            "type": "string",
+            "description": "A specific date and time after which the created subscription expires. When the subscription expires, the order must be terminated. The default value of this parameter is 30 minutes after the subscription creation request is sent.\n\nNote: Specify this parameter if you want to change the subscription creation expiration time. The specified payment expiration time must be less than 48 hours after the subscription request is sent.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
+          },
+          "orderInfo": {
+            "$ref": "#/components/schemas/OrderInfo",
+            "description": "The order information of the subscription. This field is used for different purposes:\n\nDuring the payment process, this field is mainly used by Antom for risk control or anti-money laundering.\nAfter the payment is completed, this field is used for recording and reporting purposes such as purchase tracking and regulatory reporting.\nNote: Specify this parameter if you want to change this information."
+          },
+          "paymentAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "The order amount of the merchant that directly provides services or goods to the customer. The value of this parameter is displayed on user consumption records or the payment result page."
+          },
+          "paymentAmountDifference": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "The order amount of the merchant that directly provides services or goods to the customer. The value of this parameter is displayed on user consumption records or the payment result page."
+          }
+        },
+        "required": [
+          "subscriptionChangeRequestId",
+          "subscriptionId"
+        ]
+      },
+      "AlipaySubscriptionChangeResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/Result",
+            "description": "Indicates whether this API is called successfully.  \n\nThis field does not indicate the subscription change result. Antom notifies you of the subscription change result through notifySubscription. "
+          }
+        },
+        "required": [
+          "result"
+        ]
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/subscriptions/change",
+      "description": "正式环境"
+    }
+  ],
+  "security": []
+}

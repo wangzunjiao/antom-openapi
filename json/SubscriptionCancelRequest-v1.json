@@ -1,0 +1,120 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "subscriptions_cancel",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/ams/api/v1/subscriptions/cancel": {
+      "post": {
+        "summary": "cancel",
+        "deprecated": false,
+        "description": "Use this API to get the cashier page address. After getting the cashier page address, you can redirect the user to the cashier page to make a payment.\n",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlipaySubscriptionCancelRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlipaySubscriptionCancelResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Result": {
+        "type": "object",
+        "properties": {
+          "resultCode": {
+            "type": "string",
+            "description": "The result code."
+          },
+          "resultStatus": {
+            "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
+            "$ref": "#/components/schemas/ResultStatusType"
+          },
+          "resultMessage": {
+            "type": "string",
+            "description": "The result message."
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus",
+          "resultMessage"
+        ]
+      },
+      "ResultStatusType": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "S",
+          "F",
+          "U"
+        ]
+      },
+      "AlipaySubscriptionCancelRequest": {
+        "type": "object",
+        "properties": {
+          "subscriptionId": {
+            "type": "string",
+            "description": "The unique ID assigned by Antom to identify a subscription. The value of this parameter is the value of the same parameter that is returned by notifyPayment and notifySubscription for the original subscription.\n\nNote: Specify at least one of subscriptionId and subscriptionRequestId. A one-to-one correspondence between paymentId and paymentRequestId exists.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "subscriptionRequestId": {
+            "type": "string",
+            "description": "The unique ID assigned by a merchant to identify a subscription request.\n\nNote: Specify at least one of subscriptionId and subscriptionRequestId. A one-to-one correspondence between paymentId and paymentRequestId exists.\n\nMore information:\n\nMaximum length: 64 characters\n"
+          },
+          "cancellationType": {
+            "type": "string",
+            "description": "The cancellation type for the subscription. Valid values are:\n\nCANCEL: indicates canceling the subscription. The subscription service is not provided to the user after the current subscription period ends.\nTERMINATE: indicates terminating the subscription. The subscription service is ceased immediately.  \nMore information:\n\nMaximum length: 32 characters"
+          }
+        },
+        "required": [
+          "cancellationType"
+        ]
+      },
+      "AlipaySubscriptionCancelResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/Result",
+            "description": "Indicates whether this API is called successfully. If this API is successfully called, the subscription is canceled successfully. "
+          }
+        },
+        "required": [
+          "result"
+        ]
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/subscriptions/cancel",
+      "description": "正式环境"
+    }
+  ],
+  "security": []
+}

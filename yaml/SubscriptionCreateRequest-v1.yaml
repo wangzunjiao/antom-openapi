@@ -1,0 +1,593 @@
+openapi: 3.1.0
+info:
+  title: subscriptions_create
+  description: ''
+  version: 1.0.0
+tags: []
+paths:
+  /ams/api/v1/subscriptions/create:
+    post:
+      summary: create
+      deprecated: false
+      description: >
+        Use this API to get the cashier page address. After getting the cashier
+        page address, you can redirect the user to the cashier page to make a
+        payment.
+      tags: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlipaySubscriptionCreateRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlipaySubscriptionCreateResponse'
+          headers: {}
+      security: []
+components:
+  schemas:
+    PaymentMethod:
+      type: object
+      properties:
+        paymentMethodType:
+          type: string
+          description: >-
+            The payment method that is used to accept the subscription payment.
+            See Payment methods to check the valid values.  
+
+
+            Note: Card payment method is not currently supported when you work
+            with Antom as your acquirer.
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+        paymentMethodId:
+          type: string
+          description: >
+            The unique ID that is used to identify a payment method.
+
+
+            Pass the corresponding token to this field when the user has a bound
+            payment method.
+
+
+            More information:
+
+
+            Maximum length: 128 characters
+        paymentMethodMetaData:
+          type: object
+          properties: {}
+          additionalProperties:
+            type: object
+        customerId:
+          type: string
+        extendInfo:
+          type: string
+        requireIssuerAuthentication:
+          type: boolean
+      required:
+        - paymentMethodType
+    Result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The result code.
+        resultStatus:
+          description: |-
+            The result status. Valid values are:
+
+            S: indicates that the result status is successful.
+            F: indicates that the result status is failed. 
+            U: indicates that the result status is unknown. 
+          $ref: '#/components/schemas/ResultStatusType'
+        resultMessage:
+          type: string
+          description: The result message.
+      required:
+        - resultCode
+        - resultStatus
+        - resultMessage
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: >-
+            The transaction currency that is specified in the contract. A
+            3-letter currency code that follows the ISO 4217 standard. 
+
+
+            More information:
+
+
+            Maximum length: 3 characters
+        value:
+          type: string
+          description: >-
+            The amount to charge as a positive integer in the smallest currency
+            unit. (That is, 100 cents to charge $1.00, or 100 to charge JPY 100,
+            a 0-decimal currency).
+
+
+            Note: For details about the smallest currency unit, see Smallest
+            unit of the currency.
+
+
+            More information:
+
+
+            Value range: 1 - unlimited
+      required:
+        - currency
+        - value
+    SettlementStrategy:
+      type: object
+      properties:
+        settlementCurrency:
+          type: string
+          description: >-
+            The ISO currency code of the currency that the merchant wants to be
+            settled against. The field is required if the merchant signed up for
+            multiple currencies to settle. 
+
+
+            More information:
+
+
+            Maximum length: 3 characters
+    TerminalType:
+      type: string
+      enum:
+        - WEB
+        - WAP
+        - APP
+        - MINI_APP
+    BrowserInfo:
+      type: object
+      properties:
+        acceptHeader:
+          type: string
+          description: The accept header of the user's browser
+        javaEnabled:
+          type: boolean
+          description: Indicates whether the user's browser is able to run Java
+        javaScriptEnabled:
+          type: boolean
+          description: Indicates whether the user's browser is able to run Java
+        language:
+          type: string
+          description: The language of the user's browser
+        userAgent:
+          type: string
+          description: The user agent of the user's browser
+    OsType:
+      type: string
+      enum:
+        - IOS
+        - ANDROID
+    Env:
+      type: object
+      properties:
+        terminalType:
+          $ref: '#/components/schemas/TerminalType'
+          description: >-
+            The terminal type the merchant service applies to. Valid values are:
+
+
+            WEB: The client-side terminal type is a website, which is opened via
+            a PC browser.
+
+            WAP: The client-side terminal type is an H5 page, which is opened
+            via a mobile browser.
+
+            APP: The client-side terminal type is a mobile application. 
+
+            More information:
+
+
+            Maximum length: 20 characters
+        osType:
+          $ref: '#/components/schemas/OsType'
+          description: |
+            The OS type. Valid values are:
+
+            IOS: indicates the operation system is Apple's iOS.
+            ANDROID: indicates the operation system is Google's Android.
+            Note: Specify this parameter when terminalType is APP or WAP.
+
+            More information:
+
+            Maximum length: 20 characters
+        userAgent:
+          type: string
+        deviceTokenId:
+          type: string
+        clientIp:
+          type: string
+        cookieId:
+          type: string
+        extendInfo:
+          type: string
+        storeTerminalId:
+          type: string
+        storeTerminalRequestTime:
+          type: string
+        browserInfo:
+          $ref: '#/components/schemas/BrowserInfo'
+        colorDepth:
+          type: string
+        screenHeight:
+          type: string
+        screenWidth:
+          type: string
+        timeZoneOffset:
+          type: integer
+        deviceBrand:
+          type: string
+        deviceModel:
+          type: string
+        deviceLanguage:
+          type: string
+        deviceId:
+          type: string
+      required:
+        - terminalType
+    ResultStatusType:
+      type:
+        - string
+        - 'null'
+      enum:
+        - S
+        - F
+        - U
+    AlipaySubscriptionCreateRequest:
+      type: object
+      properties:
+        subscriptionRequestId:
+          type: string
+          description: >-
+            The unique ID assigned by a merchant to identify a subscription
+            request. Antom uses this field for idempotency control.  
+
+
+            More information:
+
+
+            This field is an API idempotency field.For subscription requests
+            that are initiated with the same value of subscriptionRequestId and
+            reach a final status of S or F, the same result is to be returned
+            for the request.
+
+            Maximum length: 64 characters
+        subscriptionDescription:
+          type: string
+          description: >-
+            The description of the subscription, used for displaying user
+            consumption records and other actions. 
+
+
+            More information:
+
+
+            Maximum length: 256 characters
+        subscriptionRedirectUrl:
+          type: string
+          description: >
+            The merchant page URL that the user is redirected to after
+            authorizing the subscription. 
+
+
+            More information:
+
+
+            Maximum length: 2048 characters
+        subscriptionStartTime:
+          type: string
+          description: >
+            The date and time when the subscription becomes active.  
+
+
+            More information:
+
+
+            The value follows the ISO 8601 standard format. For example,
+            "2019-11-27T12:01:01+08:00".
+        subscriptionEndTime:
+          type: string
+          description: >
+            The date and time when the subscription ends.
+
+
+            Note: Specify this parameter when you want to designate the
+            subscription end time.  
+
+
+            More information:
+
+
+            The value follows the ISO 8601 standard format. For example,
+            "2019-11-27T12:01:01+08:00".
+        periodRule:
+          $ref: '#/components/schemas/PeriodRule'
+          description: >+
+            The subscription period rule, used to define a subscription's
+            billing period. 
+
+        subscriptionExpiryTime:
+          type: string
+          description: >-
+            A specific date and time after which the created subscription
+            expires. When the subscription expires, the order must be
+            terminated. The default value of this parameter is 30 minutes after
+            the subscription creation request is sent.
+
+
+            Note: Specify this parameter if you want to designate the
+            subscription creation expiration time. The specified payment
+            expiration time must be less than 48 hours after the subscription
+            request is sent.
+
+
+            More information:
+
+
+            The value follows the ISO 8601 standard format. For example,
+            "2019-11-27T12:01:01+08:00".
+        paymentMethod:
+          $ref: '#/components/schemas/PaymentMethod'
+          description: >-
+            The payment method that is used to collect the payment by the
+            merchant or acquirer.
+        subscriptionNotificationUrl:
+          type: string
+          description: >-
+            The URL that is used to receive the subscription result
+            notification. 
+
+
+            You can also configure the subscription notification URL in Antom
+            Dashboard. If you specify this URL in both this API and Antom
+            Dashboard, the URL configured in the API takes precedence.  
+
+
+            Only one subscription notification URL can be configured in Antom
+            Dashboard.
+
+
+            More information:
+
+
+            Maximum length: 2048 characters
+        paymentNotificationUrl:
+          type: string
+          description: >
+            The URL that is used to receive the payment result notification for
+            each subscription period.
+
+
+            You can also configure the subscription notification URL in Antom
+            Dashboard. If you specify this URL in both this API and Antom
+            Dashboard, the URL configured in the API takes precedence.  
+
+
+            You can only configure one subscription notification URL in Antom
+            Dashboard.
+
+
+            More information:
+
+
+            Maximum length: 2048 characters
+        orderInfo:
+          $ref: '#/components/schemas/OrderInfo'
+          description: >-
+            The order information for the subscription. This field is used for
+            different purposes:
+
+
+            During the payment process, this field is mainly used by Antom for
+            risk control or anti-money laundering.
+
+            After the payment is completed, this field is used for recording and
+            reporting purposes such as purchase tracking and regulatory
+            reporting. 
+        paymentAmount: &ref_0
+          $ref: '#/components/schemas/Amount'
+          description: 'The payment amount charged to the user per subscription period.  '
+        settlementStrategy:
+          $ref: '#/components/schemas/SettlementStrategy'
+          description: 'The settlement strategy for the payment request. '
+        env:
+          $ref: '#/components/schemas/Env'
+          description: >-
+            Information about the environment where the order is placed, such as
+            the device information.  
+        trials:
+          type: array
+          items:
+            $ref: '#/components/schemas/Trial'
+          description: >-
+            The list of trial information of a subscription.  
+
+
+            Note: Specify this parameter if the subscription includes any trial
+            periods.
+      required:
+        - subscriptionRequestId
+        - subscriptionDescription
+        - subscriptionRedirectUrl
+        - subscriptionStartTime
+        - periodRule
+        - paymentMethod
+        - subscriptionNotificationUrl
+        - paymentNotificationUrl
+        - orderInfo
+        - paymentAmount
+        - settlementStrategy
+        - env
+    AlipaySubscriptionCreateResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+          description: >-
+            Indicates whether this API is called successfully. If this API is
+            successfully called, the subscription authorization URL is
+            returned. 
+        schemeUrl:
+          type: string
+          description: >-
+            The URL scheme that redirects users to open an app in an Android or
+            iOS system when the target app is installed.
+
+
+            Note: When the value of result.resultCode is S, at least one of
+            schemeUrl, applinkUrl, and normalUrl is to be returned.
+
+
+            More information:
+
+
+            Maximum length: 2048 characters
+        applinkUrl:
+          type: string
+          description: >-
+            The URL that redirects users to open an app when the target app is
+            installed, or to open a WAP page when the target app is not
+            installed. For Android, the URL is a Native App Link. For iOS, the
+            URL is a Universal Link.
+
+
+            Note: When the value of result.resultCode is S, at least one of
+            schemeUrl, applinkUrl, and normalUrl is to be returned.
+
+
+            More information:
+
+
+            Maximum length: 2048 characters
+        normalUrl:
+          type: string
+          description: >-
+            The URL that redirects users to a WAP or Web page in the default
+            browser or the embedded WebView.
+
+
+            Note: When the value of result.resultCode is S, at least one of
+            schemeUrl, applinkUrl, and normalUrl is to be returned.
+
+
+            More information:
+
+
+            Maximum length: 2048 characters
+        appIdentifier:
+          type: string
+          description: >-
+            An Android package name, which is used for Android app to open a
+            cashier page.
+
+
+            Note: This field is returned when result.resultCode is S and
+            terminalType is APP or WAP.
+
+
+            More information:
+
+
+            Maximum length: 128 characters
+      required:
+        - result
+    PeriodRule:
+      type: object
+      properties:
+        periodType:
+          type: string
+          description: >-
+            The subscription period type. Valid values are:
+
+
+            YEAR: indicates that the subscription period is measured in years. 
+
+            MONTH: indicates that the subscription period is measured in
+            months. 
+
+            WEEK: indicates that the subscription period is measured in weeks. 
+
+            DAY: indicates that the subscription period is measured in days.  
+
+            More information:
+
+
+            Maximum length: 20 characters
+        periodCount:
+          type: integer
+          description: >-
+            The number of period types within one subscription period. For
+            example, if the value of periodType is MONTH and the value of
+            periodCount is 2, it means that the subscription period is two
+            months.  
+
+
+            More information:
+
+
+            Value range: 1 - unlimited
+      required:
+        - periodType
+        - periodCount
+    OrderInfo:
+      type: object
+      properties:
+        orderAmount: *ref_0
+    Trial:
+      type: object
+      properties:
+        trialStartPeriod:
+          type: integer
+          description: >-
+            The start subscription period of the trial. For example, if the
+            trial starts from the first subscription period, specify this
+            parameter as 1.  
+
+
+            More information:
+
+
+            Value range: 1 - unlimited
+        trialAmount: *ref_0
+        trialEndPeriod:
+          type: integer
+          description: >
+            The end subscription period of the trial. For example, if the trial
+            ends at the third subscription period, specify this parameter as 3.
+
+
+            Note: Specify this parameter if the end subscription period is
+            different from the start subscription period. If you leave this
+            parameter empty, the default value of this parameter is the same as
+            the value of trialStartPeriod.
+
+
+            More information:
+
+
+            Value range: 1 - unlimited
+      required:
+        - trialStartPeriod
+        - trialAmount
+  securitySchemes: {}
+servers:
+  - url: https://open-sea-global.alipay.com/ams/api/v1/subscriptions/create
+    description: 正式环境
+security: []

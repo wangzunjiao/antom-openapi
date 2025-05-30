@@ -1,0 +1,94 @@
+openapi: 3.1.0
+info:
+  title: authorizations_revoke
+  description: ''
+  version: 1.0.0
+tags: []
+paths:
+  /ams/api/v1/authorizations/revoke:
+    post:
+      summary: revoke
+      deprecated: false
+      description: >
+        Use this API to get the cashier page address. After getting the cashier
+        page address, you can redirect the user to the cashier page to make a
+        payment.
+      tags: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlipayAuthRevokeTokenRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlipayAuthRevokeTokenResponse'
+          headers: {}
+      security: []
+components:
+  schemas:
+    Result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The result code.
+        resultStatus:
+          description: |-
+            The result status. Valid values are:
+
+            S: indicates that the result status is successful.
+            F: indicates that the result status is failed. 
+            U: indicates that the result status is unknown. 
+          $ref: '#/components/schemas/ResultStatusType'
+        resultMessage:
+          type: string
+          description: The result message.
+      required:
+        - resultCode
+        - resultStatus
+        - resultMessage
+    ResultStatusType:
+      type:
+        - string
+        - 'null'
+      enum:
+        - S
+        - F
+        - U
+    AlipayAuthRevokeTokenRequest:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          description: >-
+            The access token that is used to access the corresponding scope of
+            the user resource. 
+
+
+            More information:
+
+
+            Maximum length: 128 characters
+        extendInfo:
+          type: string
+      required:
+        - accessToken
+    AlipayAuthRevokeTokenResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        extendInfo:
+          type: string
+      required:
+        - result
+  securitySchemes: {}
+servers:
+  - url: https://open-sea-global.alipay.com/ams/api/v1/authorizations/revoke
+    description: 正式环境
+security: []

@@ -1,0 +1,901 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "payments_consult",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/ams/api/v1/payments/consult": {
+      "post": {
+        "summary": "consult",
+        "deprecated": false,
+        "description": "Use this API to get the cashier page address. After getting the cashier page address, you can redirect the user to the cashier page to make a payment.\n",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlipayPayConsultRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlipayPayConsultResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AmountLimit": {
+        "type": "object",
+        "properties": {
+          "maxAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "minAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "remainAmount": {
+            "$ref": "#/components/schemas/Amount"
+          }
+        }
+      },
+      "AmountLimitInfo": {
+        "type": "object",
+        "properties": {
+          "singleLimit": {
+            "$ref": "#/components/schemas/AmountLimit"
+          },
+          "dayLimit": {
+            "$ref": "#/components/schemas/AmountLimit"
+          },
+          "monthLimit": {
+            "$ref": "#/components/schemas/AmountLimit"
+          }
+        }
+      },
+      "PromotionType": {
+        "type": "string",
+        "enum": [
+          "DISCOUNT",
+          "INTEREST_FREE"
+        ]
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "resultCode": {
+            "type": "string",
+            "description": "The result code.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "resultStatus": {
+            "description": "The result status. Valid values are:  \n\nS: Indicates that the result status is successful. \nF: Indicates that the result status is failed. \nU: Indicates that the result status is unknown. ",
+            "$ref": "#/components/schemas/ResultStatusType"
+          },
+          "resultMessage": {
+            "type": "string",
+            "description": "The result message.\n\nMore information:\n\nMaximum length: 256 characters"
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus"
+        ]
+      },
+      "ProductCodeType": {
+        "type": "string",
+        "enum": [
+          "CASHIER_PAYMENT",
+          "AGREEMENT_PAYMENT",
+          "IN_STORE_PAYMENT"
+        ]
+      },
+      "Amount": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string",
+            "description": "The 3-letter currency code that follows the ISO 4217 standard. \n\nMore information:\n\nMaximum length: 3 characters"
+          },
+          "value": {
+            "type": "string",
+            "description": "The value of the amount as a positive integer in the smallest currency unit. For example, if the currency is USD and the amount is $1.00, set the value of this parameter to 100; or if the currency is JPY and the amount is ￥1, set the value of this parameter to 1.  \n\nFor details about the smallest currency unit, see Smallest unit of the currency .\n\nFor details about the minimum payment amount allowed for each payment method, see Minimum amount rules. \n\nNote: Due to the currency practices in Indonesia, when the currency is IDR, round the amount with banker's rounding and fix the last two digits of this parameter as 00.  \n\nMore information:\n\nValue range: 0 - unlimited\n"
+          }
+        },
+        "required": [
+          "currency",
+          "value"
+        ]
+      },
+      "InStorePaymentScenario": {
+        "type": "string",
+        "enum": [
+          "PaymentCode",
+          "OrderCode",
+          "EntryCode"
+        ]
+      },
+      "PresentmentMode": {
+        "type": "string",
+        "enum": [
+          "BUNDLE",
+          "TILE",
+          "UNIFIED"
+        ]
+      },
+      "PaymentFactor": {
+        "type": "object",
+        "properties": {
+          "isPaymentEvaluation": {
+            "type": "boolean"
+          },
+          "inStorePaymentScenario": {
+            "$ref": "#/components/schemas/InStorePaymentScenario"
+          },
+          "presentmentMode": {
+            "$ref": "#/components/schemas/PresentmentMode",
+            "description": "The presentation mode chosen by the merchant to display the payment methods on the cashier page. Valid values are:\n\nTILE: specify this presentation mode when presenting wallets in a separate list with individual logos. The same applies when the value is empty or when you do not specify this parameter.\nUNIFIED: specify this presentation mode when presenting the unified Alipay+ payment method on the checkout page, allowing the buyer to choose a specific wallet at a later page."
+          },
+          "captureMode": {
+            "type": "string"
+          },
+          "isAuthorization": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SettlementStrategy": {
+        "type": "object",
+        "properties": {
+          "settlementCurrency": {
+            "type": "string",
+            "description": "The ISO currency code of the currency that the merchant wants to settle against. This field is required if the merchant signed up for multiple settlement currencies. Otherwise, the error code,SETTLE_CONTRACT_NOT_MATCH, will be returned. \n\nMore information:\n\nMaximum length: 3 characters"
+          }
+        }
+      },
+      "TerminalType": {
+        "type": "string",
+        "enum": [
+          "WEB",
+          "WAP",
+          "APP",
+          "MINI_APP"
+        ]
+      },
+      "BrowserInfo": {
+        "type": "object",
+        "properties": {
+          "acceptHeader": {
+            "type": "string",
+            "description": "The accept header of the user's browser"
+          },
+          "javaEnabled": {
+            "type": "boolean",
+            "description": "Indicates whether the user's browser is able to run Java"
+          },
+          "javaScriptEnabled": {
+            "type": "boolean",
+            "description": "Indicates whether the user's browser is able to run Java"
+          },
+          "language": {
+            "type": "string",
+            "description": "The language of the user's browser"
+          },
+          "userAgent": {
+            "type": "string",
+            "description": "The user agent of the user's browser"
+          }
+        }
+      },
+      "OsType": {
+        "type": "string",
+        "enum": [
+          "IOS",
+          "ANDROID"
+        ]
+      },
+      "Env": {
+        "type": "object",
+        "properties": {
+          "terminalType": {
+            "$ref": "#/components/schemas/TerminalType",
+            "description": "Terminal type used by the merchant. Valid values are:\n\nWEB: The terminal type of the merchant side is a website.\nWAP: The terminal type of the merchant side is a mobile website (H5 page) on a phone.\nAPP: The terminal type of the merchant side is an app on a phone.\nMINI_APP: The terminal type of the merchant side is a mini program on a phone.\nNote: This field is required when productCodeType is CASHIER_PAYMENT."
+          },
+          "osType": {
+            "$ref": "#/components/schemas/OsType",
+            "description": "Type of the operation system. Valid values are:\n\nIOS: The OS type is iOS.\nANDROID: The OS type is Android. \nNote: This field is required for all terminalType values except WEB. "
+          },
+          "userAgent": {
+            "type": "string",
+            "description": "The user agent.\n\nMore information:\n\nMaximum length: 1024 characters"
+          },
+          "deviceTokenId": {
+            "type": "string",
+            "description": "Token identifier of the device.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "clientIp": {
+            "type": "string",
+            "description": "IP address of the client device. \n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "cookieId": {
+            "type": "string",
+            "description": "The cookie ID of the buyer. \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "extendInfo": {
+            "type": "string"
+          },
+          "storeTerminalId": {
+            "type": "string"
+          },
+          "storeTerminalRequestTime": {
+            "type": "string"
+          },
+          "browserInfo": {
+            "$ref": "#/components/schemas/BrowserInfo"
+          },
+          "colorDepth": {
+            "type": "string"
+          },
+          "screenHeight": {
+            "type": "string"
+          },
+          "screenWidth": {
+            "type": "string"
+          },
+          "timeZoneOffset": {
+            "type": "integer"
+          },
+          "deviceBrand": {
+            "type": "string"
+          },
+          "deviceModel": {
+            "type": "string"
+          },
+          "deviceLanguage": {
+            "type": "string"
+          },
+          "deviceId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "terminalType"
+        ]
+      },
+      "ResultStatusType": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "S",
+          "F",
+          "U"
+        ]
+      },
+      "UserName": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "firstName",
+          "middleName",
+          "lastName",
+          "fullName"
+        ]
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "region": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "address1": {
+            "type": "string"
+          },
+          "address2": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          }
+        }
+      },
+      "Store": {
+        "type": "object",
+        "properties": {
+          "referenceStoreId": {
+            "type": "string"
+          },
+          "storeName": {
+            "type": "string"
+          },
+          "storeMCC": {
+            "type": "string"
+          },
+          "storeDisplayName": {
+            "type": "string"
+          },
+          "storeTerminalId": {
+            "type": "string"
+          },
+          "storeOperatorId": {
+            "type": "string"
+          },
+          "storeAddress": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "storePhoneNo": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "storeName",
+          "storeMCC",
+          "storeDisplayName",
+          "storeTerminalId",
+          "storeOperatorId",
+          "storeAddress",
+          "storePhoneNo",
+          "referenceStoreId"
+        ]
+      },
+      "MerchantType": {
+        "type": "string",
+        "enum": [
+          "INDIVIDUAL",
+          "ENTERPRISE"
+        ]
+      },
+      "Merchant": {
+        "type": "object",
+        "properties": {
+          "referenceMerchantId": {
+            "type": "string"
+          },
+          "merchantMCC": {
+            "type": "string"
+          },
+          "merchantName": {
+            "type": "string"
+          },
+          "merchantDisplayName": {
+            "type": "string"
+          },
+          "merchantAddress": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "merchantRegisterDate": {
+            "type": "string"
+          },
+          "store": {
+            "$ref": "#/components/schemas/Store"
+          },
+          "merchantType": {
+            "$ref": "#/components/schemas/MerchantType"
+          }
+        },
+        "required": [
+          "referenceMerchantId",
+          "merchantMCC",
+          "merchantName",
+          "merchantDisplayName",
+          "merchantAddress",
+          "merchantRegisterDate",
+          "merchantType",
+          "store"
+        ]
+      },
+      "Buyer": {
+        "type": "object",
+        "properties": {
+          "referenceBuyerId": {
+            "type": "string",
+            "description": "The unique ID to identify the buyer.\n\nNote: Specify this parameter when you want to use the promotion offered by Antom to this order.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "buyerName": {
+            "$ref": "#/components/schemas/UserName"
+          },
+          "buyerPhoneNo": {
+            "type": "string"
+          },
+          "buyerEmail": {
+            "type": "string"
+          },
+          "buyerRegistrationTime": {
+            "type": "string"
+          },
+          "isAccountVerified": {
+            "type": "boolean"
+          },
+          "successfulOrderCount": {
+            "type": "integer"
+          }
+        }
+      },
+      "Discount": {
+        "type": "object",
+        "properties": {
+          "discountTag": {
+            "type": "string",
+            "description": "The discount tag is displayed as a superscript next to the discount name.  More information:  Maximum length: 64 characters"
+          },
+          "discountName": {
+            "type": "string",
+            "description": "The discount name displayed in the default language.  More information:  Maximum length: 128 characters"
+          },
+          "savingsAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "estimateSavingsAmount": {
+            "$ref": "#/components/schemas/Amount"
+          }
+        }
+      },
+      "AlipayPayConsultRequest": {
+        "type": "object",
+        "properties": {
+          "productCode": {
+            "$ref": "#/components/schemas/ProductCodeType",
+            "description": "Represents the payment product that is being used. The payment product that can be used is stipulated in the contract. The fixed value is:\n\nCASHIER_PAYMENT: Indicates that this API is used for the Cashier Payment scenario.\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "paymentAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "merchantRegion": {
+            "type": "string",
+            "description": "The country or region where the merchant operates the business. The parameter is a 2-letter country or region code that follows ISO 3166 Country Codes standard.\n\nSome possible values are US, SG, HK, PK, JP, CN, BR, AU, and MY.  \n\nNote: This parameter is required when you use the Global Acquirer Gateway (GAGW) product.\n\nMore information:\n\nMaximum length: 2 characters"
+          },
+          "allowedPaymentMethodRegions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "A list of region codes that represent the countries or regions of payment methods. The value of this parameter is a 2-letter ISO country code or GLOBAL. \n\nNote: Specify this parameter if you want available payment methods from specific regions to be returned. For example, if you pass in GLOBAL, global cards Visa and Mastercard are returned.  \n\nMore information:\n\nMaximum length: 6 characters"
+          },
+          "allowedPaymentMethods": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "blockedPaymentMethods": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "region": {
+            "type": "string"
+          },
+          "customerId": {
+            "type": "string"
+          },
+          "referenceUserId": {
+            "type": "string"
+          },
+          "env": {
+            "$ref": "#/components/schemas/Env",
+            "description": "Information about the environment where the order is placed, such as the device information."
+          },
+          "extendInfo": {
+            "type": "string"
+          },
+          "userRegion": {
+            "type": "string",
+            "description": "The 2-letter country or region code. For more information, see ISO 3166 Country Codes standard. The payment methods will be sorted based on payment method relevance for the given user's region. \n\nMore information:\n\nMaximum length: 2 characters"
+          },
+          "paymentFactor": {
+            "$ref": "#/components/schemas/PaymentFactor",
+            "description": "Factors that impact the payment. This field is used to indicate the payment scenario.\n\nNote: Specify this parameter when the value of paymentMethodType is CARD."
+          },
+          "settlementStrategy": {
+            "$ref": "#/components/schemas/SettlementStrategy",
+            "description": "The settlement strategy."
+          },
+          "merchant": {
+            "$ref": "#/components/schemas/Merchant"
+          },
+          "allowedPspRegions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "buyer": {
+            "$ref": "#/components/schemas/Buyer",
+            "description": "Buyer information."
+          },
+          "merchantAccountId": {
+            "type": "string",
+            "description": "The unique ID to identify a merchant account.\n\nNote: Specify this parameter when you use a single client ID across multiple locations.\n\nMore information:\n\nMaximum length: 32 characters"
+          }
+        },
+        "required": [
+          "productCode",
+          "paymentAmount",
+          "env"
+        ]
+      },
+      "PaymentMethodCategoryType": {
+        "type": "string",
+        "enum": [
+          "ALIPAY_PLUS",
+          "WALLET",
+          "MOBILE_BANKING_APP",
+          "BANK_TRANSFER",
+          "ONLINE_BANKING",
+          "CARD",
+          "OTC"
+        ]
+      },
+      "Logo": {
+        "type": "object",
+        "properties": {
+          "logoName": {
+            "type": "string",
+            "description": "The logo name of the card brand. See the Card brands to check the valid values. \n\nMore information:\n\nMaximum length: 12 characters"
+          },
+          "logoUrl": {
+            "type": "string",
+            "description": "The logo URL of the card brand.    More information:  Maximum length: 2048 characters"
+          }
+        },
+        "required": [
+          "logoName"
+        ]
+      },
+      "SupportCardBrand": {
+        "type": "object",
+        "properties": {
+          "cardBrand": {
+            "type": "string",
+            "description": "The name of the card brand. Valid values are:\n\nVISA: indicates Visa. \nMASTERCARD: indicates Mastercard.  \nAMEX: indicates American Express (Amex).\nHIPERCARD: indicates Hipercard.\nELO: indicates Elo."
+          },
+          "logo": {
+            "$ref": "#/components/schemas/Logo",
+            "description": "The logo of the card brand. "
+          }
+        },
+        "required": [
+          "cardBrand",
+          "logo"
+        ]
+      },
+      "SupportBank": {
+        "type": "object",
+        "properties": {
+          "bankIdentifierCode": {
+            "type": "string",
+            "description": "The unique code of the bank. See the Bank list to check the valid values. "
+          },
+          "bankShortName": {
+            "type": "string",
+            "description": "The short name of the bank. The unique code of the bank. See the Bank list to check the valid values. "
+          },
+          "bankLogo": {
+            "$ref": "#/components/schemas/Logo",
+            "description": "The logo of the card brand. "
+          }
+        }
+      },
+      "PaymentOptionDetail": {
+        "type": "object",
+        "properties": {
+          "supportCardBrands": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SupportCardBrand"
+            },
+            "description": "The list of supported card brands.  \n\nNote: This parameter is returned when the value of paymentMethodType is ​CARD​."
+          },
+          "funding": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The funding type of the card. Valid values are: \n\nCREDIT: indicates a credit card. \nDEBIT: indicates a debit card. \nPREPAID: indicates a prepaid card\nCHARGE: indicates a charge card\nDEFERRED_DEBIT: indicates a deferred debit card\nThis parameter is returned when all the following conditions are met:\n\nThe value of paymentMethodType is CARD.\nThe value of cardNo is valid.\nThe information is available in the Antom card database."
+          },
+          "supportBanks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SupportBank"
+            },
+            "description": "The list of supported banks. \n\nThis parameter is returned when the value of paymentMethodType is ​P24​ or ONLINEBANKING_FPX.\n\n"
+          }
+        },
+        "required": [
+          "supportCardBrands",
+          "supportBanks"
+        ]
+      },
+      "Plan": {
+        "type": "object",
+        "properties": {
+          "interestRate": {
+            "type": "string",
+            "description": "The interest rate the customer is charged on the installments.  \n\nMore information:\n\nMaximum length: 8 characters"
+          },
+          "minInstallmentAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "maxInstallmentAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "installmentNum": {
+            "type": "string",
+            "description": "The number of installment payments. The valid value is from 2 to 12.    More information:  Maximum length: 8 characters"
+          },
+          "interval": {
+            "type": "string",
+            "description": "The interval of each installment payment. The valid value is MONTH.   More information:  Maximum length: 16 characters"
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Indicates whether the installment payment is available. "
+          }
+        },
+        "required": [
+          "minInstallmentAmount",
+          "maxInstallmentAmount",
+          "installmentNum",
+          "interval",
+          "enabled"
+        ]
+      },
+      "Installment": {
+        "type": "object",
+        "properties": {
+          "supportCardBrands": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SupportCardBrand"
+            },
+            "description": "The list of card brands that support the installment plans.  \n\nThis parameter is returned when the value of paymentMethodType is CARD. "
+          },
+          "plans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Plan"
+            },
+            "description": "The list of installment plans for payment methods that support installments. "
+          }
+        },
+        "required": [
+          "supportCardBrands",
+          "plans"
+        ]
+      },
+      "InterestFree": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "type": "string",
+            "description": "Issuing banks or financial institutions that offer interest-free installment plans.  More information:  Maximum length: 128 characters"
+          },
+          "expireTime": {
+            "type": "string",
+            "description": "The promotion expiration time.  More information:  The value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
+          },
+          "installmentFreeNums": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "The number of interest-free installments.  More information:  Value range: 2-unlimited"
+          },
+          "minPaymentAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "maxPaymentAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "freePercentage": {
+            "type": "integer",
+            "description": "The interest-free percentage. A value of 0 indicates no interest-free, 100% indicates the buyer is completely interest-free, while the value between 0-100% indicates partial interest-free."
+          }
+        },
+        "required": [
+          "provider",
+          "expireTime",
+          "installmentFreeNums",
+          "minPaymentAmount",
+          "freePercentage"
+        ]
+      },
+      "PromotionInfo": {
+        "type": "object",
+        "properties": {
+          "promotionType": {
+            "$ref": "#/components/schemas/PromotionType",
+            "description": "Promotion type. Valid values are:  DISCOUNT: a deduction from the regular price.  INTEREST_FREE: payment in interest-free installments.  More information:  Maximum length: 32 characters"
+          },
+          "discount": {
+            "$ref": "#/components/schemas/Discount",
+            "description": "Discount information.  Note: This parameter is returned when the payment method offers a promotion to the buyer."
+          },
+          "interestFree": {
+            "$ref": "#/components/schemas/InterestFree",
+            "description": "The information about interest-free installment plans."
+          }
+        },
+        "required": [
+          "promotionType"
+        ]
+      },
+      "PaymentOption": {
+        "type": "object",
+        "properties": {
+          "paymentMethodType": {
+            "type": "string",
+            "description": "The payment method type. See Payment methods to check the valid values.  \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "paymentMethodCategory": {
+            "$ref": "#/components/schemas/PaymentMethodCategoryType",
+            "description": "The category of the payment method. Valid values are:\n\nALIPAY_PLUS: indicates that the payment method category is an Alipay+ payment method.  \nWALLET: indicates that the payment method category is a wallet. \nMOBILE_BANKING_APP: indicates that the payment method category is a mobile banking app. \nBANK_TRANSFER: indicates that the payment method category is bank transfer. \nONLINE_BANKING: indicates that the payment method category is online banking.  \nCARD: indicates that the payment method category is a card. \nOTC: indicates that the payment method category is over the counter. \nMore information:\n\nMaximum length: 32 characters"
+          },
+          "paymentMethodRegion": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "A list of region codes that represent the countries or regions of payment methods. The value of this parameter is a 2-letter ISO country code or GLOBAL.  \n\nMore information:\n\nMaximum length: 6 characters"
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Indicates whether the payment method is available."
+          },
+          "preferred": {
+            "type": "boolean"
+          },
+          "disableReason": {
+            "type": "string",
+            "description": "The reason why the payment method is not available. Valid values are:\n\nPAYMENT_ACCOUNT_NOT_AVAILABLE\nEXCEED_CHANNEL_LIMIT_RULE\nSERVICE_DEGRADE\nCHANNEL_NOT_SUPPORT_CURRENCY\nCHANNEL_DISABLE\nCHANNEL_NOT_IN_SERVICE_TIME\nQUERY_IPP_INFO_FAILED\nLIMIT_CENTER_ACCESS_FAIL \nCURRENT_CHANNEL_NOT_EXIST "
+          },
+          "amountLimitInfoMap": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "AmountLimitInfo": {
+                  "$ref": "#/components/schemas/AmountLimitInfo"
+                }
+              },
+              "required": [
+                "AmountLimitInfo"
+              ]
+            }
+          },
+          "supportedCurrencies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "paymentOptionDetail": {
+            "$ref": "#/components/schemas/PaymentOptionDetail",
+            "description": "Details about the payment option. \n\nThis parameter is returned when one of the following conditions is met: \n\nWhen the value of paymentMethodType is CARD: paymentOptionDetail returns information relating to the cards.\nWhen the value of paymentMethodType is ​P24​: paymentOptionDetail returns information relating to the Przelewy24 payment method.\nWhen the value of paymentMethodType is ONLINEBANKING_FPX: paymentOptionDetail returns information relating to the FPX payment method."
+          },
+          "extendInfo": {
+            "type": "string"
+          },
+          "logo": {
+            "$ref": "#/components/schemas/Logo",
+            "description": "The logo of the card brand. "
+          },
+          "promoNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The list of the promotion names. In JSON format. The keys are returned as a language and a country code, connected by an underscore, such as zh_CN, while the value is the promotion name, such as RM1 Voucher.  \n\nMore information:\n\nMaximum length: 512 characters"
+          },
+          "installment": {
+            "$ref": "#/components/schemas/Installment",
+            "description": "Information about installments. \n\nNote: This parameter is returned when the payment method supports installments.  "
+          },
+          "promotionInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PromotionInfo"
+            },
+            "description": "Promotion information.\n\nThis parameter is returned when the payment method offers a promotion to the buyer."
+          }
+        },
+        "required": [
+          "paymentMethodType",
+          "enabled"
+        ]
+      },
+      "PaymentMethodInfo": {
+        "type": "object",
+        "properties": {
+          "paymentMethodType": {
+            "type": "string"
+          },
+          "paymentMethodDetail": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "preferred": {
+            "type": "boolean"
+          },
+          "extendInfo": {
+            "type": "string"
+          }
+        }
+      },
+      "AlipayPayConsultResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/Result",
+            "description": "The request result that contains information such as status and error codes.\n\nNote: This field doesn't indicate the payment result. This field only indicates whether the consult API is called successfully. "
+          },
+          "paymentOptions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentOption"
+            },
+            "description": "The payment option list."
+          },
+          "paymentMethodInfos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentMethodInfo"
+            }
+          },
+          "extendInfo": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers": [],
+  "security": []
+}

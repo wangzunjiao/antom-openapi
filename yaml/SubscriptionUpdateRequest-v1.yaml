@@ -1,0 +1,224 @@
+openapi: 3.1.0
+info:
+  title: subscriptions_update
+  description: ''
+  version: 1.0.0
+tags: []
+paths:
+  /ams/api/v1/subscriptions/update:
+    post:
+      summary: update
+      deprecated: false
+      description: >
+        Use this API to get the cashier page address. After getting the cashier
+        page address, you can redirect the user to the cashier page to make a
+        payment.
+      tags: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlipaySubscriptionUpdateRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlipaySubscriptionUpdateResponse'
+          headers: {}
+      security: []
+components:
+  schemas:
+    Result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The result code.
+        resultStatus:
+          description: |-
+            The result status. Valid values are:
+
+            S: indicates that the result status is successful.
+            F: indicates that the result status is failed. 
+            U: indicates that the result status is unknown. 
+          $ref: '#/components/schemas/ResultStatusType'
+        resultMessage:
+          type: string
+          description: The result message.
+      required:
+        - resultCode
+        - resultStatus
+        - resultMessage
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: >
+            The transaction currency, which is a 3-letter currency code that
+            follows the ISO 4217 standard. 
+
+
+            More information:
+
+
+            Maximum length: 3 characters
+        value:
+          type: string
+          description: >-
+            The value of the amount as a positive integer in the smallest
+            currency unit. For example, if the currency is USD and the amount is
+            $1.00, set the value of this parameter to 100; or if the currency is
+            JPY and the amount is ￥1, set the value of this parameter to 1.
+
+
+            For details about the smallest currency unit, see Smallest unit of
+            the currency.
+
+
+            For details about the minimum payment amount allowed for each
+            payment method, see Minimum amount rules.  
+
+
+            More information:
+
+
+            Value range: [1, +∞)
+      required:
+        - currency
+        - value
+    ResultStatusType:
+      type:
+        - string
+        - 'null'
+      enum:
+        - S
+        - F
+        - U
+    PeriodRule:
+      type: object
+      properties:
+        periodType:
+          type: string
+          description: >-
+            The subscription period type. Valid values are:
+
+
+            YEAR: indicates that the subscription period is measured in years. 
+
+            MONTH: indicates that the subscription period is measured in
+            months. 
+
+            WEEK: indicates that the subscription period is measured in weeks. 
+
+            DAY: indicates that the subscription period is measured in days.  
+
+            More information:
+
+
+            Maximum length: 20 characters
+        periodCount:
+          type: integer
+          description: >-
+            The number of period types within one subscription period. For
+            example, if the value of periodType is MONTH and the value of
+            periodCount is 2, it means that the subscription period is two
+            months.  
+
+
+            More information:
+
+
+            Value range: [1, +∞)
+      required:
+        - periodType
+        - periodCount
+    OrderInfo:
+      type: object
+      properties:
+        orderAmount: &ref_0
+          $ref: '#/components/schemas/Amount'
+      required:
+        - orderAmount
+    AlipaySubscriptionUpdateRequest:
+      type: object
+      properties:
+        subscriptionUpdateRequestId:
+          type: string
+          description: >-
+            The unique ID assigned by a merchant to identify a subscription
+            update request.
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+        subscriptionId:
+          type: string
+          description: |-
+            The unique ID assigned by Antom to identify a subscription. 
+
+            More information:
+
+            Maximum length: 64 characters
+        subscriptionDescription:
+          type: string
+          description: >-
+            The description of the subscription, used for displaying user
+            consumption records and other actions.
+
+
+            More information:
+
+
+            Maximum length: 256 characters
+        periodRule:
+          $ref: '#/components/schemas/PeriodRule'
+          description: >-
+            The subscription period rule, used to define a subscription's
+            billing period.
+        paymentAmount: *ref_0
+        subscriptionEndTime:
+          type: string
+          description: >-
+            The date and time when the subscription ends.
+
+
+            More information:
+
+
+            The value follows the ISO 8601 standard format. For example,
+            "2019-11-27T12:01:01+08:00".
+        orderInfo:
+          $ref: '#/components/schemas/OrderInfo'
+          description: >-
+            The order information of the subscription. This field is used for
+            different purposes:
+
+
+            During the payment process, this field is mainly used by Antom for
+            risk control or anti-money laundering.
+
+            After the payment is completed, this field is used for recording and
+            reporting purposes such as purchase tracking and regulatory
+            reporting.
+      required:
+        - subscriptionUpdateRequestId
+        - subscriptionId
+        - orderInfo
+    AlipaySubscriptionUpdateResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+      required:
+        - result
+  securitySchemes: {}
+servers:
+  - url: https://open-sea-global.alipay.com/ams/api/v1/subscriptions/update
+    description: 正式环境
+security: []

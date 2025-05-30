@@ -1,0 +1,139 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "payments_downloadDisputeEvidence",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/ams/api/v1/payments/downloadDisputeEvidence": {
+      "post": {
+        "summary": "downloadDisputeEvidence",
+        "deprecated": false,
+        "description": "Use this API to get the cashier page address. After getting the cashier page address, you can redirect the user to the cashier page to make a payment.\n",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlipayDownloadDisputeEvidenceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlipayDownloadDisputeEvidenceResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Result": {
+        "type": "object",
+        "properties": {
+          "resultCode": {
+            "type": "string",
+            "description": "The result code."
+          },
+          "resultStatus": {
+            "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
+            "$ref": "#/components/schemas/ResultStatusType"
+          },
+          "resultMessage": {
+            "type": "string",
+            "description": "The result message."
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus",
+          "resultMessage"
+        ]
+      },
+      "ResultStatusType": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "S",
+          "F",
+          "U"
+        ]
+      },
+      "DisputeEvidenceType": {
+        "type": "string",
+        "enum": [
+          "DISPUTE_EVIDENCE_TEMPLATE",
+          "DISPUTE_EVIDENCE_FILE"
+        ]
+      },
+      "AlipayDownloadDisputeEvidenceRequest": {
+        "type": "object",
+        "properties": {
+          "disputeId": {
+            "type": "string",
+            "description": "The unique ID that is assigned by Antom to identify a dispute.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "disputeEvidenceType": {
+            "$ref": "#/components/schemas/DisputeEvidenceType",
+            "description": "The type of dispute evidence you can download. Valid values are:\n\nDISPUTE_EVIDENCE_TEMPLATE: the pre-filled dispute evidence template, which is a valuable tool for improving the success rate of your defense. We highly recommend downloading this template to ensure all necessary information is included in your defense document. For a template sample with pre-filled information, see Merchant Letter.\nDISPUTE_EVIDENCE_FILE: the dispute evidence file uploaded by the supplyDefenseDocument API.\nMore information:\n\nMaximum length: 64 characters"
+          }
+        },
+        "required": [
+          "disputeId",
+          "disputeEvidenceType"
+        ]
+      },
+      "DisputeEvidenceFormatType": {
+        "type": "string",
+        "enum": [
+          "PDF",
+          "WORD"
+        ]
+      },
+      "AlipayDownloadDisputeEvidenceResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/Result",
+            "description": "The result of the API call."
+          },
+          "disputeEvidence": {
+            "type": "string",
+            "description": "The dispute evidence that is encoded in the Based64 format. Decode the Base64 document to get the Word or PDF file.\n\nNote: This prameter is returned when the value of resultCode is SUCCESS.\n\nMore information:\n\nMaximum length: 1000000 characters\n"
+          },
+          "disputeEvidenceFormat": {
+            "$ref": "#/components/schemas/DisputeEvidenceFormatType",
+            "description": "The document format of the dispute evidence. Valid values are:\n\nWORD: indicates that the format of the dispute evidence is Word.\nPDF: indicates that the format of the dispute evidence is PDF.\nZIP: indicates that the format of the dispute evidence is ZIP.\nJPG: indicates that the format of the dispute evidence is JPG.\nNote: This prameter is returned when the value of resultCode is SUCCESS.\n\nMore information:\n\nMaximum length: 64 characters"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/downloadDisputeEvidence",
+      "description": "正式环境"
+    }
+  ],
+  "security": []
+}

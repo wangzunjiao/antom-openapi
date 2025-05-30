@@ -1,0 +1,309 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "authorizations_consult",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/ams/api/v1/authorizations/consult": {
+      "post": {
+        "summary": "consult",
+        "deprecated": false,
+        "description": "Use this API to get the cashier page address. After getting the cashier page address, you can redirect the user to the cashier page to make a payment.\n",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlipayAuthConsultRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlipayAuthConsultResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CodeValueType": {
+        "type": "string",
+        "enum": [
+          "BARCODE",
+          "QRCODE"
+        ]
+      },
+      "DisplayType": {
+        "type": "string",
+        "enum": [
+          "TEXT",
+          "MIDDLEIMAGE",
+          "SMALLIMAGE",
+          "BIGIMAGE",
+          "IMAGE"
+        ]
+      },
+      "CodeDetail": {
+        "type": "object",
+        "properties": {
+          "codeValueType": {
+            "$ref": "#/components/schemas/CodeValueType"
+          },
+          "codeValue": {
+            "type": "string",
+            "description": "The value of the code.\n\nIf the value of displayType is IMAGE, this parameter indicates a plain or Base64-encoded image URL.\nIf the value of displayType is TEXT, this parameter indicates a text string. You need to convert the text into a QR code image to display for buyers.  \nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "displayType": {
+            "$ref": "#/components/schemas/DisplayType",
+            "description": "Indicates the code value type. Valid values are:\n\nTEXT: indicates the code value type is the original text of the QR code. You need to use codeValue to convert the text into an image and display the image for buyers.\nIMAGE: indicates the code value type is the image of the QR code. You can directly display the image for buyers.  \nMore information:\n\nMaximum length: 24 characters"
+          }
+        },
+        "required": [
+          "displayType",
+          "codeValue"
+        ]
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "resultCode": {
+            "type": "string",
+            "description": "The result code."
+          },
+          "resultStatus": {
+            "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
+            "$ref": "#/components/schemas/ResultStatusType"
+          },
+          "resultMessage": {
+            "type": "string",
+            "description": "The result message."
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus",
+          "resultMessage"
+        ]
+      },
+      "TerminalType": {
+        "type": "string",
+        "enum": [
+          "WEB",
+          "WAP",
+          "APP",
+          "MINI_APP"
+        ]
+      },
+      "OsType": {
+        "type": "string",
+        "enum": [
+          "IOS",
+          "ANDROID"
+        ]
+      },
+      "ResultStatusType": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "S",
+          "F",
+          "U"
+        ]
+      },
+      "CustomerBelongsTo": {
+        "type": "string",
+        "enum": [
+          "RABBIT_LINE_PAY",
+          "TRUEMONEY",
+          "ALIPAY_HK",
+          "TNG",
+          "ALIPAY_CN",
+          "GCASH",
+          "DANA",
+          "KAKAOPAY",
+          "BKASH",
+          "EASYPAISA",
+          "PAYPAY",
+          "BOOST",
+          "GRABPAY_MY",
+          "MAYA",
+          "GRABPAY_PH",
+          "GRABPAY_SG",
+          "NAVERPAY",
+          "JKOPAY",
+          "KPLUS",
+          "DIRECT_DEBIT_SIAMCOMMERCIALBANK",
+          "DIRECT_DEBIT_KRUNGTHAIBANK",
+          "ZALOPAY",
+          "DIRECTDEBIT_YAPILY",
+          "TOSSPAY",
+          "MOMO",
+          "ANTOM_BIZ_ACCOUNT"
+        ]
+      },
+      "ScopeType": {
+        "type": "string",
+        "enum": [
+          "BASE_USER_INFO",
+          "AGREEMENT_PAY",
+          "USER_INFO",
+          "USER_LOGIN_ID",
+          "HASH_LOGIN_ID",
+          "SEND_OTP",
+          "TAOBAO_REBIND"
+        ]
+      },
+      "AuthMetaData": {
+        "type": "object",
+        "properties": {
+          "accountHolderName": {
+            "type": "string"
+          },
+          "accountHolderCertNo": {
+            "type": "string"
+          }
+        }
+      },
+      "AuthCodeForm": {
+        "type": "object",
+        "properties": {
+          "codeDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CodeDetail"
+            },
+            "description": "A list of QR code information.  "
+          }
+        },
+        "required": [
+          "codeDetails"
+        ]
+      },
+      "AlipayAuthConsultRequest": {
+        "type": "object",
+        "properties": {
+          "customerBelongsTo": {
+            "$ref": "#/components/schemas/CustomerBelongsTo",
+            "description": "The wallet that the user uses. See Payment methods to check the valid values.  \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "authClientId": {
+            "type": "string",
+            "description": "The unique ID of the secondary merchant to which the user grants resource access permission. The value is specified by the acquirer and needs to be registered in Antom.  \n\nNotes: \n\nSpecify this field if you are an acquirer with secondary merchants.\nFor an Alipay+ payment methods, the value of this field is the same as the value of the referenceMerchantId field in the pay (Auto Debit) interface.\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "authRedirectUrl": {
+            "type": "string",
+            "description": "The redirection URL that the user is redirected to after the user agrees to authorize. This value is provided by the merchant.\n\nMore information:\n\nMaximum length: 1024 characters\n"
+          },
+          "scopes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScopeType"
+            },
+            "description": "The authorization scope. Valid values are:  \n\nBASE_USER_INFO: Indicates that the unique user ID can be obtained.\nUSER_INFO: Indicates that the complete user information can be obtained, for example, user name, avatar, and other user information.\nAGREEMENT_PAY: Indicates that the user agrees to authorize for auto debit so that the merchant can use the access token to automatically deduct money from the user's account.\nMore information:\n\nMaximum size: 4 elements"
+          },
+          "authState": {
+            "type": "string",
+            "description": "The unique ID generated by the merchant to represent the consult request. The consistency of this field and that in the redirection URL when the user agrees to authorize needs to be guaranteed.\n\nMore information:\n\nMaximum length: 256 characters"
+          },
+          "terminalType": {
+            "$ref": "#/components/schemas/TerminalType",
+            "description": "Terminal type of which the merchant service applies to. Valid values are:\n\nWEB: The client-side terminal type is a website that is opened via a web browser.\nWAP: The client-side terminal type is an HTML page that is opened via a mobile browser.\nAPP: The client-side terminal type is a mobile application.\nMINI_APP: The terminal type of the merchant side is a mini program on the mobile phone. \n"
+          },
+          "osType": {
+            "$ref": "#/components/schemas/OsType",
+            "description": "The OS type. Valid values are: \n\nIOS: indicates the operation system is Apple's iOS.\nANDROID indicates the operation system is Google's Android.\nNote: This field is required when terminalType is APP , WAP or MINI_APP."
+          },
+          "osVersion": {
+            "type": "string",
+            "description": "The OS version. \n\nNote: Specify this parameter when the value of terminalType is APP or WAP and you have this information. Providing this information makes the user's payment experience better.\n\nMore information:\n\nMaximum length: 16 characters"
+          },
+          "extendInfo": {
+            "type": "string"
+          },
+          "merchantRegion": {
+            "type": "string",
+            "description": "The country or region where the merchant or secondary merchant operates the business. The parameter is a 2-letter country/region code that follows ISO 3166 Country Codes standard. Only US, JP, PK, SG are supported now.\n\nNote: This field is required when you use the Global Acquirer Gateway (GAGW) product.\n\nMore information:\n\nMaximum length: 2 characters"
+          },
+          "recurringPayment": {
+            "type": "boolean",
+            "description": "Indicates whether the auto debit is used for recurring payments. Valid values are:\n\ntrue: indicates the auto debit is for recurring payments.\nfalse: indicates the auto debit is not for recurring payments.\nSpecify this parameter when the value of customerBelongsTo is PAYPAY."
+          },
+          "authMetaData": {
+            "$ref": "#/components/schemas/AuthMetaData"
+          }
+        },
+        "required": [
+          "customerBelongsTo",
+          "authRedirectUrl",
+          "scopes",
+          "authState",
+          "terminalType"
+        ]
+      },
+      "AlipayAuthConsultResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/Result",
+            "description": "Indicates whether this API is called successfully. If this API is successfully called, the authorization URL can be obtained."
+          },
+          "authUrl": {
+            "type": "string"
+          },
+          "extendInfo": {
+            "type": "string"
+          },
+          "normalUrl": {
+            "type": "string",
+            "description": "The URL that redirects users to a WAP or WEB page in the default browser or the embedded WebView.\n\nNote: When the value of result.resultCode is SUCCESS, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters\n"
+          },
+          "schemeUrl": {
+            "type": "string",
+            "description": "The URL scheme that redirects users to open an app in an Android or iOS system when the target app is installed.\n\nNote: When the value of result.resultCode is SUCCESS, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "applinkUrl": {
+            "type": "string",
+            "description": "The URL that redirects users to open an app when the target app is installed, or to open a WAP page when the target app is not installed. For Android, the URL is a Native App Link. For iOS, the URL is a Universal Link.\n\nNote: When the value of result.resultCode is SUCCESS, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned. \n\nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "appIdentifier": {
+            "type": "string",
+            "description": "Android package name, which is used for Android app to open a cashier page.\n\nNote: This field is returned when result.resultCode is SUCCESS and terminalType is ​APP or ​WAP​.\n\nMore information:\n\nMaximum length: 128 characters"
+          },
+          "authCodeForm": {
+            "$ref": "#/components/schemas/AuthCodeForm",
+            "description": "The information about the authorization QR code.\n\nNote: This parameter is returned when the payment method supports authorization through QR code scanning."
+          }
+        },
+        "required": [
+          "result"
+        ]
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/authorizations/consult",
+      "description": "正式环境"
+    }
+  ],
+  "security": []
+}

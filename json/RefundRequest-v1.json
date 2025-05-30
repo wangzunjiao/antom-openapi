@@ -1,0 +1,292 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "payments_refund",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/ams/api/v1/payments/refund": {
+      "post": {
+        "summary": "refund",
+        "deprecated": false,
+        "description": "Use this API to get the cashier page address. After getting the cashier page address, you can redirect the user to the cashier page to make a payment.\n",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlipayRefundRequest"
+              },
+              "example": ""
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlipayRefundResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Quote": {
+        "type": "object",
+        "properties": {
+          "quoteId": {
+            "type": "string",
+            "description": "The unique ID that is assigned by Alipay to identify an exchange rate.  \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "quoteCurrencyPair": {
+            "type": "string",
+            "description": "The exchange rate between settlement currency and transaction currency. Two currencies are separated with a slash and use the 3-letter ISO-4217 currency code.  \n\nMore information:\n\nMaximum length: 16 characters"
+          },
+          "quotePrice": {
+            "type": "number",
+            "description": "The exchange rate used when a currency conversion between settlement currency and transaction currency occurs.  \n\nMore information:\n\nValue range: 1 - unlimited"
+          },
+          "quoteStartTime": {
+            "type": "string",
+            "description": "Effective time of the exchange rate.  \n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
+          },
+          "quoteExpiryTime": {
+            "type": "string",
+            "description": "Expiration time of the exchange rate. \n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
+          },
+          "guaranteed": {
+            "type": "boolean",
+            "description": "Guaranteed exchange rate available for payment.  "
+          }
+        },
+        "required": [
+          "quoteCurrencyPair",
+          "quotePrice"
+        ]
+      },
+      "AcquirerInfo": {
+        "type": "object",
+        "properties": {
+          "acquirerName": {
+            "type": "string",
+            "description": "The name of the acquirer. \n\nNote: This parameter is returned if you integrate the APO product.  \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "referenceRequestId": {
+            "type": "string",
+            "description": "The unique ID that is assigned by APO to identify a payment request sent to the acquirer.\n\nNote: This parameter is returned if you integrate the APO product.  \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "acquirerTransactionId": {
+            "type": "string",
+            "description": "The unique ID that is assigned by the acquirer to identify a transaction. \n\nNote: This parameter is returned if you integrate the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "acquirerMerchantId": {
+            "type": "string",
+            "description": "The unique ID that is assigned by the acquirer to identify a merchant. \n\nNote: This parameter is returned if you integrate the APO product.  \n\nMore information:\n\nMaximum length: 64 characters\n"
+          },
+          "acquirerResultCode": {
+            "type": "string",
+            "description": "The acquirer's result code that indicates the transaction process result.  \n\nNote: This parameter is returned if you integrate the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "acquirerResultMessage": {
+            "type": "string",
+            "description": "The result message that describes acquirerResultCode in detail.  \n\nNote: This parameter is returned if you integrate the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
+          }
+        }
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "resultCode": {
+            "type": "string",
+            "description": "Result code. Possible values are listed in the Result/Error codes table on this page.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "resultStatus": {
+            "description": "Result status. Valid values are:\n\nS: Indicates that the refund succeeded.\nF: Indicates that the refund failed.\nU: Indicates that the refund result is unknown. ",
+            "$ref": "#/components/schemas/ResultStatusType"
+          },
+          "resultMessage": {
+            "type": "string",
+            "description": "Result message that explains the result code.\n\nMore information:\n\nMaximum length: 256 characters"
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus"
+        ]
+      },
+      "ResultStatusType": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "S",
+          "F",
+          "U"
+        ]
+      },
+      "Amount": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string",
+            "description": "The currency used for the corresponding payment of the refund. The value is a 3-letter currency code that follows the ISO 4217 standard.\n\nMore information:\n\nMaximum length: 3 characters"
+          },
+          "value": {
+            "type": "string",
+            "description": "The value of the amount as a positive integer in the smallest currency unit. For example, if the currency is USD and the amount is $1.00, set the value of this parameter to 100; or if the currency is JPY and the amount is ￥1, set the value of this parameter to 1.  \n\nFor details about the smallest currency unit, see Smallest unit of the currency .\n\nFor details about the minimum payment amount allowed for each payment method, see Minimum amount rules. \n\nNote: Due to the currency practices in Indonesia, when the currency is IDR, round the amount with banker's rounding and fix the last two digits of this parameter as 00.  \n\nMore information:\n\nValue range: 1 - unlimited"
+          }
+        },
+        "required": [
+          "currency",
+          "value"
+        ]
+      },
+      "AlipayRefundRequest": {
+        "type": "object",
+        "properties": {
+          "refundRequestId": {
+            "type": "string",
+            "description": "The unique ID assigned by the merchant to identify a refund request.\n\nMore information:\n\nThis field is an API idempotency field.The merchant uses the refundRequestId field for idempotency control. For payment requests that are initiated with the same value of refundRequestId and reach a final status (S or F), the same result is to be returned for the request.\nMaximum length: 64 characters"
+          },
+          "paymentId": {
+            "type": "string",
+            "description": "The unique ID assigned by Antom for the original payment to be refunded.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "referenceRefundId": {
+            "type": "string",
+            "description": "The unique ID to identify a refund, which is assigned by the merchant that directly provides services or goods to the customer.\n\nNote: Specify this field if this value is needed for internal use or reconciliation.\n\nMore information:\n\nMaximum length: 64 characters\n"
+          },
+          "refundAmount": {
+            "description": "The refund amount that is initiated by the merchant.",
+            "$ref": "#/components/schemas/Amount"
+          },
+          "refundReason": {
+            "type": "string",
+            "description": "The refund reason.\n\nNote: Specify this field if you want to provide the refund reason to the user and payment method.\n\nMore information:\n\nMaximum length: 256 characters"
+          },
+          "refundNotifyUrl": {
+            "type": "string",
+            "description": "The URL that is used to receive the refund result notification. The URL must be either specified in the request or set in Antom Dashboard.\n\nNote: Specify this field if you want to receive an asynchronous notification of the refund result. If the refund notification URL is specified in both the request and Antom Dashboard, the value specified in the request takes precedence.\n\nMore information:\n\nMaximum length: 1024 characters\n"
+          },
+          "isAsyncRefund": {
+            "type": "boolean"
+          },
+          "extendInfo": {
+            "type": "string"
+          },
+          "refundDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RefundDetail"
+            }
+          },
+          "refundSourceAccountNo": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "refundRequestId",
+          "paymentId",
+          "refundAmount"
+        ]
+      },
+      "RefundDetail": {
+        "type": "object",
+        "properties": {
+          "refundAmount": {
+            "description": "The refund amount that is initiated by the merchant.",
+            "$ref": "#/components/schemas/Amount"
+          },
+          "refundFrom": {
+            "$ref": "#/components/schemas/RefundFromType"
+          }
+        },
+        "required": [
+          "refundAmount",
+          "refundFrom"
+        ]
+      },
+      "RefundFromType": {
+        "type": "string",
+        "enum": [
+          "SELLER",
+          "MARKETPLACE",
+          "UNSETTLED_FUNDS"
+        ]
+      },
+      "AlipayRefundResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/Result",
+            "description": "Indicates whether this API is called successfully. If this API is successfully called, the refund succeeds."
+          },
+          "refundRequestId": {
+            "type": "string",
+            "description": "The unique ID that is assigned by the merchant to identify a refund request.\n\nNote: This field is returned when the refund succeeds (the value of result.resultStatus is S).\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "refundId": {
+            "type": "string",
+            "description": "The unique ID that is assigned by Antom to identify a refund. A one-to-one correspondence between refundId and refundRequestId exists. \n\nNote: This field is returned when the refund succeeds (the value of result.resultStatus is S).\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "paymentId": {
+            "type": "string",
+            "description": "The unique ID assigned by Antom for the original payment to be refunded.\n\nNote: This field is returned when the refund succeeds (the value of result.resultStatus is S).\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "refundAmount": {
+            "description": "The refund amount that is initiated by the merchant.",
+            "$ref": "#/components/schemas/Amount"
+          },
+          "refundTime": {
+            "type": "string",
+            "description": "The date and time when the refund reaches the state of success, failure, or unknown.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
+          },
+          "refundNonGuaranteeCouponAmount": {
+            "description": "The refund amount that is initiated by the merchant.",
+            "$ref": "#/components/schemas/Amount"
+          },
+          "grossSettlementAmount": {
+            "description": "The refund amount that is initiated by the merchant.",
+            "$ref": "#/components/schemas/Amount"
+          },
+          "settlementQuote": {
+            "$ref": "#/components/schemas/Quote",
+            "description": "The exchange rate between the settlement currency and transaction currency.\n\nNote: This field is returned when grossSettlementAmount is returned."
+          },
+          "acquirerInfo": {
+            "$ref": "#/components/schemas/AcquirerInfo",
+            "description": "The information of the acquirer that processes the payment. \n\nNote: This parameter is returned if you integrate the APO product."
+          },
+          "acquirerReferenceNo": {
+            "type": "string",
+            "description": "The unique ID assigned by the non-Antom acquirer for the transaction.\n\nMore information:\n\nMaximum length: 64 characters"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/refund",
+      "description": "正式环境"
+    }
+  ],
+  "security": []
+}

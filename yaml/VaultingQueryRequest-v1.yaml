@@ -1,0 +1,469 @@
+openapi: 3.1.0
+info:
+  title: vaults_inquireVaulting
+  description: ''
+  version: 1.0.0
+tags: []
+paths:
+  /ams/api/v1/vaults/inquireVaulting:
+    post:
+      summary: inquireVaulting
+      deprecated: false
+      description: >
+        Use this API to get the cashier page address. After getting the cashier
+        page address, you can redirect the user to the cashier page to make a
+        payment.
+      tags: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlipayVaultingQueryRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlipayVaultingQueryResponse'
+          headers: {}
+      security: []
+components:
+  schemas:
+    Result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The result code.
+        resultStatus:
+          description: |-
+            The result status. Valid values are:
+
+            S: indicates that the result status is successful.
+            F: indicates that the result status is failed. 
+            U: indicates that the result status is unknown. 
+          $ref: '#/components/schemas/ResultStatusType'
+        resultMessage:
+          type: string
+          description: The result message.
+      required:
+        - resultCode
+        - resultStatus
+        - resultMessage
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+        value:
+          type: string
+      required:
+        - currency
+        - value
+    ResultStatusType:
+      type:
+        - string
+        - 'null'
+      enum:
+        - S
+        - F
+        - U
+    UserName:
+      type: object
+      properties:
+        firstName:
+          type: string
+        middleName:
+          type: string
+        lastName:
+          type: string
+        fullName:
+          type: string
+    Address:
+      type: object
+      properties:
+        region:
+          type: string
+        state:
+          type: string
+        city:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        zipCode:
+          type: string
+        label:
+          type: string
+    PaymentMethodDetailType:
+      type: string
+      enum:
+        - CARD
+        - EXTERNALACCOUNT
+        - COUPON
+        - DISCOUNT
+    CardBrand:
+      type: string
+      enum:
+        - VISA
+        - MASTERCARD
+        - MAESTRO
+        - AMEX
+        - JCB
+        - DINERS
+        - DISCOVER
+        - CUP
+        - MIR
+        - ELO
+        - HIPERCARD
+        - TROY
+    MpiData:
+      type: object
+      properties:
+        threeDSVersion:
+          type: string
+        eci:
+          type: string
+        cavv:
+          type: string
+        dsTransactionId:
+          type: string
+    CardPaymentMethodDetail:
+      type: object
+      properties:
+        cardToken:
+          type: string
+          description: >-
+            The token of the card. The value of this parameter is used by
+            paymentMethodId in the pay (Checkout Payment) API when initiating
+            payments. 
+
+
+            More information:
+
+
+            Maximum length: 2048 characters
+        cardNo:
+          type: string
+        brand: &ref_0
+          $ref: '#/components/schemas/CardBrand'
+          description: >-
+            The name of the card brand. See the Card brands to check the valid
+            values. 
+
+
+            More information:
+
+
+            Maximum length: 32 characters
+        selectedCardBrand: *ref_0
+        cardIssuer:
+          type: string
+        countryIssue:
+          type: string
+        instUserName: &ref_1
+          $ref: '#/components/schemas/UserName'
+        expiryYear:
+          type: string
+        expiryMonth:
+          type: string
+        billingAddress: &ref_3
+          $ref: '#/components/schemas/Address'
+        mask:
+          type: string
+        last4:
+          type: string
+        paymentMethodDetailMetadata:
+          type: string
+        maskedCardNo:
+          type: string
+          description: >-
+            The masked card number, showing only a few digits and hiding the
+            rest. 
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+        fingerprint:
+          type: string
+        authenticationFlow:
+          type: string
+        funding:
+          type: string
+        avsResultRaw:
+          type: string
+        cvvResultRaw:
+          type: string
+        bin:
+          type: string
+        issuerName:
+          type: string
+        issuingCountry:
+          type: string
+        lastFour:
+          type: string
+        cardholderName: *ref_1
+        cvv:
+          type: string
+        dateOfBirth:
+          type: string
+        businessNo:
+          type: string
+        cardPasswordDigest:
+          type: string
+        cpf:
+          type: string
+        payerEmail:
+          type: string
+        networkTransactionId:
+          type: string
+          description: |-
+            The unique ID assigned by the card scheme to identify a transaction.
+
+            More information:
+
+            Maximum length: 256 characters
+        is3DSAuthentication:
+          type: boolean
+        request3DS:
+          type: string
+        scaExemptionIndicator:
+          type: string
+        enableAuthenticationUpgrade:
+          type: string
+        mpiData:
+          $ref: '#/components/schemas/MpiData'
+      required:
+        - cardToken
+        - brand
+        - maskedCardNo
+    ExternalPaymentMethodDetail:
+      type: object
+      properties:
+        assetToken:
+          type: string
+        accountDisplayName:
+          type: string
+        disableReason:
+          type: string
+        paymentMethodDetailMetadata:
+          type: string
+    DiscountPaymentMethodDetail:
+      type: object
+      properties:
+        discountId:
+          type: string
+        availableAmount: &ref_2
+          $ref: '#/components/schemas/Amount'
+        discountName:
+          type: string
+        discountDescription:
+          type: string
+        paymentMethodDetailMetadata:
+          type: string
+    CouponPaymentMethodDetail:
+      type: object
+      properties:
+        couponId:
+          type: string
+        availableAmount: *ref_2
+        couponName:
+          type: string
+        couponDescription:
+          type: string
+        couponExpireTime:
+          type: string
+        paymentMethodDetailMetadata:
+          type: string
+    Wallet:
+      type: object
+      properties:
+        accountNo:
+          type: string
+        accountHolderName: *ref_1
+        phoneNo:
+          type: string
+        email:
+          type: string
+        billingAddress: *ref_3
+    PaymentMethodDetail:
+      type: object
+      properties:
+        paymentMethodDetailType:
+          $ref: '#/components/schemas/PaymentMethodDetailType'
+        card:
+          $ref: '#/components/schemas/CardPaymentMethodDetail'
+          description: >-
+            The card information.
+
+
+            Note: This parameter is returned when the value of paymentMethodType
+            is CARD and the value of vaultingStatus is SUCCESS.
+        externalAccount:
+          $ref: '#/components/schemas/ExternalPaymentMethodDetail'
+        discount:
+          $ref: '#/components/schemas/DiscountPaymentMethodDetail'
+        coupon:
+          $ref: '#/components/schemas/CouponPaymentMethodDetail'
+        paymentMethodType:
+          type: string
+          description: >
+            The type of payment method to be vaulted. The value of this
+            parameter is fixed to CARD.  
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+        extendInfo:
+          type: string
+        wallet:
+          $ref: '#/components/schemas/Wallet'
+        interactionType:
+          type: string
+      required:
+        - paymentMethodType
+    AlipayVaultingQueryRequest:
+      type: object
+      properties:
+        vaultingRequestId:
+          type: string
+          description: >-
+            The unique ID that is assigned by a merchant to identify a card
+            vaulting request.
+
+
+            More information about this field
+
+
+            This field is an API idempotency field. For vaulting requests that
+            are initiated with the same value of vaultingRequestId and reach a
+            final status of S or F, the same result is to be returned for the
+            request.
+
+            More information:
+
+
+            Maximum length: 64 characters
+      required:
+        - vaultingRequestId
+    AlipayVaultingQueryResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+          description: >-
+            Information about the request calling result. 
+
+
+            Note: This field does not indicate the vaulting result. This field
+            only indicates whether this interface is called successfully.
+        vaultingRequestId:
+          type: string
+          description: >-
+            The unique ID that is assigned by a merchant to identify a card
+            vaulting request.  
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+        normalUrl:
+          type: string
+          description: >-
+            The URL that redirects users to a WAP or WEB page in the default
+            browser or the embedded WebView.
+
+
+            Note:
+
+
+            When the value of result.resultStatus is S and the value of
+            vaultingStatus is PROCESSING, one or more of the following URLs may
+            be returned: schemeUrl, applinkUrl, and normalUrl.  
+
+            When the value of paymentMethodType is CARD, the user is required to
+            complete the 3DS authentication on the page accessed through this
+            URL.  
+
+            More information:
+
+
+            Maximum length: 2048 characters
+        schemeUrl:
+          type: string
+          description: >-
+            The URL scheme that redirects users to open an App in an Android or
+            iOS system when the target App is installed.
+
+
+            Note: When the value of result.resultStatus is S and the value of
+            vaultingStatus is PROCESSING, one or more of the following URLs may
+            be returned: schemeUrl, applinkUrl, and normalUrl.  
+
+
+            More information:
+
+
+            Maximum length: 2048 characters
+        applinkUrl:
+          type: string
+          description: >
+            The URL that redirects users to open an app when the target app is
+            installed, or to open a WAP page when the target app is not
+            installed. For Android, the URL is a Native App Link. For iOS, the
+            URL is a Universal Link.
+
+
+            Note: When the value of result.resultStatus is S and the value of
+            vaultingStatus is PROCESSING, one or more of the following URLs may
+            be returned: schemeUrl, applinkUrl, and normalUrl.
+
+
+            More information:
+
+
+            Maximum length: 2048 characters
+        vaultingStatus:
+          type: string
+          description: >-
+            Indicates the payment method's vaulting status. Valid values are:
+
+
+            SUCCESS: indicates that the vaulting is successful. 
+
+            FAIL: indicates that the vaulting failed.
+
+            PROCESSING: indicates that the vaulting is under process. 
+
+            This parameter is returned when the value of result.resultStatus is
+            S.  
+
+
+            More information:
+
+
+            Maximum length: 10 characters
+        paymentMethodDetail:
+          $ref: '#/components/schemas/PaymentMethodDetail'
+          description: >-
+            The details about the payment method that needs to be vaulted. 
+
+
+            Note: This parameter is returned when the value of vaultingStatus is
+            SUCCESS.
+      required:
+        - vaultingRequestId
+        - result
+  securitySchemes: {}
+servers:
+  - url: https://open-sea-global.alipay.com/ams/api/v1/vaults/inquireVaulting
+    description: 正式环境
+security: []

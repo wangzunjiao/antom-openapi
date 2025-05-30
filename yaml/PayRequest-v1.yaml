@@ -1,7 +1,4 @@
 openapi: 3.1.0
-servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/payments/pay
-    description: 正式环境
 info:
   version: '1'
   x-publicVersion: true
@@ -75,7 +72,7 @@ components:
             Note: Specify this parameter if you require risk control. Providing
             this information helps to increase the accuracy of anti-money
             laundering and fraud detection, and increase payment success
-            rates.
+            rates.  
         shippingAddress: &ref_2
           $ref: '#/components/schemas/Address'
           description: >-
@@ -189,7 +186,7 @@ components:
 
             Maximum length: 256 characters
         orderAmount: *ref_1
-        merchant: &ref_6
+        merchant: &ref_7
           $ref: '#/components/schemas/Merchant'
           description: >-
             Information about the secondary merchant.
@@ -248,7 +245,7 @@ components:
             Providing this information helps to increase the accuracy of
             anti-money laundering and fraud detection, and increase payment
             success rates.
-        env:
+        env: &ref_5
           $ref: '#/components/schemas/Env'
         extendInfo:
           type: string
@@ -859,7 +856,7 @@ components:
             as a middle-sized image.
 
             BIGIMAGE: Indicates that the code is directly displayed on the UI as
-            a big-sized image.
+            a big-sized image. 
       required:
         - codeValueType
         - codeValue
@@ -1082,7 +1079,12 @@ components:
           type: string
           description: The result code.
         resultStatus:
-          description: 'The result status. Valid values are:'
+          description: |-
+            The result status. Valid values are:
+
+            S: indicates that the result status is successful.
+            F: indicates that the result status is failed. 
+            U: indicates that the result status is unknown. 
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
@@ -1159,7 +1161,7 @@ components:
 
             Under the authorization scenario, the payment funds are guaranteed
             and held on the payment method side. You can use the capture
-            (Checkout Payment) API to deduct the payment funds.
+            (Checkout Payment) API to deduct the payment funds. 
         inStorePaymentScenario:
           $ref: '#/components/schemas/InStorePaymentScenario'
         presentmentMode:
@@ -1232,7 +1234,7 @@ components:
 
             false: indicates that the user's browser is unable to run Java. The
             same applies when the value is empty or you do not specify this
-            parameter.
+            parameter.  
         javaScriptEnabled:
           type: boolean
           description: >-
@@ -1244,7 +1246,7 @@ components:
 
             false: indicates that the user's browser is unable to run
             JavaScript. The same applies when the value is empty or you do not
-            specify this parameter.
+            specify this parameter.  
         language:
           type: string
           description: >-
@@ -1304,7 +1306,7 @@ components:
             APP: The client-side terminal type is a mobile application.
 
             MINI_APP: The terminal type of the merchant side is a mini program
-            on the mobile phone.
+            on the mobile phone.  
         osType:
           $ref: '#/components/schemas/OsType'
           description: |-
@@ -1312,7 +1314,7 @@ components:
 
             IOS: indicates the operation system is Apple's iOS.
             ANDROID: indicates the operation system is Google's Android.
-            Note: Specify this field when terminalType is not WEB.
+            Note: Specify this field when terminalType is not WEB.  
         userAgent:
           type: string
         deviceTokenId:
@@ -1384,7 +1386,7 @@ components:
 
 
             Note: Specify this parameter when you collect this information
-            during the payment process.
+            during the payment process.  
         colorDepth:
           type: string
           description: >-
@@ -2027,7 +2029,7 @@ components:
             reporting purposes such as purchase tracking and regulatory
             reporting.
         paymentAmount: *ref_1
-        paymentMethod: &ref_5
+        paymentMethod: &ref_6
           $ref: '#/components/schemas/PaymentMethod'
           description: >-
             The payment method that is used to collect the payment by the
@@ -2155,15 +2157,11 @@ components:
 
 
             Maximum length: 2 characters
-        env:
-          type: string
-          description: >-
-            Information about the environment where the order is placed, such as
-            the device information.
-        payToMethod: *ref_5
+        env: *ref_5
+        payToMethod: *ref_6
         isAuthorization:
           type: boolean
-        merchant: *ref_6
+        merchant: *ref_7
         paymentVerificationData:
           $ref: '#/components/schemas/PaymentVerificationData'
         extendInfo:
@@ -2238,7 +2236,7 @@ components:
 
             Maximum length: 20000 characters
         actualPaymentAmount: *ref_1
-        paymentQuote: &ref_7
+        paymentQuote: &ref_8
           $ref: '#/components/schemas/Quote'
         paymentTime:
           type: string
@@ -2283,7 +2281,7 @@ components:
             Note: This parameter is returned when the payment method supports
             providing the related information.
         grossSettlementAmount: *ref_1
-        settlementQuote: *ref_7
+        settlementQuote: *ref_8
         extendInfo:
           type: string
         normalUrl:
@@ -2360,4 +2358,7 @@ components:
       required:
         - result
   securitySchemes: {}
+servers:
+  - url: https://open-sea-global.alipay.com/ams/api/v1/payments/pay
+    description: 正式环境
 security: []

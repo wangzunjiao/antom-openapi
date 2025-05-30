@@ -1,0 +1,236 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "marketplace_update",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/ams/api/v1/merchants/settlementInfo/update": {
+      "post": {
+        "summary": "update",
+        "deprecated": false,
+        "description": "Use this API to get the cashier page address. After getting the cashier page address, you can redirect the user to the cashier page to make a payment.\n",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlipaySettlementInfoUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlipaySettlementInfoUpdateResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Result": {
+        "type": "object",
+        "properties": {
+          "resultCode": {
+            "type": "string",
+            "description": "The result code."
+          },
+          "resultStatus": {
+            "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
+            "$ref": "#/components/schemas/ResultStatusType"
+          },
+          "resultMessage": {
+            "type": "string",
+            "description": "The result message."
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus",
+          "resultMessage"
+        ]
+      },
+      "ResultStatusType": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "S",
+          "F",
+          "U"
+        ]
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "region": {
+            "type": "string",
+            "description": "The 2-letter country or region code. For more information, see ISO 3166 Country Codes standard. \n\nMore information:\n\nMaximum length: 2 characters"
+          },
+          "state": {
+            "type": "string",
+            "description": "The state, country, or province name. \n\nMore information:\n\nMaximum length: 8 characters"
+          },
+          "city": {
+            "type": "string",
+            "description": "The city, district, suburb, town, or village name. \n\nMore information:\n\nMaximum length: 32 characters\n"
+          },
+          "address1": {
+            "type": "string",
+            "description": "Address line 1, for example, the street address, PO box, and company name.\n\nMore information:\n\nMaximum length: 256 characters"
+          },
+          "address2": {
+            "type": "string",
+            "description": "Address line 2, for example, the apartment, suite, unit, and building information. \n\nMore information:\n\nMaximum length: 256 characters"
+          },
+          "zipCode": {
+            "type": "string",
+            "description": "ZIP or postal code.\n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "label": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "region"
+        ]
+      },
+      "AccountHolderType": {
+        "type": "string",
+        "enum": [
+          "INDIVIDUAL",
+          "ENTERPRISE"
+        ]
+      },
+      "AccountType": {
+        "type": "string",
+        "enum": [
+          "CHECKING",
+          "FIXED_DEPOSIT"
+        ]
+      },
+      "SettlementBankAccount": {
+        "type": "object",
+        "properties": {
+          "bankAccountNo": {
+            "type": "string",
+            "description": "The international bank account number.\n\nThe standardized formats in different areas are:\n\nBrazil: ^[0-9]{0,20}$ such as 123456789\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "accountHolderName": {
+            "type": "string",
+            "description": "The full name of the account holder.\n\nThe standardized formats in different areas are:\n\nBrazil: ^[A-Za-z0-9/() .,\\-?:'+]{0,50}$\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "swiftCode": {
+            "type": "string",
+            "description": "The eight-character or eleven-character BIC or SWIFT code of the bank.\n\nSpecify this parameter when the bank card issuing country is Brazil.  \n\nMore information:\n\nMaximum length: 11 characters"
+          },
+          "bankRegion": {
+            "type": "string",
+            "description": "The region where the bank is located. \n\nThe value of this parameter is a 2-letter region or country code that follows the ISO 3166 Country Codes standard.  \n\nMore information:\n\nMaximum length: 2 characters\n"
+          },
+          "accountHolderType": {
+            "$ref": "#/components/schemas/AccountHolderType",
+            "description": "The type of the account holder. Valid value are:\n\nINDIVIDUAL: indicates that the account holder is an individual.\nENTERPRISE: indicates that the account holder is an enterprise.  \nMore information:\n\nMaximum length: 32 characters\n"
+          },
+          "routingNumber": {
+            "type": "string",
+            "description": "The routing number. See Bank routing number for valid values.\n\nSpecify this parameter when the issuing bank is in Brazil.  \n\nMore information:\n\nMaximum length: 9 characters\n"
+          },
+          "branchCode": {
+            "type": "string",
+            "description": "The branch code of the bank. See Bank branch code for valid value s.\n\nSpecify this parameter when the issuing bank is in Brazil.  \n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "accountHolderTIN": {
+            "type": "string",
+            "description": "The tax identification number (TIN) of the account holder.\n\nFor the account holder in Brazil:\n\nIf the account holder is an individual, the value of this parameter is an eleven-character tax ID known as CPF. \nIf the account holder is a legal entity, the value of this parameter is a fourteen-character tax ID known as CNPJ. \nSpecify this parameter when the issuing bank is in Brazil.  \n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "accountType": {
+            "$ref": "#/components/schemas/AccountType",
+            "description": "The bank account type. Valid values are:\n\nCHECKING: indicates the checking account, also known as the current account. \nFIXED_DEPOSIT: indicates the fixed deposit account. \nSpecify this parameter when the issuing bank is in Brazil.  \n\nMore information:\n\nMaximum length: 13 characters"
+          },
+          "bankName": {
+            "type": "string",
+            "description": "The name of the bank.\n\nSpecify this parameter when the card issuing country is the United States.  \n\nMore information:\n\nMaximum length: 256 characters"
+          },
+          "accountHolderAddress": {
+            "$ref": "#/components/schemas/Address",
+            "description": "The address of the account holder.\n\nSpecify this parameter when the card issuing country is the United States or Canada.  "
+          },
+          "iban": {
+            "type": "string",
+            "description": "The International Bank Account Number (IBAN) used to identify a bank account.\n\nSpecify this parameter when the card issuing country is the United Kingdom or belongs to the European Union.  \n\nMore information:\n\nMaximum length: 34 characters"
+          }
+        },
+        "required": [
+          "bankAccountNo",
+          "accountHolderName",
+          "bankRegion",
+          "accountHolderType"
+        ]
+      },
+      "AlipaySettlementInfoUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "updateRequestId": {
+            "type": "string",
+            "description": "The unique ID that is assigned by the marketplace to identify an update request for settlement information. Alipay uses this field for idempotence control. \n\nMore information:\n\nThis field is an API idempotency field.For registration requests that are initiated with the same value of registrationRequestId and reach a final status (resultStatus = S or F), the same result is to be returned for the request.\nMaximum length: 64 characters"
+          },
+          "referenceMerchantId": {
+            "type": "string",
+            "description": "The unique ID that is assigned by the marketplace to identify the seller.  \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "settlementCurrency": {
+            "type": "string",
+            "description": "The seller's settlement currency that is specified in the settlement contract. The value of this parameter is a 3-letter currency code that follows the ISO 4217 standard.  \n\nMore information:\n\nMaximum length: 3 characters"
+          },
+          "settlementBankAccount": {
+            "$ref": "#/components/schemas/SettlementBankAccount",
+            "description": "The seller's bank account that Alipay settles to.  "
+          }
+        },
+        "required": [
+          "updateRequestId",
+          "referenceMerchantId",
+          "settlementCurrency",
+          "settlementBankAccount"
+        ]
+      },
+      "AlipaySettlementInfoUpdateResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/Result",
+            "description": "The request result, which contains information such as status and error codes. "
+          },
+          "updateStatus": {
+            "type": "string",
+            "description": "The update status of the settlement information. The value of this parameter is fixed to PROCESSING. \n\nGet the settlement information update result from the notifyUpdate and inquireUpdate interfaces. \n\nThis parameter is returned when the value of result.resultStatus is S.  \n\nMore information:\n\nMaximum length: 64 characters"
+          }
+        }
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/merchants/settlementInfo/update",
+      "description": "正式环境"
+    }
+  ],
+  "security": []
+}

@@ -1,0 +1,404 @@
+openapi: 3.1.0
+info:
+  title: payments_inquiryRefund
+  description: ''
+  version: 1.0.0
+tags: []
+paths:
+  /ams/api/v1/payments/inquiryRefund:
+    post:
+      summary: inquiryRefund
+      deprecated: false
+      description: ''
+      tags: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refundRequestId:
+                  type: string
+                  description: >-
+                    The unique ID assigned by a merchant to identify a refund
+                    request. refundRequestId and refundId cannot both be null.
+                    Special characters are not supported. If both
+                    refundRequestId and refundId are specified, refundId takes
+                    precedence.
+
+
+                    More information:
+
+
+                    Maximum length: 64 characters
+                refundId:
+                  type: string
+                  description: >-
+                    The unique ID assigned by Antom to identify a refund.
+                    refundRequestId and refundId cannot both be null. A
+                    one-to-one correspondence between refundId and
+                    refundRequestId exists. If both refundRequestId and refundId
+                    are specified, refundId takes precedence.
+
+
+                    More information:
+
+
+                    Maximum length: 64 characters
+                merchantAccountId:
+                  type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result: &ref_1
+                    $ref: '#/components/schemas/Result'
+                    description: >-
+                      The request result contains information such as status and
+                      error codes.
+
+
+                      Note: This field does not indicate the refund result. This
+                      field only indicates whether the inquiryRefund interface
+                      is called successfully. 
+                  refundId:
+                    type: string
+                    description: >-
+                      The unique ID assigned by Antom to identify a refund. A
+                      one-to-one correspondence between refundId and
+                      refundRequestId exists.
+
+
+                      Note: This field is null when the refund record cannot be
+                      found, or result.resultStatus is F or U. 
+                  refundRequestId:
+                    type: string
+                    description: >-
+                      The unique ID assigned by the merchant to identify a
+                      refund request.
+
+
+                      Note: This field is null when the refund record cannot be
+                      found, or result.resultStatus is F or U. 
+
+
+                      More information:
+
+
+                      Maximum length: 64 characters
+                  refundAmount: &ref_0
+                    $ref: '#/components/schemas/Amount'
+                    description: >-
+                      The refund amount that is initiated by the merchant.
+
+
+                      Note: This field is null when the refund record cannot be
+                      found, or result.resultStatus is F or U. 
+                  refundStatus: &ref_2
+                    $ref: '#/components/schemas/TransactionStatusType'
+                    description: >
+                      Indicates the final status of the Antom refund, not the
+                      Alipay+ Mobile Payment Provider (Alipay+ payment methods)
+                      side. Valid values are:  
+
+
+                      SUCCESS: Indicates the refund is successful. 
+
+                      PROCESSING: Indicates the refund is still under process. 
+
+                      FAIL: Indicates the refund failed.
+
+                      Note: This field is null when the refund record cannot be
+                      found, or result.resultStatus is F or U. 
+
+
+                      More information:
+
+
+                      Maximum length: 16 characters
+                  refundTime:
+                    type: string
+                    description: >-
+                      The date and time when the refund reaches a final state of
+                      success on the Antom side, not the Alipay+ Mobile Payment
+                      Provider (Alipay+ payment methods) side. 
+
+
+                      Note: This field is returned when the value of
+                      refundStatus is SUCCESS.
+
+
+                      More information:
+
+
+                      The value follows the ISO 8601 standard format. For
+                      example, "2019-11-27T12:01:01+08:00".
+                  grossSettlementAmount: *ref_0
+                  settlementQuote: &ref_3
+                    $ref: '#/components/schemas/Quote'
+                    description: >-
+                      The exchange rate between the settlement currency and
+                      payment currency.
+
+
+                      Note: This field is returned when grossSettlementAmount is
+                      returned.
+                  acquirerInfo: &ref_4
+                    $ref: '#/components/schemas/AcquirerInfo'
+                required:
+                  - result
+          headers: {}
+      security: []
+components:
+  schemas:
+    AlipayInquiryRefundRequest:
+      type: object
+      properties:
+        refundRequestId:
+          type: string
+          description: >-
+            The unique ID assigned by a merchant to identify a refund request.
+            refundRequestId and refundId cannot both be null. Special characters
+            are not supported. If both refundRequestId and refundId are
+            specified, refundId takes precedence.
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+        refundId:
+          type: string
+          description: >-
+            The unique ID assigned by Antom to identify a refund.
+            refundRequestId and refundId cannot both be null. A one-to-one
+            correspondence between refundId and refundRequestId exists. If both
+            refundRequestId and refundId are specified, refundId takes
+            precedence.
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+        merchantAccountId:
+          type: string
+    AlipayInquiryRefundResponse:
+      type: object
+      properties:
+        result: *ref_1
+        refundId:
+          type: string
+          description: >-
+            The unique ID assigned by Antom to identify a refund. A one-to-one
+            correspondence between refundId and refundRequestId exists.
+
+
+            Note: This field is null when the refund record cannot be found, or
+            result.resultStatus is F or U. 
+        refundRequestId:
+          type: string
+          description: >-
+            The unique ID assigned by the merchant to identify a refund request.
+
+
+            Note: This field is null when the refund record cannot be found, or
+            result.resultStatus is F or U. 
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+        refundAmount: *ref_0
+        refundStatus: *ref_2
+        refundTime:
+          type: string
+          description: >-
+            The date and time when the refund reaches a final state of success
+            on the Antom side, not the Alipay+ Mobile Payment Provider (Alipay+
+            payment methods) side. 
+
+
+            Note: This field is returned when the value of refundStatus is
+            SUCCESS.
+
+
+            More information:
+
+
+            The value follows the ISO 8601 standard format. For example,
+            "2019-11-27T12:01:01+08:00".
+        grossSettlementAmount: *ref_0
+        settlementQuote: *ref_3
+        acquirerInfo: *ref_4
+      required:
+        - result
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: |-
+            The 3-letter currency code that follows the ISO 4217 standard. 
+
+            More information:
+
+            Maximum length: 3 characters
+        value:
+          type: string
+          description: >-
+            The amount to charge as a positive integer in the smallest currency
+            unit. For example, $1.00 should be charged as 100 cents to charge
+            USD 1.00, or 100 to charge JPY 100, a 0-decimal currency.
+
+
+            Note: For more information about the smallest currency unit, see
+            Currency codes for details.
+
+
+            More information:
+
+
+            Value range: 1 - unlimited
+      required:
+        - currency
+        - value
+    TransactionStatusType:
+      type: string
+      enum:
+        - SUCCESS
+        - FAIL
+        - PROCESSING
+        - CANCELLED
+        - PENDING
+    Quote:
+      type: object
+      properties:
+        quoteId:
+          type: string
+          description: >-
+            The unique ID that is assigned by Antom to identify an exchange
+            rate.
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+        quoteCurrencyPair:
+          type: string
+          description: >-
+            The exchange rate between settlement currency and transaction
+            currency. Two currencies are separated with a slash and use the
+            3-letter ISO-4217 currency code.
+
+
+            More information:
+
+
+            Maximum length: 16 characters
+        quotePrice:
+          type: number
+          description: >-
+            The exchange rate used when a currency conversion between settlement
+            currency and transaction currency occurs.
+
+
+            More information:
+
+
+            Value range: 1 - unlimited
+        quoteStartTime:
+          type: string
+          description: >-
+            The effective time of the exchange rate. 
+
+
+            More information:
+
+
+            The value follows the ISO 8601 standard format. For example,
+            "2019-11-27T12:01:01+08:00".
+        quoteExpiryTime:
+          type: string
+          description: >-
+            The expiration time of the exchange rate. 
+
+
+            More information:
+
+
+            The value follows the ISO 8601 standard format. For example,
+            "2019-11-27T12:01:01+08:00".
+        guaranteed:
+          type: boolean
+          description: Guaranteed exchange rate available for payment.
+      required:
+        - quoteCurrencyPair
+        - quotePrice
+    AcquirerInfo:
+      type: object
+      properties:
+        acquirerName:
+          type: string
+        referenceRequestId:
+          type: string
+        acquirerTransactionId:
+          type: string
+        acquirerMerchantId:
+          type: string
+        acquirerResultCode:
+          type: string
+        acquirerResultMessage:
+          type: string
+    Result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: |-
+            Result code
+
+            More information:
+
+            Maximum length: 64 characters
+        resultStatus:
+          $ref: '#/components/schemas/ResultStatusType'
+          description: |-
+            Result status. Valid values are:  
+
+            S: Indicates that the result status is successful. 
+            F: Indicates that the result status is failed. 
+            U: Indicates that the result status is unknown. 
+            More information:
+
+            Maximum length: 1 character
+        resultMessage:
+          type: string
+          description: |
+            Result message
+
+            More information:
+
+            Maximum length: 256 characters
+      required:
+        - resultCode
+        - resultStatus
+        - resultMessage
+    ResultStatusType:
+      type: string
+      enum:
+        - S
+        - F
+        - U
+  securitySchemes: {}
+servers:
+  - url: https://open-sea-global.alipay.com/ams/api/v1/payments/inquiryRefund
+    description: 正式环境
+security: []
