@@ -97,10 +97,8 @@
         ]
       },
       "ResultStatusType": {
-        "type": [
+        "type":
           "string",
-          "null"
-        ],
         "enum": [
           "S",
           "F",
