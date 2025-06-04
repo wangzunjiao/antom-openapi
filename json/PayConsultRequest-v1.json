@@ -1,9 +1,21 @@
 {
   "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/consult"
+    }
+  ],
   "info": {
-    "title": "payments_consult",
-    "description": "",
-    "version": "1.0.0"
+    "version": "1",
+    "x-publicVersion": true,
+    "x-publicVersion1": true,
+    "title": "Payment API",
+    "description": "Payment API is used for xxx. Refer [doc](https://global.alipay.com/docs/ac/ams/consult)\n# Auth",
+    "termsOfService": "https://www.antom.com/legal/terms-and-conditions",
+    "contact": {
+      "name": "Antom Developer Experience team",
+      "url": "https://github.com/Antom/antom-openapi"
+    }
   },
   "tags": [],
   "paths": {
@@ -42,34 +54,6 @@
   },
   "components": {
     "schemas": {
-      "AmountLimit": {
-        "type": "object",
-        "properties": {
-          "maxAmount": {
-            "$ref": "#/components/schemas/Amount"
-          },
-          "minAmount": {
-            "$ref": "#/components/schemas/Amount"
-          },
-          "remainAmount": {
-            "$ref": "#/components/schemas/Amount"
-          }
-        }
-      },
-      "AmountLimitInfo": {
-        "type": "object",
-        "properties": {
-          "singleLimit": {
-            "$ref": "#/components/schemas/AmountLimit"
-          },
-          "dayLimit": {
-            "$ref": "#/components/schemas/AmountLimit"
-          },
-          "monthLimit": {
-            "$ref": "#/components/schemas/AmountLimit"
-          }
-        }
-      },
       "PromotionType": {
         "type": "string",
         "enum": [
@@ -280,7 +264,7 @@
       },
       "ResultStatusType": {
         "type":
-          "string",
+        "string",
         "enum": [
           "S",
           "F",
@@ -758,6 +742,25 @@
           "promotionType"
         ]
       },
+      "AmountLimit": {
+        "type": "object",
+        "properties": {
+          "maxAmount": {
+            "type": "string"
+          },
+          "minAmount": {
+            "type": "string"
+          },
+          "remainAmount": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "maxAmount",
+          "minAmount",
+          "remainAmount"
+        ]
+      },
       "PaymentOption": {
         "type": "object",
         "properties": {
@@ -792,14 +795,7 @@
             "properties": {},
             "additionalProperties": {
               "type": "object",
-              "properties": {
-                "AmountLimitInfo": {
-                  "$ref": "#/components/schemas/AmountLimitInfo"
-                }
-              },
-              "required": [
-                "AmountLimitInfo"
-              ]
+              "$ref": "#/components/schemas/AmountLimit"
             }
           },
           "supportedCurrencies": {
@@ -894,6 +890,5 @@
     },
     "securitySchemes": {}
   },
-  "servers": [],
   "security": []
 }

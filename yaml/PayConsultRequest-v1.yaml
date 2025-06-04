@@ -1,8 +1,20 @@
 openapi: 3.1.0
+servers:
+  - url: https://open-sea-global.alipay.com/ams/api/v1/payments/consult
 info:
-  title: payments_consult
-  description: ''
-  version: 1.0.0
+  version: '1'
+  x-publicVersion: true
+  x-publicVersion1: true
+  title: Payment API
+  description: >-
+    Payment API is used for xxx. Refer
+    [doc](https://global.alipay.com/docs/ac/ams/consult)
+
+    # Auth
+  termsOfService: https://www.antom.com/legal/terms-and-conditions
+  contact:
+    name: Antom Developer Experience team
+    url: https://github.com/Antom/antom-openapi
 tags: []
 paths:
   /ams/api/v1/payments/consult:
@@ -31,20 +43,6 @@ paths:
       security: []
 components:
   schemas:
-    AmountLimit:
-      type: object
-      properties:
-        maxAmount: &ref_0
-          $ref: '#/components/schemas/Amount'
-        minAmount: *ref_0
-        remainAmount: *ref_0
-    AmountLimitInfo:
-      type: object
-      properties:
-        singleLimit: &ref_1
-          $ref: '#/components/schemas/AmountLimit'
-        dayLimit: *ref_1
-        monthLimit: *ref_1
     PromotionType:
       type: string
       enum:
@@ -67,7 +65,7 @@ components:
 
             S: Indicates that the result status is successful. 
             F: Indicates that the result status is failed. 
-            U: Indicates that the result status is unknown. 
+            U: Indicates that the result status is unknown.
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
@@ -241,7 +239,7 @@ components:
             ANDROID: The OS type is Android. 
 
             Note: This field is required for all terminalType values except
-            WEB. 
+            WEB.
         userAgent:
           type: string
           description: |-
@@ -356,7 +354,7 @@ components:
           type: string
         storeOperatorId:
           type: string
-        storeAddress: &ref_2
+        storeAddress: &ref_0
           $ref: '#/components/schemas/Address'
         storePhoneNo:
           type: string
@@ -385,7 +383,7 @@ components:
           type: string
         merchantDisplayName:
           type: string
-        merchantAddress: *ref_2
+        merchantAddress: *ref_0
         merchantRegisterDate:
           type: string
         store:
@@ -443,8 +441,9 @@ components:
           description: >-
             The discount name displayed in the default language.  More
             information:  Maximum length: 128 characters
-        savingsAmount: *ref_0
-        estimateSavingsAmount: *ref_0
+        savingsAmount: &ref_1
+          $ref: '#/components/schemas/Amount'
+        estimateSavingsAmount: *ref_1
     AlipayPayConsultRequest:
       type: object
       properties:
@@ -463,7 +462,7 @@ components:
 
 
             Maximum length: 32 characters
-        paymentAmount: *ref_0
+        paymentAmount: *ref_1
         merchantRegion:
           type: string
           description: >-
@@ -618,7 +617,7 @@ components:
             AMEX: indicates American Express (Amex).
             HIPERCARD: indicates Hipercard.
             ELO: indicates Elo.
-        logo: &ref_3
+        logo: &ref_2
           $ref: '#/components/schemas/Logo'
           description: 'The logo of the card brand. '
       required:
@@ -631,19 +630,32 @@ components:
           type: string
           description: >-
             The unique code of the bank. See the Bank list to check the valid
-            values. 
+            values.
         bankShortName:
           type: string
           description: >-
             The short name of the bank. The unique code of the bank. See the
-            Bank list to check the valid values. 
-        bankLogo: *ref_3
+            Bank list to check the valid values.
+        bankLogo: *ref_2
+    AmountLimit:
+      type: object
+      properties:
+        maxAmount:
+          type: string
+        minAmount:
+          type: string
+        remainAmount:
+          type: string
+      required:
+        - maxAmount
+        - minAmount
+        - remainAmount
     PaymentOptionDetail:
       type: object
       properties:
         supportCardBrands:
           type: array
-          items: &ref_4
+          items: &ref_3
             $ref: '#/components/schemas/SupportCardBrand'
           description: >-
             The list of supported card brands.  
@@ -703,8 +715,8 @@ components:
             More information:
 
             Maximum length: 8 characters
-        minInstallmentAmount: *ref_0
-        maxInstallmentAmount: *ref_0
+        minInstallmentAmount: *ref_1
+        maxInstallmentAmount: *ref_1
         installmentNum:
           type: string
           description: >-
@@ -729,20 +741,20 @@ components:
       properties:
         supportCardBrands:
           type: array
-          items: *ref_4
+          items: *ref_3
           description: >-
             The list of card brands that support the installment plans.  
 
 
             This parameter is returned when the value of paymentMethodType is
-            CARD. 
+            CARD.
         plans:
           type: array
           items:
             $ref: '#/components/schemas/Plan'
           description: >-
             The list of installment plans for payment methods that support
-            installments. 
+            installments.
       required:
         - supportCardBrands
         - plans
@@ -768,8 +780,8 @@ components:
           description: >-
             The number of interest-free installments.  More information:  Value
             range: 2-unlimited
-        minPaymentAmount: *ref_0
-        maxPaymentAmount: *ref_0
+        minPaymentAmount: *ref_1
+        maxPaymentAmount: *ref_1
         freePercentage:
           type: integer
           description: >-
@@ -886,17 +898,12 @@ components:
 
             LIMIT_CENTER_ACCESS_FAIL 
 
-            CURRENT_CHANNEL_NOT_EXIST 
+            CURRENT_CHANNEL_NOT_EXIST
         amountLimitInfoMap:
           type: object
-          properties: {}
+          properties: { }
           additionalProperties:
-            type: object
-            properties:
-              AmountLimitInfo:
-                $ref: '#/components/schemas/AmountLimitInfo'
-            required:
-              - AmountLimitInfo
+            $ref: '#/components/schemas/AmountLimit'
         supportedCurrencies:
           type: array
           items:
@@ -922,7 +929,7 @@ components:
             method.
         extendInfo:
           type: string
-        logo: *ref_3
+        logo: *ref_2
         promoNames:
           type: array
           items:
@@ -945,7 +952,7 @@ components:
 
 
             Note: This parameter is returned when the payment method supports
-            installments.  
+            installments.
         promotionInfos:
           type: array
           items:
@@ -983,7 +990,7 @@ components:
 
 
             Note: This field doesn't indicate the payment result. This field
-            only indicates whether the consult API is called successfully. 
+            only indicates whether the consult API is called successfully.
         paymentOptions:
           type: array
           items:
@@ -998,5 +1005,4 @@ components:
       required:
         - result
   securitySchemes: {}
-servers: []
 security: []
