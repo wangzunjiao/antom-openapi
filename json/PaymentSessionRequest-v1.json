@@ -420,39 +420,64 @@
         "type": "object",
         "properties": {
           "terminalType": {
-            "description": "Terminal type used by the merchant. Valid values are:",
             "$ref": "#/components/schemas/TerminalType"
+          },
+          "osType": {
+            "$ref": "#/components/schemas/OsType"
+          },
+          "userAgent": {
+            "type": "string"
+          },
+          "deviceTokenId": {
+            "type": "string"
           },
           "clientIp": {
             "type": "string",
-            "example": "127.0.0.1",
-            "description": "Client IP address, if not provided, will be automatically obtained from the request header. If the request is made through a proxy, the real IP of the client must be passed.",
-            "maxLength": 45
+            "description": "The IP address of the client device.\n\nNote: Specify this parameter when you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 64 characters"
           },
-          "deviceId": {
-            "type": "string",
-            "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****",
-            "description": "Unique identifier for the device where the payment is initiated. It can be the device ID of the mobile phone, or the browser fingerprint for web payments.",
-            "maxLength": 255
+          "cookieId": {
+            "type": "string"
+          },
+          "extendInfo": {
+            "type": "string"
+          },
+          "storeTerminalId": {
+            "type": "string"
+          },
+          "storeTerminalRequestTime": {
+            "type": "string"
+          },
+          "browserInfo": {
+            "$ref": "#/components/schemas/BrowserInfo"
+          },
+          "colorDepth": {
+            "type": "string"
+          },
+          "screenHeight": {
+            "type": "string"
+          },
+          "screenWidth": {
+            "type": "string"
+          },
+          "timeZoneOffset": {
+            "type": "integer"
+          },
+          "deviceBrand": {
+            "type": "string"
+          },
+          "deviceModel": {
+            "type": "string"
           },
           "deviceLanguage": {
-            "type": "string",
-            "example": "zh_CN",
-            "description": "Device language, in the format of ISO 639-1 (language) + ISO 3166-1 (country/region).",
-            "maxLength": 5
+            "type": "string"
           },
-          "envType": {
-            "type": "string",
-            "example": "oootype",
-            "description": ""
+          "deviceId": {
+            "type": "string"
+          },
+          "deviceEnvTyep": {
+            "type": "string"
           }
-        },
-        "required": [
-          "terminalType",
-          "clientIp",
-          "deviceId",
-          "deviceLanguage"
-        ]
+        }
       },
       "BrowserInfo": {
         "type": "object",
