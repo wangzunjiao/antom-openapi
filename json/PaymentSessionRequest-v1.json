@@ -20,7 +20,7 @@
               "schema": {
                 "$ref": "#/components/schemas/AlipayPaymentSessionRequest"
               },
-              "example": ""
+              "example": null
             }
           }
         },
@@ -690,11 +690,16 @@
           },
           "needDeclaration": {
             "type": "boolean"
+          },
+          "orderType": {
+            "type": "string",
+            "description": "test "
           }
         },
         "required": [
           "orderAmount",
-          "referenceOrderId"
+          "referenceOrderId",
+          "orderType"
         ]
       },
       "Gaming": {
@@ -1030,8 +1035,7 @@
         ]
       },
       "ResultStatusType": {
-        "type":
-          "string",
+        "type": "string",
         "enum": [
           "S",
           "F",
@@ -1191,6 +1195,5 @@
       "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/createPaymentSession",
       "description": "正式环境"
     }
-  ],
-  "security": []
+  ]
 }

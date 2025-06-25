@@ -20,7 +20,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/AlipayPaymentSessionRequest'
-            example: ''
+            example: null
       responses:
         '200':
           description: ''
@@ -122,7 +122,7 @@ components:
           $ref: '#/components/schemas/PaymentMethod'
           description: >-
             The payment method that is used to collect the payment by the
-            merchant or acquirer. 
+            merchant or acquirer.
         paymentSessionExpiryTime:
           type: string
           description: >-
@@ -179,7 +179,7 @@ components:
 
 
             Specify this parameter when the value of paymentMethodType is CARD
-            and you integrate the client-side SDK.  
+            and you integrate the client-side SDK.
         settlementStrategy:
           $ref: '#/components/schemas/SettlementStrategy'
           description: The settlement strategy for the payment request.
@@ -197,7 +197,7 @@ components:
 
             false: indicates you do not need Antom to collect the installment
             information. The same applies when the value is empty or you do not
-            specify this parameter.   
+            specify this parameter.
         creditPayPlan:
           $ref: '#/components/schemas/CreditPayPlan'
           description: >-
@@ -206,7 +206,7 @@ components:
 
             Specify this parameter when the payment supports installments and
             you specify the card-related information in
-            paymentMethod.paymentMethodMetaData.  
+            paymentMethod.paymentMethodMetaData.
         merchantRegion:
           type: string
           description: >-
@@ -691,7 +691,7 @@ components:
 
             Under the authorization scenario, the payment funds are guaranteed
             and held on the payment method side. You can use the capture
-            (Checkout Payment) API to deduct the payment funds. 
+            (Checkout Payment) API to deduct the payment funds.
     PresentmentMode:
       type: string
       enum:
@@ -892,9 +892,13 @@ components:
             and fraud detection, and increase payment success rates.
         needDeclaration:
           type: boolean
+        orderType:
+          type: string
+          description: 'test '
       required:
         - orderAmount
         - referenceOrderId
+        - orderType
     Gaming:
       type: object
       properties:
@@ -1496,7 +1500,7 @@ components:
 
             S: Indicates that the result status is successful.
             F: Indicates that the result status is failed. 
-            U: Indicates that the result status is unknown. 
+            U: Indicates that the result status is unknown.
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
@@ -1511,9 +1515,7 @@ components:
         - resultStatus
         - resultMessage
     ResultStatusType:
-      type:
-        - string
-        - 'null'
+      type: string
       enum:
         - S
         - F
@@ -1694,4 +1696,3 @@ servers:
   - url: >-
       https://open-sea-global.alipay.com/ams/api/v1/payments/createPaymentSession
     description: 正式环境
-security: []
