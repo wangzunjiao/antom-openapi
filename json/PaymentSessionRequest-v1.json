@@ -474,7 +474,7 @@
           "deviceId": {
             "type": "string"
           },
-          "deviceEnvTyep": {
+          "deviceEnvType": {
             "type": "string"
           }
         }
