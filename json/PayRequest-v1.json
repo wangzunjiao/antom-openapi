@@ -826,7 +826,86 @@
           "ANDROID"
         ]
       },
-      "Env": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"terminalType\": {\n      \"description\": \"Terminal type used by the merchant. Valid values are:\",\n      \"$ref\": \"#/components/schemas/TerminalType\"\n    },\n    \"clientIp\": {\n      \"type\": \"string\",\n      \"example\": \"127.0.0.1\",\n      \"description\": \"Client IP address, if not provided, will be automatically obtained from the request header. If the request is made through a proxy, the real IP of the client must be passed.\",\n      \"maxLength\": 45\n    },\n    \"deviceId\": {\n      \"type\": \"string\",\n      \"example\": \"eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****\",\n      \"description\": \"Unique identifier for the device where the payment is initiated. It can be the device ID of the mobile phone, or the browser fingerprint for web payments.\",\n      \"maxLength\": 255\n    },\n    \"deviceLanguage\": {\n      \"type\": \"string\",\n      \"example\": \"zh_CN\",\n      \"description\": \"Device language, in the format of ISO 639-1 (language) + ISO 3166-1 (country/region).\",\n      \"maxLength\": 5\n    },\n    \"envType\": {\n      \"type\": \"string\",\n      \"example\": \"oootype\",\n      \"description\": \"\"\n    }\n  },\n  \"required\": [\n    \"terminalType\",\n    \"clientIp\",\n    \"deviceId\",\n    \"deviceLanguage\"\n  ]\n}",
+      "Env": {
+        "type": "object",
+        "properties": {
+          "terminalType": {
+            "$ref": "#/components/schemas/TerminalType",
+            "description": "Terminal type of which the merchant service applies to. Valid values are:\n\nWEB: The client-side terminal type is a website, which is opened via a PC browser.\nWAP: The client-side terminal type is an H5 page, which is opened via a mobile browser.\nAPP: The client-side terminal type is a mobile application.\nMINI_APP: The terminal type of the merchant side is a mini program on the mobile phone.  "
+          },
+          "osType": {
+            "$ref": "#/components/schemas/OsType",
+            "description": "Type of the operation system. Valid values are:\n\nIOS: indicates the operation system is Apple's iOS.\nANDROID: indicates the operation system is Google's Android.\nNote: Specify this field when terminalType is not WEB.  "
+          },
+          "userAgent": {
+            "type": "string"
+          },
+          "deviceTokenId": {
+            "type": "string",
+            "description": "The token identifier of the device.\n\nNote: Specify this parameter if you integrate with the Antom Device Fingerprint client, which is an SDK or JavaScript library that is used to collect device-related information, such as osType, deviceLanguage, deviceId, websiteLanguage, and userAgent. The device-related information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates. For more information about the Antom Device Fingerprint client, contact Antom Technical Support.  \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "clientIp": {
+            "type": "string",
+            "description": "The IP address of the client device.\n\nSpecify this parameter when one of the following conditions is met:\n\nYou require risk control.\nThe value of paymentMethodType is CARD.\nThe value of paymentMethodType is BLIK and you collect the information of blikCode.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "cookieId": {
+            "type": "string"
+          },
+          "extendInfo": {
+            "type": "string",
+            "description": "Extended information.\n\nSpecify this field if you need to use the extended information.  \n\nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "storeTerminalId": {
+            "type": "string"
+          },
+          "storeTerminalRequestTime": {
+            "type": "string"
+          },
+          "browserInfo": {
+            "$ref": "#/components/schemas/BrowserInfo",
+            "description": "The information about the browser environment where the order is placed. \n\nNote: Specify this parameter when you collect this information during the payment process.  "
+          },
+          "colorDepth": {
+            "type": "string",
+            "description": "The color depth of the user's browser in bits per pixel. The value is obtained by using the browser's screen.colorDepth property. Valid values are 1, 4, 8, 15, 16, 24, 30, 32, or 48. For example, 8 means 8-bit color depth.  \n\nMore information:\n\nValue range: 0 - unlimited"
+          },
+          "screenHeight": {
+            "type": "string",
+            "description": "The screen height of the user's device in pixels.  \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nValue range: 1 - unlimited"
+          },
+          "screenWidth": {
+            "type": "string",
+            "description": "The screen width of the user's device in pixels.  \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nValue range: 1 - unlimited"
+          },
+          "timeZoneOffset": {
+            "type": "integer",
+            "description": "The time difference between UTC time and the local time of the user's browser, in minutes. The value is obtained by using the getTimezoneOffset() property. For example, if the local time of the user's browser is UTC+2, the value of this parameter is -120.\n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nValue range: -720 - 720"
+          },
+          "deviceBrand": {
+            "type": "string",
+            "description": "The brand of the user's device. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "deviceModel": {
+            "type": "string",
+            "description": "The model of the user's device. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 128 characters"
+          },
+          "deviceLanguage": {
+            "type": "string",
+            "description": "The language of the device where the user places an order.\n\nNote: Specify this parameter if you require risk control. Providing this information helps to identify black-market behavior.\n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "deviceId": {
+            "type": "string",
+            "description": "The unique ID of the device the user places an order with.\n\nNote: Specify this parameter if you require risk control. This parameter can be used to build a trusted relationship between users and commonly used devices, thereby reducing risk control interruptions and increasing the payment success rate.  \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "envType": {
+            "type": "string",
+            "description": "The unique ID of the device the user places an order with.\n\nNote: Specify this parameter if you require risk control. This parameter can be used to build a trusted relationship between users and commonly used devices, thereby reducing risk control interruptions and increasing the payment success rate.  \n\nMore information:\n\nMaximum length: 64 characters"
+          }
+        },
+        "required": [
+          "terminalType"
+        ]
+      },
       "ThreeDSResult": {
         "type": "object",
         "properties": {
