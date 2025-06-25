@@ -52,7 +52,7 @@
           },
           "value": {
             "type": "integer",
-            "description": "Estimated value for the longest shipping time of logistics services.\n\nMore information:\n\nValue range: [0, +∞)"
+            "description": "Estimated value for the longest shipping time of logistics services.\n\nMore information:\n\nValue range: [0, +\u221e)"
           }
         },
         "required": [
@@ -140,7 +140,7 @@
           },
           "productScene": {
             "type": "string",
-            "description": "Specified product scenarios include valid values:\n\n​CHECKOUT_PAYMENT​: Indicates that the merchant integrates using the Checkout Page.\n​ELEMENT_PAYMENT​: Indicates that the merchant integrates using the Element.\nMore information:\n\nMaximum length: 32 characters"
+            "description": "Specified product scenarios include valid values:\n\n\u200bCHECKOUT_PAYMENT\u200b: Indicates that the merchant integrates using the Checkout Page.\n\u200bELEMENT_PAYMENT\u200b: Indicates that the merchant integrates using the Element.\nMore information:\n\nMaximum length: 32 characters"
           },
           "savedPaymentMethods": {
             "type": "array",
@@ -189,7 +189,7 @@
           },
           "paymentMethodOrder": {
             "type": "string",
-            "description": "The priority order of the payment methods configured by the user is indicated by numerical values, with smaller numbers representing higher priority. If the user does not specify a setting, Antom will apply a default sorting method.\n\nMore information:\n\nValue range: [1, +∞)"
+            "description": "The priority order of the payment methods configured by the user is indicated by numerical values, with smaller numbers representing higher priority. If the user does not specify a setting, Antom will apply a default sorting method.\n\nMore information:\n\nValue range: [1, +\u221e)"
           },
           "expressCheckout": {
             "type": "string",
@@ -420,61 +420,39 @@
         "type": "object",
         "properties": {
           "terminalType": {
+            "description": "Terminal type used by the merchant. Valid values are:",
             "$ref": "#/components/schemas/TerminalType"
-          },
-          "osType": {
-            "$ref": "#/components/schemas/OsType"
-          },
-          "userAgent": {
-            "type": "string"
-          },
-          "deviceTokenId": {
-            "type": "string"
           },
           "clientIp": {
             "type": "string",
-            "description": "The IP address of the client device.\n\nNote: Specify this parameter when you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "cookieId": {
-            "type": "string"
-          },
-          "extendInfo": {
-            "type": "string"
-          },
-          "storeTerminalId": {
-            "type": "string"
-          },
-          "storeTerminalRequestTime": {
-            "type": "string"
-          },
-          "browserInfo": {
-            "$ref": "#/components/schemas/BrowserInfo"
-          },
-          "colorDepth": {
-            "type": "string"
-          },
-          "screenHeight": {
-            "type": "string"
-          },
-          "screenWidth": {
-            "type": "string"
-          },
-          "timeZoneOffset": {
-            "type": "integer"
-          },
-          "deviceBrand": {
-            "type": "string"
-          },
-          "deviceModel": {
-            "type": "string"
-          },
-          "deviceLanguage": {
-            "type": "string"
+            "example": "127.0.0.1",
+            "description": "Client IP address, if not provided, will be automatically obtained from the request header. If the request is made through a proxy, the real IP of the client must be passed.",
+            "maxLength": 45
           },
           "deviceId": {
-            "type": "string"
+            "type": "string",
+            "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****",
+            "description": "Unique identifier for the device where the payment is initiated. It can be the device ID of the mobile phone, or the browser fingerprint for web payments.",
+            "maxLength": 255
+          },
+          "deviceLanguage": {
+            "type": "string",
+            "example": "zh_CN",
+            "description": "Device language, in the format of ISO 639-1 (language) + ISO 3166-1 (country/region).",
+            "maxLength": 5
+          },
+          "envType": {
+            "type": "string",
+            "example": "oootype",
+            "description": ""
           }
-        }
+        },
+        "required": [
+          "terminalType",
+          "clientIp",
+          "deviceId",
+          "deviceLanguage"
+        ]
       },
       "BrowserInfo": {
         "type": "object",
@@ -1084,7 +1062,7 @@
           },
           "priceId": {
             "type": "string",
-            "description": "The ID of the Price object. One of ​priceId​ or ​referenceGoodsId​ is required.\n\nMore information:\n\nMaximum length: 64 characters"
+            "description": "The ID of the Price object. One of \u200bpriceId\u200b or \u200breferenceGoodsId\u200b is required.\n\nMore information:\n\nMaximum length: 64 characters"
           }
         },
         "required": [
@@ -1193,7 +1171,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/createPaymentSession",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ]
 }
