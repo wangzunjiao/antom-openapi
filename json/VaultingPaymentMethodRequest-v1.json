@@ -124,12 +124,10 @@
         "type": "object",
         "properties": {
           "terminalType": {
-            "$ref": "#/components/schemas/TerminalType",
-            "description": "Terminal type to which the merchant service applies. Valid values are:\n\nWEB: The client-side terminal type is a website, which is opened via a PC browser.\nWAP: The client-side terminal type is a mobile website (H5 page), which is opened via a mobile browser.\nAPP: The client-side terminal type is a mobile application.\nMINI_APP: The terminal type of the merchant side is a mini program on the mobile phone.  \n"
+            "$ref": "#/components/schemas/TerminalType"
           },
           "osType": {
-            "$ref": "#/components/schemas/OsType",
-            "description": "OS type. Valid values are:\n\nIOS: indicates the operation system is Apple's iOS.\nANDROID: indicates the operation system is Google's Android.\nNote: Specify this field when terminalType is not WEB.  \n\n"
+            "$ref": "#/components/schemas/OsType"
           },
           "userAgent": {
             "type": "string"
@@ -139,7 +137,7 @@
           },
           "clientIp": {
             "type": "string",
-            "description": "The IP address of the client device.\n\nSpecify this parameter when one of the following conditions is met:\n\nYou require risk control.\nThe value of paymentMethodType is CARD.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 64 characters"
+            "description": "The IP address of the client device.\n\nNote: Specify this parameter when you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "cookieId": {
             "type": "string"
@@ -175,21 +173,18 @@
             "type": "string"
           },
           "deviceLanguage": {
-            "type": "string",
-            "description": "The language of the device where the user places an order.\n\nNote: Specify this parameter if you require risk control. Providing this information helps to identify black-market behavior.  \n\nMore information:\n\nMaximum length: 32 characters"
+            "type": "string"
           },
           "deviceId": {
-            "type": "string",
-            "description": "The unique ID of the device the user places an order with.\n\nNote: Specify this parameter if you require risk control. This parameter can be used to build a trusted relationship between users and commonly used devices, thereby reducing risk control interruptions and increasing the payment success rate.  \n\nMore information:\n\nMaximum length: 64 characters"
+            "type": "string"
+          },
+          "deviceEnvType": {
+            "type": "string"
           }
-        },
-        "required": [
-          "terminalType"
-        ]
+        }
       },
       "ResultStatusType": {
-        "type":
-          "string",
+        "type": "string",
         "enum": [
           "S",
           "F",
@@ -400,7 +395,7 @@
           },
           "cpf": {
             "type": "string",
-            "description": "The Cadastro Pessoal de Pessoa Física (CPF) is the tax ID of the Brazilian individual taxpayer.\n\nNote: Specify this parameter when the card issuing bank is in Brazil.\n\nMore information:\n\nMaximum length: 11 characters"
+            "description": "The Cadastro Pessoal de Pessoa F\u00edsica (CPF) is the tax ID of the Brazilian individual taxpayer.\n\nNote: Specify this parameter when the card issuing bank is in Brazil.\n\nMore information:\n\nMaximum length: 11 characters"
           },
           "payerEmail": {
             "type": "string",
@@ -653,7 +648,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/vaults/vaultPaymentMethod",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ],
   "security": []
