@@ -496,24 +496,19 @@ components:
     Env:
       properties:
         clientIp:
-          description: Client IP address of the device.
+          description: Client IP address.
           example: 127.0.0.1
           type: string
         deviceId:
-          description: Device ID of the user.
+          description: Device ID.
           example: eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****
           type: string
         deviceLanguage:
-          description: Device language of the user.
+          description: The language of the device.
           example: zh_CN
-          type: string
-        envType:
-          description: ''
-          example: oootype
           type: string
         terminalType:
           $ref: '#/components/schemas/TerminalType'
-          description: 'Terminal type used by the merchant. Valid values are:'
       type: object
     Gaming:
       properties:
