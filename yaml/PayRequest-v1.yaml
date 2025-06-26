@@ -280,6 +280,8 @@ components:
             laundering and fraud detection, and increase payment success rates.
         needDeclaration:
           type: boolean
+        orderTest:
+          type: string
       required:
         - orderAmount
         - orderDescription

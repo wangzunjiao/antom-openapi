@@ -163,6 +163,9 @@
           },
           "needDeclaration": {
             "type": "boolean"
+          },
+          "orderTest": {
+            "type": "string"
           }
         },
         "required": [
