@@ -226,56 +226,25 @@ components:
       type: object
     Env:
       properties:
-        browserInfo:
-          $ref: '#/components/schemas/BrowserInfo'
         clientIp:
-          description: 'The IP address of the client device.
-
-
-            Note: Specify this parameter when you require risk control. Providing
-            this information helps to increase the accuracy of anti-money laundering
-            and fraud detection, and increase payment success rates.
-
-
-            More information:
-
-
-            Maximum length: 64 characters'
-          type: string
-        colorDepth:
-          type: string
-        cookieId:
-          type: string
-        deviceBrand:
-          type: string
-        deviceEnvType:
+          description: Client IP address of the device.
+          example: 127.0.0.1
           type: string
         deviceId:
+          description: Device ID of the user.
+          example: eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****
           type: string
         deviceLanguage:
+          description: Device language of the user.
+          example: zh_CN
           type: string
-        deviceModel:
-          type: string
-        deviceTokenId:
-          type: string
-        extendInfo:
-          type: string
-        osType:
-          $ref: '#/components/schemas/OsType'
-        screenHeight:
-          type: string
-        screenWidth:
-          type: string
-        storeTerminalId:
-          type: string
-        storeTerminalRequestTime:
+        envType:
+          description: ''
+          example: oootype
           type: string
         terminalType:
           $ref: '#/components/schemas/TerminalType'
-        timeZoneOffset:
-          type: integer
-        userAgent:
-          type: string
+          description: 'Terminal type used by the merchant. Valid values are:'
       type: object
     OrderInfo:
       properties:

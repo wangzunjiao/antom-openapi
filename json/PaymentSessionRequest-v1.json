@@ -421,67 +421,33 @@
         }
       },
       "Env": {
-        "type": "object",
         "properties": {
           "terminalType": {
+            "description": "Terminal type used by the merchant. Valid values are:",
             "$ref": "#/components/schemas/TerminalType"
-          },
-          "osType": {
-            "$ref": "#/components/schemas/OsType"
-          },
-          "userAgent": {
-            "type": "string"
-          },
-          "deviceTokenId": {
-            "type": "string"
           },
           "clientIp": {
             "type": "string",
-            "description": "The IP address of the client device.\n\nNote: Specify this parameter when you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "cookieId": {
-            "type": "string"
-          },
-          "extendInfo": {
-            "type": "string"
-          },
-          "storeTerminalId": {
-            "type": "string"
-          },
-          "storeTerminalRequestTime": {
-            "type": "string"
-          },
-          "browserInfo": {
-            "$ref": "#/components/schemas/BrowserInfo"
-          },
-          "colorDepth": {
-            "type": "string"
-          },
-          "screenHeight": {
-            "type": "string"
-          },
-          "screenWidth": {
-            "type": "string"
-          },
-          "timeZoneOffset": {
-            "type": "integer"
-          },
-          "deviceBrand": {
-            "type": "string"
-          },
-          "deviceModel": {
-            "type": "string"
-          },
-          "deviceLanguage": {
-            "type": "string"
+            "description": "Client IP address of the device.",
+            "example": "127.0.0.1"
           },
           "deviceId": {
-            "type": "string"
+            "type": "string",
+            "description": "Device ID of the user.",
+            "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****"
           },
-          "deviceEnvType": {
-            "type": "string"
+          "deviceLanguage": {
+            "type": "string",
+            "description": "Device language of the user.",
+            "example": "zh_CN"
+          },
+          "envType": {
+            "type": "string",
+            "description": "",
+            "example": "oootype"
           }
-        }
+        },
+        "type": "object"
       },
       "BrowserInfo": {
         "type": "object",
