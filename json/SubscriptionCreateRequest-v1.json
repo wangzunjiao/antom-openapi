@@ -167,12 +167,10 @@
         "type": "object",
         "properties": {
           "terminalType": {
-            "$ref": "#/components/schemas/TerminalType",
-            "description": "The terminal type the merchant service applies to. Valid values are:\n\nWEB: The client-side terminal type is a website, which is opened via a PC browser.\nWAP: The client-side terminal type is an H5 page, which is opened via a mobile browser.\nAPP: The client-side terminal type is a mobile application. \nMore information:\n\nMaximum length: 20 characters"
+            "$ref": "#/components/schemas/TerminalType"
           },
           "osType": {
-            "$ref": "#/components/schemas/OsType",
-            "description": "The OS type. Valid values are:\n\nIOS: indicates the operation system is Apple's iOS.\nANDROID: indicates the operation system is Google's Android.\nNote: Specify this parameter when terminalType is APP or WAP.\n\nMore information:\n\nMaximum length: 20 characters\n"
+            "$ref": "#/components/schemas/OsType"
           },
           "userAgent": {
             "type": "string"
@@ -181,7 +179,8 @@
             "type": "string"
           },
           "clientIp": {
-            "type": "string"
+            "type": "string",
+            "description": "The IP address of the client device.\n\nNote: Specify this parameter when you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "cookieId": {
             "type": "string"
@@ -221,15 +220,14 @@
           },
           "deviceId": {
             "type": "string"
+          },
+          "deviceEnvType": {
+            "type": "string"
           }
-        },
-        "required": [
-          "terminalType"
-        ]
+        }
       },
       "ResultStatusType": {
-        "type":
-          "string",
+        "type": "string",
         "enum": [
           "S",
           "F",
@@ -399,7 +397,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/subscriptions/create",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ],
   "security": []

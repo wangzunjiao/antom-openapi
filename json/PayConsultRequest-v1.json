@@ -99,7 +99,7 @@
           },
           "value": {
             "type": "string",
-            "description": "The value of the amount as a positive integer in the smallest currency unit. For example, if the currency is USD and the amount is $1.00, set the value of this parameter to 100; or if the currency is JPY and the amount is ￥1, set the value of this parameter to 1.  \n\nFor details about the smallest currency unit, see Smallest unit of the currency .\n\nFor details about the minimum payment amount allowed for each payment method, see Minimum amount rules. \n\nNote: Due to the currency practices in Indonesia, when the currency is IDR, round the amount with banker's rounding and fix the last two digits of this parameter as 00.  \n\nMore information:\n\nValue range: 0 - unlimited\n"
+            "description": "The value of the amount as a positive integer in the smallest currency unit. For example, if the currency is USD and the amount is $1.00, set the value of this parameter to 100; or if the currency is JPY and the amount is \uffe51, set the value of this parameter to 1.  \n\nFor details about the smallest currency unit, see Smallest unit of the currency .\n\nFor details about the minimum payment amount allowed for each payment method, see Minimum amount rules. \n\nNote: Due to the currency practices in Indonesia, when the currency is IDR, round the amount with banker's rounding and fix the last two digits of this parameter as 00.  \n\nMore information:\n\nValue range: 0 - unlimited\n"
           }
         },
         "required": [
@@ -198,28 +198,23 @@
         "type": "object",
         "properties": {
           "terminalType": {
-            "$ref": "#/components/schemas/TerminalType",
-            "description": "Terminal type used by the merchant. Valid values are:\n\nWEB: The terminal type of the merchant side is a website.\nWAP: The terminal type of the merchant side is a mobile website (H5 page) on a phone.\nAPP: The terminal type of the merchant side is an app on a phone.\nMINI_APP: The terminal type of the merchant side is a mini program on a phone.\nNote: This field is required when productCodeType is CASHIER_PAYMENT."
+            "$ref": "#/components/schemas/TerminalType"
           },
           "osType": {
-            "$ref": "#/components/schemas/OsType",
-            "description": "Type of the operation system. Valid values are:\n\nIOS: The OS type is iOS.\nANDROID: The OS type is Android. \nNote: This field is required for all terminalType values except WEB. "
+            "$ref": "#/components/schemas/OsType"
           },
           "userAgent": {
-            "type": "string",
-            "description": "The user agent.\n\nMore information:\n\nMaximum length: 1024 characters"
+            "type": "string"
           },
           "deviceTokenId": {
-            "type": "string",
-            "description": "Token identifier of the device.\n\nMore information:\n\nMaximum length: 64 characters"
+            "type": "string"
           },
           "clientIp": {
             "type": "string",
-            "description": "IP address of the client device. \n\nMore information:\n\nMaximum length: 32 characters"
+            "description": "The IP address of the client device.\n\nNote: Specify this parameter when you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "cookieId": {
-            "type": "string",
-            "description": "The cookie ID of the buyer. \n\nMore information:\n\nMaximum length: 64 characters"
+            "type": "string"
           },
           "extendInfo": {
             "type": "string"
@@ -256,15 +251,14 @@
           },
           "deviceId": {
             "type": "string"
+          },
+          "deviceEnvType": {
+            "type": "string"
           }
-        },
-        "required": [
-          "terminalType"
-        ]
+        }
       },
       "ResultStatusType": {
-        "type":
-        "string",
+        "type": "string",
         "enum": [
           "S",
           "F",
@@ -606,7 +600,7 @@
             "items": {
               "$ref": "#/components/schemas/SupportCardBrand"
             },
-            "description": "The list of supported card brands.  \n\nNote: This parameter is returned when the value of paymentMethodType is ​CARD​."
+            "description": "The list of supported card brands.  \n\nNote: This parameter is returned when the value of paymentMethodType is \u200bCARD\u200b."
           },
           "funding": {
             "type": "array",
@@ -620,7 +614,7 @@
             "items": {
               "$ref": "#/components/schemas/SupportBank"
             },
-            "description": "The list of supported banks. \n\nThis parameter is returned when the value of paymentMethodType is ​P24​ or ONLINEBANKING_FPX.\n\n"
+            "description": "The list of supported banks. \n\nThis parameter is returned when the value of paymentMethodType is \u200bP24\u200b or ONLINEBANKING_FPX.\n\n"
           }
         },
         "required": [
@@ -806,7 +800,7 @@
           },
           "paymentOptionDetail": {
             "$ref": "#/components/schemas/PaymentOptionDetail",
-            "description": "Details about the payment option. \n\nThis parameter is returned when one of the following conditions is met: \n\nWhen the value of paymentMethodType is CARD: paymentOptionDetail returns information relating to the cards.\nWhen the value of paymentMethodType is ​P24​: paymentOptionDetail returns information relating to the Przelewy24 payment method.\nWhen the value of paymentMethodType is ONLINEBANKING_FPX: paymentOptionDetail returns information relating to the FPX payment method."
+            "description": "Details about the payment option. \n\nThis parameter is returned when one of the following conditions is met: \n\nWhen the value of paymentMethodType is CARD: paymentOptionDetail returns information relating to the cards.\nWhen the value of paymentMethodType is \u200bP24\u200b: paymentOptionDetail returns information relating to the Przelewy24 payment method.\nWhen the value of paymentMethodType is ONLINEBANKING_FPX: paymentOptionDetail returns information relating to the FPX payment method."
           },
           "extendInfo": {
             "type": "string"

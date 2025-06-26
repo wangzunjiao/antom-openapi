@@ -52,7 +52,7 @@
           },
           "value": {
             "type": "integer",
-            "description": "Estimated value for the longest shipping time of logistics services.\n\nMore information:\n\nValue range: [0, +∞)"
+            "description": "Estimated value for the longest shipping time of logistics services.\n\nMore information:\n\nValue range: [0, +\u221e)"
           }
         },
         "required": [
@@ -140,7 +140,7 @@
           },
           "productScene": {
             "type": "string",
-            "description": "Specified product scenarios include valid values:\n\n​CHECKOUT_PAYMENT​: Indicates that the merchant integrates using the Checkout Page.\n​ELEMENT_PAYMENT​: Indicates that the merchant integrates using the Element.\nMore information:\n\nMaximum length: 32 characters"
+            "description": "Specified product scenarios include valid values:\n\n\u200bCHECKOUT_PAYMENT\u200b: Indicates that the merchant integrates using the Checkout Page.\n\u200bELEMENT_PAYMENT\u200b: Indicates that the merchant integrates using the Element.\nMore information:\n\nMaximum length: 32 characters"
           },
           "savedPaymentMethods": {
             "type": "array",
@@ -193,7 +193,7 @@
           },
           "paymentMethodOrder": {
             "type": "string",
-            "description": "The priority order of the payment methods configured by the user is indicated by numerical values, with smaller numbers representing higher priority. If the user does not specify a setting, Antom will apply a default sorting method.\n\nMore information:\n\nValue range: [1, +∞)"
+            "description": "The priority order of the payment methods configured by the user is indicated by numerical values, with smaller numbers representing higher priority. If the user does not specify a setting, Antom will apply a default sorting method.\n\nMore information:\n\nValue range: [1, +\u221e)"
           },
           "expressCheckout": {
             "type": "string",
@@ -478,7 +478,7 @@
           "deviceId": {
             "type": "string"
           },
-          "deviceEnv": {
+          "deviceEnvType": {
             "type": "string"
           }
         }
@@ -1091,7 +1091,7 @@
           },
           "priceId": {
             "type": "string",
-            "description": "The ID of the Price object. One of ​priceId​ or ​referenceGoodsId​ is required.\n\nMore information:\n\nMaximum length: 64 characters"
+            "description": "The ID of the Price object. One of \u200bpriceId\u200b or \u200breferenceGoodsId\u200b is required.\n\nMore information:\n\nMaximum length: 64 characters"
           }
         },
         "required": [
@@ -1200,7 +1200,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/createPaymentSession",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ]
 }
