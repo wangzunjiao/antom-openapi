@@ -278,6 +278,8 @@ components:
           description: |+
             Information on payment methods available to the user.
 
+        testFile:
+          type: string
       required:
         - order
         - paymentRequestId
@@ -286,6 +288,7 @@ components:
         - paymentMethod
         - paymentRedirectUrl
         - productCode
+        - testFile
     AvailablePaymentMethod:
       type: object
       properties:
@@ -567,7 +570,7 @@ components:
           type: string
         deviceId:
           type: string
-        deviceEnvType:
+        deviceEnv:
           type: string
     BrowserInfo:
       type: object

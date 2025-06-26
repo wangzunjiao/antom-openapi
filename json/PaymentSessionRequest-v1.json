@@ -157,6 +157,9 @@
           "availablePaymentMethod": {
             "$ref": "#/components/schemas/AvailablePaymentMethod",
             "description": "Information on payment methods available to the user.\n\n"
+          },
+          "testFile": {
+            "type": "string"
           }
         },
         "required": [
@@ -166,7 +169,8 @@
           "settlementStrategy",
           "paymentMethod",
           "paymentRedirectUrl",
-          "productCode"
+          "productCode",
+          "testFile"
         ]
       },
       "AvailablePaymentMethod": {
@@ -474,7 +478,7 @@
           "deviceId": {
             "type": "string"
           },
-          "deviceEnvType": {
+          "deviceEnv": {
             "type": "string"
           }
         }
