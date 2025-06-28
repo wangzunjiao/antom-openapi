@@ -494,26 +494,28 @@ components:
       - value
       type: object
     Env:
+      description: Information about the environment where the order is placed, such
+        as the device information.
       properties:
-        clientIp:
-          description: Client IP address of the device.
-          example: 127.0.0.1
-          type: string
-        deviceId:
-          description: Device ID of the user.
-          example: eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****
-          type: string
-        deviceLanguage:
-          description: Device language of the user.
-          example: zh_CN
-          type: string
-        envType:
-          description: ''
+        envType111:
+          description: The type of environment.
           example: oootype
           type: string
         terminalType:
           $ref: '#/components/schemas/TerminalType'
           description: 'Terminal type used by the merchant. Valid values are:'
+      required:
+      - terminalType
+      - storeTerminalId
+      - storeTerminalRequestTime
+      - browserInfo
+      - colorDepth
+      - screenHeight
+      - screenWidth
+      - timeZoneOffset
+      - deviceModel
+      - deviceLanguage
+      - deviceId
       type: object
     Gaming:
       properties:

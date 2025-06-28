@@ -426,28 +426,27 @@
             "description": "Terminal type used by the merchant. Valid values are:",
             "$ref": "#/components/schemas/TerminalType"
           },
-          "clientIp": {
+          "envType111": {
             "type": "string",
-            "description": "Client IP address of the device.",
-            "example": "127.0.0.1"
-          },
-          "deviceId": {
-            "type": "string",
-            "description": "Device ID of the user.",
-            "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****"
-          },
-          "deviceLanguage": {
-            "type": "string",
-            "description": "Device language of the user.",
-            "example": "zh_CN"
-          },
-          "envType": {
-            "type": "string",
-            "description": "",
-            "example": "oootype"
+            "example": "oootype",
+            "description": "The type of environment."
           }
         },
-        "type": "object"
+        "type": "object",
+        "required": [
+          "terminalType",
+          "storeTerminalId",
+          "storeTerminalRequestTime",
+          "browserInfo",
+          "colorDepth",
+          "screenHeight",
+          "screenWidth",
+          "timeZoneOffset",
+          "deviceModel",
+          "deviceLanguage",
+          "deviceId"
+        ],
+        "description": "Information about the environment where the order is placed, such as the device information."
       },
       "BrowserInfo": {
         "type": "object",
