@@ -862,7 +862,7 @@
         "properties": {
           "terminalType": {
             "$ref": "#/components/schemas/TerminalType",
-            "description": "Terminal type of which the merchant service applies to. Valid values are:\n\nWEB: The client-side terminal type is a website, which is opened via a PC browser.\nWAP: The client-side terminal type is an H5 page, which is opened via a mobile browser.\nAPP: The client-side terminal type is a mobile application.\nMINI_APP: The terminal type of the merchant side is a mini program on the mobile phone.  "
+            "description": "Terminal type used by the merchant. Valid values are:"
           },
           "osType": {
             "$ref": "#/components/schemas/OsType",
@@ -877,7 +877,8 @@
           },
           "clientIp": {
             "type": "string",
-            "description": "The IP address of the client device.\n\nSpecify this parameter when one of the following conditions is met:\n\nYou require risk control.\nThe value of paymentMethodType is CARD.\nThe value of paymentMethodType is BLIK and you collect the information of blikCode.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 64 characters"
+            "description": "Client IP address of the device.",
+            "example": "127.0.0.1"
           },
           "cookieId": {
             "type": "string"
@@ -922,11 +923,18 @@
           },
           "deviceLanguage": {
             "type": "string",
-            "description": "The language of the device where the user places an order.\n\nNote: Specify this parameter if you require risk control. Providing this information helps to identify black-market behavior.\n\nMore information:\n\nMaximum length: 32 characters"
+            "description": "Device language of the user.",
+            "example": "zh_CN"
           },
           "deviceId": {
             "type": "string",
-            "description": "The unique ID of the device the user places an order with.\n\nNote: Specify this parameter if you require risk control. This parameter can be used to build a trusted relationship between users and commonly used devices, thereby reducing risk control interruptions and increasing the payment success rate.  \n\nMore information:\n\nMaximum length: 64 characters"
+            "description": "Device ID of the user.",
+            "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****"
+          },
+          "envType": {
+            "type": "string",
+            "description": "",
+            "example": "oootype"
           }
         },
         "required": [
