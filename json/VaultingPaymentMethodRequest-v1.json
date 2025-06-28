@@ -121,33 +121,36 @@
         ]
       },
       "Env": {
+        "type": "object",
         "properties": {
           "terminalType": {
             "description": "Terminal type used by the merchant. Valid values are:",
             "$ref": "#/components/schemas/TerminalType"
           },
           "clientIp": {
+            "description": "Client IP address of the customer, which is required for risk control.\nIf the request is initiated from a mobile app or browser, you can get the client IP address through the network library provided by the operating system. If the request is initiated from a server, please pass the real IP address of the customer. Do not use the server IP address as the customer IP address. Invalid IP addresses (such as 127.0.0.1) will result in failed transactions.\nDo not set this parameter if you cannot obtain the real IP address of the customer.",
             "type": "string",
-            "description": "Client IP address of the device.",
-            "example": "127.0.0.1"
+            "example": "192.168.1.1"
           },
           "deviceId": {
+            "description": "Unique identifier of the device. The value should be consistent with the one registered in Alipay+ platform.\nYou need to generate a unique and persistent device ID for each device, which can be obtained through the device information interface provided by the operating system. For example, on Android, it could be ANDROID_ID; on iOS, it could be IDFV. For web pages, it could be generated based on various factors such as user agent, screen resolution, etc.\nIf the device ID cannot be obtained, this field can be left blank.",
             "type": "string",
-            "description": "Device ID of the user.",
             "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****"
           },
           "deviceLanguage": {
+            "description": "Language of the device. This value will determine the language of the page displayed during the payment process. If not specified, the default language of the region where the merchant is located will be used.",
             "type": "string",
-            "description": "Device language of the user.",
             "example": "zh_CN"
           },
-          "envType": {
-            "type": "string",
+          "envType222": {
             "description": "",
+            "type": "string",
             "example": "oootype"
           }
         },
-        "type": "object"
+        "required": [
+          "terminalType"
+        ]
       },
       "ResultStatusType": {
         "type": "string",

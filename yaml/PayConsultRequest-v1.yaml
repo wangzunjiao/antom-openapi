@@ -239,24 +239,48 @@ components:
     Env:
       properties:
         clientIp:
-          description: Client IP address of the device.
-          example: 127.0.0.1
+          description: 'Client IP address of the customer, which is required for risk
+            control.
+
+            If the request is initiated from a mobile app or browser, you can get
+            the client IP address through the network library provided by the operating
+            system. If the request is initiated from a server, please pass the real
+            IP address of the customer. Do not use the server IP address as the customer
+            IP address. Invalid IP addresses (such as 127.0.0.1) will result in failed
+            transactions.
+
+            Do not set this parameter if you cannot obtain the real IP address of
+            the customer.'
+          example: 192.168.1.1
           type: string
         deviceId:
-          description: Device ID of the user.
+          description: 'Unique identifier of the device. The value should be consistent
+            with the one registered in Alipay+ platform.
+
+            You need to generate a unique and persistent device ID for each device,
+            which can be obtained through the device information interface provided
+            by the operating system. For example, on Android, it could be ANDROID_ID;
+            on iOS, it could be IDFV. For web pages, it could be generated based on
+            various factors such as user agent, screen resolution, etc.
+
+            If the device ID cannot be obtained, this field can be left blank.'
           example: eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****
           type: string
         deviceLanguage:
-          description: Device language of the user.
+          description: Language of the device. This value will determine the language
+            of the page displayed during the payment process. If not specified, the
+            default language of the region where the merchant is located will be used.
           example: zh_CN
           type: string
-        envType:
+        envType222:
           description: ''
           example: oootype
           type: string
         terminalType:
           $ref: '#/components/schemas/TerminalType'
           description: 'Terminal type used by the merchant. Valid values are:'
+      required:
+      - terminalType
       type: object
     InStorePaymentScenario:
       enum:
