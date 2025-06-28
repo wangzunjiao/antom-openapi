@@ -858,6 +858,7 @@
         }
       },
       "Env": {
+        "type": "object",
         "properties": {
           "terminalType": {
             "description": "Terminal type used by the merchant. Valid values are:",
@@ -878,13 +879,17 @@
             "description": "Device language of the user.",
             "example": "zh_CN"
           },
+          "envType123": {
+            "type": "string",
+            "description": "",
+            "example": "oootype"
+          },
           "envType": {
             "type": "string",
             "description": "",
             "example": "oootype"
           }
-        },
-        "type": "object"
+        }
       },
       "ThreeDSResult": {
         "type": "object",

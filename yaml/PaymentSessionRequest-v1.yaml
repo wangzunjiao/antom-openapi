@@ -511,6 +511,10 @@ components:
           description: ''
           example: oootype
           type: string
+        envType123:
+          description: ''
+          example: oootype
+          type: string
         terminalType:
           $ref: '#/components/schemas/TerminalType'
           description: 'Terminal type used by the merchant. Valid values are:'
