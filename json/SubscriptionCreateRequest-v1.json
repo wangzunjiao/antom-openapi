@@ -164,6 +164,7 @@
         ]
       },
       "Env": {
+        "type": "object",
         "properties": {
           "terminalType": {
             "description": "Terminal type used by the merchant. Valid values are:",
@@ -189,8 +190,7 @@
             "description": "",
             "example": "oootype"
           }
-        },
-        "type": "object"
+        }
       },
       "ResultStatusType": {
         "type": "string",
