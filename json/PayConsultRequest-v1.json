@@ -202,26 +202,29 @@
           },
           "clientIp": {
             "type": "string",
-            "description": "Client IP address of the device.",
-            "example": "127.0.0.1"
+            "description": "The IP address of the client, which is automatically filled in by the system.",
+            "example": "192.168.0.1"
           },
           "deviceId": {
             "type": "string",
-            "description": "Device ID of the user.",
-            "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****"
+            "description": "The unique identifier of the device. This parameter is optional. If you do not fill in this field, the system will automatically generate a unique value.",
+            "example": "device_12345"
           },
           "deviceLanguage": {
             "type": "string",
-            "description": "Device language of the user.",
-            "example": "zh_CN"
+            "description": "The language of the device.",
+            "example": "en_US"
           },
-          "envType": {
+          "envType111": {
             "type": "string",
             "description": "",
             "example": "oootype"
           }
         },
-        "type": "object"
+        "required": [
+          "terminalType",
+          "clientIp"
+        ]
       },
       "ResultStatusType": {
         "type": "string",
