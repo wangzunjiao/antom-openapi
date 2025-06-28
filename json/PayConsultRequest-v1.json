@@ -1,27 +1,15 @@
 {
   "openapi": "3.1.0",
-  "servers": [
-    {
-      "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/consult"
-    }
-  ],
   "info": {
-    "version": "1",
-    "x-publicVersion": true,
-    "x-publicVersion1": true,
-    "title": "Payment API",
-    "description": "Payment API is used for xxx. Refer [doc](https://global.alipay.com/docs/ac/ams/consult)\n# Auth",
-    "termsOfService": "https://www.antom.com/legal/terms-and-conditions",
-    "contact": {
-      "name": "Antom Developer Experience team",
-      "url": "https://github.com/Antom/antom-openapi"
-    }
+    "title": "vaults_vaultPaymentMethod",
+    "description": "",
+    "version": "1.0.0"
   },
   "tags": [],
   "paths": {
-    "/ams/api/v1/payments/consult": {
+    "/ams/api/v1/vaults/vaultPaymentMethod": {
       "post": {
-        "summary": "consult",
+        "summary": "vaultPaymentMethod",
         "deprecated": false,
         "description": "Use this API to get the cashier page address. After getting the cashier page address, you can redirect the user to the cashier page to make a payment.\n",
         "tags": [],
@@ -30,7 +18,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AlipayPayConsultRequest"
+                "$ref": "#/components/schemas/AlipayVaultingPaymentMethodRequest"
               }
             }
           }
@@ -41,7 +29,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AlipayPayConsultResponse"
+                  "$ref": "#/components/schemas/AlipayVaultingPaymentMethodResponse"
                 }
               }
             },
@@ -54,104 +42,42 @@
   },
   "components": {
     "schemas": {
-      "PromotionType": {
-        "type": "string",
-        "enum": [
-          "DISCOUNT",
-          "INTEREST_FREE"
-        ]
-      },
       "Result": {
         "type": "object",
         "properties": {
           "resultCode": {
             "type": "string",
-            "description": "The result code.\n\nMore information:\n\nMaximum length: 64 characters"
+            "description": "The result code."
           },
           "resultStatus": {
-            "description": "The result status. Valid values are:  \n\nS: Indicates that the result status is successful. \nF: Indicates that the result status is failed. \nU: Indicates that the result status is unknown. ",
+            "description": "The result status. Valid values are:\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
             "$ref": "#/components/schemas/ResultStatusType"
           },
           "resultMessage": {
             "type": "string",
-            "description": "The result message.\n\nMore information:\n\nMaximum length: 256 characters"
+            "description": "The result message."
           }
         },
         "required": [
           "resultCode",
-          "resultStatus"
-        ]
-      },
-      "ProductCodeType": {
-        "type": "string",
-        "enum": [
-          "CASHIER_PAYMENT",
-          "AGREEMENT_PAYMENT",
-          "IN_STORE_PAYMENT"
+          "resultStatus",
+          "resultMessage"
         ]
       },
       "Amount": {
         "type": "object",
         "properties": {
           "currency": {
-            "type": "string",
-            "description": "The 3-letter currency code that follows the ISO 4217 standard. \n\nMore information:\n\nMaximum length: 3 characters"
+            "type": "string"
           },
           "value": {
-            "type": "string",
-            "description": "The value of the amount as a positive integer in the smallest currency unit. For example, if the currency is USD and the amount is $1.00, set the value of this parameter to 100; or if the currency is JPY and the amount is \uffe51, set the value of this parameter to 1.  \n\nFor details about the smallest currency unit, see Smallest unit of the currency .\n\nFor details about the minimum payment amount allowed for each payment method, see Minimum amount rules. \n\nNote: Due to the currency practices in Indonesia, when the currency is IDR, round the amount with banker's rounding and fix the last two digits of this parameter as 00.  \n\nMore information:\n\nValue range: 0 - unlimited\n"
+            "type": "string"
           }
         },
         "required": [
           "currency",
           "value"
         ]
-      },
-      "InStorePaymentScenario": {
-        "type": "string",
-        "enum": [
-          "PaymentCode",
-          "OrderCode",
-          "EntryCode"
-        ]
-      },
-      "PresentmentMode": {
-        "type": "string",
-        "enum": [
-          "BUNDLE",
-          "TILE",
-          "UNIFIED"
-        ]
-      },
-      "PaymentFactor": {
-        "type": "object",
-        "properties": {
-          "isPaymentEvaluation": {
-            "type": "boolean"
-          },
-          "inStorePaymentScenario": {
-            "$ref": "#/components/schemas/InStorePaymentScenario"
-          },
-          "presentmentMode": {
-            "$ref": "#/components/schemas/PresentmentMode",
-            "description": "The presentation mode chosen by the merchant to display the payment methods on the cashier page. Valid values are:\n\nTILE: specify this presentation mode when presenting wallets in a separate list with individual logos. The same applies when the value is empty or when you do not specify this parameter.\nUNIFIED: specify this presentation mode when presenting the unified Alipay+ payment method on the checkout page, allowing the buyer to choose a specific wallet at a later page."
-          },
-          "captureMode": {
-            "type": "string"
-          },
-          "isAuthorization": {
-            "type": "boolean"
-          }
-        }
-      },
-      "SettlementStrategy": {
-        "type": "object",
-        "properties": {
-          "settlementCurrency": {
-            "type": "string",
-            "description": "The ISO currency code of the currency that the merchant wants to settle against. This field is required if the merchant signed up for multiple settlement currencies. Otherwise, the error code,SETTLE_CONTRACT_NOT_MATCH, will be returned. \n\nMore information:\n\nMaximum length: 3 characters"
-          }
-        }
       },
       "TerminalType": {
         "type": "string",
@@ -195,6 +121,7 @@
         ]
       },
       "Env": {
+        "type": "object",
         "properties": {
           "terminalType": {
             "description": "Terminal type used by the merchant. Valid values are:",
@@ -220,8 +147,7 @@
             "description": "",
             "example": "oootype"
           }
-        },
-        "type": "object"
+        }
       },
       "ResultStatusType": {
         "type": "string",
@@ -235,620 +161,461 @@
         "type": "object",
         "properties": {
           "firstName": {
-            "type": "string"
+            "type": "string",
+            "description": "The cardholder's first name. \n\nMore information:\n\nMaximum length: 32 characters\n"
           },
           "middleName": {
-            "type": "string"
+            "type": "string",
+            "description": "The cardholder's middle name. \n\nMore information:\n\nMaximum length: 32 characters"
           },
           "lastName": {
-            "type": "string"
+            "type": "string",
+            "description": "The cardholder's last name. "
           },
           "fullName": {
-            "type": "string"
+            "type": "string",
+            "description": "The cardholder's full name. \n\nMore information:\n\nMaximum length: 128 characters"
           }
         },
         "required": [
           "firstName",
-          "middleName",
-          "lastName",
-          "fullName"
+          "lastName"
         ]
       },
       "Address": {
         "type": "object",
         "properties": {
           "region": {
-            "type": "string"
+            "type": "string",
+            "description": "The 2-letter country or region code. For more information, see the ISO 3166 Country Codes standard. \n\nMore information:\n\nMaximum length: 2 characters"
           },
           "state": {
-            "type": "string"
+            "type": "string",
+            "description": "The state, country, or province name. \n\nFor card payments, if your business entity is in the United States, and the card issuing country is Canada, the United States, or the United Kingdom, set the value to a region code that consists of two to three characters and follows the ISO 3166-2 standard. \n\nMore information:\n\nMaximum length: 8 characters"
           },
           "city": {
-            "type": "string"
+            "type": "string",
+            "description": "The city, district, suburb, town, or village name. \n\nMore information:\n\nMaximum length: 32 characters\n"
           },
           "address1": {
-            "type": "string"
+            "type": "string",
+            "description": "Address line 1, for example, the street address, PO box, and company name. \n\nMore information:\n\nMaximum length: 256 characters"
           },
           "address2": {
-            "type": "string"
+            "type": "string",
+            "description": "Address line 2, for example, the apartment, suite, unit, and building information. \n\nMore information:\n\nMaximum length: 256 characters"
           },
           "zipCode": {
-            "type": "string"
+            "type": "string",
+            "description": "The ZIP or postal code. \n\nFor card payments, if your business entity is in the United States, specify this parameter according to the following parameter value requirements:\n\nOnly contains numbers, letters, hyphens, and spaces.\nMust be within ten characters. \nMore information:\n\nMaximum length: 32 characters"
           },
           "label": {
             "type": "string"
           }
-        }
-      },
-      "Store": {
-        "type": "object",
-        "properties": {
-          "referenceStoreId": {
-            "type": "string"
-          },
-          "storeName": {
-            "type": "string"
-          },
-          "storeMCC": {
-            "type": "string"
-          },
-          "storeDisplayName": {
-            "type": "string"
-          },
-          "storeTerminalId": {
-            "type": "string"
-          },
-          "storeOperatorId": {
-            "type": "string"
-          },
-          "storeAddress": {
-            "$ref": "#/components/schemas/Address"
-          },
-          "storePhoneNo": {
-            "type": "string"
-          }
         },
         "required": [
-          "storeName",
-          "storeMCC",
-          "storeDisplayName",
-          "storeTerminalId",
-          "storeOperatorId",
-          "storeAddress",
-          "storePhoneNo",
-          "referenceStoreId"
+          "region"
         ]
       },
-      "MerchantType": {
+      "PaymentMethodDetailType": {
         "type": "string",
         "enum": [
-          "INDIVIDUAL",
-          "ENTERPRISE"
+          "CARD",
+          "EXTERNALACCOUNT",
+          "COUPON",
+          "DISCOUNT"
         ]
       },
-      "Merchant": {
+      "CardBrand": {
+        "type": "string",
+        "enum": [
+          "VISA",
+          "MASTERCARD",
+          "MAESTRO",
+          "AMEX",
+          "JCB",
+          "DINERS",
+          "DISCOVER",
+          "CUP",
+          "MIR",
+          "ELO",
+          "HIPERCARD",
+          "TROY"
+        ]
+      },
+      "MpiData": {
         "type": "object",
         "properties": {
-          "referenceMerchantId": {
+          "threeDSVersion": {
             "type": "string"
           },
-          "merchantMCC": {
+          "eci": {
             "type": "string"
           },
-          "merchantName": {
+          "cavv": {
             "type": "string"
           },
-          "merchantDisplayName": {
+          "dsTransactionId": {
+            "type": "string"
+          }
+        }
+      },
+      "CardPaymentMethodDetail": {
+        "type": "object",
+        "properties": {
+          "cardToken": {
+            "type": "string",
+            "description": "The token of the card. The value of this parameter is used by paymentMethodId in the pay (Checkout Payment) API when initiating payments. \n\nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "cardNo": {
+            "type": "string",
+            "description": "The card number. \n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "brand": {
+            "$ref": "#/components/schemas/CardBrand",
+            "description": "Deprecated. Use selectedCardBrand instead."
+          },
+          "selectedCardBrand": {
+            "$ref": "#/components/schemas/CardBrand",
+            "description": "Deprecated. Use selectedCardBrand instead."
+          },
+          "cardIssuer": {
             "type": "string"
           },
-          "merchantAddress": {
-            "$ref": "#/components/schemas/Address"
-          },
-          "merchantRegisterDate": {
+          "countryIssue": {
             "type": "string"
           },
-          "store": {
-            "$ref": "#/components/schemas/Store"
+          "instUserName": {
+            "$ref": "#/components/schemas/UserName"
           },
-          "merchantType": {
-            "$ref": "#/components/schemas/MerchantType"
+          "expiryYear": {
+            "type": "string",
+            "description": "The year the card expires. Pass in the last two digits of the year number. For example, if the expiration year is 2025, the value of this parameter is 25. \n\nMore information:\n\nMaximum length: 2 characters"
+          },
+          "expiryMonth": {
+            "type": "string",
+            "description": "The month the card expires. Pass in two digits representing the month. For example, if the expiration month is February, the value of this parameter is 02. \n\nMore information:\n\nMaximum length: 2 characters"
+          },
+          "billingAddress": {
+            "$ref": "#/components/schemas/Address",
+            "description": "The billing address that is associated with the cardholder's card account. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
+          },
+          "mask": {
+            "type": "string"
+          },
+          "last4": {
+            "type": "string"
+          },
+          "paymentMethodDetailMetadata": {
+            "type": "string"
+          },
+          "maskedCardNo": {
+            "type": "string",
+            "description": "The masked card number, showing only a few digits and hiding the rest. \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "fingerprint": {
+            "type": "string"
+          },
+          "authenticationFlow": {
+            "type": "string"
+          },
+          "funding": {
+            "type": "string"
+          },
+          "avsResultRaw": {
+            "type": "string"
+          },
+          "cvvResultRaw": {
+            "type": "string"
+          },
+          "bin": {
+            "type": "string"
+          },
+          "issuerName": {
+            "type": "string"
+          },
+          "issuingCountry": {
+            "type": "string"
+          },
+          "lastFour": {
+            "type": "string"
+          },
+          "cardholderName": {
+            "$ref": "#/components/schemas/UserName"
+          },
+          "cvv": {
+            "type": "string",
+            "description": "The card verification value (CVV), which is also known as a card security code (CSC) or a card verification code (CVC). \n\nNote: Specify this parameter when the card issuing bank is in Brazil, Chile, Mexico, or Peru, or the card is a global card.\n\nMore information:\n\nMaximum length: 3 characters"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "description": "The date of birth of the cardholder. The value of this parameter is an 8-digit date of birth in the format of YYYY-MM-DD that follows the ISO 8601 standard. For example, 1971-06-07 means the cardholder's birthday is June 7, 1971.\n\nSpecify this parameter when all the following conditions are met:\n\nThe card issuing bank is in Korea.\nThe card is a personal card.\nMore information:\n\nMaximum length: 10 characters"
+          },
+          "businessNo": {
+            "type": "string",
+            "description": "The business number of the company that holds the corporate card. The value of this parameter is a 10-digit business number, such as 97XXXXXX11.\n\nSpecify this parameter when all the following conditions are met:\n\nThe card issuing bank is in Korea.\nThe card is a corporate card.\nMore information:\n\nMaximum length: 10 characters\n"
+          },
+          "cardPasswordDigest": {
+            "type": "string",
+            "description": "The first two digits of the card payment password.\n\nNote: Specify this parameter when the card issuing bank is in Korea.\n\nMore information:\n\nMaximum length: 2 characters\n"
+          },
+          "cpf": {
+            "type": "string",
+            "description": "The Cadastro Pessoal de Pessoa F\u00edsica (CPF) is the tax ID of the Brazilian individual taxpayer.\n\nNote: Specify this parameter when the card issuing bank is in Brazil.\n\nMore information:\n\nMaximum length: 11 characters"
+          },
+          "payerEmail": {
+            "type": "string",
+            "description": "The email address of the payer. \n\nNote: Specify this parameter when the card issuing bank is in Brazil, Chile, Mexico, or Peru.\n\nMore information:\n\nMaximum length: 64 characters\n"
+          },
+          "networkTransactionId": {
+            "type": "string"
+          },
+          "is3DSAuthentication": {
+            "type": "boolean",
+            "description": "Indicates whether the transaction authentication type is 3D secure. Specify this parameter when the value of paymentMethodType is CARD.\n\n"
+          },
+          "request3DS": {
+            "type": "string"
+          },
+          "scaExemptionIndicator": {
+            "type": "string"
+          },
+          "enableAuthenticationUpgrade": {
+            "type": "string"
+          },
+          "mpiData": {
+            "$ref": "#/components/schemas/MpiData"
           }
         },
         "required": [
-          "referenceMerchantId",
-          "merchantMCC",
-          "merchantName",
-          "merchantDisplayName",
-          "merchantAddress",
-          "merchantRegisterDate",
-          "merchantType",
-          "store"
+          "expiryYear",
+          "expiryMonth"
         ]
       },
-      "Buyer": {
+      "ExternalPaymentMethodDetail": {
         "type": "object",
         "properties": {
-          "referenceBuyerId": {
-            "type": "string",
-            "description": "The unique ID to identify the buyer.\n\nNote: Specify this parameter when you want to use the promotion offered by Antom to this order.\n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "buyerName": {
-            "$ref": "#/components/schemas/UserName"
-          },
-          "buyerPhoneNo": {
+          "assetToken": {
             "type": "string"
           },
-          "buyerEmail": {
+          "accountDisplayName": {
             "type": "string"
           },
-          "buyerRegistrationTime": {
+          "disableReason": {
             "type": "string"
           },
-          "isAccountVerified": {
-            "type": "boolean"
-          },
-          "successfulOrderCount": {
-            "type": "integer"
+          "paymentMethodDetailMetadata": {
+            "type": "string"
           }
         }
       },
-      "Discount": {
+      "DiscountPaymentMethodDetail": {
         "type": "object",
         "properties": {
-          "discountTag": {
-            "type": "string",
-            "description": "The discount tag is displayed as a superscript next to the discount name.  More information:  Maximum length: 64 characters"
+          "discountId": {
+            "type": "string"
+          },
+          "availableAmount": {
+            "$ref": "#/components/schemas/Amount"
           },
           "discountName": {
-            "type": "string",
-            "description": "The discount name displayed in the default language.  More information:  Maximum length: 128 characters"
+            "type": "string"
           },
-          "savingsAmount": {
-            "$ref": "#/components/schemas/Amount"
+          "discountDescription": {
+            "type": "string"
           },
-          "estimateSavingsAmount": {
-            "$ref": "#/components/schemas/Amount"
+          "paymentMethodDetailMetadata": {
+            "type": "string"
           }
         }
       },
-      "AlipayPayConsultRequest": {
+      "CouponPaymentMethodDetail": {
         "type": "object",
         "properties": {
-          "productCode": {
-            "$ref": "#/components/schemas/ProductCodeType",
-            "description": "Represents the payment product that is being used. The payment product that can be used is stipulated in the contract. The fixed value is:\n\nCASHIER_PAYMENT: Indicates that this API is used for the Cashier Payment scenario.\nMore information:\n\nMaximum length: 32 characters"
+          "couponId": {
+            "type": "string"
           },
-          "paymentAmount": {
+          "availableAmount": {
             "$ref": "#/components/schemas/Amount"
+          },
+          "couponName": {
+            "type": "string"
+          },
+          "couponDescription": {
+            "type": "string"
+          },
+          "couponExpireTime": {
+            "type": "string"
+          },
+          "paymentMethodDetailMetadata": {
+            "type": "string"
+          }
+        }
+      },
+      "Wallet": {
+        "type": "object",
+        "properties": {
+          "accountNo": {
+            "type": "string"
+          },
+          "accountHolderName": {
+            "$ref": "#/components/schemas/UserName"
+          },
+          "phoneNo": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "billingAddress": {
+            "$ref": "#/components/schemas/Address",
+            "description": "The billing address that is associated with the cardholder's card account. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
+          }
+        }
+      },
+      "PaymentMethodDetail": {
+        "type": "object",
+        "properties": {
+          "paymentMethodDetailType": {
+            "$ref": "#/components/schemas/PaymentMethodDetailType"
+          },
+          "card": {
+            "$ref": "#/components/schemas/CardPaymentMethodDetail",
+            "description": "The card information. \n\nSpecify this parameter when all the following conditions are met:\n\nYou are PCI compliant.\nThe value of paymentMethodType is CARD."
+          },
+          "externalAccount": {
+            "$ref": "#/components/schemas/ExternalPaymentMethodDetail"
+          },
+          "discount": {
+            "$ref": "#/components/schemas/DiscountPaymentMethodDetail"
+          },
+          "coupon": {
+            "$ref": "#/components/schemas/CouponPaymentMethodDetail"
+          },
+          "paymentMethodType": {
+            "type": "string",
+            "description": "The type of payment method to be vaulted. The value of this parameter is fixed to CARD.  \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "extendInfo": {
+            "type": "string"
+          },
+          "wallet": {
+            "$ref": "#/components/schemas/Wallet"
+          },
+          "interactionType": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "paymentMethodType"
+        ]
+      },
+      "CustomizedInfo": {
+        "type": "object",
+        "properties": {
+          "customizedField1": {
+            "type": "string"
+          },
+          "customizedField2": {
+            "type": "string"
+          },
+          "customizedField3": {
+            "type": "string"
+          },
+          "customizedField4": {
+            "type": "string"
+          },
+          "customizedField5": {
+            "type": "string"
+          }
+        }
+      },
+      "AlipayVaultingPaymentMethodRequest": {
+        "type": "object",
+        "properties": {
+          "vaultingRequestId": {
+            "type": "string",
+            "description": "The unique ID that is assigned by a merchant to identify a card vaulting request. \n\nMore information:\n\nThis field is an API idempotency field.For vaulting requests that are initiated with the same value of vaultingRequestId and reach a final status of S or F, the same result is to be returned for the request.\nMaximum length: 64 characters"
+          },
+          "vaultingNotificationUrl": {
+            "type": "string",
+            "description": "The URL that is used to receive the vaulting result notification. \n\nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "redirectUrl": {
+            "type": "string",
+            "description": "The merchant page URL that the buyer is redirected to after the vaulting process is completed.\n\nMore information:\n\nMaximum length: 2048 characters\n"
           },
           "merchantRegion": {
             "type": "string",
-            "description": "The country or region where the merchant operates the business. The parameter is a 2-letter country or region code that follows ISO 3166 Country Codes standard.\n\nSome possible values are US, SG, HK, PK, JP, CN, BR, AU, and MY.  \n\nNote: This parameter is required when you use the Global Acquirer Gateway (GAGW) product.\n\nMore information:\n\nMaximum length: 2 characters"
+            "description": "The country or region where the merchant operates the business. The value of this parameter is a 2-letter country or region code based on the ISO 3166 Country Codes standard. \n\nSome possible values are US, SG, HK, PK, JP, CN, BR, AU, and MY.\n\nNote: Specify this parameter when you use the Global Acquirer Gateway (GAGW) product.\n\nMore information:\n\nMaximum length: 2 characters"
           },
-          "allowedPaymentMethodRegions": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "A list of region codes that represent the countries or regions of payment methods. The value of this parameter is a 2-letter ISO country code or GLOBAL. \n\nNote: Specify this parameter if you want available payment methods from specific regions to be returned. For example, if you pass in GLOBAL, global cards Visa and Mastercard are returned.  \n\nMore information:\n\nMaximum length: 6 characters"
-          },
-          "allowedPaymentMethods": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "blockedPaymentMethods": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "region": {
-            "type": "string"
-          },
-          "customerId": {
-            "type": "string"
-          },
-          "referenceUserId": {
-            "type": "string"
+          "paymentMethodDetail": {
+            "$ref": "#/components/schemas/PaymentMethodDetail",
+            "description": "The details about the payment method that needs to be vaulted. \n\n"
           },
           "env": {
             "$ref": "#/components/schemas/Env",
-            "description": "Information about the environment where the order is placed, such as the device information."
-          },
-          "extendInfo": {
-            "type": "string"
-          },
-          "userRegion": {
-            "type": "string",
-            "description": "The 2-letter country or region code. For more information, see ISO 3166 Country Codes standard. The payment methods will be sorted based on payment method relevance for the given user's region. \n\nMore information:\n\nMaximum length: 2 characters"
-          },
-          "paymentFactor": {
-            "$ref": "#/components/schemas/PaymentFactor",
-            "description": "Factors that impact the payment. This field is used to indicate the payment scenario.\n\nNote: Specify this parameter when the value of paymentMethodType is CARD."
-          },
-          "settlementStrategy": {
-            "$ref": "#/components/schemas/SettlementStrategy",
-            "description": "The settlement strategy."
-          },
-          "merchant": {
-            "$ref": "#/components/schemas/Merchant"
-          },
-          "allowedPspRegions": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "buyer": {
-            "$ref": "#/components/schemas/Buyer",
-            "description": "Buyer information."
+            "description": "Information about the environment where the order is placed, such as the device information.  "
           },
           "merchantAccountId": {
-            "type": "string",
-            "description": "The unique ID to identify a merchant account.\n\nNote: Specify this parameter when you use a single client ID across multiple locations.\n\nMore information:\n\nMaximum length: 32 characters"
+            "type": "string"
+          },
+          "vaultingCurrency": {
+            "type": "string"
+          },
+          "customizedInfo": {
+            "$ref": "#/components/schemas/CustomizedInfo"
           }
         },
         "required": [
-          "productCode",
-          "paymentAmount",
+          "vaultingRequestId",
+          "vaultingNotificationUrl",
+          "redirectUrl",
+          "paymentMethodDetail",
           "env"
         ]
       },
-      "PaymentMethodCategoryType": {
-        "type": "string",
-        "enum": [
-          "ALIPAY_PLUS",
-          "WALLET",
-          "MOBILE_BANKING_APP",
-          "BANK_TRANSFER",
-          "ONLINE_BANKING",
-          "CARD",
-          "OTC"
-        ]
-      },
-      "Logo": {
-        "type": "object",
-        "properties": {
-          "logoName": {
-            "type": "string",
-            "description": "The logo name of the card brand. See the Card brands to check the valid values. \n\nMore information:\n\nMaximum length: 12 characters"
-          },
-          "logoUrl": {
-            "type": "string",
-            "description": "The logo URL of the card brand.    More information:  Maximum length: 2048 characters"
-          }
-        },
-        "required": [
-          "logoName"
-        ]
-      },
-      "SupportCardBrand": {
-        "type": "object",
-        "properties": {
-          "cardBrand": {
-            "type": "string",
-            "description": "The name of the card brand. Valid values are:\n\nVISA: indicates Visa. \nMASTERCARD: indicates Mastercard.  \nAMEX: indicates American Express (Amex).\nHIPERCARD: indicates Hipercard.\nELO: indicates Elo."
-          },
-          "logo": {
-            "$ref": "#/components/schemas/Logo",
-            "description": "The logo of the card brand. "
-          }
-        },
-        "required": [
-          "cardBrand",
-          "logo"
-        ]
-      },
-      "SupportBank": {
-        "type": "object",
-        "properties": {
-          "bankIdentifierCode": {
-            "type": "string",
-            "description": "The unique code of the bank. See the Bank list to check the valid values. "
-          },
-          "bankShortName": {
-            "type": "string",
-            "description": "The short name of the bank. The unique code of the bank. See the Bank list to check the valid values. "
-          },
-          "bankLogo": {
-            "$ref": "#/components/schemas/Logo",
-            "description": "The logo of the card brand. "
-          }
-        }
-      },
-      "PaymentOptionDetail": {
-        "type": "object",
-        "properties": {
-          "supportCardBrands": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SupportCardBrand"
-            },
-            "description": "The list of supported card brands.  \n\nNote: This parameter is returned when the value of paymentMethodType is \u200bCARD\u200b."
-          },
-          "funding": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "The funding type of the card. Valid values are: \n\nCREDIT: indicates a credit card. \nDEBIT: indicates a debit card. \nPREPAID: indicates a prepaid card\nCHARGE: indicates a charge card\nDEFERRED_DEBIT: indicates a deferred debit card\nThis parameter is returned when all the following conditions are met:\n\nThe value of paymentMethodType is CARD.\nThe value of cardNo is valid.\nThe information is available in the Antom card database."
-          },
-          "supportBanks": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SupportBank"
-            },
-            "description": "The list of supported banks. \n\nThis parameter is returned when the value of paymentMethodType is \u200bP24\u200b or ONLINEBANKING_FPX.\n\n"
-          }
-        },
-        "required": [
-          "supportCardBrands",
-          "supportBanks"
-        ]
-      },
-      "Plan": {
-        "type": "object",
-        "properties": {
-          "interestRate": {
-            "type": "string",
-            "description": "The interest rate the customer is charged on the installments.  \n\nMore information:\n\nMaximum length: 8 characters"
-          },
-          "minInstallmentAmount": {
-            "$ref": "#/components/schemas/Amount"
-          },
-          "maxInstallmentAmount": {
-            "$ref": "#/components/schemas/Amount"
-          },
-          "installmentNum": {
-            "type": "string",
-            "description": "The number of installment payments. The valid value is from 2 to 12.    More information:  Maximum length: 8 characters"
-          },
-          "interval": {
-            "type": "string",
-            "description": "The interval of each installment payment. The valid value is MONTH.   More information:  Maximum length: 16 characters"
-          },
-          "enabled": {
-            "type": "boolean",
-            "description": "Indicates whether the installment payment is available. "
-          }
-        },
-        "required": [
-          "minInstallmentAmount",
-          "maxInstallmentAmount",
-          "installmentNum",
-          "interval",
-          "enabled"
-        ]
-      },
-      "Installment": {
-        "type": "object",
-        "properties": {
-          "supportCardBrands": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SupportCardBrand"
-            },
-            "description": "The list of card brands that support the installment plans.  \n\nThis parameter is returned when the value of paymentMethodType is CARD. "
-          },
-          "plans": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Plan"
-            },
-            "description": "The list of installment plans for payment methods that support installments. "
-          }
-        },
-        "required": [
-          "supportCardBrands",
-          "plans"
-        ]
-      },
-      "InterestFree": {
-        "type": "object",
-        "properties": {
-          "provider": {
-            "type": "string",
-            "description": "Issuing banks or financial institutions that offer interest-free installment plans.  More information:  Maximum length: 128 characters"
-          },
-          "expireTime": {
-            "type": "string",
-            "description": "The promotion expiration time.  More information:  The value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
-          },
-          "installmentFreeNums": {
-            "type": "array",
-            "items": {
-              "type": "integer"
-            },
-            "description": "The number of interest-free installments.  More information:  Value range: 2-unlimited"
-          },
-          "minPaymentAmount": {
-            "$ref": "#/components/schemas/Amount"
-          },
-          "maxPaymentAmount": {
-            "$ref": "#/components/schemas/Amount"
-          },
-          "freePercentage": {
-            "type": "integer",
-            "description": "The interest-free percentage. A value of 0 indicates no interest-free, 100% indicates the buyer is completely interest-free, while the value between 0-100% indicates partial interest-free."
-          }
-        },
-        "required": [
-          "provider",
-          "expireTime",
-          "installmentFreeNums",
-          "minPaymentAmount",
-          "freePercentage"
-        ]
-      },
-      "PromotionInfo": {
-        "type": "object",
-        "properties": {
-          "promotionType": {
-            "$ref": "#/components/schemas/PromotionType",
-            "description": "Promotion type. Valid values are:  DISCOUNT: a deduction from the regular price.  INTEREST_FREE: payment in interest-free installments.  More information:  Maximum length: 32 characters"
-          },
-          "discount": {
-            "$ref": "#/components/schemas/Discount",
-            "description": "Discount information.  Note: This parameter is returned when the payment method offers a promotion to the buyer."
-          },
-          "interestFree": {
-            "$ref": "#/components/schemas/InterestFree",
-            "description": "The information about interest-free installment plans."
-          }
-        },
-        "required": [
-          "promotionType"
-        ]
-      },
-      "AmountLimit": {
-        "type": "object",
-        "properties": {
-          "maxAmount": {
-            "type": "string"
-          },
-          "minAmount": {
-            "type": "string"
-          },
-          "remainAmount": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "maxAmount",
-          "minAmount",
-          "remainAmount"
-        ]
-      },
-      "PaymentOption": {
-        "type": "object",
-        "properties": {
-          "paymentMethodType": {
-            "type": "string",
-            "description": "The payment method type. See Payment methods to check the valid values.  \n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "paymentMethodCategory": {
-            "$ref": "#/components/schemas/PaymentMethodCategoryType",
-            "description": "The category of the payment method. Valid values are:\n\nALIPAY_PLUS: indicates that the payment method category is an Alipay+ payment method.  \nWALLET: indicates that the payment method category is a wallet. \nMOBILE_BANKING_APP: indicates that the payment method category is a mobile banking app. \nBANK_TRANSFER: indicates that the payment method category is bank transfer. \nONLINE_BANKING: indicates that the payment method category is online banking.  \nCARD: indicates that the payment method category is a card. \nOTC: indicates that the payment method category is over the counter. \nMore information:\n\nMaximum length: 32 characters"
-          },
-          "paymentMethodRegion": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "A list of region codes that represent the countries or regions of payment methods. The value of this parameter is a 2-letter ISO country code or GLOBAL.  \n\nMore information:\n\nMaximum length: 6 characters"
-          },
-          "enabled": {
-            "type": "boolean",
-            "description": "Indicates whether the payment method is available."
-          },
-          "preferred": {
-            "type": "boolean"
-          },
-          "disableReason": {
-            "type": "string",
-            "description": "The reason why the payment method is not available. Valid values are:\n\nPAYMENT_ACCOUNT_NOT_AVAILABLE\nEXCEED_CHANNEL_LIMIT_RULE\nSERVICE_DEGRADE\nCHANNEL_NOT_SUPPORT_CURRENCY\nCHANNEL_DISABLE\nCHANNEL_NOT_IN_SERVICE_TIME\nQUERY_IPP_INFO_FAILED\nLIMIT_CENTER_ACCESS_FAIL \nCURRENT_CHANNEL_NOT_EXIST "
-          },
-          "amountLimitInfoMap": {
-            "type": "object",
-            "properties": {},
-            "additionalProperties": {
-              "type": "object",
-              "$ref": "#/components/schemas/AmountLimit"
-            }
-          },
-          "supportedCurrencies": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "paymentOptionDetail": {
-            "$ref": "#/components/schemas/PaymentOptionDetail",
-            "description": "Details about the payment option. \n\nThis parameter is returned when one of the following conditions is met: \n\nWhen the value of paymentMethodType is CARD: paymentOptionDetail returns information relating to the cards.\nWhen the value of paymentMethodType is \u200bP24\u200b: paymentOptionDetail returns information relating to the Przelewy24 payment method.\nWhen the value of paymentMethodType is ONLINEBANKING_FPX: paymentOptionDetail returns information relating to the FPX payment method."
-          },
-          "extendInfo": {
-            "type": "string"
-          },
-          "logo": {
-            "$ref": "#/components/schemas/Logo",
-            "description": "The logo of the card brand. "
-          },
-          "promoNames": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "The list of the promotion names. In JSON format. The keys are returned as a language and a country code, connected by an underscore, such as zh_CN, while the value is the promotion name, such as RM1 Voucher.  \n\nMore information:\n\nMaximum length: 512 characters"
-          },
-          "installment": {
-            "$ref": "#/components/schemas/Installment",
-            "description": "Information about installments. \n\nNote: This parameter is returned when the payment method supports installments.  "
-          },
-          "promotionInfos": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PromotionInfo"
-            },
-            "description": "Promotion information.\n\nThis parameter is returned when the payment method offers a promotion to the buyer."
-          }
-        },
-        "required": [
-          "paymentMethodType",
-          "enabled"
-        ]
-      },
-      "PaymentMethodInfo": {
-        "type": "object",
-        "properties": {
-          "paymentMethodType": {
-            "type": "string"
-          },
-          "paymentMethodDetail": {
-            "type": "string"
-          },
-          "enabled": {
-            "type": "boolean"
-          },
-          "preferred": {
-            "type": "boolean"
-          },
-          "extendInfo": {
-            "type": "string"
-          }
-        }
-      },
-      "AlipayPayConsultResponse": {
+      "AlipayVaultingPaymentMethodResponse": {
         "type": "object",
         "properties": {
           "result": {
             "$ref": "#/components/schemas/Result",
-            "description": "The request result that contains information such as status and error codes.\n\nNote: This field doesn't indicate the payment result. This field only indicates whether the consult API is called successfully. "
+            "description": "The result of the API call. "
           },
-          "paymentOptions": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PaymentOption"
-            },
-            "description": "The payment option list."
+          "vaultingRequestId": {
+            "type": "string",
+            "description": "The unique ID that is assigned by a merchant to identify a card vaulting request.  \n\nMore information:\n\nMaximum length: 64 characters"
           },
-          "paymentMethodInfos": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PaymentMethodInfo"
-            }
+          "paymentMethodDetail": {
+            "$ref": "#/components/schemas/PaymentMethodDetail",
+            "description": "The details about the payment method that needs to be vaulted. \n\n"
           },
-          "extendInfo": {
-            "type": "string"
+          "normalUrl": {
+            "type": "string",
+            "description": "The URL that redirects the user to a WAP or WEB page in the default browser or the embedded WebView.\n\nNote:\n\nWhen the value of result.resultCode is VERIFICATION_IN_PROCESS, one or more of the following URLs may be returned: schemeUrl, appLinkUrl, and normalUrl.\nWhen the value of paymentMethodType is CARD, the user is required to complete the 3DS authentication on the page accessed through this URL.  \nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "schemeUrl": {
+            "type": "string",
+            "description": "The URL scheme that redirects the user to open an app in an Android or iOS system when the target app is installed.\n\nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "applinkUrl": {
+            "type": "string",
+            "description": "The URL that redirects the user to open an app when the target app is installed, or to open a WAP page when the target app is not installed.\n\nMore information:\n\nMaximum length: 2048 characters"
           }
         },
         "required": [
-          "result"
+          "result",
+          "vaultingRequestId"
         ]
       }
     },
     "securitySchemes": {}
   },
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/vaults/vaultPaymentMethod",
+      "description": "\u6b63\u5f0f\u73af\u5883"
+    }
+  ],
   "security": []
 }
