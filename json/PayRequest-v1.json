@@ -861,8 +861,28 @@
         "type": "object",
         "properties": {
           "terminalType": {
-            "$ref": "#/components/schemas/TerminalType",
-            "description": "Terminal type used by the merchant. Valid values are:"
+            "description": "Terminal type used by the merchant. Valid values are:",
+            "$ref": "#/components/schemas/TerminalType"
+          },
+          "clientIp": {
+            "type": "string",
+            "description": "Client IP address of the device.",
+            "example": "127.0.0.1"
+          },
+          "deviceId": {
+            "type": "string",
+            "description": "Device ID of the user.",
+            "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****"
+          },
+          "deviceLanguage": {
+            "type": "string",
+            "description": "Device language of the user.",
+            "example": "zh_CN"
+          },
+          "envType123": {
+            "type": "string",
+            "description": "",
+            "example": "oootype"
           },
           "osType": {
             "$ref": "#/components/schemas/OsType",
@@ -874,11 +894,6 @@
           "deviceTokenId": {
             "type": "string",
             "description": "The token identifier of the device.\n\nNote: Specify this parameter if you integrate with the Antom Device Fingerprint client, which is an SDK or JavaScript library that is used to collect device-related information, such as osType, deviceLanguage, deviceId, websiteLanguage, and userAgent. The device-related information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates. For more information about the Antom Device Fingerprint client, contact Antom Technical Support.  \n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "clientIp": {
-            "type": "string",
-            "description": "Client IP address of the device.",
-            "example": "127.0.0.1"
           },
           "cookieId": {
             "type": "string"
@@ -920,16 +935,6 @@
           "deviceModel": {
             "type": "string",
             "description": "The model of the user's device. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 128 characters"
-          },
-          "deviceLanguage": {
-            "type": "string",
-            "description": "Device language of the user.",
-            "example": "zh_CN"
-          },
-          "deviceId": {
-            "type": "string",
-            "description": "Device ID of the user.",
-            "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****"
           },
           "envType": {
             "type": "string",
