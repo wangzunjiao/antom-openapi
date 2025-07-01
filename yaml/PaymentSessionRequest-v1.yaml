@@ -550,6 +550,10 @@ components:
           description: ''
           example: oootype
           type: string
+        envType123:
+          description: ''
+          example: oootype
+          type: string
         extendInfo:
           description: "Extended information.\n\nSpecify this field if you need to\
             \ use the extended information.  \n\nMore information:\n\nMaximum length:\
