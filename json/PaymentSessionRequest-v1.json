@@ -421,11 +421,15 @@
         }
       },
       "Env": {
-        "type": "object",
         "properties": {
           "terminalType": {
-            "$ref": "#/components/schemas/TerminalType",
-            "description": "Terminal type used by the merchant. Valid values are:"
+            "description": "Terminal type used by the merchant. Valid values are:",
+            "$ref": "#/components/schemas/TerminalType"
+          },
+          "envType": {
+            "type": "string",
+            "description": "",
+            "example": "oootype"
           },
           "osType": {
             "$ref": "#/components/schemas/OsType",
@@ -493,13 +497,9 @@
             "type": "string",
             "description": "Device ID of the user.",
             "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****"
-          },
-          "envType": {
-            "type": "string",
-            "description": "",
-            "example": "oootype"
           }
         },
+        "type": "object",
         "required": [
           "terminalType"
         ]
