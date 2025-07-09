@@ -148,6 +148,16 @@
           },
           "acquirerInfo": {
             "$ref": "#/components/schemas/AcquirerInfo"
+          },
+          "arn": {
+            "type": "string",
+            "description": "\u65b0\u589e\u5b57\u6bb5ARN\u7f16\u53f7",
+            "example": "122445"
+          },
+          "responseName": {
+            "type": "string",
+            "description": "\u65b0\u589e\u54cd\u5e94\u540d\u79f0\u5b57\u6bb5",
+            "example": "tom"
           }
         },
         "required": [
@@ -273,7 +283,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/inquiryRefund",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ],
   "security": []
