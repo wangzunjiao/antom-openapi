@@ -892,8 +892,28 @@
         "type": "object",
         "properties": {
           "terminalType": {
-            "$ref": "#/components/schemas/TerminalType",
-            "description": "Terminal type of which the merchant service applies to. Valid values are:\n\nWEB: The client-side terminal type is a website, which is opened via a PC browser.\nWAP: The client-side terminal type is an H5 page, which is opened via a mobile browser.\nAPP: The client-side terminal type is a mobile application.\nMINI_APP: The terminal type of the merchant side is a mini program on the mobile phone.  "
+            "description": "Terminal type used by the merchant. Valid values are:",
+            "$ref": "#/components/schemas/TerminalType"
+          },
+          "clientIp": {
+            "type": "string",
+            "description": "Client IP address of the device.",
+            "example": "127.0.0.1"
+          },
+          "deviceId": {
+            "type": "string",
+            "description": "Device ID of the user.",
+            "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****"
+          },
+          "deviceLanguage": {
+            "type": "string",
+            "description": "Device language of the user.",
+            "example": "zh_CN"
+          },
+          "envType123": {
+            "type": "string",
+            "description": "",
+            "example": "oootype"
           },
           "osType": {
             "$ref": "#/components/schemas/OsType",
@@ -905,10 +925,6 @@
           "deviceTokenId": {
             "type": "string",
             "description": "The token identifier of the device.\n\nNote: Specify this parameter if you integrate with the Antom Device Fingerprint client, which is an SDK or JavaScript library that is used to collect device-related information, such as osType, deviceLanguage, deviceId, websiteLanguage, and userAgent. The device-related information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates. For more information about the Antom Device Fingerprint client, contact Antom Technical Support.  \n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "clientIp": {
-            "type": "string",
-            "description": "The IP address of the client device.\n\nSpecify this parameter when one of the following conditions is met:\n\nYou require risk control.\nThe value of paymentMethodType is CARD.\nThe value of paymentMethodType is BLIK and you collect the information of blikCode.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 64 characters"
           },
           "cookieId": {
             "type": "string"
@@ -951,13 +967,10 @@
             "type": "string",
             "description": "The model of the user's device. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 128 characters"
           },
-          "deviceLanguage": {
+          "envType": {
             "type": "string",
-            "description": "The language of the device where the user places an order.\n\nNote: Specify this parameter if you require risk control. Providing this information helps to identify black-market behavior.\n\nMore information:\n\nMaximum length: 32 characters"
-          },
-          "deviceId": {
-            "type": "string",
-            "description": "The unique ID of the device the user places an order with.\n\nNote: Specify this parameter if you require risk control. This parameter can be used to build a trusted relationship between users and commonly used devices, thereby reducing risk control interruptions and increasing the payment success rate.  \n\nMore information:\n\nMaximum length: 64 characters"
+            "description": "",
+            "example": "oootype"
           }
         },
         "required": [
@@ -1406,19 +1419,19 @@
           },
           "normalUrl": {
             "type": "string",
-            "description": "The URL that redirects users to a WAP or WEB page in the default browser or the embedded WebView.\n\nNote: When the value of resultCode is ​PAYMENT_IN_PROCESS​, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters\n"
+            "description": "The URL that redirects users to a WAP or WEB page in the default browser or the embedded WebView.\n\nNote: When the value of resultCode is \u200bPAYMENT_IN_PROCESS\u200b, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters\n"
           },
           "schemeUrl": {
             "type": "string",
-            "description": "The URL scheme that redirects users to open an app in an Android or iOS system when the target app is installed.\n\nNote: When the value of resultCode is ​PAYMENT_IN_PROCESS​, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters"
+            "description": "The URL scheme that redirects users to open an app in an Android or iOS system when the target app is installed.\n\nNote: When the value of resultCode is \u200bPAYMENT_IN_PROCESS\u200b, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters"
           },
           "applinkUrl": {
             "type": "string",
-            "description": "The URL that redirects users to open an app when the target app is installed, or to open a WAP page when the target app is not installed. For Android, the URL is a Native App Link. For iOS, the URL is a Universal Link.\n\nNote: When the value of resultCode is ​PAYMENT_IN_PROCESS​, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters"
+            "description": "The URL that redirects users to open an app when the target app is installed, or to open a WAP page when the target app is not installed. For Android, the URL is a Native App Link. For iOS, the URL is a Universal Link.\n\nNote: When the value of resultCode is \u200bPAYMENT_IN_PROCESS\u200b, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters"
           },
           "appIdentifier": {
             "type": "string",
-            "description": "Android package name, which is used by Android apps to open a cashier page.\n\nNote: This field is returned when resultCode is ​PAYMENT_IN_PROCESS​ and terminalType is APP or WAP."
+            "description": "Android package name, which is used by Android apps to open a cashier page.\n\nNote: This field is returned when resultCode is \u200bPAYMENT_IN_PROCESS\u200b and terminalType is APP or WAP."
           },
           "paymentResultInfo": {
             "$ref": "#/components/schemas/PaymentResultInfo",
@@ -1445,7 +1458,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/pay",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ]
 }
