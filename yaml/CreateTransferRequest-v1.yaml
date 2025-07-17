@@ -1,3 +1,4 @@
+---
 openapi: 3.1.0
 info:
   title: marketplace_createTransfer
@@ -9,10 +10,11 @@ paths:
     post:
       summary: createTransfer
       deprecated: false
-      description: >
-        Use this API to get the cashier page address. After getting the cashier
-        page address, you can redirect the user to the cashier page to make a
-        payment.
+      description: 'Use this API to get the cashier page address. After getting the
+        cashier page address, you can redirect the user to the cashier page to make
+        a payment.
+
+        '
       tags: []
       parameters: []
       requestBody:
@@ -36,44 +38,76 @@ components:
       properties:
         paymentMethodType:
           type: string
-          description: >
-            The type of the payment method. The value of this parameter is fixed
-            to BALANCE_ACCOUNT, which indicates the balance account on the
-            Alipay side.  
+          description: 'The payment method type that is included in payment method
+            options. By specifying the value of this parameter, you can receive the
+            cashier URL of the specified payment method returned by Alipay. See Payment
+            methods to check the valid values.
 
 
             More information:
 
 
-            Maximum length: 16 characters
+            Maximum length: 64 characters'
+        funding:
+          type: string
+          description: 修改后的描述，明确卡类型（CREDIT/DEBIT），仅巴西combo卡使用
         paymentMethodId:
           type: string
-          description: >-
-            The unique ID of the payment method. The value of this parameter is
-            the balance account number.
-
-
-            This parameter is returned when the value of paymentMethodType is
-            BALANCE_ACCOUNT.  
-
-
-            More information:
-
-
-            Maximum length: 128 characters
+          description: "The unique ID that is used to identify a payment method. The\
+            \ value of this parameter is that of cardToken obtained from the notifyPayment\
+            \ or inquiryPayment API. \n\nSpecify this parameter when the value of\
+            \ paymentMethodType is CARD.\n\nMore information:\n\nMaximum length: 128\
+            \ characters"
         paymentMethodMetaData:
           type: object
           properties: {}
           additionalProperties:
             type: object
+          description: 'Additional information required for some specific payment
+            methods.  '
         customerId:
           type: string
+          description: 'The unique ID to identify a buyer.
+
+
+            Note: Specify this field if you have the information. Providing this information
+            helps to increase the accuracy of anti-money laundering and fraud detection,
+            and increase payment success rates.'
         extendInfo:
           type: string
+          description: 'Extended information.
+
+
+            Note: Specify this field if you need to use the extended information.
+
+
+            More information:
+
+
+            Maximum length: 2048 characters'
         requireIssuerAuthentication:
           type: boolean
+          description: 'Indicates whether Korean card transactions require authentication
+            from the issuing bank. Valid values are:
+
+
+            true: indicates that Korean card transactions require authentication from
+            the issuing bank.
+
+            false: indicates that Korean card transactions do not require authentication
+            from the issuing bank. The same applies when you do not specify this parameter
+            or the value is empty.
+
+            Specify this parameter when all the following conditions are met:
+
+
+            The value of paymentMethodType is CARD.
+
+            The value of paymentMethodRegion is KR.
+
+            The Korean card transactions require issuer authentication.'
       required:
-        - paymentMethodType
+      - paymentMethodType
     Result:
       type: object
       properties:
@@ -81,176 +115,123 @@ components:
           type: string
           description: The result code.
         resultStatus:
-          description: |-
-            The result status. Valid values are:
-
-            S: indicates that the result status is successful.
-            F: indicates that the result status is failed. 
-            U: indicates that the result status is unknown. 
+          description: "The result status. Valid values are:\n\nS: indicates that\
+            \ the result status is successful.\nF: indicates that the result status\
+            \ is failed. \nU: indicates that the result status is unknown. "
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
           description: The result message.
       required:
-        - resultCode
-        - resultStatus
+      - resultCode
+      - resultStatus
     Amount:
       type: object
       properties:
         currency:
           type: string
-          description: >-
-            The transaction currency, which is a 3-letter currency code that
-            follows the ISO 4217 standard. 
-
-
-            More information:
-
-
-            Maximum length: 3 characters
+          description: "The transaction currency, which is a 3-letter currency code\
+            \ that follows the ISO 4217 standard. \n\nMore information:\n\nMaximum\
+            \ length: 3 characters"
         value:
           type: string
-          description: >-
-            The value of the amount as a positive integer in the smallest
-            currency unit. For example, if the currency is USD and the amount is
-            $1.00, set the value of this parameter to 100; or if the currency is
-            JPY and the amount is ￥1, set the value of this parameter to 1.
-
-
-            For details about the smallest currency unit, see Smallest unit of
-            the currency.
-
-
-            For details about the minimum payment amount allowed for each
-            payment method, see Minimum amount rules.  
-
-
-            More information:
-
-
-            Value range: [1, +∞)
+          description: "The value of the amount as a positive integer in the smallest\
+            \ currency unit. For example, if the currency is USD and the amount is\
+            \ $1.00, set the value of this parameter to 100; or if the currency is\
+            \ JPY and the amount is ￥1, set the value of this parameter to 1.\n\n\
+            For details about the smallest currency unit, see Smallest unit of the\
+            \ currency.\n\nFor details about the minimum payment amount allowed for\
+            \ each payment method, see Minimum amount rules.  \n\nMore information:\n\
+            \nValue range: [1, +∞)"
       required:
-        - currency
-        - value
+      - currency
+      - value
     ResultStatusType:
       type:
-        - string
-        - 'null'
+      - string
+      - 'null'
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
     TransferFromDetail:
       type: object
       properties:
-        transferFromMethod: &ref_0
+        transferFromMethod: &id001
           $ref: '#/components/schemas/PaymentMethod'
-          description: >-
-            The payment method used by the payer.
+          description: 'The payment method used by the payer.
 
 
-            Specify this parameter if you want to designate the account where
-            the transfer is from.  
-        transferFromAmount: &ref_1
+            Specify this parameter if you want to designate the account where the
+            transfer is from.  '
+        transferFromAmount: &id002
           $ref: '#/components/schemas/Amount'
           description: 'The transfer amount that the payer pays (before fee collection). '
       required:
-        - transferFromMethod
-        - transferFromAmount
+      - transferFromMethod
+      - transferFromAmount
     TransferToDetail:
       type: object
       properties:
-        transferToMethod: *ref_0
+        transferToMethod: *id001
         transferToCurrency:
           type: string
-          description: >-
-            A 3-character ISO-4217 currency code representing the currency that
-            the beneficiary collects.  
-
-
-            More information:
-
-
-            Maximum length: 3 characters
-        feeAmount: *ref_1
-        actualTransferToAmount: *ref_1
+          description: "A 3-character ISO-4217 currency code representing the currency\
+            \ that the beneficiary collects.  \n\nMore information:\n\nMaximum length:\
+            \ 3 characters"
+        feeAmount: *id002
+        actualTransferToAmount: *id002
         purposeCode:
           type: string
-          description: >-
-            Defines the purpose of the transfer. The value of this parameter is
-            fixed to GSD, which means goods bought or sold.  
-
-
-            More information:
-
-
-            Maximum length: 3 characters
+          description: "Defines the purpose of the transfer. The value of this parameter\
+            \ is fixed to GSD, which means goods bought or sold.  \n\nMore information:\n\
+            \nMaximum length: 3 characters"
         transferNotifyUrl:
           type: string
-          description: >-
-            If you specify this parameter, Antom will send the transfer result
-            notification to this URL. The URL must be either specified in the
-            request or set in Antom Dashboard.
-
-
-            Specify this parameter if you want to receive an asynchronous
-            notification of the transfer result. If this URL is specified in
-            both the request and Antom Dashboard, the value specified in the
-            request takes precedence.  
-
-
-            More information:
-
-
-            Maximum length: 2048 characters
+          description: "If you specify this parameter, Antom will send the transfer\
+            \ result notification to this URL. The URL must be either specified in\
+            \ the request or set in Antom Dashboard.\n\nSpecify this parameter if\
+            \ you want to receive an asynchronous notification of the transfer result.\
+            \ If this URL is specified in both the request and Antom Dashboard, the\
+            \ value specified in the request takes precedence.  \n\nMore information:\n\
+            \nMaximum length: 2048 characters"
         transferRemark:
           type: string
-          description: >-
-            Remark information for the transfer.
+          description: 'Remark information for the transfer.
 
 
-            Specify this parameter if you want to provide additional remarks or
-            relevant information regarding the payout.
+            Specify this parameter if you want to provide additional remarks or relevant
+            information regarding the payout.
 
 
             More information:
 
 
-            Maximum length: 1024 characters
+            Maximum length: 1024 characters'
       required:
-        - transferToMethod
-        - transferToCurrency
-        - purposeCode
+      - transferToMethod
+      - transferToCurrency
+      - purposeCode
     AlipayCreateTransferRequest:
       type: object
       properties:
         transferRequestId:
           type: string
-          description: >
-            The unique ID assigned by the marketplace to identify a transfer
-            request. 
-
-
-            More information:
-
-
-            This field is an API idempotency field.For requests that are
-            initiated with the same value of transferRequestId and reach a final
-            status (S or F), the same result is to be returned for the request.
-
-            Maximum length: 64 characters
-        transferFromDetail: &ref_2
+          description: "The unique ID assigned by the marketplace to identify a transfer\
+            \ request. \n\nMore information:\n\nThis field is an API idempotency field.For\
+            \ requests that are initiated with the same value of transferRequestId\
+            \ and reach a final status (S or F), the same result is to be returned\
+            \ for the request.\nMaximum length: 64 characters\n"
+        transferFromDetail: &id003
           $ref: '#/components/schemas/TransferFromDetail'
           description: 'Details of the transfer payer.  '
-        transferToDetail: &ref_3
+        transferToDetail: &id004
           $ref: '#/components/schemas/TransferToDetail'
-          description: |+
-            Details of the transfer beneficiary. 
-
+          description: "Details of the transfer beneficiary. \n\n"
       required:
-        - transferRequestId
-        - transferFromDetail
-        - transferToDetail
+      - transferRequestId
+      - transferFromDetail
+      - transferToDetail
     AlipayCreateTransferResponse:
       type: object
       properties:
@@ -259,40 +240,21 @@ components:
           description: 'Indicates whether this API is called successfully. '
         transferId:
           type: string
-          description: >-
-            The unique ID assigned by Antom to identify a transfer.
-
-
-            This parameter is returned when the value of result.resultStatus is
-            U. 
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The unique ID assigned by Antom to identify a transfer.\n\n\
+            This parameter is returned when the value of result.resultStatus is U.\
+            \ \n\nMore information:\n\nMaximum length: 64 characters"
         transferRequestId:
           type: string
-          description: >-
-            The unique ID assigned by the marketplace to identify a transfer
-            request.
-
-
-            This parameter is returned when the value of result.resultStatus is
-            U. 
-
-
-            More information:
-
-
-            Maximum length: 64 characters
-        transferFromDetail: *ref_2
-        transferToDetail: *ref_3
+          description: "The unique ID assigned by the marketplace to identify a transfer\
+            \ request.\n\nThis parameter is returned when the value of result.resultStatus\
+            \ is U. \n\nMore information:\n\nMaximum length: 64 characters"
+        transferFromDetail: *id003
+        transferToDetail: *id004
       required:
-        - result
-        - transferToDetail
+      - result
+      - transferToDetail
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/funds/createTransfer
-    description: 正式环境
+- url: https://open-sea-global.alipay.com/ams/api/v1/funds/createTransfer
+  description: 正式环境
 security: []
