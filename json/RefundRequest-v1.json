@@ -81,7 +81,13 @@
         "properties": {
           "acquirerName": {
             "type": "string",
+            "maxLength": 64,
             "description": "The name of the acquirer. \n\nNote: This parameter is returned if you integrate the APO product.  \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "acquirerMerchantName": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "\u6536\u5355\u673a\u6784\u5546\u6237\u540d\u79f0\uff08PD\u53cd\u9988\u4e0d\u516c\u5f00\uff09"
           },
           "referenceRequestId": {
             "type": "string",
@@ -127,8 +133,7 @@
         ]
       },
       "ResultStatusType": {
-        "type":
-          "string",
+        "type": "string",
         "enum": [
           "S",
           "F",
@@ -144,7 +149,7 @@
           },
           "value": {
             "type": "string",
-            "description": "The value of the amount as a positive integer in the smallest currency unit. For example, if the currency is USD and the amount is $1.00, set the value of this parameter to 100; or if the currency is JPY and the amount is ￥1, set the value of this parameter to 1.  \n\nFor details about the smallest currency unit, see Smallest unit of the currency .\n\nFor details about the minimum payment amount allowed for each payment method, see Minimum amount rules. \n\nNote: Due to the currency practices in Indonesia, when the currency is IDR, round the amount with banker's rounding and fix the last two digits of this parameter as 00.  \n\nMore information:\n\nValue range: 1 - unlimited"
+            "description": "The value of the amount as a positive integer in the smallest currency unit. For example, if the currency is USD and the amount is $1.00, set the value of this parameter to 100; or if the currency is JPY and the amount is \uffe51, set the value of this parameter to 1.  \n\nFor details about the smallest currency unit, see Smallest unit of the currency .\n\nFor details about the minimum payment amount allowed for each payment method, see Minimum amount rules. \n\nNote: Due to the currency practices in Indonesia, when the currency is IDR, round the amount with banker's rounding and fix the last two digits of this parameter as 00.  \n\nMore information:\n\nValue range: 1 - unlimited"
           }
         },
         "required": [
@@ -283,7 +288,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/refund",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ],
   "security": []

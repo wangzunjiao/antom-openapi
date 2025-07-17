@@ -47,29 +47,45 @@
         "properties": {
           "paymentMethodType": {
             "type": "string",
-            "description": "The type of the payment method. The value of this parameter is fixed to BALANCE_ACCOUNT, which indicates the balance account on the Alipay side.  \n\nMore information:\n\nMaximum length: 16 characters"
-          },
-          "paymentMethodId": {
-            "type": "string",
-            "description": "The unique ID of the payment method. The value of this parameter is the balance account number.\n\nSpecify this parameter when the value of paymentMethodType in the request is BALANCE_ACCOUNT.  \n\nMore information:\n\nMaximum length: 128 characters\n"
+            "description": "The payment method type that is included in payment method options. By specifying the value of this parameter, you can receive the cashier URL of the specified payment method returned by Alipay. See Payment methods to check the valid values.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "paymentMethodMetaData": {
             "type": "object",
-            "properties": {},
+            "properties": {
+              "is3DSDataOnly": {
+                "type": "boolean",
+                "description": "\u5361\u652f\u4ed8\u573a\u666f\u4e13\u7528\uff0c\u4e0eis3DsAuthentication\u4e0d\u80fd\u540c\u65f6\u4e3atrue"
+              }
+            },
             "additionalProperties": {
               "type": "object"
-            }
+            },
+            "description": "Additional information required for some specific payment methods.  "
+          },
+          "funding": {
+            "type": "string",
+            "description": "\u4fee\u6539\u540e\u7684\u63cf\u8ff0\uff0c\u660e\u786e\u5361\u7c7b\u578b\uff08CREDIT/DEBIT\uff09\uff0c\u4ec5\u5df4\u897fcombo\u5361\u4f7f\u7528"
+          },
+          "paymentMethodId": {
+            "type": "string",
+            "description": "The unique ID that is used to identify a payment method. The value of this parameter is that of cardToken obtained from the notifyPayment or inquiryPayment API. \n\nSpecify this parameter when the value of paymentMethodType is CARD.\n\nMore information:\n\nMaximum length: 128 characters"
           },
           "customerId": {
-            "type": "string"
+            "type": "string",
+            "description": "The unique ID to identify a buyer.\n\nNote: Specify this field if you have the information. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
           },
           "extendInfo": {
-            "type": "string"
+            "type": "string",
+            "description": "Extended information.\n\nNote: Specify this field if you need to use the extended information.\n\nMore information:\n\nMaximum length: 2048 characters"
           },
           "requireIssuerAuthentication": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Indicates whether Korean card transactions require authentication from the issuing bank. Valid values are:\n\ntrue: indicates that Korean card transactions require authentication from the issuing bank.\nfalse: indicates that Korean card transactions do not require authentication from the issuing bank. The same applies when you do not specify this parameter or the value is empty.\nSpecify this parameter when all the following conditions are met:\n\nThe value of paymentMethodType is CARD.\nThe value of paymentMethodRegion is KR.\nThe Korean card transactions require issuer authentication."
           }
-        }
+        },
+        "required": [
+          "paymentMethodType"
+        ]
       },
       "Result": {
         "type": "object",
@@ -101,7 +117,7 @@
           },
           "value": {
             "type": "string",
-            "description": "The value of the amount as a positive integer in the smallest currency unit. For example, if the currency is USD and the amount is $1.00, set the value of this parameter to 100; or if the currency is JPY and the amount is ￥1, set the value of this parameter to 1.\n\nFor details about the smallest currency unit, see Smallest unit of the currency.\n\nFor details about the minimum payment amount allowed for each payment method, see Minimum amount rules.  \n\nMore information:\n\nValue range: [1, +∞)"
+            "description": "The value of the amount as a positive integer in the smallest currency unit. For example, if the currency is USD and the amount is $1.00, set the value of this parameter to 100; or if the currency is JPY and the amount is \uffe51, set the value of this parameter to 1.\n\nFor details about the smallest currency unit, see Smallest unit of the currency.\n\nFor details about the minimum payment amount allowed for each payment method, see Minimum amount rules.  \n\nMore information:\n\nValue range: [1, +\u221e)"
           }
         },
         "required": [
@@ -110,8 +126,7 @@
         ]
       },
       "ResultStatusType": {
-        "type":
-          "string",
+        "type": "string",
         "enum": [
           "S",
           "F",
@@ -229,7 +244,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/funds/createPayout",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ],
   "security": []

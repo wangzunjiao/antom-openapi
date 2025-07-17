@@ -152,6 +152,24 @@
       "PaymentResultInfo": {
         "type": "object",
         "properties": {
+          "refusalCodeRaw": {
+            "type": "string",
+            "maxLength": 16,
+            "description": "\u5361\u652f\u4ed8\u5931\u8d25\u4e14\u6e20\u9053\u8fd4\u56de\u65f6\u7684\u539f\u59cb\u9519\u8bef\u7801\uff08\u5982ISO 8583 code\uff09"
+          },
+          "refusalReasonRaw": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "\u5361\u652f\u4ed8\u5931\u8d25\u4e14\u6e20\u9053\u8fd4\u56de\u65f6\u7684\u539f\u59cb\u9519\u8bef\u4fe1\u606f"
+          },
+          "merchantAdviceCode": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "\u5361\u652f\u4ed8\u573a\u666f\u4e14\u6e20\u9053\u8fd4\u56de\u65f6\u7684\u5546\u6237\u5efa\u8bae\u7801\uff08\u5982Mastercard\u7684MAC\uff09"
+          },
+          "acquirerInfo": {
+            "$ref": "#/components/schemas/AcquirerInfo"
+          },
           "cardNo": {
             "type": "string",
             "description": "The masked card number, which just shows part of the card number and can be used to display to the user"
@@ -197,19 +215,24 @@
             "$ref": "#/components/schemas/CreditPayPlan"
           },
           "cardholderName": {
-            "type": "string"
+            "type": "string",
+            "description": "The cardholder's name.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "cardBin": {
-            "type": "string"
+            "type": "string",
+            "description": "The first six digits of the bank card number, used to identify the issuing bank and card type of the bank card.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 8 characters"
           },
           "lastFour": {
-            "type": "string"
+            "type": "string",
+            "description": "Last 4 digits of the card number.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 4 characters\n"
           },
           "expiryMonth": {
-            "type": "string"
+            "type": "string",
+            "description": "The month the card expires. Pass in two digits representing the month. For example, if the expiry month is February, the value of this parameter is 02.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 2 characters"
           },
           "expiryYear": {
-            "type": "string"
+            "type": "string",
+            "description": "The year the card expires. Pass in the last two digits of the year number. For example, if the expiry year is 2025, the value of this parameter is 25.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 2 characters"
           }
         }
       },
@@ -217,22 +240,34 @@
         "type": "object",
         "properties": {
           "acquirerName": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 64,
+            "description": "The name of the acquirer. \n\nNote: This parameter is returned if you integrate the APO product.  \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "acquirerMerchantName": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "\u6536\u5355\u673a\u6784\u5546\u6237\u540d\u79f0\uff08PD\u53cd\u9988\u4e0d\u516c\u5f00\uff09"
           },
           "referenceRequestId": {
-            "type": "string"
+            "type": "string",
+            "description": "The unique ID that is assigned by APO to identify a payment request sent to the acquirer.\n\nNote: This parameter is returned if you integrate the APO product.  \n\nMore information:\n\nMaximum length: 64 characters"
           },
           "acquirerTransactionId": {
-            "type": "string"
+            "type": "string",
+            "description": "The unique ID that is assigned by the acquirer to identify a transaction. \n\nNote: This parameter is returned if you integrate the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "acquirerMerchantId": {
-            "type": "string"
+            "type": "string",
+            "description": "The unique ID that is assigned by the acquirer to identify a merchant. \n\nNote: This parameter is returned if you integrate the APO product.  \n\nMore information:\n\nMaximum length: 64 characters\n"
           },
           "acquirerResultCode": {
-            "type": "string"
+            "type": "string",
+            "description": "The acquirer's result code that indicates the transaction process result.  \n\nNote: This parameter is returned if you integrate the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "acquirerResultMessage": {
-            "type": "string"
+            "type": "string",
+            "description": "The result message that describes acquirerResultCode in detail.  \n\nNote: This parameter is returned if you integrate the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
           }
         }
       },
@@ -289,7 +324,7 @@
           },
           "value": {
             "type": "string",
-            "description": "The amount to charge as a positive integer in the smallest currency unit. (That is, 100 cents to charge $1.00, or 100 to charge JPY ¥100, a 0-decimal currency).\n\nNotes: For details about the smallest currency unit, see Smallest unit of the currency.\n\nMore information:\n\nValue range: 0 - unlimited"
+            "description": "The amount to charge as a positive integer in the smallest currency unit. (That is, 100 cents to charge $1.00, or 100 to charge JPY \u00a5100, a 0-decimal currency).\n\nNotes: For details about the smallest currency unit, see Smallest unit of the currency.\n\nMore information:\n\nValue range: 0 - unlimited"
           }
         },
         "required": [
@@ -310,13 +345,16 @@
       "ThreeDSResult": {
         "type": "object",
         "properties": {
+          "eci": {
+            "type": "string",
+            "description": "Electronic Commerce Indicator (ECI) that is returned by the card scheme",
+            "enum": [
+              "04"
+            ]
+          },
           "threeDSVersion": {
             "type": "string",
             "description": "The version of 3D Secure protocol"
-          },
-          "eci": {
-            "type": "string",
-            "description": "Electronic Commerce Indicator (ECI) that is returned by the card scheme"
           },
           "cavv": {
             "type": "string",
@@ -366,8 +404,7 @@
         }
       },
       "ResultStatusType": {
-        "type":
-          "string",
+        "type": "string",
         "enum": [
           "S",
           "F",
@@ -593,7 +630,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/inquiryPayment",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ],
   "security": []
