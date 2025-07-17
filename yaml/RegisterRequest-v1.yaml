@@ -1,3 +1,4 @@
+---
 openapi: 3.1.0
 info:
   title: marketplace_register
@@ -9,10 +10,11 @@ paths:
     post:
       summary: register
       deprecated: false
-      description: >
-        Use this API to get the cashier page address. After getting the cashier
-        page address, you can redirect the user to the cashier page to make a
-        payment.
+      description: 'Use this API to get the cashier page address. After getting the
+        cashier page address, you can redirect the user to the cashier page to make
+        a payment.
+
+        '
       tags: []
       parameters: []
       requestBody:
@@ -36,41 +38,65 @@ components:
       properties:
         paymentMethodType:
           type: string
-          description: >-
-            The payment method type that is included in payment method options.
-            By specifying the value of this parameter, you can receive the
-            cashier URL of the specified payment method returned by Alipay. See
-            Payment methods to check the valid values.
+          description: 'The payment method type that is included in payment method
+            options. By specifying the value of this parameter, you can receive the
+            cashier URL of the specified payment method returned by Alipay. See Payment
+            methods to check the valid values.
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
+        funding:
+          type: string
+          description: 修改后的描述，明确卡类型（CREDIT/DEBIT），仅巴西combo卡使用
         paymentMethodId:
           type: string
+          description: "The unique ID that is used to identify a payment method. The\
+            \ value of this parameter is that of cardToken obtained from the notifyPayment\
+            \ or inquiryPayment API. \n\nSpecify this parameter when the value of\
+            \ paymentMethodType is CARD.\n\nMore information:\n\nMaximum length: 128\
+            \ characters"
         paymentMethodMetaData:
           type: object
           properties: {}
           additionalProperties:
             type: object
+          description: 'Additional information required for some specific payment
+            methods.  '
         customerId:
           type: string
+          description: 'The unique ID to identify a buyer.
+
+
+            Note: Specify this field if you have the information. Providing this information
+            helps to increase the accuracy of anti-money laundering and fraud detection,
+            and increase payment success rates.'
         extendInfo:
           type: string
+          description: 'Extended information.
+
+
+            Note: Specify this field if you need to use the extended information.
+
+
+            More information:
+
+
+            Maximum length: 2048 characters'
         requireIssuerAuthentication:
           type: boolean
-          description: >-
-            Indicates whether Korean card transactions require authentication
+          description: 'Indicates whether Korean card transactions require authentication
             from the issuing bank. Valid values are:
 
 
-            true: indicates that Korean card transactions require authentication
-            from the issuing bank.
+            true: indicates that Korean card transactions require authentication from
+            the issuing bank.
 
-            false: indicates that Korean card transactions do not require
-            authentication from the issuing bank. The same applies when you do
-            not specify this parameter or the value is empty.
+            false: indicates that Korean card transactions do not require authentication
+            from the issuing bank. The same applies when you do not specify this parameter
+            or the value is empty.
 
             Specify this parameter when all the following conditions are met:
 
@@ -79,9 +105,9 @@ components:
 
             The value of paymentMethodRegion is KR.
 
-            The Korean card transactions require issuer authentication.
+            The Korean card transactions require issuer authentication.'
       required:
-        - paymentMethodType
+      - paymentMethodType
     Result:
       type: object
       properties:
@@ -89,28 +115,25 @@ components:
           type: string
           description: The result code.
         resultStatus:
-          description: |-
-            The result status. Valid values are:
-
-            S: indicates that the result status is successful.
-            F: indicates that the result status is failed. 
-            U: indicates that the result status is unknown. 
+          description: "The result status. Valid values are:\n\nS: indicates that\
+            \ the result status is successful.\nF: indicates that the result status\
+            \ is failed. \nU: indicates that the result status is unknown. "
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
           description: The result message.
       required:
-        - resultCode
-        - resultStatus
-        - resultMessage
+      - resultCode
+      - resultStatus
+      - resultMessage
     ResultStatusType:
       type:
-        - string
-        - 'null'
+      - string
+      - 'null'
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
     UserName:
       type: object
       properties:
@@ -127,513 +150,323 @@ components:
       properties:
         region:
           type: string
-          description: >-
-            The 2-letter country or region code. For more information, see ISO
-            3166 Country Codes standard. 
-
-
-            More information:
-
-
-            Maximum length: 2 characters
+          description: "The 2-letter country or region code. For more information,\
+            \ see ISO 3166 Country Codes standard. \n\nMore information:\n\nMaximum\
+            \ length: 2 characters"
         state:
           type: string
-          description: |
-            The state, country, or province name. 
-
-            More information:
-
-            Maximum length: 8 characters
+          description: "The state, country, or province name. \n\nMore information:\n\
+            \nMaximum length: 8 characters\n"
         city:
           type: string
-          description: |-
-            The city, district, suburb, town, or village name. 
-
-            More information:
-
-            Maximum length: 32 characters
+          description: "The city, district, suburb, town, or village name. \n\nMore\
+            \ information:\n\nMaximum length: 32 characters"
         address1:
           type: string
-          description: >
-            Address line 1, for example, the street address, PO box, and company
-            name.
+          description: 'Address line 1, for example, the street address, PO box, and
+            company name.
 
 
             More information:
 
 
             Maximum length: 256 characters
+
+            '
         address2:
           type: string
-          description: >-
-            Address line 2, for example, the apartment, suite, unit, and
-            building information. 
-
-
-            More information:
-
-
-            Maximum length: 256 characters
+          description: "Address line 2, for example, the apartment, suite, unit, and\
+            \ building information. \n\nMore information:\n\nMaximum length: 256 characters"
         zipCode:
           type: string
-          description: |-
-            ZIP or postal code.
+          description: 'ZIP or postal code.
+
 
             More information:
 
-            Maximum length: 32 characters
+
+            Maximum length: 32 characters'
         label:
           type: string
       required:
-        - region
+      - region
     AccountHolderType:
       type: string
       enum:
-        - INDIVIDUAL
-        - ENTERPRISE
+      - INDIVIDUAL
+      - ENTERPRISE
     AccountType:
       type: string
       enum:
-        - CHECKING
-        - FIXED_DEPOSIT
+      - CHECKING
+      - FIXED_DEPOSIT
     SettlementBankAccount:
       type: object
       properties:
         bankAccountNo:
           type: string
-          description: |
-            The international bank account number.
+          description: 'The international bank account number.
+
 
             The standardized formats in different areas are:
+
 
             Brazil: ^[0-9]{0,20}$ such as 123456789
+
             More information:
 
+
             Maximum length: 64 characters
+
+            '
         accountHolderName:
           type: string
-          description: |-
-            The full name of the account holder.
+          description: 'The full name of the account holder.
+
 
             The standardized formats in different areas are:
 
-            Brazil: ^[A-Za-z0-9/() .,\-?:'+]{0,50}$
+
+            Brazil: ^[A-Za-z0-9/() .,\-?:''+]{0,50}$
+
             More information:
 
-            Maximum length: 64 characters
+
+            Maximum length: 64 characters'
         swiftCode:
           type: string
-          description: >-
-            The eight-character or eleven-character BIC or SWIFT code of the
-            bank.
-
-
-            Specify this parameter when the bank card issuing country is
-            Brazil.  
-
-
-            More information:
-
-
-            Maximum length: 11 characters
+          description: "The eight-character or eleven-character BIC or SWIFT code\
+            \ of the bank.\n\nSpecify this parameter when the bank card issuing country\
+            \ is Brazil.  \n\nMore information:\n\nMaximum length: 11 characters"
         bankRegion:
           type: string
-          description: >
-            The region where the bank is located. 
-
-
-            The value of this parameter is a 2-letter region or country code
-            that follows the ISO 3166 Country Codes standard.  
-
-
-            More information:
-
-
-            Maximum length: 2 characters
+          description: "The region where the bank is located. \n\nThe value of this\
+            \ parameter is a 2-letter region or country code that follows the ISO\
+            \ 3166 Country Codes standard.  \n\nMore information:\n\nMaximum length:\
+            \ 2 characters\n"
         accountHolderType:
           $ref: '#/components/schemas/AccountHolderType'
-          description: |
-            The type of the account holder. Valid value are:
-
-            INDIVIDUAL: indicates that the account holder is an individual.
-            ENTERPRISE: indicates that the account holder is an enterprise.  
-            More information:
-
-            Maximum length: 32 characters
+          description: "The type of the account holder. Valid value are:\n\nINDIVIDUAL:\
+            \ indicates that the account holder is an individual.\nENTERPRISE: indicates\
+            \ that the account holder is an enterprise.  \nMore information:\n\nMaximum\
+            \ length: 32 characters\n"
         routingNumber:
           type: string
-          description: >-
-            The routing number. See Bank branch code and routing number for
-            valid values.
-
-
-            Specify this parameter when the issuing bank is in Brazil.  
-
-
-            More information:
-
-
-            Maximum length: 9 characters
+          description: "The routing number. See Bank branch code and routing number\
+            \ for valid values.\n\nSpecify this parameter when the issuing bank is\
+            \ in Brazil.  \n\nMore information:\n\nMaximum length: 9 characters"
         branchCode:
           type: string
-          description: >
-            The branch code of the bank. See Bank branch code and routing number
-            for valid values.
-
-
-            Specify this parameter when the issuing bank is in Brazil.  
-
-
-            More information:
-
-
-            Maximum length: 32 characters
+          description: "The branch code of the bank. See Bank branch code and routing\
+            \ number for valid values.\n\nSpecify this parameter when the issuing\
+            \ bank is in Brazil.  \n\nMore information:\n\nMaximum length: 32 characters\n"
         accountHolderTIN:
           type: string
-          description: >-
-            The tax identification number (TIN) of the account holder.
-
-
-            For the account holder in Brazil:
-
-
-            If the account holder is an individual, the value of this parameter
-            is an eleven-character tax ID known as CPF. 
-
-            If the account holder is a legal entity, the value of this parameter
-            is a fourteen-character tax ID known as CNPJ. 
-
-            Specify this parameter when the issuing bank is in Brazil.  
-
-
-            More information:
-
-
-            Maximum length: 32 characters
+          description: "The tax identification number (TIN) of the account holder.\n\
+            \nFor the account holder in Brazil:\n\nIf the account holder is an individual,\
+            \ the value of this parameter is an eleven-character tax ID known as CPF.\
+            \ \nIf the account holder is a legal entity, the value of this parameter\
+            \ is a fourteen-character tax ID known as CNPJ. \nSpecify this parameter\
+            \ when the issuing bank is in Brazil.  \n\nMore information:\n\nMaximum\
+            \ length: 32 characters"
         accountType:
           $ref: '#/components/schemas/AccountType'
-          description: >
-            The bank account type. Valid values are:
-
-
-            CHECKING: indicates the checking account, also known as the current
-            account. 
-
-            FIXED_DEPOSIT: indicates the fixed deposit account. 
-
-            Specify this parameter when the issuing bank is in Brazil.  
-
-
-            More information:
-
-
-            Maximum length: 13 characters
+          description: "The bank account type. Valid values are:\n\nCHECKING: indicates\
+            \ the checking account, also known as the current account. \nFIXED_DEPOSIT:\
+            \ indicates the fixed deposit account. \nSpecify this parameter when the\
+            \ issuing bank is in Brazil.  \n\nMore information:\n\nMaximum length:\
+            \ 13 characters\n"
         bankName:
           type: string
-          description: >-
-            The name of the bank.
-
-
-            Specify this parameter when the card issuing country is the United
-            States.  
-
-
-            More information:
-
-
-            Maximum length: 35 characters
-        accountHolderAddress: &ref_0
+          description: "The name of the bank.\n\nSpecify this parameter when the card\
+            \ issuing country is the United States.  \n\nMore information:\n\nMaximum\
+            \ length: 35 characters"
+        accountHolderAddress: &id001
           $ref: '#/components/schemas/Address'
-          description: >-
-            The address of the account holder.
+          description: 'The address of the account holder.
 
 
-            Specify this parameter when the card issuing country is the United
-            States or Canada.  
+            Specify this parameter when the card issuing country is the United States
+            or Canada.  '
         iban:
           type: string
-          description: >
-            The International Bank Account Number (IBAN) used to identify a bank
-            account.
-
-
-            Specify this parameter when the card issuing country is the United
-            Kingdom or belongs to the European Union. 
-
-
-            More information:
-
-
-            Maximum length: 34 characters
+          description: "The International Bank Account Number (IBAN) used to identify\
+            \ a bank account.\n\nSpecify this parameter when the card issuing country\
+            \ is the United Kingdom or belongs to the European Union. \n\nMore information:\n\
+            \nMaximum length: 34 characters\n"
       required:
-        - bankAccountNo
-        - accountHolderName
-        - bankRegion
-        - accountHolderType
+      - bankAccountNo
+      - accountHolderName
+      - bankRegion
+      - accountHolderType
     SettlementInfo:
       type: object
       properties:
         settlementCurrency:
           type: string
-          description: >
-            The sub-merchant's settlement currency that is specified in the
-            settlement contract. The value of this parameter is a 3-letter
-            currency code that follows the ISO 4217 standard. 
-
-
-            More information:
-
-
-            Maximum length: 3 characters
+          description: "The sub-merchant's settlement currency that is specified in\
+            \ the settlement contract. The value of this parameter is a 3-letter currency\
+            \ code that follows the ISO 4217 standard. \n\nMore information:\n\nMaximum\
+            \ length: 3 characters\n"
         settlementBankAccount:
           $ref: '#/components/schemas/SettlementBankAccount'
-          description: >-
-            The sub-merchant's bank account that Alipay settles to. 
-
-
-            Specify this parameter when the card issuing country is Brazil, the
-            United Kingdom, or a country within the European Union. 
+          description: "The sub-merchant's bank account that Alipay settles to. \n\
+            \nSpecify this parameter when the card issuing country is Brazil, the\
+            \ United Kingdom, or a country within the European Union. "
       required:
-        - settlementCurrency
+      - settlementCurrency
     LegalEntityType:
       type: string
       enum:
-        - COMPANY
-        - INDIVIDUAL
+      - COMPANY
+      - INDIVIDUAL
     CompanyType:
       type: string
       enum:
-        - ENTERPRISE
-        - PARTNERSHIP
-        - SOLE_PROPRIETORSHIP
-        - STATE_OWNED_BUSINESS
-        - PRIVATELY_OWNED_BUSINESS
-        - PUBLICLY_LISTED_BUSINESS
-        - LTDA
-        - SA
-        - EIRELI
-        - BOFC
-        - MEI
-        - EI
+      - ENTERPRISE
+      - PARTNERSHIP
+      - SOLE_PROPRIETORSHIP
+      - STATE_OWNED_BUSINESS
+      - PRIVATELY_OWNED_BUSINESS
+      - PUBLICLY_LISTED_BUSINESS
+      - LTDA
+      - SA
+      - EIRELI
+      - BOFC
+      - MEI
+      - EI
     StockInfo:
       type: object
       properties:
         listedRegion:
           type: string
-          description: |
-            The region or country where the company is listed.  
-
-            More information:
-
-            Maximum length: 2 characters
+          description: "The region or country where the company is listed.  \n\nMore\
+            \ information:\n\nMaximum length: 2 characters\n"
         tickerSymbol:
           type: string
-          description: >-
-            The ticker symbol of the stock.
-
-
-            Specify this parameter when the value of
-            merchantInfo.company.registeredAddress.region is US.  
-
-
-            More information:
-
-
-            Maximum length: 32 characters
+          description: "The ticker symbol of the stock.\n\nSpecify this parameter\
+            \ when the value of merchantInfo.company.registeredAddress.region is US.\
+            \  \n\nMore information:\n\nMaximum length: 32 characters"
       required:
-        - listedRegion
+      - listedRegion
     CertificateType:
       type: string
       enum:
-        - ENTERPRISE_REGISTRATION
-        - LICENSE_INFO
-        - ID_CARD
-        - PASSPORT
-        - DRIVING_LICENSE
-        - CPF
-        - CNPJ
+      - ENTERPRISE_REGISTRATION
+      - LICENSE_INFO
+      - ID_CARD
+      - PASSPORT
+      - DRIVING_LICENSE
+      - CPF
+      - CNPJ
     Certificate:
       type: object
       properties:
         certificateType:
           $ref: '#/components/schemas/CertificateType'
-          description: >-
-            The certificate type. Valid values are:
-
-
-            ENTERPRISE_REGISTRATION: indicates the enterprise registration
-            certificate.
-
-            LICENSE_INFO: indicates that the certificate is a business license.
-
-            ID_CARD: indicates that the certificate is an identity card.
-
-            PASSPORT: indicates that the certificate is a passport.
-
-            DRIVING_LICENSE: indicates that the certificate is a driving
-            license.
-
-            CPF: indicates that the certificate is the Cadastro Pessoal de
-            Pessoa Física (CPF) of the Brazilian individual taxpayer.
-
-            CNPJ: indicates that the certificate is the Cadastro Nacional da
-            Pessoa Jurídica (CNPJ), which is a federal identification number
-            assigned to companies and businesses operating in Brazil.  
-
-            More information:
-
-
-            Maximum length: 32 characters
+          description: "The certificate type. Valid values are:\n\nENTERPRISE_REGISTRATION:\
+            \ indicates the enterprise registration certificate.\nLICENSE_INFO: indicates\
+            \ that the certificate is a business license.\nID_CARD: indicates that\
+            \ the certificate is an identity card.\nPASSPORT: indicates that the certificate\
+            \ is a passport.\nDRIVING_LICENSE: indicates that the certificate is a\
+            \ driving license.\nCPF: indicates that the certificate is the Cadastro\
+            \ Pessoal de Pessoa Física (CPF) of the Brazilian individual taxpayer.\n\
+            CNPJ: indicates that the certificate is the Cadastro Nacional da Pessoa\
+            \ Jurídica (CNPJ), which is a federal identification number assigned to\
+            \ companies and businesses operating in Brazil.  \nMore information:\n\
+            \nMaximum length: 32 characters"
         certificateNo:
           type: string
-          description: |
-            The unique identification number of the certificate.  
-
-            More information:
-
-            Maximum length: 64 characters
-        holderName: &ref_1
+          description: "The unique identification number of the certificate.  \n\n\
+            More information:\n\nMaximum length: 64 characters\n"
+        holderName: &id002
           $ref: '#/components/schemas/UserName'
         fileKeys:
           type: array
           items:
             type: string
-          description: >-
-            A list of the unique key values of attachment files. Maximum file
-            size: 32MB.
-
-
-            The value of this parameter is obtained from the attachmentKey
-            parameter in the submitAttachment API. Prior attachment submission
-            using the submitAttachment API is required.
-
-
-            Specify this parameter when the value of
-            merchantInfo.company.certificates.certificateType is
-            ENTERPRISE_REGISTRATION and the value of
-            merchantInfo.company.registeredAddress.region is AU, SG, HK, GB, MY,
-            US or the company's registered region belongs to the European
-            Union. 
-
-
-            More information:
-
-
-            Maximum size: 10 elements
+          description: "A list of the unique key values of attachment files. Maximum\
+            \ file size: 32MB.\n\nThe value of this parameter is obtained from the\
+            \ attachmentKey parameter in the submitAttachment API. Prior attachment\
+            \ submission using the submitAttachment API is required.\n\nSpecify this\
+            \ parameter when the value of merchantInfo.company.certificates.certificateType\
+            \ is ENTERPRISE_REGISTRATION and the value of merchantInfo.company.registeredAddress.region\
+            \ is AU, SG, HK, GB, MY, US or the company's registered region belongs\
+            \ to the European Union. \n\nMore information:\n\nMaximum size: 10 elements"
         certificateAuthority:
           type: string
-          description: >-
-            The country that authorizes the certificate. The value of this
-            parameter is a 2-letter country or region code based on the ISO 3166
-            Country Codes standard.
-
-
-            Specify this parameter when the value of
-            merchantInfo.company.registeredAddress.region is US.  
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The country that authorizes the certificate. The value of\
+            \ this parameter is a 2-letter country or region code based on the ISO\
+            \ 3166 Country Codes standard.\n\nSpecify this parameter when the value\
+            \ of merchantInfo.company.registeredAddress.region is US.  \n\nMore information:\n\
+            \nMaximum length: 64 characters"
       required:
-        - certificateType
-        - certificateNo
+      - certificateType
+      - certificateNo
     Attachment:
       type: object
       properties:
         attachmentType:
           type: string
-          description: >-
-            The type of attachment. Valid values are:
-
-
-            SIGNATURE_AUTHORIZATION_LETTER: indicates a document that allows
-            someone to sign on behalf of an individual or a company.
-
-            ARTICLES_OF_ASSOCIATION: indicates the regulations and rules of a
-            company.  
-
-            LOGO: indicates the merchant's logo. Specify attachmentType as LOGO
-            when the value of paymentMethodType is TRUEMONEY.
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The type of attachment. Valid values are:\n\nSIGNATURE_AUTHORIZATION_LETTER:\
+            \ indicates a document that allows someone to sign on behalf of an individual\
+            \ or a company.\nARTICLES_OF_ASSOCIATION: indicates the regulations and\
+            \ rules of a company.  \nLOGO: indicates the merchant's logo. Specify\
+            \ attachmentType as LOGO when the value of paymentMethodType is TRUEMONEY.\n\
+            More information:\n\nMaximum length: 64 characters"
         file:
           type: string
         attachmentName:
           type: string
-          description: >
-            The name of the attachment file, including the file extension, such
-            as XXX.jpg or XXX.png.  
-
-
-            More information:
-
-
-            Maximum length: 256 characters
+          description: "The name of the attachment file, including the file extension,\
+            \ such as XXX.jpg or XXX.png.  \n\nMore information:\n\nMaximum length:\
+            \ 256 characters\n"
         fileKey:
           type: string
-          description: >
-            The unique key value of the attachment file. Maximum file size:
-            32MB.
-
-
-            The value of this parameter is obtained from the attachmentKey
-            parameter in the submitAttachment API. Prior attachment submission
-            using the submitAttachment API is required.  
-
-
-            More information:
-
-
-            Maximum length: 256 characters
+          description: "The unique key value of the attachment file. Maximum file\
+            \ size: 32MB.\n\nThe value of this parameter is obtained from the attachmentKey\
+            \ parameter in the submitAttachment API. Prior attachment submission using\
+            \ the submitAttachment API is required.  \n\nMore information:\n\nMaximum\
+            \ length: 256 characters\n"
       required:
-        - attachmentType
-        - attachmentName
-        - fileKey
+      - attachmentType
+      - attachmentName
+      - fileKey
     CompanyUnitType:
       type: string
       enum:
-        - HEADQUARTER
-        - BRANCH
+      - HEADQUARTER
+      - BRANCH
     ContactType:
       type: string
       enum:
-        - EMAIL
-        - PHONE_NO
-        - COMMERCIAL_PHONE_NO
+      - EMAIL
+      - PHONE_NO
+      - COMMERCIAL_PHONE_NO
     Contact:
       type: object
       properties:
         type:
           $ref: '#/components/schemas/ContactType'
-          description: >-
-            The contact type. Valid values are:
+          description: 'The contact type. Valid values are:
 
 
             EMAIL: indicates that the contact type is an Email.
 
             PHONE_NO: indicates that the contact type is a phone number.
 
-            COMMERCIAL_PHONE_NO: indicates that the contact type is a business
-            phone number. Specify contactWays.type as ​COMMERCIAL_PHONE_NO​ when
-            the value of paymentMethodType is TRUEMONEY.
+            COMMERCIAL_PHONE_NO: indicates that the contact type is a business phone
+            number. Specify contactWays.type as ​COMMERCIAL_PHONE_NO​ when the value
+            of paymentMethodType is TRUEMONEY.
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         info:
           type: string
-          description: |-
-            The contact details of a specific contact type.  
-
-            More information:
-
-            Maximum length: 256 characters
+          description: "The contact details of a specific contact type.  \n\nMore\
+            \ information:\n\nMaximum length: 256 characters"
         home:
           type: string
         work:
@@ -641,239 +474,129 @@ components:
         mobile:
           type: string
       required:
-        - type
+      - type
     Company:
       type: object
       properties:
         legalName:
           type: string
-          description: |
-            The legal name of the company.  
-
-            More information:
-
-            Maximum size: 256 elements
+          description: "The legal name of the company.  \n\nMore information:\n\n\
+            Maximum size: 256 elements\n"
         companyType:
           $ref: '#/components/schemas/CompanyType'
-          description: >-
-            The type of the company. Based on different registered regions of
-            the company, valid values are:
-
-
-            AU, SG, and HK 
-
-            ENTERPRISE: indicates a company that is owned by a corporation or a
-            group of individuals.
-
-            PARTNERSHIP: indicates a company that is owned by two or more
-            corporations or individuals.
-
-            SOLE_PROPRIETORSHIP: indicates a business that is owned by an
-            individual.
-
-            European Union countries 
-
-            STATE_OWNED_BUSINESS: indicates a business that is owned and
-            operated by the government of a particular country or region.
-
-            PRIVATELY_OWNED_BUSINESS: indicates a business that is owned and
-            operated by private individuals or companies.
-
-            PUBLICLY_LISTED_BUSINESS: indicates a business that has issued
-            shares of stock that can be traded on a public stock exchange.
-
-            SOLE_PROPRIETORSHIP: indicates a business that is owned by an
-            individual.
-
-            GB 
-
-            ENTERPRISE: indicates a company that is owned by a corporation or a
-            group of individuals.
-
-            BR 
-
-            LTDA: indicates a Limited Liability Company (Limitada).
-
-            SA: indicates a Limited Liability Corporation (Sociedade Anônima).
-
-            EIRELI: indicates a Single Holder Limited Liability Entity (Empresa
-            Individual de Responsabilidade Limitada).
-
-            BOFC: indicates a Branch Office of a Foreign Company (Filial de
-            empresa estrangeira).
-
-            MEI: indicates a Micro Sole Proprietorship (Microempreendedor
-            Individual). 
-
-            EI: indicates a Sole Proprietorship (Empresa Individual). 
-
-            More information:
-
-
-            Maximum length: 64 characters
-        registeredAddress: *ref_0
-        operatingAddress: *ref_0
+          description: "The type of the company. Based on different registered regions\
+            \ of the company, valid values are:\n\nAU, SG, and HK \nENTERPRISE: indicates\
+            \ a company that is owned by a corporation or a group of individuals.\n\
+            PARTNERSHIP: indicates a company that is owned by two or more corporations\
+            \ or individuals.\nSOLE_PROPRIETORSHIP: indicates a business that is owned\
+            \ by an individual.\nEuropean Union countries \nSTATE_OWNED_BUSINESS:\
+            \ indicates a business that is owned and operated by the government of\
+            \ a particular country or region.\nPRIVATELY_OWNED_BUSINESS: indicates\
+            \ a business that is owned and operated by private individuals or companies.\n\
+            PUBLICLY_LISTED_BUSINESS: indicates a business that has issued shares\
+            \ of stock that can be traded on a public stock exchange.\nSOLE_PROPRIETORSHIP:\
+            \ indicates a business that is owned by an individual.\nGB \nENTERPRISE:\
+            \ indicates a company that is owned by a corporation or a group of individuals.\n\
+            BR \nLTDA: indicates a Limited Liability Company (Limitada).\nSA: indicates\
+            \ a Limited Liability Corporation (Sociedade Anônima).\nEIRELI: indicates\
+            \ a Single Holder Limited Liability Entity (Empresa Individual de Responsabilidade\
+            \ Limitada).\nBOFC: indicates a Branch Office of a Foreign Company (Filial\
+            \ de empresa estrangeira).\nMEI: indicates a Micro Sole Proprietorship\
+            \ (Microempreendedor Individual). \nEI: indicates a Sole Proprietorship\
+            \ (Empresa Individual). \nMore information:\n\nMaximum length: 64 characters"
+        registeredAddress: *id001
+        operatingAddress: *id001
         incorporationDate:
           type: string
-          description: >-
-            The date when the company was officially registered and incorporated
-            with the government. The value of this parameter is in the format of
-            YYYY-MM-DD, such as 2023-06-25.  
-
-
-            Specify this parameter when the value of
-            merchantInfo.company.registeredAddress.region is AU, SG, HK, US, GB,
-            MY, or the company's registered region belongs to the European
-            Union. 
-
-
-            More information:
-
-
-            Maximum length: 32 characters
+          description: "The date when the company was officially registered and incorporated\
+            \ with the government. The value of this parameter is in the format of\
+            \ YYYY-MM-DD, such as 2023-06-25.  \n\nSpecify this parameter when the\
+            \ value of merchantInfo.company.registeredAddress.region is AU, SG, HK,\
+            \ US, GB, MY, or the company's registered region belongs to the European\
+            \ Union. \n\nMore information:\n\nMaximum length: 32 characters"
         stockInfo:
           $ref: '#/components/schemas/StockInfo'
-          description: >-
-            The stock-related information. 
-
-
-            Specify this parameter when the company is listed on the stock
-            exchange. 
-        certificates: &ref_2
+          description: "The stock-related information. \n\nSpecify this parameter\
+            \ when the company is listed on the stock exchange. "
+        certificates: &id003
           $ref: '#/components/schemas/Certificate'
-          description: >-
-            The list of certificate information. The information is used to
-            verify the company's legal status and ensure the company complies
-            with regulatory requirements.
-
-
-            Specify this parameter when one of the following conditions is met:
-
-
-            The value of merchantInfo.company.registeredAddress.region is BR.
-
-            The value of merchantInfo.company.certificates.certificateType is
-            ENTERPRISE_REGISTRATION and the value of
-            merchantInfo.company.registeredAddress.region is AU, SG, HK, GB, MY,
-            US or belongs to the European Union.  
-
-            More information:
-
-
-            Maximum size: 10 elements
+          description: "The list of certificate information. The information is used\
+            \ to verify the company's legal status and ensure the company complies\
+            \ with regulatory requirements.\n\nSpecify this parameter when one of\
+            \ the following conditions is met:\n\nThe value of merchantInfo.company.registeredAddress.region\
+            \ is BR.\nThe value of merchantInfo.company.certificates.certificateType\
+            \ is ENTERPRISE_REGISTRATION and the value of merchantInfo.company.registeredAddress.region\
+            \ is AU, SG, HK, GB, MY, US or belongs to the European Union.  \nMore\
+            \ information:\n\nMaximum size: 10 elements"
         attachments:
           type: array
           items:
             $ref: '#/components/schemas/Attachment'
-          description: >-
-            The list of attachment information. The information is used to
-            verify the company's legal status and ensure the company complies
-            with regulatory requirements.
-
-
-            Specify this parameter when the value of
-            merchantInfo.company.registeredAddress.region is BR, AU, SG, HK, GB,
-            MY, or belongs to the European Union.  
-
-
-            More information:
-
-
-            Maximum size: 10 elements
+          description: "The list of attachment information. The information is used\
+            \ to verify the company's legal status and ensure the company complies\
+            \ with regulatory requirements.\n\nSpecify this parameter when the value\
+            \ of merchantInfo.company.registeredAddress.region is BR, AU, SG, HK,\
+            \ GB, MY, or belongs to the European Union.  \n\nMore information:\n\n\
+            Maximum size: 10 elements"
         companyUnit:
           $ref: '#/components/schemas/CompanyUnitType'
-          description: >-
-            Company organizational structure. Valid values are:
+          description: 'Company organizational structure. Valid values are:
 
 
             HEADQUARTER: head office.
 
             BRANCH: branch office.
 
-            Specify this parameter when the value of paymentMethodType is
-            TRUEMONEY.
+            Specify this parameter when the value of paymentMethodType is TRUEMONEY.
 
 
             More information:
 
 
-            Maximum length: 32 characters
+            Maximum length: 32 characters'
         contacts:
           type: array
-          items: &ref_3
+          items: &id004
             $ref: '#/components/schemas/Contact'
-          description: >-
-            A list of contact information.
+          description: 'A list of contact information.
 
 
-            Specify this parameter when the value of
-            merchantInfo.company.registeredAddress.region is JP. 
+            Specify this parameter when the value of merchantInfo.company.registeredAddress.region
+            is JP. '
         vatNo:
           type: string
-          description: >
-            The Value Added Tax (VAT) number of the company.
-
-
-            Specify this parameter when the value of
-            merchantInfo.company.registeredAddress.region is GB or the company's
-            registered region belongs to the European Union.  
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The Value Added Tax (VAT) number of the company.\n\nSpecify\
+            \ this parameter when the value of merchantInfo.company.registeredAddress.region\
+            \ is GB or the company's registered region belongs to the European Union.\
+            \  \n\nMore information:\n\nMaximum length: 64 characters\n"
       required:
-        - legalName
-        - companyType
-        - registeredAddress
-        - operatingAddress
+      - legalName
+      - companyType
+      - registeredAddress
+      - operatingAddress
     MerchantInfo:
       type: object
       properties:
         referenceMerchantId:
           type: string
-          description: >
-            The unique ID that is assigned by the marketplace to identify the
-            sub-merchant. referenceMerchantId that fails to register the
-            sub-merchant can be used again.  
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The unique ID that is assigned by the marketplace to identify\
+            \ the sub-merchant. referenceMerchantId that fails to register the sub-merchant\
+            \ can be used again.  \n\nMore information:\n\nMaximum length: 64 characters\n"
         loginId:
           type: string
-          description: >-
-            The sub-merchant's login ID to the marketplace platform. The value
-            of this parameter is an email. The email that is successfully used
-            to register with Alipay cannot be used again.  
-
-
-            More information:
-
-
-            Maximum length: 64 characters
-        legalEntityType: &ref_4
+          description: "The sub-merchant's login ID to the marketplace platform. The\
+            \ value of this parameter is an email. The email that is successfully\
+            \ used to register with Alipay cannot be used again.  \n\nMore information:\n\
+            \nMaximum length: 64 characters"
+        legalEntityType: &id005
           $ref: '#/components/schemas/LegalEntityType'
-          description: >-
-            The legal entity type of the sub-merchant. The value of this
-            parameter is fixed to COMPANY.  
-
-
-            More information:
-
-
-            Maximum length: 32 characters
-        company: &ref_5
+          description: "The legal entity type of the sub-merchant. The value of this\
+            \ parameter is fixed to COMPANY.  \n\nMore information:\n\nMaximum length:\
+            \ 32 characters"
+        company: &id006
           $ref: '#/components/schemas/Company'
-          description: >-
-            The company information of the sub-merchant. 
-
-
-            Specify this parameter when the value of
-            merchantInfo.legalEntifyType is COMPANY. 
+          description: "The company information of the sub-merchant. \n\nSpecify this\
+            \ parameter when the value of merchantInfo.legalEntifyType is COMPANY. "
         businessInfo:
           $ref: '#/components/schemas/BusinessInfo'
           description: 'The business information of the sub-merchant.  '
@@ -881,59 +604,47 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EntityAssociations'
-          description: >-
-            The list of legal entities that are associated with the
-            sub-merchant. The information is used to verify the company's legal
-            status and ensure the company complies with regulatory requirements.
-
-
-            Specify this parameter when the value of
-            merchantInfo.company.registeredAddress.region is BR, AU, SG, HK, GB,
-            MY, US, or belongs to the European Union.  
-
-
-            More information:
-
-
-            Maximum size: 100 elements
+          description: "The list of legal entities that are associated with the sub-merchant.\
+            \ The information is used to verify the company's legal status and ensure\
+            \ the company complies with regulatory requirements.\n\nSpecify this parameter\
+            \ when the value of merchantInfo.company.registeredAddress.region is BR,\
+            \ AU, SG, HK, GB, MY, US, or belongs to the European Union.  \n\nMore\
+            \ information:\n\nMaximum size: 100 elements"
       required:
-        - referenceMerchantId
-        - loginId
-        - legalEntityType
-        - businessInfo
+      - referenceMerchantId
+      - loginId
+      - legalEntityType
+      - businessInfo
     AlipayRegisterRequest:
       type: object
       properties:
         registrationRequestId:
           type: string
-          description: >-
-            The unique ID that is assigned by the marketplace to identify a
-            registration request. Alipay uses this field for idempotence
-            control.
+          description: 'The unique ID that is assigned by the marketplace to identify
+            a registration request. Alipay uses this field for idempotence control.
 
 
             More information:
 
 
-            This field is an API idempotency field.For registration requests
-            that are initiated with the same value of registrationRequestId and
-            reach a final status (resultStatus = S or F), the same result is to
-            be returned for the request.
+            This field is an API idempotency field.For registration requests that
+            are initiated with the same value of registrationRequestId and reach a
+            final status (resultStatus = S or F), the same result is to be returned
+            for the request.
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         settlementInfos:
           type: array
           items:
             $ref: '#/components/schemas/SettlementInfo'
-          description: >-
-            The list of sub-merchants' settlement information. One settlement
+          description: 'The list of sub-merchants'' settlement information. One settlement
             currency corresponds to one settlement bank account.
 
 
             More information:
 
 
-            Maximum size: 10 elements
+            Maximum size: 10 elements'
         merchantInfo:
           $ref: '#/components/schemas/MerchantInfo'
           description: The information about the sub-merchant.
@@ -941,21 +652,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PaymentMethod'
-          description: >-
-            The payment method that is used to collect the payment by the
-            merchant or acquirer. The payment method must be already supportd by
-            the platform merchant before they can be assigned for sub-merchants.
+          description: 'The payment method that is used to collect the payment by
+            the merchant or acquirer. The payment method must be already supportd
+            by the platform merchant before they can be assigned for sub-merchants.
 
 
             More information:
 
 
-            Maximum length: 100 characters
+            Maximum length: 100 characters'
       required:
-        - registrationRequestId
-        - merchantInfo
-        - settlementInfos
-        - paymentMethods
+      - registrationRequestId
+      - merchantInfo
+      - settlementInfos
+      - paymentMethods
     WebSite:
       type: object
       properties:
@@ -963,311 +673,186 @@ components:
           type: string
         url:
           type: string
-          description: |-
-            The URL of the merchant website.  
-
-            More information:
-
-            Maximum length: 2048 characters
+          description: "The URL of the merchant website.  \n\nMore information:\n\n\
+            Maximum length: 2048 characters"
         desc:
           type: string
         type:
           type: string
-          description: >-
-            Website type. Valid values are:
+          description: 'Website type. Valid values are:
 
 
-            COMPANY_INTRODUCE: the website that introduces company information.
-            Specify websites.type as COMPANY_INTRODUCE when the value of
-            paymentMethodType is TRUEMONEY.
+            COMPANY_INTRODUCE: the website that introduces company information. Specify
+            websites.type as COMPANY_INTRODUCE when the value of paymentMethodType
+            is TRUEMONEY.
 
-            TRADING: the trading website. The same applies when the value is
-            empty or you do not specify this parameter.
+            TRADING: the trading website. The same applies when the value is empty
+            or you do not specify this parameter.
 
             More information:
 
 
-            Maximum length: 32 characters
+            Maximum length: 32 characters'
       required:
-        - url
+      - url
     BusinessInfo:
       type: object
       properties:
         mcc:
           type: string
-          description: >-
-            mcc String 
-
-            The merchant category code (MCC). See MCC list to check valid
-            values.  
-
-
-            More information:
-
-
-            Maximum length: 32 characters
+          description: "mcc String \nThe merchant category code (MCC). See MCC list\
+            \ to check valid values.  \n\nMore information:\n\nMaximum length: 32\
+            \ characters"
         websites:
           type: array
           items:
             $ref: '#/components/schemas/WebSite'
-          description: >
-            The list of merchant websites. The information is used to verify the
-            company's legal status and ensure the company complies with
-            regulatory requirements.
-
-
-            Specify this parameter when the value of
-            merchantInfo.company.registeredAddress.region is BR. 
-
-
-            More information:
-
-
-            Maximum size: 10 elements
+          description: "The list of merchant websites. The information is used to\
+            \ verify the company's legal status and ensure the company complies with\
+            \ regulatory requirements.\n\nSpecify this parameter when the value of\
+            \ merchantInfo.company.registeredAddress.region is BR. \n\nMore information:\n\
+            \nMaximum size: 10 elements\n"
         englishName:
           type: string
-          description: >
-            The English name of the company.
-
-
-            Specify this parameter when the value of
-            merchantInfo.company.registeredAddress.region is JP.  
-
-
-            More information:
-
-
-            Maximum length: 256 characters
+          description: "The English name of the company.\n\nSpecify this parameter\
+            \ when the value of merchantInfo.company.registeredAddress.region is JP.\
+            \  \n\nMore information:\n\nMaximum length: 256 characters\n"
         doingBusinessAs:
           type: string
-          description: >-
-            The customer-facing business name. Consider user interface
-            limitations when choosing this name.  
-
-
-            More information:
-
-
-            Maximum length: 256 characters
+          description: "The customer-facing business name. Consider user interface\
+            \ limitations when choosing this name.  \n\nMore information:\n\nMaximum\
+            \ length: 256 characters"
         mainSalesCountry:
           type: string
-          description: >-
-            The country where your primary sales activities take place. The
-            value of this parameter is a 2-letter country or region code based
-            on the ISO 3166 Country Codes standard.
-
-
-            Specify this parameter when the value of
-            merchantInfo.company.registeredAddress.region is US.  
-
-
-            More information:
-
-
-            Maximum length: 2 characters
+          description: "The country where your primary sales activities take place.\
+            \ The value of this parameter is a 2-letter country or region code based\
+            \ on the ISO 3166 Country Codes standard.\n\nSpecify this parameter when\
+            \ the value of merchantInfo.company.registeredAddress.region is US.  \n\
+            \nMore information:\n\nMaximum length: 2 characters"
         appName:
           type: string
-          description: >-
-            The App name. Specify this parameter when the value of
-            paymentMethodType is TRUEMONEY.
+          description: 'The App name. Specify this parameter when the value of paymentMethodType
+            is TRUEMONEY.
 
 
             More information:
 
 
-            Maximum length: 256 characters
+            Maximum length: 256 characters'
         serviceDescription:
           type: string
-          description: >-
-            A clear and detailed description of the product or service. Specify
-            this parameter when the value of paymentMethodType is TRUEMONEY.
+          description: 'A clear and detailed description of the product or service.
+            Specify this parameter when the value of paymentMethodType is TRUEMONEY.
 
 
             More information:
 
 
-            Maximum length: 256 characters
+            Maximum length: 256 characters'
       required:
-        - doingBusinessAs
+      - doingBusinessAs
     AssociationType:
       type: string
       enum:
-        - LEGAL_REPRESENTATIVE
-        - UBO
-        - CONTACT
-        - DIRECTOR
-        - AUTHORIZER
-        - BOARD_MEMBER
+      - LEGAL_REPRESENTATIVE
+      - UBO
+      - CONTACT
+      - DIRECTOR
+      - AUTHORIZER
+      - BOARD_MEMBER
     Individual:
       type: object
       properties:
-        name: *ref_1
-        englishName: *ref_1
+        name: *id002
+        englishName: *id002
         dateOfBirth:
           type: string
-          description: >
-            The individual's date of birth. The information is used to verify
-            the company's legal status and ensure the company complies with
-            regulatory requirements.
-
-
-            Specify this parameter when the value of
-            merchantInfo.company.registeredAddress.region is BR.  
-
-
-            More information:
-
-
-            Maximum length: 32 characters
-        placeOfBirth: *ref_0
+          description: "The individual's date of birth. The information is used to\
+            \ verify the company's legal status and ensure the company complies with\
+            \ regulatory requirements.\n\nSpecify this parameter when the value of\
+            \ merchantInfo.company.registeredAddress.region is BR.  \n\nMore information:\n\
+            \nMaximum length: 32 characters\n"
+        placeOfBirth: *id001
         certificates:
           type: array
-          items: *ref_2
-          description: >-
-            The list of certificate information of the individual. The
-            information is used to verify the company's legal status and ensure
-            the company complies with regulatory requirements.
+          items: *id003
+          description: 'The list of certificate information of the individual. The
+            information is used to verify the company''s legal status and ensure the
+            company complies with regulatory requirements.
 
 
-            Specify this parameter when the value of
-            merchantInfo.company.registeredAddress.region is BR or US.  
+            Specify this parameter when the value of merchantInfo.company.registeredAddress.region
+            is BR or US.  '
         nationality:
           type: string
-          description: >-
-            The nationality of the individual. The value of this parameter is a
-            2-letter country or region code based on the ISO 3166 Country Codes
-            standard.
-
-
-            Specify this parameter when the value of
-            merchantInfo.company.registeredAddress.region is EU, GB, MY, US, or
-            BR.  
-
-
-            More information:
-
-
-            Maximum length: 2 characters
+          description: "The nationality of the individual. The value of this parameter\
+            \ is a 2-letter country or region code based on the ISO 3166 Country Codes\
+            \ standard.\n\nSpecify this parameter when the value of merchantInfo.company.registeredAddress.region\
+            \ is EU, GB, MY, US, or BR.  \n\nMore information:\n\nMaximum length:\
+            \ 2 characters"
         contacts:
           type: array
-          items: *ref_3
-          description: >-
-            A list of contact information.
-
-
-            Specify this parameter when the value of
-            merchantInfo.company.registeredAddress.region is JP and the value of
-            merchantInfo.entityAssociations.associationType is
-            LEGAL_REPRESENTATIVE.  
-
-
-            More information:
-
-
-            Maximum size: 10 elements
+          items: *id004
+          description: "A list of contact information.\n\nSpecify this parameter when\
+            \ the value of merchantInfo.company.registeredAddress.region is JP and\
+            \ the value of merchantInfo.entityAssociations.associationType is LEGAL_REPRESENTATIVE.\
+            \  \n\nMore information:\n\nMaximum size: 10 elements"
       required:
-        - name
+      - name
     EntityAssociations:
       type: object
       properties:
         associationType:
           $ref: '#/components/schemas/AssociationType'
-          description: >
-            The type of relationship between the associated legal entity and the
-            sub-merchant. Based on different registered regions of the company,
-            valid values are:
-
-
-            BR, AU, SG, HK, GB, MY, US, or European Union countries
-
-            LEGAL_REPRESENTATIVE: indicates that the associated legal entity is
-            the legal representative of the sub-merchant.
-
-            UBO: indicates that the associated legal entity is the Ultimate
-            Beneficial Owner (UBO) of the sub-merchant.
-
-            AU, SG, HK, GB, MY, US, or EU countries
-
-            CONTACT: indicates that the associated legal entity is the contact
-            of the sub-merchant.
-
-            DIRECTOR: indicates that the associated legal entity is the director
-            of the sub-merchant.
-
-            AUTHORIZER: indicates that the associated legal entity is the
-            authorizer of the sub-merchant.
-
-            AU, SG, or HK
-
-            BOARD_MEMBER: indicates that the associated legal entity is the
-            board member of the sub-merchant.  
-
-            More information:
-
-
-            Maximum length: 32 characters
-        legalEntityType: *ref_4
-        company: *ref_5
+          description: "The type of relationship between the associated legal entity\
+            \ and the sub-merchant. Based on different registered regions of the company,\
+            \ valid values are:\n\nBR, AU, SG, HK, GB, MY, US, or European Union countries\n\
+            LEGAL_REPRESENTATIVE: indicates that the associated legal entity is the\
+            \ legal representative of the sub-merchant.\nUBO: indicates that the associated\
+            \ legal entity is the Ultimate Beneficial Owner (UBO) of the sub-merchant.\n\
+            AU, SG, HK, GB, MY, US, or EU countries\nCONTACT: indicates that the associated\
+            \ legal entity is the contact of the sub-merchant.\nDIRECTOR: indicates\
+            \ that the associated legal entity is the director of the sub-merchant.\n\
+            AUTHORIZER: indicates that the associated legal entity is the authorizer\
+            \ of the sub-merchant.\nAU, SG, or HK\nBOARD_MEMBER: indicates that the\
+            \ associated legal entity is the board member of the sub-merchant.  \n\
+            More information:\n\nMaximum length: 32 characters\n"
+        legalEntityType: *id005
+        company: *id006
         individual:
           $ref: '#/components/schemas/Individual'
-          description: >-
-            The individual information of the associated legal entity. 
-
-
-            Specify this parameter when the value of legalEntityType is
-            INDIVIDUAL.  
+          description: "The individual information of the associated legal entity.\
+            \ \n\nSpecify this parameter when the value of legalEntityType is INDIVIDUAL.\
+            \  "
         shareholdingRatio:
           type: string
-          description: >-
-            The shareholding ratio of the associated legal entity. The value of
-            this parameter is from 0 to 100. For example, 10.5 represents that
-            the shareholding ratio is 10.5%. The information is used to verify
-            the company's legal status and ensure the company complies with
-            regulatory requirements.
-
-
-            Specify this parameter when the value of
-            merchantInfo.company.registeredAddress.region is BR, AU, SG, HK, US,
-            GB, MY, or the company's registered region belongs to the European
-            Union.  
-
-
-            More information:
-
-
-            Maximum length: 16 characters
+          description: "The shareholding ratio of the associated legal entity. The\
+            \ value of this parameter is from 0 to 100. For example, 10.5 represents\
+            \ that the shareholding ratio is 10.5%. The information is used to verify\
+            \ the company's legal status and ensure the company complies with regulatory\
+            \ requirements.\n\nSpecify this parameter when the value of merchantInfo.company.registeredAddress.region\
+            \ is BR, AU, SG, HK, US, GB, MY, or the company's registered region belongs\
+            \ to the European Union.  \n\nMore information:\n\nMaximum length: 16\
+            \ characters"
       required:
-        - associationType
-        - legalEntityType
+      - associationType
+      - legalEntityType
     AlipayRegisterResponse:
       type: object
       properties:
         result:
           $ref: '#/components/schemas/Result'
-          description: >-
-            The request result, which contains information such as status and
-            error codes. 
+          description: 'The request result, which contains information such as status
+            and error codes. '
         registrationStatus:
           type: string
-          description: >-
-            The registration status of the merchant. The value of this parameter
-            is fixed to PROCESSING. 
-
-
-            Get the sub-merchant's registration result from the
-            notifyRegistration interface. 
-
-
-            This parameter is returned when the value of result.resultStatus is
-            S.  
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The registration status of the merchant. The value of this\
+            \ parameter is fixed to PROCESSING. \n\nGet the sub-merchant's registration\
+            \ result from the notifyRegistration interface. \n\nThis parameter is\
+            \ returned when the value of result.resultStatus is S.  \n\nMore information:\n\
+            \nMaximum length: 64 characters"
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/merchants/register
-    description: 正式环境
+- url: https://open-sea-global.alipay.com/ams/api/v1/merchants/register
+  description: 正式环境
 security: []
