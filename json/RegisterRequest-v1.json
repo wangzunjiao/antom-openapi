@@ -50,20 +50,24 @@
             "description": "The payment method type that is included in payment method options. By specifying the value of this parameter, you can receive the cashier URL of the specified payment method returned by Alipay. See Payment methods to check the valid values.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "paymentMethodId": {
-            "type": "string"
+            "type": "string",
+            "description": "The unique ID that is used to identify a payment method. The value of this parameter is that of cardToken obtained from the notifyPayment or inquiryPayment API. \n\nSpecify this parameter when the value of paymentMethodType is CARD.\n\nMore information:\n\nMaximum length: 128 characters"
           },
           "paymentMethodMetaData": {
             "type": "object",
             "properties": {},
             "additionalProperties": {
               "type": "object"
-            }
+            },
+            "description": "Additional information required for some specific payment methods.  "
           },
           "customerId": {
-            "type": "string"
+            "type": "string",
+            "description": "The unique ID to identify a buyer.\n\nNote: Specify this field if you have the information. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
           },
           "extendInfo": {
-            "type": "string"
+            "type": "string",
+            "description": "Extended information.\n\nNote: Specify this field if you need to use the extended information.\n\nMore information:\n\nMaximum length: 2048 characters"
           },
           "requireIssuerAuthentication": {
             "type": "boolean",
@@ -97,8 +101,7 @@
         ]
       },
       "ResultStatusType": {
-        "type":
-          "string",
+        "type": "string",
         "enum": [
           "S",
           "F",
@@ -303,7 +306,7 @@
         "properties": {
           "certificateType": {
             "$ref": "#/components/schemas/CertificateType",
-            "description": "The certificate type. Valid values are:\n\nENTERPRISE_REGISTRATION: indicates the enterprise registration certificate.\nLICENSE_INFO: indicates that the certificate is a business license.\nID_CARD: indicates that the certificate is an identity card.\nPASSPORT: indicates that the certificate is a passport.\nDRIVING_LICENSE: indicates that the certificate is a driving license.\nCPF: indicates that the certificate is the Cadastro Pessoal de Pessoa Física (CPF) of the Brazilian individual taxpayer.\nCNPJ: indicates that the certificate is the Cadastro Nacional da Pessoa Jurídica (CNPJ), which is a federal identification number assigned to companies and businesses operating in Brazil.  \nMore information:\n\nMaximum length: 32 characters"
+            "description": "The certificate type. Valid values are:\n\nENTERPRISE_REGISTRATION: indicates the enterprise registration certificate.\nLICENSE_INFO: indicates that the certificate is a business license.\nID_CARD: indicates that the certificate is an identity card.\nPASSPORT: indicates that the certificate is a passport.\nDRIVING_LICENSE: indicates that the certificate is a driving license.\nCPF: indicates that the certificate is the Cadastro Pessoal de Pessoa F\u00edsica (CPF) of the Brazilian individual taxpayer.\nCNPJ: indicates that the certificate is the Cadastro Nacional da Pessoa Jur\u00eddica (CNPJ), which is a federal identification number assigned to companies and businesses operating in Brazil.  \nMore information:\n\nMaximum length: 32 characters"
           },
           "certificateNo": {
             "type": "string",
@@ -374,7 +377,7 @@
         "properties": {
           "type": {
             "$ref": "#/components/schemas/ContactType",
-            "description": "The contact type. Valid values are:\n\nEMAIL: indicates that the contact type is an Email.\nPHONE_NO: indicates that the contact type is a phone number.\nCOMMERCIAL_PHONE_NO: indicates that the contact type is a business phone number. Specify contactWays.type as ​COMMERCIAL_PHONE_NO​ when the value of paymentMethodType is TRUEMONEY.\nMore information:\n\nMaximum length: 64 characters"
+            "description": "The contact type. Valid values are:\n\nEMAIL: indicates that the contact type is an Email.\nPHONE_NO: indicates that the contact type is a phone number.\nCOMMERCIAL_PHONE_NO: indicates that the contact type is a business phone number. Specify contactWays.type as \u200bCOMMERCIAL_PHONE_NO\u200b when the value of paymentMethodType is TRUEMONEY.\nMore information:\n\nMaximum length: 64 characters"
           },
           "info": {
             "type": "string",
@@ -403,7 +406,7 @@
           },
           "companyType": {
             "$ref": "#/components/schemas/CompanyType",
-            "description": "The type of the company. Based on different registered regions of the company, valid values are:\n\nAU, SG, and HK \nENTERPRISE: indicates a company that is owned by a corporation or a group of individuals.\nPARTNERSHIP: indicates a company that is owned by two or more corporations or individuals.\nSOLE_PROPRIETORSHIP: indicates a business that is owned by an individual.\nEuropean Union countries \nSTATE_OWNED_BUSINESS: indicates a business that is owned and operated by the government of a particular country or region.\nPRIVATELY_OWNED_BUSINESS: indicates a business that is owned and operated by private individuals or companies.\nPUBLICLY_LISTED_BUSINESS: indicates a business that has issued shares of stock that can be traded on a public stock exchange.\nSOLE_PROPRIETORSHIP: indicates a business that is owned by an individual.\nGB \nENTERPRISE: indicates a company that is owned by a corporation or a group of individuals.\nBR \nLTDA: indicates a Limited Liability Company (Limitada).\nSA: indicates a Limited Liability Corporation (Sociedade Anônima).\nEIRELI: indicates a Single Holder Limited Liability Entity (Empresa Individual de Responsabilidade Limitada).\nBOFC: indicates a Branch Office of a Foreign Company (Filial de empresa estrangeira).\nMEI: indicates a Micro Sole Proprietorship (Microempreendedor Individual). \nEI: indicates a Sole Proprietorship (Empresa Individual). \nMore information:\n\nMaximum length: 64 characters"
+            "description": "The type of the company. Based on different registered regions of the company, valid values are:\n\nAU, SG, and HK \nENTERPRISE: indicates a company that is owned by a corporation or a group of individuals.\nPARTNERSHIP: indicates a company that is owned by two or more corporations or individuals.\nSOLE_PROPRIETORSHIP: indicates a business that is owned by an individual.\nEuropean Union countries \nSTATE_OWNED_BUSINESS: indicates a business that is owned and operated by the government of a particular country or region.\nPRIVATELY_OWNED_BUSINESS: indicates a business that is owned and operated by private individuals or companies.\nPUBLICLY_LISTED_BUSINESS: indicates a business that has issued shares of stock that can be traded on a public stock exchange.\nSOLE_PROPRIETORSHIP: indicates a business that is owned by an individual.\nGB \nENTERPRISE: indicates a company that is owned by a corporation or a group of individuals.\nBR \nLTDA: indicates a Limited Liability Company (Limitada).\nSA: indicates a Limited Liability Corporation (Sociedade An\u00f4nima).\nEIRELI: indicates a Single Holder Limited Liability Entity (Empresa Individual de Responsabilidade Limitada).\nBOFC: indicates a Branch Office of a Foreign Company (Filial de empresa estrangeira).\nMEI: indicates a Micro Sole Proprietorship (Microempreendedor Individual). \nEI: indicates a Sole Proprietorship (Empresa Individual). \nMore information:\n\nMaximum length: 64 characters"
           },
           "registeredAddress": {
             "$ref": "#/components/schemas/Address",
@@ -687,7 +690,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/merchants/register",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ],
   "security": []

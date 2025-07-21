@@ -197,19 +197,24 @@
             "$ref": "#/components/schemas/CreditPayPlan"
           },
           "cardholderName": {
-            "type": "string"
+            "type": "string",
+            "description": "The cardholder's name.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "cardBin": {
-            "type": "string"
+            "type": "string",
+            "description": "The first six digits of the bank card number, used to identify the issuing bank and card type of the bank card.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 8 characters"
           },
           "lastFour": {
-            "type": "string"
+            "type": "string",
+            "description": "Last 4 digits of the card number.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 4 characters\n"
           },
           "expiryMonth": {
-            "type": "string"
+            "type": "string",
+            "description": "The month the card expires. Pass in two digits representing the month. For example, if the expiry month is February, the value of this parameter is 02.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 2 characters"
           },
           "expiryYear": {
-            "type": "string"
+            "type": "string",
+            "description": "The year the card expires. Pass in the last two digits of the year number. For example, if the expiry year is 2025, the value of this parameter is 25.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 2 characters"
           }
         }
       },
@@ -289,7 +294,7 @@
           },
           "value": {
             "type": "string",
-            "description": "The amount to charge as a positive integer in the smallest currency unit. (That is, 100 cents to charge $1.00, or 100 to charge JPY ¥100, a 0-decimal currency).\n\nNotes: For details about the smallest currency unit, see Smallest unit of the currency.\n\nMore information:\n\nValue range: 0 - unlimited"
+            "description": "The amount to charge as a positive integer in the smallest currency unit. (That is, 100 cents to charge $1.00, or 100 to charge JPY \u00a5100, a 0-decimal currency).\n\nNotes: For details about the smallest currency unit, see Smallest unit of the currency.\n\nMore information:\n\nValue range: 0 - unlimited"
           }
         },
         "required": [
@@ -366,8 +371,7 @@
         }
       },
       "ResultStatusType": {
-        "type":
-          "string",
+        "type": "string",
         "enum": [
           "S",
           "F",
@@ -593,7 +597,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/inquiryPayment",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ],
   "security": []

@@ -365,11 +365,11 @@
         "properties": {
           "paymentMethodType": {
             "type": "string",
-            "description": "The payment method type that is included in payment method options. By specifying the value of this parameter, you can receive the cashier URL of the specified payment method returned by Antom. See Payment methods to check the valid values. \n\nMore information:\n\nMaximum length: 64 characters"
+            "description": "The payment method type that is included in payment method options. By specifying the value of this parameter, you can receive the cashier URL of the specified payment method returned by Alipay. See Payment methods to check the valid values.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "paymentMethodId": {
             "type": "string",
-            "description": "The unique ID that is used to identify a payment method. The value of this parameter is that of cardToken obtained from the notifyPayment or inquiryPayment API. \n\nNote: Specify this parameter when the value of paymentMethodType is CARD.\n\nMore information:\n\nMaximum length: 128 characters"
+            "description": "The unique ID that is used to identify a payment method. The value of this parameter is that of cardToken obtained from the notifyPayment or inquiryPayment API. \n\nSpecify this parameter when the value of paymentMethodType is CARD.\n\nMore information:\n\nMaximum length: 128 characters"
           },
           "paymentMethodMetaData": {
             "type": "object",
@@ -377,7 +377,7 @@
             "additionalProperties": {
               "type": "object"
             },
-            "description": "Additional information required for some specific payment methods.  \n\nNote: Specify this parameter when the value of paymentMethodType is BLIK, P24 , CARD, MERCADOPAGO_BR, MERCADOPAGO_MX, MERCADOPAGO_CL, MERCADOPAGO_PE, ONLINEBANKING_FPX, PAGALEVE ,GOOGLEPAY or APPLEPAY."
+            "description": "Additional information required for some specific payment methods.  "
           },
           "customerId": {
             "type": "string",
@@ -388,9 +388,13 @@
             "description": "Extended information.\n\nNote: Specify this field if you need to use the extended information.\n\nMore information:\n\nMaximum length: 2048 characters"
           },
           "requireIssuerAuthentication": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Indicates whether Korean card transactions require authentication from the issuing bank. Valid values are:\n\ntrue: indicates that Korean card transactions require authentication from the issuing bank.\nfalse: indicates that Korean card transactions do not require authentication from the issuing bank. The same applies when you do not specify this parameter or the value is empty.\nSpecify this parameter when all the following conditions are met:\n\nThe value of paymentMethodType is CARD.\nThe value of paymentMethodRegion is KR.\nThe Korean card transactions require issuer authentication."
           }
-        }
+        },
+        "required": [
+          "paymentMethodType"
+        ]
       },
       "CreditPayFeeType": {
         "type": "string",
@@ -1406,19 +1410,19 @@
           },
           "normalUrl": {
             "type": "string",
-            "description": "The URL that redirects users to a WAP or WEB page in the default browser or the embedded WebView.\n\nNote: When the value of resultCode is ​PAYMENT_IN_PROCESS​, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters\n"
+            "description": "The URL that redirects users to a WAP or WEB page in the default browser or the embedded WebView.\n\nNote: When the value of resultCode is \u200bPAYMENT_IN_PROCESS\u200b, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters\n"
           },
           "schemeUrl": {
             "type": "string",
-            "description": "The URL scheme that redirects users to open an app in an Android or iOS system when the target app is installed.\n\nNote: When the value of resultCode is ​PAYMENT_IN_PROCESS​, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters"
+            "description": "The URL scheme that redirects users to open an app in an Android or iOS system when the target app is installed.\n\nNote: When the value of resultCode is \u200bPAYMENT_IN_PROCESS\u200b, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters"
           },
           "applinkUrl": {
             "type": "string",
-            "description": "The URL that redirects users to open an app when the target app is installed, or to open a WAP page when the target app is not installed. For Android, the URL is a Native App Link. For iOS, the URL is a Universal Link.\n\nNote: When the value of resultCode is ​PAYMENT_IN_PROCESS​, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters"
+            "description": "The URL that redirects users to open an app when the target app is installed, or to open a WAP page when the target app is not installed. For Android, the URL is a Native App Link. For iOS, the URL is a Universal Link.\n\nNote: When the value of resultCode is \u200bPAYMENT_IN_PROCESS\u200b, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters"
           },
           "appIdentifier": {
             "type": "string",
-            "description": "Android package name, which is used by Android apps to open a cashier page.\n\nNote: This field is returned when resultCode is ​PAYMENT_IN_PROCESS​ and terminalType is APP or WAP."
+            "description": "Android package name, which is used by Android apps to open a cashier page.\n\nNote: This field is returned when resultCode is \u200bPAYMENT_IN_PROCESS\u200b and terminalType is APP or WAP."
           },
           "paymentResultInfo": {
             "$ref": "#/components/schemas/PaymentResultInfo",
@@ -1445,7 +1449,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/pay",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ]
 }
