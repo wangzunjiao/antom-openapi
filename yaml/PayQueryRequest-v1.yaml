@@ -1,3 +1,4 @@
+---
 openapi: 3.1.0
 info:
   title: payments_ inquiryPayment
@@ -9,10 +10,11 @@ paths:
     post:
       summary: inquiryPayment
       deprecated: false
-      description: >
-        Use this API to get the cashier page address. After getting the cashier
-        page address, you can redirect the user to the cashier page to make a
-        payment.
+      description: 'Use this API to get the cashier page address. After getting the
+        cashier page address, you can redirect the user to the cashier page to make
+        a payment.
+
+        '
       tags: []
       parameters: []
       requestBody:
@@ -34,7 +36,7 @@ components:
     CreditPayFeeType:
       type: string
       enum:
-        - PERCENTAGE
+      - PERCENTAGE
     CreditPayPlan:
       type: object
       properties:
@@ -51,113 +53,77 @@ components:
       properties:
         quoteId:
           type: string
-          description: >-
-            The unique ID that is assigned by Antom to identify an exchange
-            rate. 
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The unique ID that is assigned by Antom to identify an exchange\
+            \ rate. \n\nMore information:\n\nMaximum length: 64 characters"
         quoteCurrencyPair:
           type: string
-          description: >-
-            The exchange rate between settlement currency and transaction
-            currency. Two currencies are separated with a slash and use the
-            three-letter ISO-4217 currency code.  
-
-
-            More information:
-
-
-            Maximum length: 16 characters
+          description: "The exchange rate between settlement currency and transaction\
+            \ currency. Two currencies are separated with a slash and use the three-letter\
+            \ ISO-4217 currency code.  \n\nMore information:\n\nMaximum length: 16\
+            \ characters"
         quotePrice:
           type: number
-          description: >-
-            The exchange rate used when a currency conversion between settlement
-            currency and transaction currency occurs.  
-
-
-            More information:
-
-
-            Value range: 1 - unlimited
+          description: "The exchange rate used when a currency conversion between\
+            \ settlement currency and transaction currency occurs.  \n\nMore information:\n\
+            \nValue range: 1 - unlimited"
         quoteStartTime:
           type: string
-          description: >
-            Effective time of the exchange rate. 
-
-
-            More information:
-
-
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+          description: "Effective time of the exchange rate. \n\nMore information:\n\
+            \nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"\
+            .\n"
         quoteExpiryTime:
           type: string
-          description: >
-            Expiration time of the exchange rate.  
-
-
-            More information:
-
-
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+          description: "Expiration time of the exchange rate.  \n\nMore information:\n\
+            \nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"\
+            .\n"
         guaranteed:
           type: boolean
-          description: |+
-            Guaranteed exchange rate available for payment.  
-
+          description: "Guaranteed exchange rate available for payment.  \n\n"
       required:
-        - quoteCurrencyPair
-        - quotePrice
+      - quoteCurrencyPair
+      - quotePrice
     PspCustomerInfo:
       type: object
       properties:
         pspName:
           type: string
-          description: >-
-            The name of Alipay+ payment methods.
+          description: 'The name of Alipay+ payment methods.
 
 
-            Note: This field is returned when the Alipay+ payment methods can
-            provide the related information.
+            Note: This field is returned when the Alipay+ payment methods can provide
+            the related information.
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         pspCustomerId:
           type: string
-          description: >-
-            The customer ID of Alipay+ payment methods.
+          description: 'The customer ID of Alipay+ payment methods.
 
 
-            Note: This field is returned when the Alipay+ payment methods can
-            provide the related information.
+            Note: This field is returned when the Alipay+ payment methods can provide
+            the related information.
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         displayCustomerId:
           type: string
-          description: >-
-            The customer ID used for display. For example, loginId.
+          description: 'The customer ID used for display. For example, loginId.
 
 
-            Note: This field is returned when the Alipay+ payment methods can
-            provide the related information.
+            Note: This field is returned when the Alipay+ payment methods can provide
+            the related information.
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         displayCustomerName:
           type: string
         customer2088Id:
@@ -169,61 +135,57 @@ components:
       properties:
         method:
           type: string
-          description: >-
-            The HTTP method to be used when the merchant initiates a redirection
+          description: 'The HTTP method to be used when the merchant initiates a redirection
             to the redirection URL. Valid values are:
 
 
-            POST: Indicates that the request that is sent to the redirection
-            address needs to be a POST request.
+            POST: Indicates that the request that is sent to the redirection address
+            needs to be a POST request.
 
-            GET: Indicates that the request that is sent to the redirection
-            address needs to be a GET request. 
+            GET: Indicates that the request that is sent to the redirection address
+            needs to be a GET request. '
         parameters:
           type: string
-          description: |-
-            Parameters required for the HTTP method in the key-value pair.
+          description: 'Parameters required for the HTTP method in the key-value pair.
+
 
             Note: This field is returned only when the method is POST.
 
+
             More information:
 
-            Maximum length: 2048 characters
+
+            Maximum length: 2048 characters'
         redirectUrl:
           type: string
-          description: |
-            The URL where the user is redirected to. 
-
-            More information:
-
-            Maximum length: 2048 characters
+          description: "The URL where the user is redirected to. \n\nMore information:\n\
+            \nMaximum length: 2048 characters\n"
         actionFormType:
           type: string
-          description: |-
-            The value is fixed as RedirectActionForm.
+          description: 'The value is fixed as RedirectActionForm.
+
 
             More information:
 
-            Maximum length: 32 characters
+
+            Maximum length: 32 characters'
       required:
-        - actionFormType
-        - redirectUrl
+      - actionFormType
+      - redirectUrl
     PaymentResultInfo:
       type: object
       properties:
         cardNo:
           type: string
-          description: >-
-            The masked card number, which just shows part of the card number and
-            can be used to display to the user
+          description: The masked card number, which just shows part of the card number
+            and can be used to display to the user
         cardBrand:
           type: string
           description: The card brand, which can be used to display to the user
         cardToken:
           type: string
-          description: >-
-            The token of the card, the value of this parameter is used by
-            paymentMethodId in the pay
+          description: The token of the card, the value of this parameter is used
+            by paymentMethodId in the pay
         issuingCountry:
           type: string
           description: The issuing country of the card
@@ -232,39 +194,104 @@ components:
           description: The funding type of the card.
         paymentMethodRegion:
           type: string
-          description: >-
-            The region code that represents the country or region of the payment
-            method
-        threeDSResult: &ref_0
+          description: The region code that represents the country or region of the
+            payment method
+        threeDSResult:
           description: The result of 3D Secure authentication
           $ref: '#/components/schemas/ThreeDSResult'
         avsResultRaw:
           type: string
-          description: The raw AVS result. See AVS result codes to check the valid values
+          description: The raw AVS result. See AVS result codes to check the valid
+            values
         cvvResultRaw:
           type: string
-          description: >-
-            The raw Card Verification Value (CVV), Card Security Code (CSC), or
-            Card Verification Code (CVC) result
+          description: The raw Card Verification Value (CVV), Card Security Code (CSC),
+            or Card Verification Code (CVC) result
         networkTransactionId:
           type: string
-          description: >-
-            The unique ID assigned by the card scheme to identify a transaction.
-            The value of this parameter is used by the same parameter of pay
-            (Cashier Payment) request in subsequent payments
+          description: The unique ID assigned by the card scheme to identify a transaction.
+            The value of this parameter is used by the same parameter of pay (Cashier
+            Payment) request in subsequent payments
         creditPayPlan:
           description: The installment plan information for an installment payment
           $ref: '#/components/schemas/CreditPayPlan'
         cardholderName:
           type: string
+          description: 'The cardholder''s name.
+
+
+            Note: This parameter is returned when the value of paymentMethodType in
+            the pay (Checkout Payment) API is CARD for specific merchants in specific
+            regions.
+
+
+            More information:
+
+
+            Maximum length: 64 characters'
         cardBin:
           type: string
+          description: 'The first six digits of the bank card number, used to identify
+            the issuing bank and card type of the bank card.
+
+
+            Note: This parameter is returned when the value of paymentMethodType in
+            the pay (Checkout Payment) API is CARD for specific merchants in specific
+            regions.
+
+
+            More information:
+
+
+            Maximum length: 8 characters'
         lastFour:
           type: string
+          description: 'Last 4 digits of the card number.
+
+
+            Note: This parameter is returned when the value of paymentMethodType in
+            the pay (Checkout Payment) API is CARD for specific merchants in specific
+            regions.
+
+
+            More information:
+
+
+            Maximum length: 4 characters
+
+            '
         expiryMonth:
           type: string
+          description: 'The month the card expires. Pass in two digits representing
+            the month. For example, if the expiry month is February, the value of
+            this parameter is 02.
+
+
+            Note: This parameter is returned when the value of paymentMethodType in
+            the pay (Checkout Payment) API is CARD for specific merchants in specific
+            regions.
+
+
+            More information:
+
+
+            Maximum length: 2 characters'
         expiryYear:
           type: string
+          description: 'The year the card expires. Pass in the last two digits of
+            the year number. For example, if the expiry year is 2025, the value of
+            this parameter is 25.
+
+
+            Note: This parameter is returned when the value of paymentMethodType in
+            the pay (Checkout Payment) API is CARD for specific merchants in specific
+            regions.
+
+
+            More information:
+
+
+            Maximum length: 2 characters'
     AcquirerInfo:
       type: object
       properties:
@@ -283,109 +310,107 @@ components:
     PromotionType:
       type: string
       enum:
-        - DISCOUNT
-        - INTEREST_FREE
+      - DISCOUNT
+      - INTEREST_FREE
     PromotionResult:
       type: object
       properties:
         promotionType:
           $ref: '#/components/schemas/PromotionType'
-          description: |-
-            Promotion type. Valid values are:
+          description: 'Promotion type. Valid values are:
+
 
             DISCOUNT: a deduction from the regular price.
 
+
             INTEREST_FREE: payment in interest-free installments.
+
 
             More information:
 
-            Maximum length: 32 characters
+
+            Maximum length: 32 characters'
         discount:
           $ref: '#/components/schemas/Discount'
-          description: >-
-            Discount information.
+          description: 'Discount information.
 
 
-            Note: This parameter is returned when the buyer applied a promotion
-            while placing an order.
+            Note: This parameter is returned when the buyer applied a promotion while
+            placing an order.'
       required:
-        - promotionType
+      - promotionType
     Result:
       type: object
       properties:
         resultCode:
           type: string
-          description: >
-            Result code. Possible values are listed in the Result/Error codes
-            table on this page.
+          description: 'Result code. Possible values are listed in the Result/Error
+            codes table on this page.
 
 
             More information:
 
 
             Maximum length: 64 characters
-        resultStatus:
-          description: |-
-            Result status. Valid values are:  
 
-            S: Indicates that this API is called successfully. 
-            F: Indicates that this API call is failed. 
-            U: Indicates that the calling status of this API is unknown. 
+            '
+        resultStatus:
+          description: "Result status. Valid values are:  \n\nS: Indicates that this\
+            \ API is called successfully. \nF: Indicates that this API call is failed.\
+            \ \nU: Indicates that the calling status of this API is unknown. "
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
-          description: |-
-            Result message that explains the result code.
+          description: 'Result message that explains the result code.
+
 
             More information:
 
-            Maximum length: 256 characters
+
+            Maximum length: 256 characters'
       required:
-        - resultCode
-        - resultStatus
+      - resultCode
+      - resultStatus
     Amount:
       type: object
       properties:
         currency:
           type: string
-          description: >-
-            The transaction currency, which is a 3-letter currency code that
-            follows the ISO 4217 standard. (The transaction currency is the
-            processing currency when the processing currency is the same as the
-            presentment currency).
+          description: 'The transaction currency, which is a 3-letter currency code
+            that follows the ISO 4217 standard. (The transaction currency is the processing
+            currency when the processing currency is the same as the presentment currency).
 
 
             More information:
 
 
-            Maximum length: 3 characters
+            Maximum length: 3 characters'
         value:
           type: string
-          description: >-
-            The amount to charge as a positive integer in the smallest currency
-            unit. (That is, 100 cents to charge $1.00, or 100 to charge JPY
+          description: 'The amount to charge as a positive integer in the smallest
+            currency unit. (That is, 100 cents to charge $1.00, or 100 to charge JPY
             ¥100, a 0-decimal currency).
 
 
-            Notes: For details about the smallest currency unit, see Smallest
-            unit of the currency.
+            Notes: For details about the smallest currency unit, see Smallest unit
+            of the currency.
 
 
             More information:
 
 
-            Value range: 0 - unlimited
+            Value range: 0 - unlimited'
       required:
-        - currency
-        - value
+      - currency
+      - value
     TransactionStatusType:
       type: string
       enum:
-        - SUCCESS
-        - FAIL
-        - PROCESSING
-        - CANCELLED
-        - PENDING
+      - SUCCESS
+      - FAIL
+      - PROCESSING
+      - CANCELLED
+      - PENDING
     ThreeDSResult:
       type: object
       properties:
@@ -394,9 +419,8 @@ components:
           description: The version of 3D Secure protocol
         eci:
           type: string
-          description: >-
-            Electronic Commerce Indicator (ECI) that is returned by the card
-            scheme
+          description: Electronic Commerce Indicator (ECI) that is returned by the
+            card scheme
         cavv:
           type: string
           description: The cardholder authentication value
@@ -405,17 +429,15 @@ components:
           description: dsTransactionId
         xid:
           type: string
-          description: >-
-            The unique transaction identifier assigned by the Directory Server
-            (DS) for 3D Secure authentication
+          description: The unique transaction identifier assigned by the Directory
+            Server (DS) for 3D Secure authentication
     CardInfo:
       type: object
       properties:
         cardNo:
           type: string
-          description: >-
-            The masked card number, which just shows part of the card number and
-            can be used to display to the user
+          description: The masked card number, which just shows part of the card number
+            and can be used to display to the user
         cardBrand:
           type: string
           description: The card brand
@@ -430,108 +452,81 @@ components:
           description: The funding type of the card
         paymentMethodRegion:
           type: string
-          description: >-
-            The region code that represents the country or region of the payment
-            method
-        threeDSResult: *ref_0
+          description: The region code that represents the country or region of the
+            payment method
+        threeDSResult:
+          description: The result of 3D Secure authentication
+          $ref: '#/components/schemas/ThreeDSResult'
     ResultStatusType:
       type:
-        - string
-        - 'null'
+      - string
+      - 'null'
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
     TransactionType:
       type: string
       enum:
-        - PAYMENT
-        - REFUND
-        - CAPTURE
-        - CANCEL
-        - AUTHORIZATION
-        - VOID
+      - PAYMENT
+      - REFUND
+      - CAPTURE
+      - CANCEL
+      - AUTHORIZATION
+      - VOID
     Transaction:
       type: object
       properties:
-        transactionResult: &ref_2
+        transactionResult: &id002
           $ref: '#/components/schemas/Result'
           description: 'The result of the subsequent action against the transaction. '
         transactionId:
           type: string
-          description: >-
-            The unique ID that is assigned by Antom to identify a transaction.
-
-
-            When the transaction type is REFUND, the value of this parameter is
-            identical to refundId.
-
-            When the transaction type is CAPTURE, the value of this parameter is
-            identical to captureId.  
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The unique ID that is assigned by Antom to identify a transaction.\n\
+            \nWhen the transaction type is REFUND, the value of this parameter is\
+            \ identical to refundId.\nWhen the transaction type is CAPTURE, the value\
+            \ of this parameter is identical to captureId.  \nMore information:\n\n\
+            Maximum length: 64 characters"
         transactionType:
           $ref: '#/components/schemas/TransactionType'
-          description: >-
-            The transaction type of the subsequent action. The valid values are:
+          description: 'The transaction type of the subsequent action. The valid values
+            are:
 
 
-            REFUND: Indicates that the transaction is in the refund process or
-            has been refunded.
+            REFUND: Indicates that the transaction is in the refund process or has
+            been refunded.
 
-            CAPTURE: Indicates that the transaction is in the capture process or
-            has been captured. 
-        transactionStatus: &ref_3
+            CAPTURE: Indicates that the transaction is in the capture process or has
+            been captured. '
+        transactionStatus: &id003
           $ref: '#/components/schemas/TransactionStatusType'
-          description: |-
-            Transaction status. Valid values are:
-
-            SUCCESS:Transaction is successful. 
-            FAIL: Transaction failed. 
-            PROCESSING: Transaction is being processed. 
-            CANCELLED:Transaction is canceled.
-        transactionAmount: &ref_1
+          description: "Transaction status. Valid values are:\n\nSUCCESS:Transaction\
+            \ is successful. \nFAIL: Transaction failed. \nPROCESSING: Transaction\
+            \ is being processed. \nCANCELLED:Transaction is canceled."
+        transactionAmount: &id001
           $ref: '#/components/schemas/Amount'
-          description: >-
-            The transaction amount. 
-
-
-            When the transaction type is REFUND, the value of this parameter is
-            identical to refundAmount.
-
-            When the transaction type is CAPTURE, the value of this parameter is
-            identical to captureAmount.  
+          description: "The transaction amount. \n\nWhen the transaction type is REFUND,\
+            \ the value of this parameter is identical to refundAmount.\nWhen the\
+            \ transaction type is CAPTURE, the value of this parameter is identical\
+            \ to captureAmount.  "
         transactionRequestId:
           type: string
-          description: >-
-            The unique ID that is assigned by the merchant to identify the
-            transaction request.
-
-
-            When the transaction type is REFUND, the value of this parameter is
-            identical to refundRequestId.
-
-            When the transaction type is CAPTURE, the value of this parameter is
-            identical to captureRequestId. 
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The unique ID that is assigned by the merchant to identify\
+            \ the transaction request.\n\nWhen the transaction type is REFUND, the\
+            \ value of this parameter is identical to refundRequestId.\nWhen the transaction\
+            \ type is CAPTURE, the value of this parameter is identical to captureRequestId.\
+            \ \nMore information:\n\nMaximum length: 64 characters"
         transactionTime:
           type: string
-        acquirerInfo: &ref_5
+        acquirerInfo: &id005
           $ref: '#/components/schemas/AcquirerInfo'
       required:
-        - transactionResult
-        - transactionId
-        - transactionType
-        - transactionStatus
-        - transactionAmount
-        - transactionRequestId
+      - transactionResult
+      - transactionId
+      - transactionType
+      - transactionStatus
+      - transactionAmount
+      - transactionRequestId
     Discount:
       type: object
       properties:
@@ -539,264 +534,225 @@ components:
           type: string
         discountName:
           type: string
-          description: |-
-            The discount name displayed in the default language.
+          description: 'The discount name displayed in the default language.
+
 
             More information:
 
-            Maximum length: 128 characters
-        savingsAmount: *ref_1
-        estimateSavingsAmount: *ref_1
+
+            Maximum length: 128 characters'
+        savingsAmount: *id001
+        estimateSavingsAmount: *id001
     AlipayPayQueryRequest:
       type: object
       properties:
         paymentRequestId:
           type: string
-          description: >-
-            The unique ID that is assigned by a merchant to identify a payment
-            request. paymentRequestId and paymentId cannot both be null. If both
-            paymentRequestId and paymentId are specified, paymentId takes
-            precedence.
+          description: 'The unique ID that is assigned by a merchant to identify a
+            payment request. paymentRequestId and paymentId cannot both be null. If
+            both paymentRequestId and paymentId are specified, paymentId takes precedence.
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         paymentId:
           type: string
-          description: >-
-            The unique ID that is assigned by Antom to identify a payment.
-            paymentRequestId and paymentId cannot both be null. A one-to-one
-            correspondence between paymentId and paymentRequestId exists. If
-            both paymentRequestId and paymentId are specified, paymentId takes
-            precedence.
+          description: 'The unique ID that is assigned by Antom to identify a payment.
+            paymentRequestId and paymentId cannot both be null. A one-to-one correspondence
+            between paymentId and paymentRequestId exists. If both paymentRequestId
+            and paymentId are specified, paymentId takes precedence.
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         merchantAccountId:
           type: string
-          description: >-
-            The unique ID to identify a merchant account.
+          description: 'The unique ID to identify a merchant account.
 
 
-            Note: Specify this parameter when you use a single client ID across
-            multiple locations.
+            Note: Specify this parameter when you use a single client ID across multiple
+            locations.
 
 
             More information:
 
 
-            Maximum length: 32 characters
+            Maximum length: 32 characters'
     AlipayPayQueryResponse:
       type: object
       properties:
-        result: *ref_2
-        paymentStatus: *ref_3
+        result: *id002
+        paymentStatus: *id003
         paymentResultCode:
           type: string
-          description: >
-            The result code for different payment statuses. Possible payment
-            result codes are listed in the Payment result codes table on this
-            page.
+          description: 'The result code for different payment statuses. Possible payment
+            result codes are listed in the Payment result codes table on this page.
 
 
-            Note: This field is returned when the API is called successfully
-            (the value of result.resultStatus is S).
+            Note: This field is returned when the API is called successfully (the
+            value of result.resultStatus is S).
 
 
             More information:
 
 
             Maximum length: 64 characters
+
+            '
         paymentResultMessage:
           type: string
-          description: >
-            The result message that explains the payment result code.
+          description: 'The result message that explains the payment result code.
 
 
-            Note: This field is returned when the API is called successfully
-            (the value of result.resultStatus is S).
+            Note: This field is returned when the API is called successfully (the
+            value of result.resultStatus is S).
 
 
             More information:
 
 
             Maximum length: 256 characters
+
+            '
         paymentRequestId:
           type: string
-          description: >-
-            The unique ID that is assigned by a merchant to identify a payment
-            request.
+          description: 'The unique ID that is assigned by a merchant to identify a
+            payment request.
 
 
-            Note: This field is returned when the API is called successfully
-            (the value of result.resultStatus is S).
+            Note: This field is returned when the API is called successfully (the
+            value of result.resultStatus is S).
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         paymentId:
           type: string
-          description: >-
-            The unique ID that is assigned by Antom to identify a payment.
+          description: 'The unique ID that is assigned by Antom to identify a payment.
 
 
-            Note: This field is returned when the API is called successfully
-            (the value of result.resultStatus is S).
+            Note: This field is returned when the API is called successfully (the
+            value of result.resultStatus is S).
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         authPaymentId:
           type: string
-        paymentAmount: *ref_1
-        actualPaymentAmount: *ref_1
-        paymentQuote: &ref_4
+        paymentAmount: *id001
+        actualPaymentAmount: *id001
+        paymentQuote: &id004
           $ref: '#/components/schemas/Quote'
         authExpiryTime:
           type: string
-          description: >
-            The expiration date and time of the authorization payment. You
-            cannot capture the payment after this time.
+          description: 'The expiration date and time of the authorization payment.
+            You cannot capture the payment after this time.
 
 
-            This parameter is returned when the value of paymentMethodType in
-            the pay (Checkout Payment) API is CARD.
+            This parameter is returned when the value of paymentMethodType in the
+            pay (Checkout Payment) API is CARD.
 
 
             More information about this field:
 
 
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".
+
+            '
         paymentCreateTime:
           type: string
-          description: >
-            The date and time when the payment is created. 
-
-
-            Note: This field is returned when the API is called successfully
-            (the value of result.resultStatus is S).
-
-
-            More information:
-
-
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+          description: "The date and time when the payment is created. \n\nNote: This\
+            \ field is returned when the API is called successfully (the value of\
+            \ result.resultStatus is S).\n\nMore information:\n\nThe value follows\
+            \ the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"\
+            .\n"
         paymentTime:
           type: string
-          description: >
-            The date and time when the payment reaches a final state of success.
-
-
-            Note: This field is returned only when the payment reaches a final
-            state of success (the value of paymentStatus is SUCCESS). 
-
-
-            More information:
-
-
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
-        nonGuaranteeCouponAmount: *ref_1
+          description: "The date and time when the payment reaches a final state of\
+            \ success.\n\nNote: This field is returned only when the payment reaches\
+            \ a final state of success (the value of paymentStatus is SUCCESS). \n\
+            \nMore information:\n\nThe value follows the ISO 8601 standard format.\
+            \ For example, \"2019-11-27T12:01:01+08:00\".\n"
+        nonGuaranteeCouponAmount: *id001
         pspCustomerInfo:
           $ref: '#/components/schemas/PspCustomerInfo'
-          description: >+
-            The customer information of Alipay+ payment methods.
+          description: 'The customer information of Alipay+ payment methods.
 
 
-            Note: This field is returned when the Alipay+ payment methods can
-            provide the related information.
+            Note: This field is returned when the Alipay+ payment methods can provide
+            the related information.
 
+
+            '
         redirectActionForm:
           $ref: '#/components/schemas/RedirectActionForm'
-          description: >+
-            Information about the redirection action.
+          description: 'Information about the redirection action.
 
 
-            Note: This field is returned when the value of paymentResultCode is
-            PAYMENT_IN_PROCESS.
+            Note: This field is returned when the value of paymentResultCode is PAYMENT_IN_PROCESS.
 
+
+            '
         cardInfo:
           $ref: '#/components/schemas/CardInfo'
         acquirerReferenceNo:
           type: string
-          description: >
-            The unique ID assigned by the non-Antom acquirer for the
-            transaction.  
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The unique ID assigned by the non-Antom acquirer for the transaction.\
+            \  \n\nMore information:\n\nMaximum length: 64 characters\n"
         extendInfo:
           type: string
         transactions:
           type: array
           items:
             $ref: '#/components/schemas/Transaction'
-          description: >-
-            Information about the subsequent action against a transaction.
+          description: 'Information about the subsequent action against a transaction.
 
 
-            Note: This parameter is returned when a refund or a capture against
-            the transaction exists.
-        customsDeclarationAmount: *ref_1
-        grossSettlementAmount: *ref_1
-        settlementQuote: *ref_4
+            Note: This parameter is returned when a refund or a capture against the
+            transaction exists.'
+        customsDeclarationAmount: *id001
+        grossSettlementAmount: *id001
+        settlementQuote: *id004
         paymentResultInfo:
           $ref: '#/components/schemas/PaymentResultInfo'
-          description: >-
-            The payment result information.
+          description: 'The payment result information.
 
 
-            This parameter is returned when the value of paymentMethodType in
-            the pay (Checkout Payment) API is CARD, GRABPAY_MY, or GRABPAY_SG
-            and the value of paymentStatus is SUCCESS or FAIL.  
-        acquirerInfo: *ref_5
+            This parameter is returned when the value of paymentMethodType in the
+            pay (Checkout Payment) API is CARD, GRABPAY_MY, or GRABPAY_SG and the
+            value of paymentStatus is SUCCESS or FAIL.  '
+        acquirerInfo: *id005
         merchantAccountId:
           type: string
         promotionResults:
           type: array
           items:
             $ref: '#/components/schemas/PromotionResult'
-          description: >-
-            Promotion result.
+          description: 'Promotion result.
 
 
-            Note: This parameter is returned when the buyer applied a promotion
-            while placing an order.
+            Note: This parameter is returned when the buyer applied a promotion while
+            placing an order.'
         earliestSettlementTime:
           type: string
         paymentMethodType:
           type: string
-          description: >-
-            The payment method type that is included in payment method options.
-            See Payment methods to check the valid values. 
-
-
-            Note: This field will be returned when selecting the Antom Chechkout
-            Page integration.
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The payment method type that is included in payment method\
+            \ options. See Payment methods to check the valid values. \n\nNote: This\
+            \ field will be returned when selecting the Antom Chechkout Page integration.\n\
+            \nMore information:\n\nMaximum length: 64 characters"
       required:
-        - result
+      - result
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/payments/inquiryPayment
-    description: 正式环境
+- url: https://open-sea-global.alipay.com/ams/api/v1/payments/inquiryPayment
+  description: 正式环境
 security: []
