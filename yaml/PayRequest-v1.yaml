@@ -830,8 +830,14 @@ components:
           description: 交易失败时返回的原始拒绝原因，卡支付场景且渠道有返回时提供
         merchantAdviceCode:
           type: string
-          maxLength: 128
           description: 卡支付场景且渠道有返回时提供的商户建议代码
+          maxLength: 128
+        acquirerInfo:
+          type: object
+          properties:
+            acquirerMerchantName:
+              type: string
+              description: 收单方商户名称
         cardNo:
           type: string
           description: The masked card number, which just shows part of the card number
