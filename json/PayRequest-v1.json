@@ -607,6 +607,19 @@
       "PaymentResultInfo": {
         "type": "object",
         "properties": {
+          "refusalCodeRaw": {
+            "type": "string",
+            "maxLength": 16,
+            "description": "\u5361\u652f\u4ed8\u5931\u8d25\u4e14\u6e20\u9053\u8fd4\u56de\u65f6\u7684\u539f\u59cb\u9519\u8bef\u7801"
+          },
+          "refusalReasonRaw": {
+            "type": "string",
+            "description": "\u6e20\u9053\u8fd4\u56de\u7684\u539f\u59cb\u62d2\u7edd\u539f\u56e0\u6587\u672c"
+          },
+          "merchantAdviceCode": {
+            "type": "string",
+            "description": "\u5361\u652f\u4ed8\u5931\u8d25\u65f6,\u94f6\u884c\u7ed9\u5546\u6237\u7684\u5efa\u8bae\u7801"
+          },
           "cardNo": {
             "type": "string",
             "description": "The masked card number, which just shows part of the card number and can be used to display to the user"
@@ -671,7 +684,12 @@
             "type": "string",
             "description": "The year the card expires. Pass in the last two digits of the year number. For example, if the expiry year is 2025, the value of this parameter is 25.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 2 characters"
           }
-        }
+        },
+        "required": [
+          "refusalCodeRaw",
+          "refusalReasonRaw",
+          "merchantAdviceCode"
+        ]
       },
       "AcquirerInfo": {
         "type": "object",
@@ -967,13 +985,28 @@
       "ThreeDSResult": {
         "type": "object",
         "properties": {
+          "eci": {
+            "type": "string",
+            "enum": [
+              "00",
+              "01",
+              "02",
+              "03",
+              "04",
+              "05",
+              "06",
+              "07",
+              "08",
+              "09",
+              "54",
+              "55",
+              "56"
+            ],
+            "description": "Electronic Commerce Indicator (ECI) that is returned by the card scheme"
+          },
           "threeDSVersion": {
             "type": "string",
             "description": "The version of 3D Secure protocol"
-          },
-          "eci": {
-            "type": "string",
-            "description": "Electronic Commerce Indicator (ECI) that is returned by the card scheme"
           },
           "cavv": {
             "type": "string",
@@ -987,7 +1020,10 @@
             "type": "string",
             "description": "The unique transaction identifier assigned by the Directory Server (DS) for 3D Secure authentication"
           }
-        }
+        },
+        "required": [
+          "eci"
+        ]
       },
       "ResultStatusType": {
         "type": "string",
@@ -1406,19 +1442,19 @@
           },
           "normalUrl": {
             "type": "string",
-            "description": "The URL that redirects users to a WAP or WEB page in the default browser or the embedded WebView.\n\nNote: When the value of resultCode is ​PAYMENT_IN_PROCESS​, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters\n"
+            "description": "The URL that redirects users to a WAP or WEB page in the default browser or the embedded WebView.\n\nNote: When the value of resultCode is \u200bPAYMENT_IN_PROCESS\u200b, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters\n"
           },
           "schemeUrl": {
             "type": "string",
-            "description": "The URL scheme that redirects users to open an app in an Android or iOS system when the target app is installed.\n\nNote: When the value of resultCode is ​PAYMENT_IN_PROCESS​, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters"
+            "description": "The URL scheme that redirects users to open an app in an Android or iOS system when the target app is installed.\n\nNote: When the value of resultCode is \u200bPAYMENT_IN_PROCESS\u200b, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters"
           },
           "applinkUrl": {
             "type": "string",
-            "description": "The URL that redirects users to open an app when the target app is installed, or to open a WAP page when the target app is not installed. For Android, the URL is a Native App Link. For iOS, the URL is a Universal Link.\n\nNote: When the value of resultCode is ​PAYMENT_IN_PROCESS​, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters"
+            "description": "The URL that redirects users to open an app when the target app is installed, or to open a WAP page when the target app is not installed. For Android, the URL is a Native App Link. For iOS, the URL is a Universal Link.\n\nNote: When the value of resultCode is \u200bPAYMENT_IN_PROCESS\u200b, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters"
           },
           "appIdentifier": {
             "type": "string",
-            "description": "Android package name, which is used by Android apps to open a cashier page.\n\nNote: This field is returned when resultCode is ​PAYMENT_IN_PROCESS​ and terminalType is APP or WAP."
+            "description": "Android package name, which is used by Android apps to open a cashier page.\n\nNote: This field is returned when resultCode is \u200bPAYMENT_IN_PROCESS\u200b and terminalType is APP or WAP."
           },
           "paymentResultInfo": {
             "$ref": "#/components/schemas/PaymentResultInfo",
@@ -1445,7 +1481,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/pay",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ]
 }
