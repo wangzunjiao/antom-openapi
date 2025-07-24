@@ -607,6 +607,28 @@
       "PaymentResultInfo": {
         "type": "object",
         "properties": {
+          "refusalCodeRaw": {
+            "type": "string",
+            "maxLength": 16
+          },
+          "refusalReasonRaw": {
+            "type": "string"
+          },
+          "merchantAdviceCode": {
+            "type": "string",
+            "maxLength": 16
+          },
+          "acquirerInfo": {
+            "type": "object",
+            "properties": {
+              "acquirerName": {
+                "type": "string"
+              },
+              "acquirerMerchantName": {
+                "type": "string"
+              }
+            }
+          },
           "cardNo": {
             "type": "string",
             "description": "The masked card number, which just shows part of the card number and can be used to display to the user"
@@ -967,13 +989,36 @@
       "ThreeDSResult": {
         "type": "object",
         "properties": {
+          "eci": {
+            "type": "string",
+            "enum": [
+              "04"
+            ],
+            "description": "Electronic Commerce Indicator (ECI) that is returned by the card scheme"
+          },
+          "is3DSDataOnly": {
+            "type": "boolean"
+          },
+          "paymentMethod": {
+            "type": "object",
+            "properties": {
+              "paymentMethodMetadata": {
+                "type": "object",
+                "properties": {
+                  "funding": {
+                    "type": "string",
+                    "enum": [
+                      "CREDIT",
+                      "DEBIT"
+                    ]
+                  }
+                }
+              }
+            }
+          },
           "threeDSVersion": {
             "type": "string",
             "description": "The version of 3D Secure protocol"
-          },
-          "eci": {
-            "type": "string",
-            "description": "Electronic Commerce Indicator (ECI) that is returned by the card scheme"
           },
           "cavv": {
             "type": "string",

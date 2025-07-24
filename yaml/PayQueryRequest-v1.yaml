@@ -175,6 +175,21 @@ components:
     PaymentResultInfo:
       type: object
       properties:
+        refusalCodeRaw:
+          type: string
+          maxLength: 16
+        refusalReasonRaw:
+          type: string
+        merchantAdviceCode:
+          type: string
+          maxLength: 16
+        acquirerInfo:
+          type: object
+          properties:
+            acquirerName:
+              type: string
+            acquirerMerchantName:
+              type: string
         cardNo:
           type: string
           description: The masked card number, which just shows part of the card number
@@ -196,7 +211,7 @@ components:
           type: string
           description: The region code that represents the country or region of the
             payment method
-        threeDSResult: &id001
+        threeDSResult:
           description: The result of 3D Secure authentication
           $ref: '#/components/schemas/ThreeDSResult'
         avsResultRaw:
@@ -217,14 +232,81 @@ components:
           $ref: '#/components/schemas/CreditPayPlan'
         cardholderName:
           type: string
+          description: 'The cardholder''s name.
+
+
+            Note: This parameter is returned when the value of paymentMethodType in
+            the pay (Checkout Payment) API is CARD for specific merchants in specific
+            regions.
+
+
+            More information:
+
+
+            Maximum length: 64 characters'
         cardBin:
           type: string
+          description: 'The first six digits of the bank card number, used to identify
+            the issuing bank and card type of the bank card.
+
+
+            Note: This parameter is returned when the value of paymentMethodType in
+            the pay (Checkout Payment) API is CARD for specific merchants in specific
+            regions.
+
+
+            More information:
+
+
+            Maximum length: 8 characters'
         lastFour:
           type: string
+          description: 'Last 4 digits of the card number.
+
+
+            Note: This parameter is returned when the value of paymentMethodType in
+            the pay (Checkout Payment) API is CARD for specific merchants in specific
+            regions.
+
+
+            More information:
+
+
+            Maximum length: 4 characters
+
+            '
         expiryMonth:
           type: string
+          description: 'The month the card expires. Pass in two digits representing
+            the month. For example, if the expiry month is February, the value of
+            this parameter is 02.
+
+
+            Note: This parameter is returned when the value of paymentMethodType in
+            the pay (Checkout Payment) API is CARD for specific merchants in specific
+            regions.
+
+
+            More information:
+
+
+            Maximum length: 2 characters'
         expiryYear:
           type: string
+          description: 'The year the card expires. Pass in the last two digits of
+            the year number. For example, if the expiry year is 2025, the value of
+            this parameter is 25.
+
+
+            Note: This parameter is returned when the value of paymentMethodType in
+            the pay (Checkout Payment) API is CARD for specific merchants in specific
+            regions.
+
+
+            More information:
+
+
+            Maximum length: 2 characters'
     AcquirerInfo:
       type: object
       properties:
@@ -347,13 +429,28 @@ components:
     ThreeDSResult:
       type: object
       properties:
+        eci:
+          type: string
+          enum:
+          - '04'
+          description: Electronic Commerce Indicator (ECI) that is returned by the
+            card scheme
+        is3DSDataOnly:
+          type: boolean
+        paymentMethod:
+          type: object
+          properties:
+            paymentMethodMetadata:
+              type: object
+              properties:
+                funding:
+                  type: string
+                  enum:
+                  - CREDIT
+                  - DEBIT
         threeDSVersion:
           type: string
           description: The version of 3D Secure protocol
-        eci:
-          type: string
-          description: Electronic Commerce Indicator (ECI) that is returned by the
-            card scheme
         cavv:
           type: string
           description: The cardholder authentication value
@@ -387,7 +484,9 @@ components:
           type: string
           description: The region code that represents the country or region of the
             payment method
-        threeDSResult: *id001
+        threeDSResult:
+          description: The result of 3D Secure authentication
+          $ref: '#/components/schemas/ThreeDSResult'
     ResultStatusType:
       type:
       - string
@@ -408,7 +507,7 @@ components:
     Transaction:
       type: object
       properties:
-        transactionResult: &id003
+        transactionResult: &id002
           $ref: '#/components/schemas/Result'
           description: 'The result of the subsequent action against the transaction. '
         transactionId:
@@ -429,12 +528,12 @@ components:
 
             CAPTURE: Indicates that the transaction is in the capture process or has
             been captured. '
-        transactionStatus: &id004
+        transactionStatus: &id003
           $ref: '#/components/schemas/TransactionStatusType'
           description: "Transaction status. Valid values are:\n\nSUCCESS:Transaction\
             \ is successful. \nFAIL: Transaction failed. \nPROCESSING: Transaction\
             \ is being processed. \nCANCELLED:Transaction is canceled."
-        transactionAmount: &id002
+        transactionAmount: &id001
           $ref: '#/components/schemas/Amount'
           description: "The transaction amount. \n\nWhen the transaction type is REFUND,\
             \ the value of this parameter is identical to refundAmount.\nWhen the\
@@ -449,7 +548,7 @@ components:
             \ \nMore information:\n\nMaximum length: 64 characters"
         transactionTime:
           type: string
-        acquirerInfo: &id006
+        acquirerInfo: &id005
           $ref: '#/components/schemas/AcquirerInfo'
       required:
       - transactionResult
@@ -472,8 +571,8 @@ components:
 
 
             Maximum length: 128 characters'
-        savingsAmount: *id002
-        estimateSavingsAmount: *id002
+        savingsAmount: *id001
+        estimateSavingsAmount: *id001
     AlipayPayQueryRequest:
       type: object
       properties:
@@ -516,8 +615,8 @@ components:
     AlipayPayQueryResponse:
       type: object
       properties:
-        result: *id003
-        paymentStatus: *id004
+        result: *id002
+        paymentStatus: *id003
         paymentResultCode:
           type: string
           description: 'The result code for different payment statuses. Possible payment
@@ -578,9 +677,9 @@ components:
             Maximum length: 64 characters'
         authPaymentId:
           type: string
-        paymentAmount: *id002
-        actualPaymentAmount: *id002
-        paymentQuote: &id005
+        paymentAmount: *id001
+        actualPaymentAmount: *id001
+        paymentQuote: &id004
           $ref: '#/components/schemas/Quote'
         authExpiryTime:
           type: string
@@ -612,7 +711,7 @@ components:
             \ a final state of success (the value of paymentStatus is SUCCESS). \n\
             \nMore information:\n\nThe value follows the ISO 8601 standard format.\
             \ For example, \"2019-11-27T12:01:01+08:00\".\n"
-        nonGuaranteeCouponAmount: *id002
+        nonGuaranteeCouponAmount: *id001
         pspCustomerInfo:
           $ref: '#/components/schemas/PspCustomerInfo'
           description: 'The customer information of Alipay+ payment methods.
@@ -649,9 +748,9 @@ components:
 
             Note: This parameter is returned when a refund or a capture against the
             transaction exists.'
-        customsDeclarationAmount: *id002
-        grossSettlementAmount: *id002
-        settlementQuote: *id005
+        customsDeclarationAmount: *id001
+        grossSettlementAmount: *id001
+        settlementQuote: *id004
         paymentResultInfo:
           $ref: '#/components/schemas/PaymentResultInfo'
           description: 'The payment result information.
@@ -660,7 +759,7 @@ components:
             This parameter is returned when the value of paymentMethodType in the
             pay (Checkout Payment) API is CARD, GRABPAY_MY, or GRABPAY_SG and the
             value of paymentStatus is SUCCESS or FAIL.  '
-        acquirerInfo: *id006
+        acquirerInfo: *id005
         merchantAccountId:
           type: string
         promotionResults:
