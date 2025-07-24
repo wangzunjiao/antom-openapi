@@ -152,6 +152,21 @@
       "PaymentResultInfo": {
         "type": "object",
         "properties": {
+          "refusalCodeRaw": {
+            "type": "string",
+            "maxLength": 16,
+            "description": "\u5361\u652f\u4ed8\u5931\u8d25\u4e14\u6e20\u9053\u8fd4\u56de\u65f6\u7684\u539f\u59cb\u9519\u8bef\u7801"
+          },
+          "refusalReasonRaw": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "\u4ea4\u6613\u5931\u8d25\u65f6\u8fd4\u56de\u7684\u539f\u59cb\u62d2\u7edd\u539f\u56e0\uff0c\u5361\u652f\u4ed8\u573a\u666f\u4e14\u6e20\u9053\u6709\u8fd4\u56de\u65f6\u63d0\u4f9b"
+          },
+          "merchantAdviceCode": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "\u5361\u652f\u4ed8\u573a\u666f\u4e14\u6e20\u9053\u6709\u8fd4\u56de\u65f6\u63d0\u4f9b\u7684\u5546\u6237\u5efa\u8bae\u4ee3\u7801"
+          },
           "cardNo": {
             "type": "string",
             "description": "The masked card number, which just shows part of the card number and can be used to display to the user"
@@ -197,19 +212,24 @@
             "$ref": "#/components/schemas/CreditPayPlan"
           },
           "cardholderName": {
-            "type": "string"
+            "type": "string",
+            "description": "The cardholder's name.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "cardBin": {
-            "type": "string"
+            "type": "string",
+            "description": "The first six digits of the bank card number, used to identify the issuing bank and card type of the bank card.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 8 characters"
           },
           "lastFour": {
-            "type": "string"
+            "type": "string",
+            "description": "Last 4 digits of the card number.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 4 characters\n"
           },
           "expiryMonth": {
-            "type": "string"
+            "type": "string",
+            "description": "The month the card expires. Pass in two digits representing the month. For example, if the expiry month is February, the value of this parameter is 02.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 2 characters"
           },
           "expiryYear": {
-            "type": "string"
+            "type": "string",
+            "description": "The year the card expires. Pass in the last two digits of the year number. For example, if the expiry year is 2025, the value of this parameter is 25.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 2 characters"
           }
         }
       },
@@ -310,13 +330,21 @@
       "ThreeDSResult": {
         "type": "object",
         "properties": {
+          "eci": {
+            "type": "string",
+            "enum": [
+              "01",
+              "02",
+              "05",
+              "06",
+              "07",
+              "04"
+            ],
+            "description": "Electronic Commerce Indicator (ECI) that is returned by the card scheme"
+          },
           "threeDSVersion": {
             "type": "string",
             "description": "The version of 3D Secure protocol"
-          },
-          "eci": {
-            "type": "string",
-            "description": "Electronic Commerce Indicator (ECI) that is returned by the card scheme"
           },
           "cavv": {
             "type": "string",
