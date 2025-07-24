@@ -9,7 +9,7 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.ADYEN_AUTOMATION_BOT_ACCESS_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.ANTOM_AUTOMATION_BOT_TOKEN }}
     steps:
       - name: SDK Automation
         run: gh workflow run gradle.yml -R wangzunjiao/antom-adk-automation
