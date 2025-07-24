@@ -1,3 +1,4 @@
+---
 openapi: 3.1.0
 info:
   title: payments_capture
@@ -20,43 +21,27 @@ paths:
               properties:
                 captureRequestId:
                   type: string
-                  description: >-
-                    The unique ID that is assigned by the merchant to identify a
-                    capture request. Antom uses this field for idempotence
-                    control.  
-
-
-                    More information:
-
-
-                    This field is an API idempotency field.For capture requests
-                    that are initiated with the same value of captureRequestId
-                    and reach a final status (S or F), the same result is to be
-                    returned for the request.
-
-                    Maximum length: 64 characters
+                  description: "The unique ID that is assigned by the merchant to\
+                    \ identify a capture request. Antom uses this field for idempotence\
+                    \ control.  \n\nMore information:\n\nThis field is an API idempotency\
+                    \ field.For capture requests that are initiated with the same\
+                    \ value of captureRequestId and reach a final status (S or F),\
+                    \ the same result is to be returned for the request.\nMaximum\
+                    \ length: 64 characters"
                 paymentId:
                   type: string
-                  description: >-
-                    The unique ID that is assigned by Antom to identify a
-                    payment.  
-
-
-                    More information:
-
-
-                    Maximum length: 64 characters
-                captureAmount: &ref_0
-                  description: >-
-                    The capture amount that the merchant requests to receive in
-                    the transaction currency.
+                  description: "The unique ID that is assigned by Antom to identify\
+                    \ a payment.  \n\nMore information:\n\nMaximum length: 64 characters"
+                captureAmount: &id001
+                  description: The capture amount that the merchant requests to receive
+                    in the transaction currency.
                   $ref: '#/components/schemas/Amount'
                 isLastCapture:
                   type: boolean
               required:
-                - captureRequestId
-                - paymentId
-                - captureAmount
+              - captureRequestId
+              - paymentId
+              - captureAmount
             example: ''
       responses:
         '200':
@@ -66,82 +51,64 @@ paths:
               schema:
                 type: object
                 properties:
-                  result: &ref_1
+                  result: &id002
                     $ref: '#/components/schemas/Result'
                   captureRequestId:
                     type: string
-                    description: >-
-                      The unique ID that is assigned by a merchant to identify a
-                      capture request.
+                    description: 'The unique ID that is assigned by a merchant to
+                      identify a capture request.
 
 
-                      Note: This parameter is returned when the capture status
-                      is successful.
+                      Note: This parameter is returned when the capture status is
+                      successful.
 
 
                       More information:
 
 
-                      Maximum length: 64 characters
+                      Maximum length: 64 characters'
                   captureId:
                     type: string
-                    description: >-
-                      The unique ID that is assigned by Antom to identify a
-                      capture.
+                    description: 'The unique ID that is assigned by Antom to identify
+                      a capture.
 
 
-                      Note: This parameter is returned when the capture status
-                      is successful.
+                      Note: This parameter is returned when the capture status is
+                      successful.
 
 
                       More information:
 
 
-                      Maximum length: 64 characters
+                      Maximum length: 64 characters'
                   paymentId:
                     type: string
-                    description: >-
-                      The unique ID that is assigned by Antom to identify a
-                      payment.
+                    description: 'The unique ID that is assigned by Antom to identify
+                      a payment.
 
 
-                      Note: This parameter is returned when the capture status
-                      is successful.
+                      Note: This parameter is returned when the capture status is
+                      successful.
 
 
                       More information:
 
 
-                      Maximum length: 64 characters
-                  captureAmount: *ref_0
+                      Maximum length: 64 characters'
+                  captureAmount: *id001
                   captureTime:
                     type: string
-                    description: >-
-                      The time when Antom captures the payment. 
-
-
-                      Note: This parameter is returned when the capture status
-                      is successful.
-
-
-                      More information:
-
-
-                      The value follows the ISO 8601 standard format. For
-                      example, "2019-11-27T12:01:01+08:00".
+                    description: "The time when Antom captures the payment. \n\nNote:\
+                      \ This parameter is returned when the capture status is successful.\n\
+                      \nMore information:\n\nThe value follows the ISO 8601 standard\
+                      \ format. For example, \"2019-11-27T12:01:01+08:00\"."
                   acquirerReferenceNo:
                     type: string
-                    description: >-
-                      The unique ID assigned by the non-Antom acquirer for the
-                      transaction.  
-
-
-                      More information:
-
-
-                      Maximum length: 64 characters
+                    description: "The unique ID assigned by the non-Antom acquirer\
+                      \ for the transaction.  \n\nMore information:\n\nMaximum length:\
+                      \ 64 characters"
                 required:
-                  - result
+                - result
               example:
                 result:
                   resultStatus: S
@@ -163,189 +130,132 @@ components:
       properties:
         captureRequestId:
           type: string
-          description: >-
-            The unique ID that is assigned by the merchant to identify a capture
-            request. Antom uses this field for idempotence control.  
-
-
-            More information:
-
-
-            This field is an API idempotency field.For capture requests that are
-            initiated with the same value of captureRequestId and reach a final
-            status (S or F), the same result is to be returned for the request.
-
-            Maximum length: 64 characters
+          description: "The unique ID that is assigned by the merchant to identify\
+            \ a capture request. Antom uses this field for idempotence control.  \n\
+            \nMore information:\n\nThis field is an API idempotency field.For capture\
+            \ requests that are initiated with the same value of captureRequestId\
+            \ and reach a final status (S or F), the same result is to be returned\
+            \ for the request.\nMaximum length: 64 characters"
         paymentId:
           type: string
-          description: |-
-            The unique ID that is assigned by Antom to identify a payment.  
-
-            More information:
-
-            Maximum length: 64 characters
-        captureAmount: *ref_0
+          description: "The unique ID that is assigned by Antom to identify a payment.\
+            \  \n\nMore information:\n\nMaximum length: 64 characters"
+        captureAmount: *id001
         isLastCapture:
           type: boolean
       required:
-        - captureRequestId
-        - paymentId
-        - captureAmount
+      - captureRequestId
+      - paymentId
+      - captureAmount
     Amount:
       type: object
       properties:
         currency:
           type: string
-          description: |-
-            The 3-letter currency code that follows the ISO 4217 standard. 
-
-            More information:
-
-            Maximum length: 3 characters
+          description: "The 3-letter currency code that follows the ISO 4217 standard.\
+            \ \n\nMore information:\n\nMaximum length: 3 characters"
         value:
           type: string
-          description: >
-            The value of the amount as a positive integer in the smallest
-            currency unit. For example, if the currency is USD and the amount is
-            $1.00, set the value of this parameter to 100; or if the currency is
-            JPY and the amount is ￥1, set the value of this parameter to 1.  
-
-
-            For details about the smallest currency unit, see Smallest unit of
-            the currency .
-
-
-            For details about the minimum payment amount allowed for each
-            payment method, see Minimum amount rules. 
-
-
-            Note: Due to the currency practices in Indonesia, when the currency
-            is IDR, round the amount with banker's rounding and fix the last two
-            digits of this parameter as 00.  
-
-
-            More information:
-
-
-            Value range: 1 - unlimited
+          description: "The value of the amount as a positive integer in the smallest\
+            \ currency unit. For example, if the currency is USD and the amount is\
+            \ $1.00, set the value of this parameter to 100; or if the currency is\
+            \ JPY and the amount is ￥1, set the value of this parameter to 1.  \n\n\
+            For details about the smallest currency unit, see Smallest unit of the\
+            \ currency .\n\nFor details about the minimum payment amount allowed for\
+            \ each payment method, see Minimum amount rules. \n\nNote: Due to the\
+            \ currency practices in Indonesia, when the currency is IDR, round the\
+            \ amount with banker's rounding and fix the last two digits of this parameter\
+            \ as 00.  \n\nMore information:\n\nValue range: 1 - unlimited\n"
       required:
-        - currency
-        - value
+      - currency
+      - value
     AlipayCaptureResponse:
       type: object
       properties:
-        result: *ref_1
+        result: *id002
         captureRequestId:
           type: string
-          description: >-
-            The unique ID that is assigned by a merchant to identify a capture
-            request.
+          description: 'The unique ID that is assigned by a merchant to identify a
+            capture request.
 
 
-            Note: This parameter is returned when the capture status is
-            successful.
+            Note: This parameter is returned when the capture status is successful.
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         captureId:
           type: string
-          description: >-
-            The unique ID that is assigned by Antom to identify a capture.
+          description: 'The unique ID that is assigned by Antom to identify a capture.
 
 
-            Note: This parameter is returned when the capture status is
-            successful.
+            Note: This parameter is returned when the capture status is successful.
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         paymentId:
           type: string
-          description: >-
-            The unique ID that is assigned by Antom to identify a payment.
+          description: 'The unique ID that is assigned by Antom to identify a payment.
 
 
-            Note: This parameter is returned when the capture status is
-            successful.
+            Note: This parameter is returned when the capture status is successful.
 
 
             More information:
 
 
-            Maximum length: 64 characters
-        captureAmount: *ref_0
+            Maximum length: 64 characters'
+        captureAmount: *id001
         captureTime:
           type: string
-          description: >-
-            The time when Antom captures the payment. 
-
-
-            Note: This parameter is returned when the capture status is
-            successful.
-
-
-            More information:
-
-
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+          description: "The time when Antom captures the payment. \n\nNote: This parameter\
+            \ is returned when the capture status is successful.\n\nMore information:\n\
+            \nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"\
+            ."
         acquirerReferenceNo:
           type: string
-          description: >-
-            The unique ID assigned by the non-Antom acquirer for the
-            transaction.  
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The unique ID assigned by the non-Antom acquirer for the transaction.\
+            \  \n\nMore information:\n\nMaximum length: 64 characters"
       required:
-        - result
+      - result
     Result:
       type: object
       properties:
         resultCode:
           type: string
-          description: |-
-            The result code that indicates the detailed processing result.  
-
-            More information:
-
-            Maximum length: 64 characters
+          description: "The result code that indicates the detailed processing result.\
+            \  \n\nMore information:\n\nMaximum length: 64 characters"
         resultStatus:
           $ref: '#/components/schemas/ResultStatusType'
-          description: |-
-            Result status. Valid values are:
+          description: 'Result status. Valid values are:
+
 
             S: Indicates that the result status is successful.
+
             F: Indicates that the result status is failed.
-            U: Indicates that the result status is unknown. 
+
+            U: Indicates that the result status is unknown. '
         resultMessage:
           type: string
-          description: |-
-            Result message that explains the result code. 
-
-            More information:
-
-            Maximum length: 256 characters
+          description: "Result message that explains the result code. \n\nMore information:\n\
+            \nMaximum length: 256 characters"
       required:
-        - resultCode
-        - resultStatus
-        - resultMessage
+      - resultCode
+      - resultStatus
+      - resultMessage
     ResultStatusType:
       type: string
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/payments/capture
-    description: 正式环境
+- url: https://open-sea-global.alipay.com/ams/api/v1/payments/capture
+  description: 正式环境
 security: []

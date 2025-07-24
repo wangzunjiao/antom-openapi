@@ -1,3 +1,4 @@
+---
 openapi: 3.1.0
 info:
   title: payments_pay
@@ -9,10 +10,11 @@ paths:
     post:
       summary: pay
       deprecated: false
-      description: >
-        Use this API to get the cashier page address. After getting the cashier
-        page address, you can redirect the user to the cashier page to make a
-        payment.
+      description: 'Use this API to get the cashier page address. After getting the
+        cashier page address, you can redirect the user to the cashier page to make
+        a payment.
+
+        '
       tags: []
       parameters: []
       requestBody:
@@ -62,109 +64,73 @@ components:
         value:
           type: integer
       required:
-        - unit
-        - value
+      - unit
+      - value
     DeliveryEstimate:
       type: object
       properties:
-        minimum: &ref_0
+        minimum: &id001
           $ref: '#/components/schemas/DeliveryEstimateInfo'
-        maximum: *ref_0
+        maximum: *id001
       required:
-        - minimum
-        - maximum
+      - minimum
+      - maximum
     Shipping:
       type: object
       properties:
-        shippingName: &ref_3
+        shippingName: &id004
           $ref: '#/components/schemas/UserName'
-          description: >-
-            The name of the recipient. 
-
-
-            Note: Specify this parameter if you require risk control. Providing
-            this information helps to increase the accuracy of anti-money
-            laundering and fraud detection, and increase payment success
-            rates.
-        shippingAddress: &ref_2
+          description: "The name of the recipient. \n\nNote: Specify this parameter\
+            \ if you require risk control. Providing this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates."
+        shippingAddress: &id003
           $ref: '#/components/schemas/Address'
-          description: >-
-            Shipping address. 
+          description: "Shipping address. \n\nSpecify this parameter when one of the\
+            \ following conditions is met:\n\nThe value of paymentMethodType is PAGALEVE.\n\
+            You require risk control.\nProviding this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates."
+        shippingCarrier:
+          type: string
+          description: "The delivery service provider for shipping a physical product,\
+            \ such as FedEx, UPS, or USPS. \n\nNote: Specify this parameter if you\
+            \ require risk control. Providing this information helps to increase the\
+            \ accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates.\n\nMore information:\n\nMaximum length: 128 characters"
+        shippingPhoneNo:
+          type: string
+          description: 'The phone number of a recipient (including extension).
 
 
             Specify this parameter when one of the following conditions is met:
 
 
-            The value of paymentMethodType is PAGALEVE.
-
             You require risk control.
 
-            Providing this information helps to increase the accuracy of
-            anti-money laundering and fraud detection, and increase payment
-            success rates.
-        shippingCarrier:
-          type: string
-          description: >-
-            The delivery service provider for shipping a physical product, such
-            as FedEx, UPS, or USPS. 
+            The value of paymentMethodType is OVO and you collect the phone number
+            that is bound to the OVO account during the payment process.
 
-
-            Note: Specify this parameter if you require risk control. Providing
-            this information helps to increase the accuracy of anti-money
+            Providing this information helps to increase the accuracy of anti-money
             laundering and fraud detection, and increase payment success rates.
 
 
             More information:
 
 
-            Maximum length: 128 characters
-        shippingPhoneNo:
-          type: string
-          description: >
-            The phone number of a recipient (including extension).
-
-
-            Specify this parameter when one of the following conditions is met:
-
-
-            You require risk control.
-
-            The value of paymentMethodType is OVO and you collect the phone
-            number that is bound to the OVO account during the payment process.
-
-            Providing this information helps to increase the accuracy of
-            anti-money laundering and fraud detection, and increase payment
-            success rates.
-
-
-            More information:
-
-
             Maximum length: 16 characters
+
+            '
         shipToEmail:
           type: string
-          description: >-
-            The email address where virtual goods are sent.
-
-
-            Specify this parameter when one of the following conditions is met:
-
-
-            if you require risk control.
-
-            if you are a digital and entertainment merchant.
-
-            Providing this information helps to increase fraud and identity
-            theft detection.  
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The email address where virtual goods are sent.\n\nSpecify\
+            \ this parameter when one of the following conditions is met:\n\nif you\
+            \ require risk control.\nif you are a digital and entertainment merchant.\n\
+            Providing this information helps to increase fraud and identity theft\
+            \ detection.  \n\nMore information:\n\nMaximum length: 64 characters"
         shippingFeeId:
           type: string
-        shippingFee: &ref_1
+        shippingFee: &id002
           $ref: '#/components/schemas/Amount'
         shippingDescription:
           type: string
@@ -175,75 +141,59 @@ components:
       properties:
         referenceOrderId:
           type: string
-          description: >-
-            The unique ID to identify the order on the merchant side, which is
-            assigned by the merchant that provides services or goods directly to
-            the customer. This field is used for user consumption records
-            display and other further actions such as disputes track or handling
-            of customer complaints.
+          description: 'The unique ID to identify the order on the merchant side,
+            which is assigned by the merchant that provides services or goods directly
+            to the customer. This field is used for user consumption records display
+            and other further actions such as disputes track or handling of customer
+            complaints.
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         orderDescription:
           type: string
-          description: >-
-            Summary description of the order, which is used for user consumption
+          description: 'Summary description of the order, which is used for user consumption
             records display or other further actions.
 
 
             More information:
 
 
-            Maximum length: 256 characters
-        orderAmount: *ref_1
-        merchant: &ref_7
+            Maximum length: 256 characters'
+        orderAmount: *id002
+        merchant: &id008
           $ref: '#/components/schemas/Merchant'
-          description: >-
-            Information about the secondary merchant.
+          description: 'Information about the secondary merchant.
 
 
-            Note: Specify this field if you are an acquirer that has secondary
-            merchants.
+            Note: Specify this field if you are an acquirer that has secondary merchants.'
         goods:
           type: array
           items:
             $ref: '#/components/schemas/Goods'
-          description: >-
-            Summary description of the order, which is used for user consumption
+          description: 'Summary description of the order, which is used for user consumption
             records display or other further actions.
 
 
             More information:
 
 
-            Maximum length: 256 characters
+            Maximum length: 256 characters'
         shipping:
           $ref: '#/components/schemas/Shipping'
-          description: >-
-            Shipping information, including information about the recipient
-            (name, phone number, email, and shipping address), and shipping
-            service provider. 
-
-
-            Specify this parameter when one of the following conditions is met:
-
-
-            You require risk control.
-
-            The value of paymentMethodType is OVO and you collect this
-            information during the payment process.
-
-            Providing this information helps to increase the accuracy of
-            anti-money laundering and fraud detection, and increase payment
-            success rates.
+          description: "Shipping information, including information about the recipient\
+            \ (name, phone number, email, and shipping address), and shipping service\
+            \ provider. \n\nSpecify this parameter when one of the following conditions\
+            \ is met:\n\nYou require risk control.\nThe value of paymentMethodType\
+            \ is OVO and you collect this information during the payment process.\n\
+            Providing this information helps to increase the accuracy of anti-money\
+            \ laundering and fraud detection, and increase payment success rates."
         buyer:
           $ref: '#/components/schemas/Buyer'
-          description: >-
-            Buyer information, including the ID, name, phone number, and email
-            of the buyer.
+          description: 'Buyer information, including the ID, name, phone number, and
+            email of the buyer.
 
 
             Specify this parameter when one of the following conditions is met:
@@ -251,420 +201,412 @@ components:
 
             You require risk control.
 
-            The value of paymentMethodType is CARD, OVO, BANCOMATPAY, KONBINI,
-            BANKTRANSFER_PAYEASY, or ONLINEBANKING_PAYEASY and you collect this
-            information during the payment process.
+            The value of paymentMethodType is CARD, OVO, BANCOMATPAY, KONBINI, BANKTRANSFER_PAYEASY,
+            or ONLINEBANKING_PAYEASY and you collect this information during the payment
+            process.
 
-            Providing this information helps to increase the accuracy of
-            anti-money laundering and fraud detection, and increase payment
-            success rates.
-        env: &ref_5
+            Providing this information helps to increase the accuracy of anti-money
+            laundering and fraud detection, and increase payment success rates.'
+        env: &id006
           $ref: '#/components/schemas/Env'
         extendInfo:
           type: string
-          description: >+
-            Extended information data, including information for special use
-            cases.
+          description: 'Extended information data, including information for special
+            use cases.
 
 
-            Note: Specify this field when you need to use the extended
-            information.
+            Note: Specify this field when you need to use the extended information.
 
+
+            '
         transit:
           $ref: '#/components/schemas/Transit'
-          description: >-
-            Trip information, including trip modes, legs of trips and passenger
-            information.
+          description: 'Trip information, including trip modes, legs of trips and
+            passenger information.
 
 
-            Note: Specify this field if you require risk control. Providing this
-            information helps to increase the accuracy of anti-money laundering
-            and fraud detection, and increase payment success rates.
+            Note: Specify this field if you require risk control. Providing this information
+            helps to increase the accuracy of anti-money laundering and fraud detection,
+            and increase payment success rates.'
         lodging:
           $ref: '#/components/schemas/Lodging'
-          description: >-
-            Information about lodging service that was purchased, including
-            hotel name, hotel address, check-in date, check-out date, number of
-            booked rooms, number of booked nights and guest names.
+          description: 'Information about lodging service that was purchased, including
+            hotel name, hotel address, check-in date, check-out date, number of booked
+            rooms, number of booked nights and guest names.
 
 
-            Note: Specify this parameter if you require risk control. Providing
-            this information helps to increase the accuracy of anti-money
-            laundering and fraud detection, and increase payment success rates.
+            Note: Specify this parameter if you require risk control. Providing this
+            information helps to increase the accuracy of anti-money laundering and
+            fraud detection, and increase payment success rates.'
         gaming:
           $ref: '#/components/schemas/Gaming'
-          description: >-
-            Information about gaming top-up, including game name, the topped up
-            user name or ID, user email and user phone number.
+          description: 'Information about gaming top-up, including game name, the
+            topped up user name or ID, user email and user phone number.
 
 
-            Note: Specify this parameter if you require risk control. Providing
-            this information helps to increase the accuracy of anti-money
-            laundering and fraud detection, and increase payment success rates.
+            Note: Specify this parameter if you require risk control. Providing this
+            information helps to increase the accuracy of anti-money laundering and
+            fraud detection, and increase payment success rates.'
         needDeclaration:
           type: boolean
         orderTest:
           type: string
       required:
-        - orderAmount
-        - orderDescription
-        - referenceOrderId
+      - orderAmount
+      - orderDescription
+      - referenceOrderId
     TransitType:
       type: string
       enum:
-        - FLIGHT
-        - TRAIN
-        - CRUISE
-        - COACH
+      - FLIGHT
+      - TRAIN
+      - CRUISE
+      - COACH
     ClassType:
       type: string
       enum:
-        - FIRSTLEVEL
-        - SECONDLEVEL
-        - THIRDLEVEL
+      - FIRSTLEVEL
+      - SECONDLEVEL
+      - THIRDLEVEL
     Leg:
       type: object
       properties:
         departureTime:
           type: string
-          description: >-
-            Time of departure for this leg of the trip.
+          description: 'Time of departure for this leg of the trip.
 
 
             More information:
 
 
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
         arrivalTime:
           type: string
-          description: >-
-            Time of arrival for this leg of the trip.
+          description: 'Time of arrival for this leg of the trip.
 
 
             More information:
 
 
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
-        departureAddress: *ref_2
-        arrivalAddress: *ref_2
+            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
+        departureAddress: *id003
+        arrivalAddress: *id003
         carrierName:
           type: string
         carrierNo:
           type: string
-          description: |-
-            Code for the carrier for this leg of the trip.
+          description: 'Code for the carrier for this leg of the trip.
+
 
             More information:
 
-            Maximum length: 64 characters
+
+            Maximum length: 64 characters'
         classType:
           $ref: '#/components/schemas/ClassType'
-          description: >-
-            Service level for this leg of the trip. Valid values are:
+          description: 'Service level for this leg of the trip. Valid values are:
 
 
-            FIRSTLEVEL: indicates that the service is the first class. For
-            example, flight first class, cruise luxury seat, train business
-            class seat/1st class sleeper, coach first-level seat.
+            FIRSTLEVEL: indicates that the service is the first class. For example,
+            flight first class, cruise luxury seat, train business class seat/1st
+            class sleeper, coach first-level seat.
 
-            SECONDLEVEL: indicates that the service is the second class. For
-            example, fight business class, cruise business seat, train 1st class
-            seat/2nd class sleeper, coach second-level seat.
+            SECONDLEVEL: indicates that the service is the second class. For example,
+            fight business class, cruise business seat, train 1st class seat/2nd class
+            sleeper, coach second-level seat.
 
-            THIRDLEVEL: indicates that the service is the third class. For
-            example, fight economic class or premium economic, cruise normal
-            seat, train 2nd class seat/standing, coach normal seat.
+            THIRDLEVEL: indicates that the service is the third class. For example,
+            fight economic class or premium economic, cruise normal seat, train 2nd
+            class seat/standing, coach normal seat.
 
             More information:
 
 
-            Maximum length: 32 characters
+            Maximum length: 32 characters'
         departureAirportCode:
           type: string
-          description: |
-            IATA code for the originating airport for this leg of the trip.
+          description: 'IATA code for the originating airport for this leg of the
+            trip.
+
 
             More information:
 
+
             Maximum length: 8 characters
+
+            '
         arrivalAirportCode:
           type: string
-          description: |
-            IATA code for the destination airport for this leg of the trip.
+          description: 'IATA code for the destination airport for this leg of the
+            trip.
+
 
             More information:
 
+
             Maximum length: 8 characters
+
+            '
     Passenger:
       type: object
       properties:
-        passengerName: *ref_3
+        passengerName: *id004
         passengerEmail:
           type: string
-          description: |-
-            The email of the passenger.
+          description: 'The email of the passenger.
+
 
             More information:
 
-            Maximum length: 64 characters
+
+            Maximum length: 64 characters'
         passengerPhoneNo:
           type: string
-          description: |-
-            The mobile phone number of the passenger.
+          description: 'The mobile phone number of the passenger.
+
 
             More information:
 
-            Maximum length: 32 characters
+
+            Maximum length: 32 characters'
     Transit:
       type: object
       properties:
         transitType:
           $ref: '#/components/schemas/TransitType'
-          description: |-
-            Trip modes, valid values are:
+          description: 'Trip modes, valid values are:
+
 
             FLIGHT: indicates that the trip mode is by plane.
+
             TRAIN: indicates that the trip mode is by train.
+
             CRUISE: indicates that the trip mode is by cruise.
-            COACH: indicates that the trip mode is by coach.
+
+            COACH: indicates that the trip mode is by coach.'
         legs:
           type: array
           items:
             $ref: '#/components/schemas/Leg'
-          description: >-
-            Information about sections of the trip, including departure time,
-            arrival time, departure address, arrival address, transportation
+          description: 'Information about sections of the trip, including departure
+            time, arrival time, departure address, arrival address, transportation
             company name, carrier code and service type.
 
 
             More information:
 
 
-            Maximum size: 10 elements
+            Maximum size: 10 elements'
         passengers:
           type: array
           items:
             $ref: '#/components/schemas/Passenger'
-          description: >-
-            Information about the passenger of the trip, including the passenger
-            names, passenger email and passenger phone number.
+          description: 'Information about the passenger of the trip, including the
+            passenger names, passenger email and passenger phone number.
 
 
             More information:
 
 
-            Maximum size: 100 elements
+            Maximum size: 100 elements'
     Lodging:
       type: object
       properties:
         hotelName:
           type: string
-          description: |-
-            Hotel name.
+          description: 'Hotel name.
+
 
             More information:
 
-            Maximum length: 128 characters
-        hotelAddress: *ref_2
+
+            Maximum length: 128 characters'
+        hotelAddress: *id003
         checkInDate:
           type: string
-          description: >
-            Date on which the guest checked in. In the case of a no-show or a
-            reservation, the scheduled arrival date.
+          description: 'Date on which the guest checked in. In the case of a no-show
+            or a reservation, the scheduled arrival date.
 
 
             More information:
 
 
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".
+
+            '
         checkOutDate:
           type: string
-          description: >
-            Date on which the guest checked out.
+          description: 'Date on which the guest checked out.
 
 
             More information:
 
 
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".
+
+            '
         numberOfNights:
           type: integer
-          description: |-
-            Number of nights booked by the payer.
+          description: 'Number of nights booked by the payer.
+
 
             More information:
 
-            Value range: 1 - unlimited
+
+            Value range: 1 - unlimited'
         numberOfRooms:
           type: integer
-          description: |
-            Number of rooms booked by the payer.
+          description: 'Number of rooms booked by the payer.
+
 
             More information:
+
 
             Value range: 1 - unlimited
+
+            '
         guestNames:
           type: array
-          items: *ref_3
-          description: |-
-            Name of the guest under which the room is reserved.
+          items: *id004
+          description: 'Name of the guest under which the room is reserved.
+
 
             More information:
 
-            Maximum size: 100 elements
+
+            Maximum size: 100 elements'
     Gaming:
       type: object
       properties:
         gameName:
           type: string
-          description: |
-            Game name.
+          description: 'Game name.
+
 
             More information:
 
+
             Maximum length: 128 characters
+
+            '
         toppedUpUser:
           type: string
-          description: |-
-            Name or ID of the user whose gaming account is topped up.
+          description: 'Name or ID of the user whose gaming account is topped up.
+
 
             More information:
 
-            Maximum length: 128 characters
+
+            Maximum length: 128 characters'
         toppedUpEmail:
           type: string
-          description: |-
-            Email of the user.
+          description: 'Email of the user.
+
 
             More information:
 
-            Maximum length: 64 characters
+
+            Maximum length: 64 characters'
         toppedUpPhoneNo:
           type: string
-          description: |-
-            Phone number of the user.
+          description: 'Phone number of the user.
+
 
             More information:
 
-            Maximum length: 32 characters
+
+            Maximum length: 32 characters'
     PaymentMethod:
       type: object
       properties:
         paymentMethodType:
           type: string
-          description: >-
-            The payment method type that is included in payment method options.
-            By specifying the value of this parameter, you can receive the
-            cashier URL of the specified payment method returned by Antom. See
-            Payment methods to check the valid values. 
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The payment method type that is included in payment method\
+            \ options. By specifying the value of this parameter, you can receive\
+            \ the cashier URL of the specified payment method returned by Antom. See\
+            \ Payment methods to check the valid values. \n\nMore information:\n\n\
+            Maximum length: 64 characters"
         paymentMethodId:
           type: string
-          description: >-
-            The unique ID that is used to identify a payment method. The value
-            of this parameter is that of cardToken obtained from the
-            notifyPayment or inquiryPayment API. 
-
-
-            Note: Specify this parameter when the value of paymentMethodType is
-            CARD.
-
-
-            More information:
-
-
-            Maximum length: 128 characters
+          description: "The unique ID that is used to identify a payment method. The\
+            \ value of this parameter is that of cardToken obtained from the notifyPayment\
+            \ or inquiryPayment API. \n\nNote: Specify this parameter when the value\
+            \ of paymentMethodType is CARD.\n\nMore information:\n\nMaximum length:\
+            \ 128 characters"
         paymentMethodMetaData:
           type: object
           properties: {}
           additionalProperties:
             type: object
-          description: >-
-            Additional information required for some specific payment methods.  
-
-
-            Note: Specify this parameter when the value of paymentMethodType is
-            BLIK, P24 , CARD, MERCADOPAGO_BR, MERCADOPAGO_MX, MERCADOPAGO_CL,
-            MERCADOPAGO_PE, ONLINEBANKING_FPX, PAGALEVE ,GOOGLEPAY or APPLEPAY.
+          description: "Additional information required for some specific payment\
+            \ methods.  \n\nNote: Specify this parameter when the value of paymentMethodType\
+            \ is BLIK, P24 , CARD, MERCADOPAGO_BR, MERCADOPAGO_MX, MERCADOPAGO_CL,\
+            \ MERCADOPAGO_PE, ONLINEBANKING_FPX, PAGALEVE ,GOOGLEPAY or APPLEPAY."
         customerId:
           type: string
-          description: >-
-            The unique ID to identify a buyer.
+          description: 'The unique ID to identify a buyer.
 
 
-            Note: Specify this field if you have the information. Providing this
-            information helps to increase the accuracy of anti-money laundering
-            and fraud detection, and increase payment success rates.
+            Note: Specify this field if you have the information. Providing this information
+            helps to increase the accuracy of anti-money laundering and fraud detection,
+            and increase payment success rates.'
         extendInfo:
           type: string
-          description: >-
-            Extended information.
+          description: 'Extended information.
 
 
-            Note: Specify this field if you need to use the extended
-            information.
+            Note: Specify this field if you need to use the extended information.
 
 
             More information:
 
 
-            Maximum length: 2048 characters
+            Maximum length: 2048 characters'
         requireIssuerAuthentication:
           type: boolean
     CreditPayFeeType:
       type: string
       enum:
-        - PERCENTAGE
+      - PERCENTAGE
     CreditPayPlan:
       type: object
       properties:
         installmentNum:
           type: integer
-          description: |-
-            The number of installments. The valid value is from 2 to 12.
+          description: 'The number of installments. The valid value is from 2 to 12.
+
 
             More information:
 
-            Maximum length: 8 characters
+
+            Maximum length: 8 characters'
         interval:
           type: string
         creditPayFeeType:
           $ref: '#/components/schemas/CreditPayFeeType'
-          description: >-
-            The value of this field is PERCENTAGE, which indicates that the fee
-            is described in percentage with 1 - 3 digits. For example, 5 means
+          description: 'The value of this field is PERCENTAGE, which indicates that
+            the fee is described in percentage with 1 - 3 digits. For example, 5 means
             5%, 100 means 100%.
 
 
-            Note: Specify this field when you want the fee information to be
-            expressed in percentage.
+            Note: Specify this field when you want the fee information to be expressed
+            in percentage.'
         feePercentage:
           type: integer
-          description: >-
-            This field is determined by the sellers' liability. For example, 0
-            indicates the seller is not liable for any fee. 100 indicates the
-            seller pays 100% of the fee.
+          description: 'This field is determined by the sellers'' liability. For example,
+            0 indicates the seller is not liable for any fee. 100 indicates the seller
+            pays 100% of the fee.
 
 
-            Note: Specify this field when the value of creditPayFeeType is
-            PERCENTAGE.
+            Note: Specify this field when the value of creditPayFeeType is PERCENTAGE.
 
 
             More information:
 
 
-            Value range: 0 - 100
+            Value range: 0 - 100'
       required:
-        - installmentNum
+      - installmentNum
     PaymentVerificationData:
       type: object
       properties:
@@ -677,110 +619,77 @@ components:
       properties:
         quoteId:
           type: string
-          description: >-
-            The unique ID that is assigned by Antom to identify an exchange
+          description: 'The unique ID that is assigned by Antom to identify an exchange
             rate.
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         quoteCurrencyPair:
           type: string
-          description: >-
-            A currency pair of settlement currency and transaction currency. The
-            two currencies are separated with a slash and use the 3-letter
-            ISO-4217 currency code.
+          description: 'A currency pair of settlement currency and transaction currency.
+            The two currencies are separated with a slash and use the 3-letter ISO-4217
+            currency code.
 
 
             More information:
 
 
-            Maximum length: 16 characters
+            Maximum length: 16 characters'
         quotePrice:
           type: number
-          description: >-
-            The exchange rate used when a currency conversion between settlement
-            currency and transaction currency occurs.
+          description: 'The exchange rate used when a currency conversion between
+            settlement currency and transaction currency occurs.
 
 
             More information:
 
 
-            Value range: 0 - unlimited
+            Value range: 0 - unlimited'
         quoteStartTime:
           type: string
-          description: >-
-            The date and time when quotePrice is effective.
+          description: 'The date and time when quotePrice is effective.
 
 
             More information:
 
 
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
         quoteExpiryTime:
           type: string
-          description: >-
-            The date and time when quotePrice expires.
+          description: 'The date and time when quotePrice expires.
 
 
             More information:
 
 
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
         guaranteed:
           type: boolean
           description: Guaranteed exchange rate available for payment.
       required:
-        - quoteCurrencyPair
+      - quoteCurrencyPair
     PspCustomerInfo:
       type: object
       properties:
         pspName:
           type: string
-          description: >-
-            The name of Alipay+ payment methods.
-
-
-            Note: This field is returned when Alipay+ payment methods supports
-            providing the related information. 
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The name of Alipay+ payment methods.\n\nNote: This field is\
+            \ returned when Alipay+ payment methods supports providing the related\
+            \ information. \n\nMore information:\n\nMaximum length: 64 characters"
         pspCustomerId:
           type: string
-          description: >-
-            The customer ID of Alipay+ payment methods.
-
-
-            Note: This field is returned when Alipay+ payment methods supports
-            providing the related information. 
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The customer ID of Alipay+ payment methods.\n\nNote: This\
+            \ field is returned when Alipay+ payment methods supports providing the\
+            \ related information. \n\nMore information:\n\nMaximum length: 64 characters"
         displayCustomerId:
           type: string
-          description: >-
-            The customer ID used for display. For example, loginId.
-
-
-            Note: This field is returned when Alipay+ payment methods supports
-            providing the related information. 
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The customer ID used for display. For example, loginId.\n\n\
+            Note: This field is returned when Alipay+ payment methods supports providing\
+            \ the related information. \n\nMore information:\n\nMaximum length: 64\
+            \ characters"
         displayCustomerName:
           type: string
         customer2088Id:
@@ -790,14 +699,14 @@ components:
     ChallengeType:
       type: string
       enum:
-        - SMS_OTP
-        - PLAINTEXT_CARD_NO
-        - CARD_EXPIRE_DATE
+      - SMS_OTP
+      - PLAINTEXT_CARD_NO
+      - CARD_EXPIRE_DATE
     ChallengeTriggerSourceType:
       type: string
       enum:
-        - AMS
-        - CHANNEL
+      - AMS
+      - CHANNEL
     ChallengeActionForm:
       type: object
       properties:
@@ -823,16 +732,16 @@ components:
     CodeValueType:
       type: string
       enum:
-        - BARCODE
-        - QRCODE
+      - BARCODE
+      - QRCODE
     DisplayType:
       type: string
       enum:
-        - TEXT
-        - MIDDLEIMAGE
-        - SMALLIMAGE
-        - BIGIMAGE
-        - IMAGE
+      - TEXT
+      - MIDDLEIMAGE
+      - SMALLIMAGE
+      - BIGIMAGE
+      - IMAGE
     CodeDetail:
       type: object
       properties:
@@ -840,42 +749,34 @@ components:
           $ref: '#/components/schemas/CodeValueType'
         codeValue:
           type: string
-          description: >-
-            The value of the code.  
-
-
-            If the value of displayType is set toSMALLIMAGE, MIDDLEIMAGE, or
-            BIGIMAGE, this parameter indicates a plain or Base64-encoded image
-            URL.
-
-            If the value of displayType is set to TEXT, this parameter indicates
-            a text string.  
-
-            More information:
-
-
-            Maximum length: 2048 characters
+          description: "The value of the code.  \n\nIf the value of displayType is\
+            \ set toSMALLIMAGE, MIDDLEIMAGE, or BIGIMAGE, this parameter indicates\
+            \ a plain or Base64-encoded image URL.\nIf the value of displayType is\
+            \ set to TEXT, this parameter indicates a text string.  \nMore information:\n\
+            \nMaximum length: 2048 characters"
         displayType:
           $ref: '#/components/schemas/DisplayType'
-          description: >
-            Indicates the way to display the code on the UI. Valid values are:
+          description: 'Indicates the way to display the code on the UI. Valid values
+            are:
 
 
-            TEXT: Indicates that the code is directly displayed on the UI as
-            text or a label.
+            TEXT: Indicates that the code is directly displayed on the UI as text
+            or a label.
 
-            MIDDLEIMAGE: Indicates that the code is directly displayed on the UI
-            as a small-sized image.
+            MIDDLEIMAGE: Indicates that the code is directly displayed on the UI as
+            a small-sized image.
 
-            SMALLIMAGE: Indicates that the code is directly displayed on the UI
-            as a middle-sized image.
+            SMALLIMAGE: Indicates that the code is directly displayed on the UI as
+            a middle-sized image.
 
-            BIGIMAGE: Indicates that the code is directly displayed on the UI as
-            a big-sized image.
+            BIGIMAGE: Indicates that the code is directly displayed on the UI as a
+            big-sized image.
+
+            '
       required:
-        - codeValueType
-        - codeValue
-        - displayType
+      - codeValueType
+      - codeValue
+      - displayType
     OrderCodeForm:
       type: object
       properties:
@@ -883,54 +784,53 @@ components:
           type: string
         expireTime:
           type: string
-          description: >-
-            Expiry time of the order code information.
+          description: 'Expiry time of the order code information.
 
 
             More information:
 
 
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
         codeDetails:
           type: array
           items:
             $ref: '#/components/schemas/CodeDetail'
-          description: |-
-            Details about the code.
+          description: 'Details about the code.
+
 
             More information:
 
-            Maximum size: 4 elements
+
+            Maximum size: 4 elements'
         extendInfo:
           type: string
-          description: |-
-            Extended information.
+          description: 'Extended information.
+
 
             Note: This field is returned when extended information exists.
 
+
             More information:
 
-            Maximum length: 2048 characters
+
+            Maximum length: 2048 characters'
       required:
-        - expireTime
-        - codeDetails
+      - expireTime
+      - codeDetails
     PaymentResultInfo:
       type: object
       properties:
         cardNo:
           type: string
-          description: >-
-            The masked card number, which just shows part of the card number and
-            can be used to display to the user
+          description: The masked card number, which just shows part of the card number
+            and can be used to display to the user
         cardBrand:
           type: string
           description: The card brand, which can be used to display to the user
         cardToken:
           type: string
-          description: >-
-            The token of the card, the value of this parameter is used by
-            paymentMethodId in the pay
+          description: The token of the card, the value of this parameter is used
+            by paymentMethodId in the pay
         issuingCountry:
           type: string
           description: The issuing country of the card
@@ -939,109 +839,104 @@ components:
           description: The funding type of the card.
         paymentMethodRegion:
           type: string
-          description: >-
-            The region code that represents the country or region of the payment
-            method
+          description: The region code that represents the country or region of the
+            payment method
         threeDSResult:
           description: The result of 3D Secure authentication
           $ref: '#/components/schemas/ThreeDSResult'
         avsResultRaw:
           type: string
-          description: The raw AVS result. See AVS result codes to check the valid values
+          description: The raw AVS result. See AVS result codes to check the valid
+            values
         cvvResultRaw:
           type: string
-          description: >-
-            The raw Card Verification Value (CVV), Card Security Code (CSC), or
-            Card Verification Code (CVC) result
+          description: The raw Card Verification Value (CVV), Card Security Code (CSC),
+            or Card Verification Code (CVC) result
         networkTransactionId:
           type: string
-          description: >-
-            The unique ID assigned by the card scheme to identify a transaction.
-            The value of this parameter is used by the same parameter of pay
-            (Cashier Payment) request in subsequent payments
-        creditPayPlan: &ref_4
+          description: The unique ID assigned by the card scheme to identify a transaction.
+            The value of this parameter is used by the same parameter of pay (Cashier
+            Payment) request in subsequent payments
+        creditPayPlan: &id005
           description: The installment plan information for an installment payment
           $ref: '#/components/schemas/CreditPayPlan'
         cardholderName:
           type: string
-          description: >-
-            The cardholder's name.
+          description: 'The cardholder''s name.
 
 
-            Note: This parameter is returned when the value of paymentMethodType
-            in the pay (Checkout Payment) API is CARD for specific merchants in
-            specific regions.
+            Note: This parameter is returned when the value of paymentMethodType in
+            the pay (Checkout Payment) API is CARD for specific merchants in specific
+            regions.
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         cardBin:
           type: string
-          description: >-
-            The first six digits of the bank card number, used to identify the
-            issuing bank and card type of the bank card.
+          description: 'The first six digits of the bank card number, used to identify
+            the issuing bank and card type of the bank card.
 
 
-            Note: This parameter is returned when the value of paymentMethodType
-            in the pay (Checkout Payment) API is CARD for specific merchants in
-            specific regions.
+            Note: This parameter is returned when the value of paymentMethodType in
+            the pay (Checkout Payment) API is CARD for specific merchants in specific
+            regions.
 
 
             More information:
 
 
-            Maximum length: 8 characters
+            Maximum length: 8 characters'
         lastFour:
           type: string
-          description: >
-            Last 4 digits of the card number.
+          description: 'Last 4 digits of the card number.
 
 
-            Note: This parameter is returned when the value of paymentMethodType
-            in the pay (Checkout Payment) API is CARD for specific merchants in
-            specific regions.
+            Note: This parameter is returned when the value of paymentMethodType in
+            the pay (Checkout Payment) API is CARD for specific merchants in specific
+            regions.
 
 
             More information:
 
 
             Maximum length: 4 characters
+
+            '
         expiryMonth:
           type: string
-          description: >-
-            The month the card expires. Pass in two digits representing the
-            month. For example, if the expiry month is February, the value of
+          description: 'The month the card expires. Pass in two digits representing
+            the month. For example, if the expiry month is February, the value of
             this parameter is 02.
 
 
-            Note: This parameter is returned when the value of paymentMethodType
-            in the pay (Checkout Payment) API is CARD for specific merchants in
-            specific regions.
+            Note: This parameter is returned when the value of paymentMethodType in
+            the pay (Checkout Payment) API is CARD for specific merchants in specific
+            regions.
 
 
             More information:
 
 
-            Maximum length: 2 characters
+            Maximum length: 2 characters'
         expiryYear:
           type: string
-          description: >-
-            The year the card expires. Pass in the last two digits of the year
-            number. For example, if the expiry year is 2025, the value of this
-            parameter is 25.
+          description: 'The year the card expires. Pass in the last two digits of
+            the year number. For example, if the expiry year is 2025, the value of
+            this parameter is 25.
 
 
-            Note: This parameter is returned when the value of paymentMethodType
-            in the pay (Checkout Payment) API is CARD for specific merchants in
-            specific regions.
+            Note: This parameter is returned when the value of paymentMethodType in
+            the pay (Checkout Payment) API is CARD for specific merchants in specific
+            regions.
 
 
             More information:
 
 
-            Maximum length: 2 characters
+            Maximum length: 2 characters'
     AcquirerInfo:
       type: object
       properties:
@@ -1060,33 +955,35 @@ components:
     PromotionType:
       type: string
       enum:
-        - DISCOUNT
-        - INTEREST_FREE
+      - DISCOUNT
+      - INTEREST_FREE
     PromotionResult:
       type: object
       properties:
         promotionType:
           $ref: '#/components/schemas/PromotionType'
-          description: |-
-            Promotion type. Valid values are:
+          description: 'Promotion type. Valid values are:
+
 
             DISCOUNT: a deduction from the regular price.
 
+
             INTEREST_FREE: payment in interest-free installments.
+
 
             More information:
 
-            Maximum length: 32 characters
+
+            Maximum length: 32 characters'
         discount:
           $ref: '#/components/schemas/Discount'
-          description: >-
-            Discount information.
+          description: 'Discount information.
 
 
-            Note: This parameter is generated when the buyer applies a promotion
-            during the process of placing an order.
+            Note: This parameter is generated when the buyer applies a promotion during
+            the process of placing an order.'
       required:
-        - promotionType
+      - promotionType
     Result:
       type: object
       properties:
@@ -1094,25 +991,22 @@ components:
           type: string
           description: The result code.
         resultStatus:
-          description: |-
-            The result status. Valid values are:
-
-            S: indicates that the result status is successful.
-            F: indicates that the result status is failed. 
-            U: indicates that the result status is unknown.
+          description: "The result status. Valid values are:\n\nS: indicates that\
+            \ the result status is successful.\nF: indicates that the result status\
+            \ is failed. \nU: indicates that the result status is unknown."
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
           description: The result message.
       required:
-        - resultCode
-        - resultStatus
+      - resultCode
+      - resultStatus
     ProductCodeType:
       type: string
       enum:
-        - CASHIER_PAYMENT
-        - AGREEMENT_PAYMENT
-        - IN_STORE_PAYMENT
+      - CASHIER_PAYMENT
+      - AGREEMENT_PAYMENT
+      - IN_STORE_PAYMENT
       x-apifox:
         enumDescriptions:
           CASHIER_PAYMENT: ''
@@ -1123,40 +1017,30 @@ components:
       properties:
         currency:
           type: string
-          description: >-
-            The transaction currency that is specified in the contract. A
-            3-letter currency code that follows the ISO 4217 standard.
+          description: 'The transaction currency that is specified in the contract.
+            A 3-letter currency code that follows the ISO 4217 standard.
 
 
             More information:
 
 
-            Maximum length: 3 characters
+            Maximum length: 3 characters'
         value:
           type: string
-          description: >-
-            The amount to charge as a positive integer in the smallest currency
-            unit. (That is, 100 cents to charge $1.00, or 100 to charge JPY 100,
-            a 0-decimal currency).
-
-
-            Note: For details about the smallest currency unit, see Smallest
-            unit of the currency. 
-
-
-            More information:
-
-
-            Value range: 1 - unlimited
+          description: "The amount to charge as a positive integer in the smallest\
+            \ currency unit. (That is, 100 cents to charge $1.00, or 100 to charge\
+            \ JPY 100, a 0-decimal currency).\n\nNote: For details about the smallest\
+            \ currency unit, see Smallest unit of the currency. \n\nMore information:\n\
+            \nValue range: 1 - unlimited"
       required:
-        - currency
-        - value
+      - currency
+      - value
     InStorePaymentScenario:
       type: string
       enum:
-        - PaymentCode
-        - OrderCode
-        - EntryCode
+      - PaymentCode
+      - OrderCode
+      - EntryCode
       x-apifox:
         enumDescriptions:
           PaymentCode: User can use paymentcode to pay
@@ -1165,9 +1049,9 @@ components:
     PresentmentMode:
       type: string
       enum:
-        - BUNDLE
-        - TILE
-        - UNIFIED
+      - BUNDLE
+      - TILE
+      - UNIFIED
       x-apifox:
         enumDescriptions:
           BUNDLE: ''
@@ -1178,46 +1062,39 @@ components:
       properties:
         isPaymentEvaluation:
           type: boolean
-          description: >-
-            Indicates whether the payment scenario is authorization. Specify
-            this parameter when the value of paymentMethodType is CARD. Valid
-            values of this parameter are:
-
-
-            true: indicates that the payment scenario is authorization.
-
-            false: indicates that the payment scenario is a regular payment
-            without authorization.  
-
-            Under the authorization scenario, the payment funds are guaranteed
-            and held on the payment method side. You can use the capture
-            (Checkout Payment) API to deduct the payment funds.
+          description: "Indicates whether the payment scenario is authorization. Specify\
+            \ this parameter when the value of paymentMethodType is CARD. Valid values\
+            \ of this parameter are:\n\ntrue: indicates that the payment scenario\
+            \ is authorization.\nfalse: indicates that the payment scenario is a regular\
+            \ payment without authorization.  \nUnder the authorization scenario,\
+            \ the payment funds are guaranteed and held on the payment method side.\
+            \ You can use the capture (Checkout Payment) API to deduct the payment\
+            \ funds."
         inStorePaymentScenario:
           $ref: '#/components/schemas/InStorePaymentScenario'
         presentmentMode:
           $ref: '#/components/schemas/PresentmentMode'
         captureMode:
           type: string
-          description: >-
-            Indicates the method for capturing funds after the user authorizes
+          description: 'Indicates the method for capturing funds after the user authorizes
             the payment. Valid values are:
 
 
-            AUTOMATIC: indicates that Alipay+ automatically captures the funds
-            after the authorization. The same applies when the value is empty or
-            you do not pass in this parameter.
+            AUTOMATIC: indicates that Alipay+ automatically captures the funds after
+            the authorization. The same applies when the value is empty or you do
+            not pass in this parameter.
 
-            MANUAL: indicates that you manually capture the funds by calling the
-            capture (Checkout Payment) API.
+            MANUAL: indicates that you manually capture the funds by calling the capture
+            (Checkout Payment) API.
 
-            Note: Specify this parameter if you want to designate the capture
-            mode of the payment.
+            Note: Specify this parameter if you want to designate the capture mode
+            of the payment.
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         isAuthorization:
           type: boolean
     SettlementStrategy:
@@ -1225,23 +1102,22 @@ components:
       properties:
         settlementCurrency:
           type: string
-          description: >-
-            The ISO currency code of the currency that the merchant wants to be
-            settled against. The field is required if the merchant signed up for
-            multiple currencies to settle.
+          description: 'The ISO currency code of the currency that the merchant wants
+            to be settled against. The field is required if the merchant signed up
+            for multiple currencies to settle.
 
 
             More information:
 
 
-            Maximum length: 3 characters
+            Maximum length: 3 characters'
     TerminalType:
       type: string
       enum:
-        - WEB
-        - WAP
-        - APP
-        - MINI_APP
+      - WEB
+      - WAP
+      - APP
+      - MINI_APP
       x-apifox:
         enumDescriptions:
           WEB: ''
@@ -1253,76 +1129,46 @@ components:
       properties:
         acceptHeader:
           type: string
-          description: |-
-            The accept header of the user's browser.  
-
-            More information:
-
-            Maximum length: 2048 characters
+          description: "The accept header of the user's browser.  \n\nMore information:\n\
+            \nMaximum length: 2048 characters"
         javaEnabled:
           type: boolean
-          description: >-
-            Indicates whether the user's browser is able to run Java. Valid
-            values are:
+          description: 'Indicates whether the user''s browser is able to run Java.
+            Valid values are:
 
 
-            true: indicates that the user's browser is able to run Java.
+            true: indicates that the user''s browser is able to run Java.
 
-            false: indicates that the user's browser is unable to run Java. The
-            same applies when the value is empty or you do not specify this
-            parameter.
+            false: indicates that the user''s browser is unable to run Java. The same
+            applies when the value is empty or you do not specify this parameter.'
         javaScriptEnabled:
           type: boolean
-          description: >-
-            Indicates whether the user's browser is able to run Java. Valid
-            values are:
+          description: 'Indicates whether the user''s browser is able to run Java.
+            Valid values are:
 
 
-            true: indicates that the user's browser is able to run JavaScript.
+            true: indicates that the user''s browser is able to run JavaScript.
 
-            false: indicates that the user's browser is unable to run
-            JavaScript. The same applies when the value is empty or you do not
-            specify this parameter.
+            false: indicates that the user''s browser is unable to run JavaScript.
+            The same applies when the value is empty or you do not specify this parameter.'
         language:
           type: string
-          description: >-
-            The language of the user's browser. The value is obtained by using
-            the browser's navigator.language property (as defined in IETF BCP
-            47).  
-
-
-            More information:
-
-
-            Maximum length: 32 characters
+          description: "The language of the user's browser. The value is obtained\
+            \ by using the browser's navigator.language property (as defined in IETF\
+            \ BCP 47).  \n\nMore information:\n\nMaximum length: 32 characters"
         userAgent:
           type: string
-          description: >-
-            The user agent of the user's browser.
-
-
-            Specify this parameter when one of the following conditions is met:
-
-
-            You require risk control.
-
-            The value of paymentMethodType is BLIK and you collect the
-            information of blikCode.
-
-            Providing this information helps to increase the accuracy of
-            anti-money laundering and fraud detection, and increase payment
-            success rates.  
-
-
-            More information:
-
-
-            Maximum length: 2048 characters
+          description: "The user agent of the user's browser.\n\nSpecify this parameter\
+            \ when one of the following conditions is met:\n\nYou require risk control.\n\
+            The value of paymentMethodType is BLIK and you collect the information\
+            \ of blikCode.\nProviding this information helps to increase the accuracy\
+            \ of anti-money laundering and fraud detection, and increase payment success\
+            \ rates.  \n\nMore information:\n\nMaximum length: 2048 characters"
     OsType:
       type: string
       enum:
-        - IOS
-        - ANDROID
+      - IOS
+      - ANDROID
       x-apifox:
         enumDescriptions:
           IOS: ''
@@ -1332,228 +1178,143 @@ components:
       properties:
         terminalType:
           $ref: '#/components/schemas/TerminalType'
-          description: >-
-            Terminal type of which the merchant service applies to. Valid values
-            are:
+          description: 'Terminal type of which the merchant service applies to. Valid
+            values are:
 
 
-            WEB: The client-side terminal type is a website, which is opened via
-            a PC browser.
+            WEB: The client-side terminal type is a website, which is opened via a
+            PC browser.
 
-            WAP: The client-side terminal type is an H5 page, which is opened
-            via a mobile browser.
+            WAP: The client-side terminal type is an H5 page, which is opened via
+            a mobile browser.
 
             APP: The client-side terminal type is a mobile application.
 
-            MINI_APP: The terminal type of the merchant side is a mini program
-            on the mobile phone.
+            MINI_APP: The terminal type of the merchant side is a mini program on
+            the mobile phone.'
         osType:
           $ref: '#/components/schemas/OsType'
-          description: |-
-            Type of the operation system. Valid values are:
+          description: 'Type of the operation system. Valid values are:
 
-            IOS: indicates the operation system is Apple's iOS.
-            ANDROID: indicates the operation system is Google's Android.
-            Note: Specify this field when terminalType is not WEB.
+
+            IOS: indicates the operation system is Apple''s iOS.
+
+            ANDROID: indicates the operation system is Google''s Android.
+
+            Note: Specify this field when terminalType is not WEB.'
         userAgent:
           type: string
         deviceTokenId:
           type: string
-          description: >-
-            The token identifier of the device.
-
-
-            Note: Specify this parameter if you integrate with the Antom Device
-            Fingerprint client, which is an SDK or JavaScript library that is
-            used to collect device-related information, such as osType,
-            deviceLanguage, deviceId, websiteLanguage, and userAgent. The
-            device-related information helps to increase the accuracy of
-            anti-money laundering and fraud detection, and increase payment
-            success rates. For more information about the Antom Device
-            Fingerprint client, contact Antom Technical Support.  
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The token identifier of the device.\n\nNote: Specify this\
+            \ parameter if you integrate with the Antom Device Fingerprint client,\
+            \ which is an SDK or JavaScript library that is used to collect device-related\
+            \ information, such as osType, deviceLanguage, deviceId, websiteLanguage,\
+            \ and userAgent. The device-related information helps to increase the\
+            \ accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates. For more information about the Antom Device Fingerprint\
+            \ client, contact Antom Technical Support.  \n\nMore information:\n\n\
+            Maximum length: 64 characters"
         clientIp:
           type: string
-          description: >-
-            The IP address of the client device.
-
-
-            Specify this parameter when one of the following conditions is met:
-
-
-            You require risk control.
-
-            The value of paymentMethodType is CARD.
-
-            The value of paymentMethodType is BLIK and you collect the
-            information of blikCode.
-
-            Providing this information helps to increase the accuracy of
-            anti-money laundering and fraud detection, and increase payment
-            success rates.  
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The IP address of the client device.\n\nSpecify this parameter\
+            \ when one of the following conditions is met:\n\nYou require risk control.\n\
+            The value of paymentMethodType is CARD.\nThe value of paymentMethodType\
+            \ is BLIK and you collect the information of blikCode.\nProviding this\
+            \ information helps to increase the accuracy of anti-money laundering\
+            \ and fraud detection, and increase payment success rates.  \n\nMore information:\n\
+            \nMaximum length: 64 characters"
         cookieId:
           type: string
         extendInfo:
           type: string
-          description: |-
-            Extended information.
-
-            Specify this field if you need to use the extended information.  
-
-            More information:
-
-            Maximum length: 2048 characters
+          description: "Extended information.\n\nSpecify this field if you need to\
+            \ use the extended information.  \n\nMore information:\n\nMaximum length:\
+            \ 2048 characters"
         storeTerminalId:
           type: string
         storeTerminalRequestTime:
           type: string
         browserInfo:
           $ref: '#/components/schemas/BrowserInfo'
-          description: >-
-            The information about the browser environment where the order is
-            placed. 
-
-
-            Note: Specify this parameter when you collect this information
-            during the payment process.
+          description: "The information about the browser environment where the order\
+            \ is placed. \n\nNote: Specify this parameter when you collect this information\
+            \ during the payment process."
         colorDepth:
           type: string
-          description: >-
-            The color depth of the user's browser in bits per pixel. The value
-            is obtained by using the browser's screen.colorDepth property. Valid
-            values are 1, 4, 8, 15, 16, 24, 30, 32, or 48. For example, 8 means
-            8-bit color depth.  
-
-
-            More information:
-
-
-            Value range: 0 - unlimited
+          description: "The color depth of the user's browser in bits per pixel. The\
+            \ value is obtained by using the browser's screen.colorDepth property.\
+            \ Valid values are 1, 4, 8, 15, 16, 24, 30, 32, or 48. For example, 8\
+            \ means 8-bit color depth.  \n\nMore information:\n\nValue range: 0 -\
+            \ unlimited"
         screenHeight:
           type: string
-          description: >-
-            The screen height of the user's device in pixels.  
-
-
-            Note: Specify this parameter if you require risk control. Providing
-            this information helps to increase the accuracy of anti-money
-            laundering and fraud detection, and increase payment success
-            rates.  
-
-
-            More information:
-
-
-            Value range: 1 - unlimited
+          description: "The screen height of the user's device in pixels.  \n\nNote:\
+            \ Specify this parameter if you require risk control. Providing this information\
+            \ helps to increase the accuracy of anti-money laundering and fraud detection,\
+            \ and increase payment success rates.  \n\nMore information:\n\nValue\
+            \ range: 1 - unlimited"
         screenWidth:
           type: string
-          description: >-
-            The screen width of the user's device in pixels.  
-
-
-            Note: Specify this parameter if you require risk control. Providing
-            this information helps to increase the accuracy of anti-money
-            laundering and fraud detection, and increase payment success
-            rates.  
-
-
-            More information:
-
-
-            Value range: 1 - unlimited
+          description: "The screen width of the user's device in pixels.  \n\nNote:\
+            \ Specify this parameter if you require risk control. Providing this information\
+            \ helps to increase the accuracy of anti-money laundering and fraud detection,\
+            \ and increase payment success rates.  \n\nMore information:\n\nValue\
+            \ range: 1 - unlimited"
         timeZoneOffset:
           type: integer
-          description: >-
-            The time difference between UTC time and the local time of the
-            user's browser, in minutes. The value is obtained by using the
-            getTimezoneOffset() property. For example, if the local time of the
-            user's browser is UTC+2, the value of this parameter is -120.
+          description: 'The time difference between UTC time and the local time of
+            the user''s browser, in minutes. The value is obtained by using the getTimezoneOffset()
+            property. For example, if the local time of the user''s browser is UTC+2,
+            the value of this parameter is -120.
 
 
-            Note: Specify this parameter if you require risk control. Providing
-            this information helps to increase the accuracy of anti-money
-            laundering and fraud detection, and increase payment success rates.
+            Note: Specify this parameter if you require risk control. Providing this
+            information helps to increase the accuracy of anti-money laundering and
+            fraud detection, and increase payment success rates.
 
 
             More information:
 
 
-            Value range: -720 - 720
+            Value range: -720 - 720'
         deviceBrand:
           type: string
-          description: >-
-            The brand of the user's device. 
-
-
-            Note: Specify this parameter if you require risk control. Providing
-            this information helps to increase the accuracy of anti-money
-            laundering and fraud detection, and increase payment success
-            rates.  
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The brand of the user's device. \n\nNote: Specify this parameter\
+            \ if you require risk control. Providing this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates.  \n\nMore information:\n\nMaximum length: 64\
+            \ characters"
         deviceModel:
           type: string
-          description: >-
-            The model of the user's device. 
-
-
-            Note: Specify this parameter if you require risk control. Providing
-            this information helps to increase the accuracy of anti-money
-            laundering and fraud detection, and increase payment success
-            rates.  
-
-
-            More information:
-
-
-            Maximum length: 128 characters
+          description: "The model of the user's device. \n\nNote: Specify this parameter\
+            \ if you require risk control. Providing this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates.  \n\nMore information:\n\nMaximum length: 128\
+            \ characters"
         deviceLanguage:
           type: string
-          description: >-
-            The language of the device where the user places an order.
+          description: 'The language of the device where the user places an order.
 
 
-            Note: Specify this parameter if you require risk control. Providing
-            this information helps to identify black-market behavior.
+            Note: Specify this parameter if you require risk control. Providing this
+            information helps to identify black-market behavior.
 
 
             More information:
 
 
-            Maximum length: 32 characters
+            Maximum length: 32 characters'
         deviceId:
           type: string
-          description: >-
-            The unique ID of the device the user places an order with.
-
-
-            Note: Specify this parameter if you require risk control. This
-            parameter can be used to build a trusted relationship between users
-            and commonly used devices, thereby reducing risk control
-            interruptions and increasing the payment success rate.  
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The unique ID of the device the user places an order with.\n\
+            \nNote: Specify this parameter if you require risk control. This parameter\
+            \ can be used to build a trusted relationship between users and commonly\
+            \ used devices, thereby reducing risk control interruptions and increasing\
+            \ the payment success rate.  \n\nMore information:\n\nMaximum length:\
+            \ 64 characters"
       required:
-        - terminalType
+      - terminalType
     ThreeDSResult:
       type: object
       properties:
@@ -1562,9 +1323,8 @@ components:
           description: The version of 3D Secure protocol
         eci:
           type: string
-          description: >-
-            Electronic Commerce Indicator (ECI) that is returned by the card
-            scheme
+          description: Electronic Commerce Indicator (ECI) that is returned by the
+            card scheme
         cavv:
           type: string
           description: The cardholder authentication value
@@ -1573,15 +1333,14 @@ components:
           description: dsTransactionId
         xid:
           type: string
-          description: >-
-            The unique transaction identifier assigned by the Directory Server
-            (DS) for 3D Secure authentication
+          description: The unique transaction identifier assigned by the Directory
+            Server (DS) for 3D Secure authentication
     ResultStatusType:
       type: string
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
       x-apifox:
         enumDescriptions:
           S: ''
@@ -1592,105 +1351,104 @@ components:
       properties:
         firstName:
           type: string
-          description: |-
-            First name.
+          description: 'First name.
+
 
             More information:
 
-            Maximum length: 32 characters
+
+            Maximum length: 32 characters'
         middleName:
           type: string
-          description: |-
-            Middle name
+          description: 'Middle name
+
 
             More information:
 
-            Maximum length: 32 characters
+
+            Maximum length: 32 characters'
         lastName:
           type: string
-          description: |-
-            Last name
+          description: 'Last name
+
 
             More information:
 
-            Maximum length: 32 characters
+
+            Maximum length: 32 characters'
         fullName:
           type: string
-          description: |-
-            Full name
+          description: 'Full name
+
 
             More information:
 
-            Maximum length: 128 characters
+
+            Maximum length: 128 characters'
     Address:
       type: object
       properties:
         region:
           type: string
-          description: >-
-            The 2-letter country or region code. For more information, see ISO
-            3166 Country Codes standard.
+          description: 'The 2-letter country or region code. For more information,
+            see ISO 3166 Country Codes standard.
 
 
             More information:
 
 
-            Maximum length: 2 characters
+            Maximum length: 2 characters'
         state:
           type: string
-          description: >-
-            The state, country, or province name.
+          description: 'The state, country, or province name.
 
 
-            For card payments, if your business entity is in the United States,
-            and the card issuing country is in Canada, the United States, or the
-            United Kingdom, set the value to a region code that consists of two
-            to three characters and follows the ISO 3166-2 standard.
+            For card payments, if your business entity is in the United States, and
+            the card issuing country is in Canada, the United States, or the United
+            Kingdom, set the value to a region code that consists of two to three
+            characters and follows the ISO 3166-2 standard.
 
 
             More information:
 
 
-            Maximum length: 8 characters
+            Maximum length: 8 characters'
         city:
           type: string
-          description: |-
-            The city, district, suburb, town, or village name.
+          description: 'The city, district, suburb, town, or village name.
+
 
             More information:
 
-            Maximum length: 32 characters
+
+            Maximum length: 32 characters'
         address1:
           type: string
-          description: >-
-            Address line 1, for example, the street address, PO box, and company
-            name.
+          description: 'Address line 1, for example, the street address, PO box, and
+            company name.
 
 
             More information:
 
 
-            Maximum length: 256 characters
+            Maximum length: 256 characters'
         address2:
           type: string
-          description: >-
-            Address line 2, for example, the apartment, suite, unit, and
+          description: 'Address line 2, for example, the apartment, suite, unit, and
             building information.
 
 
             More information:
 
 
-            Maximum length: 256 characters
+            Maximum length: 256 characters'
         zipCode:
           type: string
-          description: >-
-            ZIP or postal code.
+          description: 'ZIP or postal code.
 
 
-            For card payments, if your business entity is in the United States,
-            specify this parameter according to the following parameter value
-            requirements:
+            For card payments, if your business entity is in the United States, specify
+            this parameter according to the following parameter value requirements:
 
 
             Only contains numbers, letters, hyphens, and spaces.
@@ -1700,7 +1458,7 @@ components:
             More information:
 
 
-            Maximum length: 32 characters
+            Maximum length: 32 characters'
         label:
           type: string
     Store:
@@ -1718,14 +1476,14 @@ components:
           type: string
         storeOperatorId:
           type: string
-        storeAddress: *ref_2
+        storeAddress: *id003
         storePhoneNo:
           type: string
     MerchantType:
       type: string
       enum:
-        - INDIVIDUAL
-        - ENTERPRISE
+      - INDIVIDUAL
+      - ENTERPRISE
       x-apifox:
         enumDescriptions:
           INDIVIDUAL: ''
@@ -1735,188 +1493,175 @@ components:
       properties:
         referenceMerchantId:
           type: string
-          description: >-
-            The ID to identify the merchant that directly provides services or
-            goods to the customer.
+          description: 'The ID to identify the merchant that directly provides services
+            or goods to the customer.
 
 
             More information:
 
 
-            Maximum length: 32 characters
+            Maximum length: 32 characters'
         merchantMCC:
           type: string
-          description: >-
-            The secondary merchant category code, which is a 4-digit number
+          description: 'The secondary merchant category code, which is a 4-digit number
             listed in MCC codes.
 
 
-            Note: Specify this field if you have the information. Providing this
-            information helps to increase the accuracy of anti-money laundering
-            and fraud detection, and increase payment success rates.
+            Note: Specify this field if you have the information. Providing this information
+            helps to increase the accuracy of anti-money laundering and fraud detection,
+            and increase payment success rates.
 
 
             More information:
 
 
-            Maximum length: 32 characters
+            Maximum length: 32 characters'
         merchantName:
           type: string
-          description: >
-            The merchant name.
+          description: 'The merchant name.
 
 
-            Note: Specify this field if you have the information. Providing this
-            information helps to increase the accuracy of anti-money laundering
-            and fraud detection, and increase payment success rates.
+            Note: Specify this field if you have the information. Providing this information
+            helps to increase the accuracy of anti-money laundering and fraud detection,
+            and increase payment success rates.
 
 
             More information:
 
 
             Maximum length: 256 characters
+
+            '
         merchantDisplayName:
           type: string
-          description: >-
-            The merchant name to be displayed.
+          description: 'The merchant name to be displayed.
 
 
-            Note: Specify this field if you have the information. Providing this
-            information helps to increase the accuracy of anti-money laundering
-            and fraud detection, and increase payment success rates.
+            Note: Specify this field if you have the information. Providing this information
+            helps to increase the accuracy of anti-money laundering and fraud detection,
+            and increase payment success rates.
 
 
             More information:
 
 
-            Maximum length: 64 characters
-        merchantAddress: *ref_2
+            Maximum length: 64 characters'
+        merchantAddress: *id003
         merchantRegisterDate:
           type: string
-          description: >-
-            Merchant registration date.
+          description: 'Merchant registration date.
 
 
-            Note: Specify this field if you have the information. Providing this
-            information helps to increase the accuracy of anti-money laundering
-            and fraud detection, and increase payment success rates.
+            Note: Specify this field if you have the information. Providing this information
+            helps to increase the accuracy of anti-money laundering and fraud detection,
+            and increase payment success rates.
 
 
             More information:
 
 
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
         store:
           $ref: '#/components/schemas/Store'
         merchantType:
           $ref: '#/components/schemas/MerchantType'
       required:
-        - referenceMerchantId
+      - referenceMerchantId
     Goods:
       type: object
       properties:
         referenceGoodsId:
           type: string
-          description: |-
-            The unique ID to identify the goods.
+          description: 'The unique ID to identify the goods.
+
 
             More information:
 
-            Maximum length: 64 characters
+
+            Maximum length: 64 characters'
         goodsName:
           type: string
-          description: |-
-            Goods name.
+          description: 'Goods name.
+
 
             More information:
 
-            Maximum length: 256 characters
+
+            Maximum length: 256 characters'
         goodsCategory:
           type: string
-          description: >-
-            The category of the goods. If the goods have multiple layers for
-            categorization, use slashes between different categories and write
-            the parent category before the subcategory, such as Digital
-            Goods/Digital Vouchers/Food and Beverages.
+          description: 'The category of the goods. If the goods have multiple layers
+            for categorization, use slashes between different categories and write
+            the parent category before the subcategory, such as Digital Goods/Digital
+            Vouchers/Food and Beverages.
 
 
-            Note: Specify this parameter if you require risk control. Providing
-            this information helps to increase the accuracy of anti-money
-            laundering and fraud detection, and increase payment success rates.
+            Note: Specify this parameter if you require risk control. Providing this
+            information helps to increase the accuracy of anti-money laundering and
+            fraud detection, and increase payment success rates.
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         goodsBrand:
           type: string
-        goodsUnitAmount: *ref_1
+        goodsUnitAmount: *id002
         goodsQuantity:
           type: string
-          description: >-
-            Quantity of goods. 
-
-
-            Note: Specify this parameter if you require risk control. Providing
-            this information helps to increase the accuracy of anti-money
-            laundering and fraud detection, and increase payment success rates.
-
-
-            More information:
-
-
-            Value range: 1 - unlimited
+          description: "Quantity of goods. \n\nNote: Specify this parameter if you\
+            \ require risk control. Providing this information helps to increase the\
+            \ accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates.\n\nMore information:\n\nValue range: 1 - unlimited"
         goodsSkuName:
           type: string
         goodsUrl:
           type: string
-          description: >-
-            The URL of the website where the user places an order.
+          description: 'The URL of the website where the user places an order.
 
 
-            Note: Specify this parameter if you require risk control. Providing
-            this information helps to identify black-market behavior.
+            Note: Specify this parameter if you require risk control. Providing this
+            information helps to identify black-market behavior.
 
 
             More information:
 
 
-            Maximum length: 2048 characters
+            Maximum length: 2048 characters'
         deliveryMethodType:
           type: string
-          description: >
-            The delivery method of the goods. Valid values are:
+          description: 'The delivery method of the goods. Valid values are:
 
 
             PHYSICAL: indicates that the delivery method is physical delivery.
 
             DIGITAL: indicates that the delivery method is digital delivery.
 
-            Note: Specify this parameter if you require risk control. Providing
-            this information helps to increase the accuracy of anti-money
-            laundering and fraud detection, and increase payment success rates.
+            Note: Specify this parameter if you require risk control. Providing this
+            information helps to increase the accuracy of anti-money laundering and
+            fraud detection, and increase payment success rates.
 
 
             More information:
 
 
             Maximum length: 32 characters
+
+            '
         goodsImageUrl:
           type: string
         priceId:
           type: string
       required:
-        - referenceGoodsId
-        - goodsName
+      - referenceGoodsId
+      - goodsName
     Buyer:
       type: object
       properties:
         referenceBuyerId:
           type: string
-          description: >-
-            The unique ID to identify the buyer.
+          description: 'The unique ID to identify the buyer.
 
 
             Specify this parameter when one of the following conditions is met:
@@ -1926,20 +1671,18 @@ components:
 
             When the value of paymentMethodType is CARD.
 
-            Providing this information helps to increase the accuracy of
-            anti-money laundering and fraud detection, and increase payment
-            success rates.
+            Providing this information helps to increase the accuracy of anti-money
+            laundering and fraud detection, and increase payment success rates.
 
 
             More information:
 
 
-            Maximum length: 64 characters
-        buyerName: *ref_3
+            Maximum length: 64 characters'
+        buyerName: *id004
         buyerPhoneNo:
           type: string
-          description: >-
-            The mobile phone number of the buyer.
+          description: 'The mobile phone number of the buyer.
 
 
             Specify this parameter when one of the following conditions is met:
@@ -1949,38 +1692,36 @@ components:
 
             When the value of paymentMethodType is CARD.
 
-            When the value of paymentMethodType is KONBINI,
-            BANKTRANSFER_PAYEASY, or ONLINEBANKING_PAYEASY and you need to
-            collect the phone number during the payment process.
-
-            When the value of paymentMethodType is BANCOMATPAY and you need to
-            collect the phone number bound to the Bancomat Pay account during
+            When the value of paymentMethodType is KONBINI, BANKTRANSFER_PAYEASY,
+            or ONLINEBANKING_PAYEASY and you need to collect the phone number during
             the payment process.
 
-            When the value of paymentMethodType is OVO and you need to collect
-            the phone number bound to the OVO account during the payment
-            process. Here are the guidelines for the phone number format:
+            When the value of paymentMethodType is BANCOMATPAY and you need to collect
+            the phone number bound to the Bancomat Pay account during the payment
+            process.
+
+            When the value of paymentMethodType is OVO and you need to collect the
+            phone number bound to the OVO account during the payment process. Here
+            are the guidelines for the phone number format:
 
             Begin with the number 08 or 8, such as 085775716613 or 85775716613.
 
-            Include the area code without a plus sign and the length should be
-            between 9 and 12 digits, such as 62085775716613 or 6285775716613.
+            Include the area code without a plus sign and the length should be between
+            9 and 12 digits, such as 62085775716613 or 6285775716613.
 
             Omit the area code, such as 085775716613 or 85775716613.
 
-            Providing this information helps to increase the accuracy of
-            anti-money laundering and fraud detection, and increase payment
-            success rates.
+            Providing this information helps to increase the accuracy of anti-money
+            laundering and fraud detection, and increase payment success rates.
 
 
             More information:
 
 
-            Maximum length: 24 characters
+            Maximum length: 24 characters'
         buyerEmail:
           type: string
-          description: >-
-            The email of the buyer.
+          description: 'The email of the buyer.
 
 
             Specify this parameter when one of the following conditions is met:
@@ -1990,35 +1731,25 @@ components:
 
             When the value of paymentMethodType is CARD.
 
-            The value of paymentMethodType is KONBINI, BANKTRANSFER_PAYEASY, or
-            ONLINEBANKING_PAYEASY and you collect this information during the
-            payment process.
+            The value of paymentMethodType is KONBINI, BANKTRANSFER_PAYEASY, or ONLINEBANKING_PAYEASY
+            and you collect this information during the payment process.
 
-            Providing this information helps to increase the accuracy of
-            anti-money laundering and fraud detection, and increase payment
-            success rates.
+            Providing this information helps to increase the accuracy of anti-money
+            laundering and fraud detection, and increase payment success rates.
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         buyerRegistrationTime:
           type: string
-          description: >
-            The time when the buyer registered your account. Specify this
-            parameter if you require risk control. Providing this information
-            helps to increase the accuracy of anti-money laundering and fraud
-            detection, and increase payment success rates.  
-
-
-            More information:
-
-
-            Maximum length: 64 characters
-
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+          description: "The time when the buyer registered your account. Specify this\
+            \ parameter if you require risk control. Providing this information helps\
+            \ to increase the accuracy of anti-money laundering and fraud detection,\
+            \ and increase payment success rates.  \n\nMore information:\n\nMaximum\
+            \ length: 64 characters\nThe value follows the ISO 8601 standard format.\
+            \ For example, \"2019-11-27T12:01:01+08:00\".\n"
         isAccountVerified:
           type: boolean
         successfulOrderCount:
@@ -2030,132 +1761,110 @@ components:
           type: string
         discountName:
           type: string
-        savingsAmount: *ref_1
-        estimateSavingsAmount: *ref_1
+        savingsAmount: *id002
+        estimateSavingsAmount: *id002
       required:
-        - discountName
-        - savingsAmount
-        - estimateSavingsAmount
-        - discountTag
+      - discountName
+      - savingsAmount
+      - estimateSavingsAmount
+      - discountTag
     AlipayPayRequest:
       type: object
       properties:
         productCode:
           $ref: '#/components/schemas/ProductCodeType'
-          description: >-
-            Represents the payment product that is being used, which is
-            stipulated in the contract. For Checkout Payment, the value is fixed
-            as CASHIER_PAYMENT.
+          description: Represents the payment product that is being used, which is
+            stipulated in the contract. For Checkout Payment, the value is fixed as
+            CASHIER_PAYMENT.
         paymentRequestId:
           type: string
-          description: >-
-            The unique ID assigned by a merchant to identify a payment request.
-            Antom uses this field for idempotence control.
+          description: 'The unique ID assigned by a merchant to identify a payment
+            request. Antom uses this field for idempotence control.
 
 
             More information:
 
 
-            This field is an API idempotency field.For payment requests that are
-            initiated with the same value of paymentRequestId and reach a final
-            status of S or F, the same result is to be returned for the request.
+            This field is an API idempotency field.For payment requests that are initiated
+            with the same value of paymentRequestId and reach a final status of S
+            or F, the same result is to be returned for the request.
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         order:
           $ref: '#/components/schemas/Order'
-          description: >-
-            The order information, such as buyer, merchant, goods, amount,
-            shipping information, and purchase environment. This field is used
-            for different purposes:
+          description: 'The order information, such as buyer, merchant, goods, amount,
+            shipping information, and purchase environment. This field is used for
+            different purposes:
 
 
-            During the payment process, this field is mainly used by Antom for
-            risk control or anti-money laundering.
+            During the payment process, this field is mainly used by Antom for risk
+            control or anti-money laundering.
 
-            After the payment is completed, this field is used for recording and
-            reporting purposes such as purchase tracking and regulatory
-            reporting.
-        paymentAmount: *ref_1
-        paymentMethod: &ref_6
+            After the payment is completed, this field is used for recording and reporting
+            purposes such as purchase tracking and regulatory reporting.'
+        paymentAmount: *id002
+        paymentMethod: &id007
           $ref: '#/components/schemas/PaymentMethod'
-          description: >-
-            The payment method that is used to collect the payment by the
+          description: The payment method that is used to collect the payment by the
             merchant or acquirer.
         paymentExpiryTime:
           type: string
-          description: >
-            The payment expiration time is a specific time after which the
-            payment will expire and the acquirer or merchant must terminate the
-            order processing. 
-
-
-            Notes:
-
-
-            For bank transfer payments, the default payment expiration time is
-            48 hours after the payment request is sent. For other payment
-            categories, the default payment expiration time is usually 14
-            minutes after the payment request is sent. For example, if the
-            request is sent on 2019-11-27T12:00:01+08:30, the payment expiration
-            time is 2019-11-27T12:14:01+08:30.
-
-            Specify this field if you want to use a payment expiration time that
-            differs from the default time. For bank transfer payments, the
-            specified payment expiration time must be less than 48 hours after
-            the payment request is sent. For other payment categories, the
-            specified payment expiration time must be less than 10 minutes after
-            the payment request is sent.
-
-            More information:
-
-
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+          description: "The payment expiration time is a specific time after which\
+            \ the payment will expire and the acquirer or merchant must terminate\
+            \ the order processing. \n\nNotes:\n\nFor bank transfer payments, the\
+            \ default payment expiration time is 48 hours after the payment request\
+            \ is sent. For other payment categories, the default payment expiration\
+            \ time is usually 14 minutes after the payment request is sent. For example,\
+            \ if the request is sent on 2019-11-27T12:00:01+08:30, the payment expiration\
+            \ time is 2019-11-27T12:14:01+08:30.\nSpecify this field if you want to\
+            \ use a payment expiration time that differs from the default time. For\
+            \ bank transfer payments, the specified payment expiration time must be\
+            \ less than 48 hours after the payment request is sent. For other payment\
+            \ categories, the specified payment expiration time must be less than\
+            \ 10 minutes after the payment request is sent.\nMore information:\n\n\
+            The value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"\
+            .\n"
         paymentRedirectUrl:
           type: string
-          description: >
-            The merchant page URL that the user is redirected to after the
-            payment is completed.
+          description: 'The merchant page URL that the user is redirected to after
+            the payment is completed.
 
 
             More information:
 
 
             Maximum length: 2048 characters
+
+            '
         paymentNotifyUrl:
           type: string
-          description: >-
-            The URL that is used to receive the payment result notification.
+          description: 'The URL that is used to receive the payment result notification.
 
 
-            Note: Specify this parameter if you want to receive an asynchronous
-            notification of the payment result. You can also set the URL to
-            receive the result notification in Antom Dashboard. If the URL is
-            specified in both the request and Antom Dashboard, the value
-            specified in the request takes precedence.
+            Note: Specify this parameter if you want to receive an asynchronous notification
+            of the payment result. You can also set the URL to receive the result
+            notification in Antom Dashboard. If the URL is specified in both the request
+            and Antom Dashboard, the value specified in the request takes precedence.
 
 
             More information:
 
 
-            Maximum length: 2048 characters
+            Maximum length: 2048 characters'
         paymentFactor:
           $ref: '#/components/schemas/PaymentFactor'
-          description: >-
-            Factors that impact the payment. This field is used to indicate the
-            payment scenario.
+          description: 'Factors that impact the payment. This field is used to indicate
+            the payment scenario.
 
 
-            Note: Specify this parameter when the value of paymentMethodType is
-            CARD.
+            Note: Specify this parameter when the value of paymentMethodType is CARD.'
         settlementStrategy:
           $ref: '#/components/schemas/SettlementStrategy'
           description: The settlement strategy for the payment request.
-        creditPayPlan: *ref_4
+        creditPayPlan: *id005
         appId:
           type: string
-          description: >-
-            The unique ID that is assigned by Antom to identify the mini
+          description: 'The unique ID that is assigned by Antom to identify the mini
             program.
 
 
@@ -2165,79 +1874,57 @@ components:
             More information:
 
 
-            Maximum length: 32 characters
+            Maximum length: 32 characters'
         merchantRegion:
           type: string
-          description: >
-            The country or region where the merchant operates the business. The
-            parameter is a 2-letter country or region code that follows ISO 3166
-            Country Codes standard.
-
-
-            Some possible values are US, SG, HK, PK, JP, CN, BR, AU, and MY.  
-
-
-            Note: This parameter is required when you use the Global Acquirer
-            Gateway (GAGW) product.
-
-
-            More information:
-
-
-            Maximum length: 2 characters
+          description: "The country or region where the merchant operates the business.\
+            \ The parameter is a 2-letter country or region code that follows ISO\
+            \ 3166 Country Codes standard.\n\nSome possible values are US, SG, HK,\
+            \ PK, JP, CN, BR, AU, and MY.  \n\nNote: This parameter is required when\
+            \ you use the Global Acquirer Gateway (GAGW) product.\n\nMore information:\n\
+            \nMaximum length: 2 characters\n"
         userRegion:
           type: string
-          description: >-
-            A 2-letter country or region code based on the standard of ISO 3166
-            Country Codes. This parameter is used to sort Alipay+ payment
-            methods according to the user's region. For example, if ALIPAY_CN
-            and KAKAOPAYare both on your payment method list and the user is
-            from South Korea, KAKAOPAY will be listed first on the Alipay+
-            cashier page.
-
-
-            Note: This parameter is only for the merchant that has integrated
-            the Alipay+ cashier page.  
-
-
-            More information:
-
-
-            Maximum length: 2 characters
-        env: *ref_5
-        payToMethod: *ref_6
+          description: "A 2-letter country or region code based on the standard of\
+            \ ISO 3166 Country Codes. This parameter is used to sort Alipay+ payment\
+            \ methods according to the user's region. For example, if ALIPAY_CN and\
+            \ KAKAOPAYare both on your payment method list and the user is from South\
+            \ Korea, KAKAOPAY will be listed first on the Alipay+ cashier page.\n\n\
+            Note: This parameter is only for the merchant that has integrated the\
+            \ Alipay+ cashier page.  \n\nMore information:\n\nMaximum length: 2 characters"
+        env: *id006
+        payToMethod: *id007
         isAuthorization:
           type: boolean
-        merchant: *ref_7
+        merchant: *id008
         paymentVerificationData:
           $ref: '#/components/schemas/PaymentVerificationData'
         extendInfo:
           type: string
         merchantAccountId:
           type: string
-          description: >-
-            The unique ID to identify a merchant account.
+          description: 'The unique ID to identify a merchant account.
 
 
-            Note: Specify this parameter when you use a single client ID across
-            multiple locations.
+            Note: Specify this parameter when you use a single client ID across multiple
+            locations.
 
 
             More information:
 
 
-            Maximum length: 32 characters
+            Maximum length: 32 characters'
         dualOfflinePayment:
           type: boolean
       required:
-        - productCode
-        - order
-        - paymentAmount
-        - paymentMethod
-        - paymentRedirectUrl
-        - settlementStrategy
-        - env
-        - paymentRequestId
+      - productCode
+      - order
+      - paymentAmount
+      - paymentMethod
+      - paymentRedirectUrl
+      - settlementStrategy
+      - env
+      - paymentRequestId
     AlipayPayResponse:
       type: object
       properties:
@@ -2246,9 +1933,8 @@ components:
           description: The result of the API call.
         paymentRequestId:
           type: string
-          description: >-
-            The unique ID that is assigned by a merchant to identify a payment
-            request.
+          description: 'The unique ID that is assigned by a merchant to identify a
+            payment request.
 
 
             Note: This field is returned when resultCode is PAYMENT_IN_PROCESS.
@@ -2257,40 +1943,40 @@ components:
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         paymentId:
           type: string
-          description: |-
-            The unique ID that is assigned by Antom to identify a payment.
+          description: 'The unique ID that is assigned by Antom to identify a payment.
+
 
             Note: This field is returned when resultCode is PAYMENT_IN_PROCESS.
 
+
             More information:
 
-            Maximum length: 64 characters
-        paymentAmount: *ref_1
+
+            Maximum length: 64 characters'
+        paymentAmount: *id002
         paymentData:
           type: string
-          description: >-
-            Used by the Antom client SDK to render the checkout page. This
-            parameter is returned if the merchant app has integrated Antom
-            client SDK. After receiving the parameter, you can call the
-            showPaymentSheet API of the Antom client SDK.
+          description: 'Used by the Antom client SDK to render the checkout page.
+            This parameter is returned if the merchant app has integrated Antom client
+            SDK. After receiving the parameter, you can call the showPaymentSheet
+            API of the Antom client SDK.
 
 
             More information:
 
 
-            Maximum length: 20000 characters
-        actualPaymentAmount: *ref_1
-        paymentQuote: &ref_8
+            Maximum length: 20000 characters'
+        actualPaymentAmount: *id002
+        paymentQuote: &id009
           $ref: '#/components/schemas/Quote'
         paymentTime:
           type: string
         paymentCreateTime:
           type: string
-          description: >-
-            The date and time when the payment is created.
+          description: 'The date and time when the payment is created.
 
 
             Note: This field is returned when resultCode is PAYMENT_IN_PROCESS.
@@ -2299,102 +1985,96 @@ components:
             More information:
 
 
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
         authExpiryTime:
           type: string
-        nonGuaranteeCouponValue: *ref_1
+        nonGuaranteeCouponValue: *id002
         paymentActionForm:
           type: string
         pspCustomerInfo:
           $ref: '#/components/schemas/PspCustomerInfo'
-          description: >-
-            The customer information of Alipay+ Mobile Payment Provider (Alipay+
-            payment methods).
+          description: 'The customer information of Alipay+ Mobile Payment Provider
+            (Alipay+ payment methods).
 
 
-            Note: This field is returned when the Alipay+ payment methods can
-            provide the related information.
+            Note: This field is returned when the Alipay+ payment methods can provide
+            the related information.'
         challengeActionForm:
           $ref: '#/components/schemas/ChallengeActionForm'
         redirectActionForm:
           $ref: '#/components/schemas/RedirectActionForm'
         orderCodeForm:
           $ref: '#/components/schemas/OrderCodeForm'
-          description: >-
-            Information about the order code.
+          description: 'Information about the order code.
 
 
-            Note: This parameter is returned when the payment method supports
-            providing the related information.
-        grossSettlementAmount: *ref_1
-        settlementQuote: *ref_8
+            Note: This parameter is returned when the payment method supports providing
+            the related information.'
+        grossSettlementAmount: *id002
+        settlementQuote: *id009
         extendInfo:
           type: string
         normalUrl:
           type: string
-          description: >
-            The URL that redirects users to a WAP or WEB page in the default
+          description: 'The URL that redirects users to a WAP or WEB page in the default
             browser or the embedded WebView.
 
 
-            Note: When the value of resultCode is ​PAYMENT_IN_PROCESS​, at least
-            one of schemeUrl, applinkUrl, and normalUrl is to be returned.
+            Note: When the value of resultCode is ​PAYMENT_IN_PROCESS​, at least one
+            of schemeUrl, applinkUrl, and normalUrl is to be returned.
 
 
             More information:
 
 
             Maximum length: 2048 characters
+
+            '
         schemeUrl:
           type: string
-          description: >-
-            The URL scheme that redirects users to open an app in an Android or
-            iOS system when the target app is installed.
+          description: 'The URL scheme that redirects users to open an app in an Android
+            or iOS system when the target app is installed.
 
 
-            Note: When the value of resultCode is ​PAYMENT_IN_PROCESS​, at least
-            one of schemeUrl, applinkUrl, and normalUrl is to be returned.
+            Note: When the value of resultCode is ​PAYMENT_IN_PROCESS​, at least one
+            of schemeUrl, applinkUrl, and normalUrl is to be returned.
 
 
             More information:
 
 
-            Maximum length: 2048 characters
+            Maximum length: 2048 characters'
         applinkUrl:
           type: string
-          description: >-
-            The URL that redirects users to open an app when the target app is
-            installed, or to open a WAP page when the target app is not
-            installed. For Android, the URL is a Native App Link. For iOS, the
-            URL is a Universal Link.
+          description: 'The URL that redirects users to open an app when the target
+            app is installed, or to open a WAP page when the target app is not installed.
+            For Android, the URL is a Native App Link. For iOS, the URL is a Universal
+            Link.
 
 
-            Note: When the value of resultCode is ​PAYMENT_IN_PROCESS​, at least
-            one of schemeUrl, applinkUrl, and normalUrl is to be returned.
+            Note: When the value of resultCode is ​PAYMENT_IN_PROCESS​, at least one
+            of schemeUrl, applinkUrl, and normalUrl is to be returned.
 
 
             More information:
 
 
-            Maximum length: 2048 characters
+            Maximum length: 2048 characters'
         appIdentifier:
           type: string
-          description: >-
-            Android package name, which is used by Android apps to open a
-            cashier page.
+          description: 'Android package name, which is used by Android apps to open
+            a cashier page.
 
 
-            Note: This field is returned when resultCode is ​PAYMENT_IN_PROCESS​
-            and terminalType is APP or WAP.
+            Note: This field is returned when resultCode is ​PAYMENT_IN_PROCESS​ and
+            terminalType is APP or WAP.'
         paymentResultInfo:
           $ref: '#/components/schemas/PaymentResultInfo'
-          description: >-
-            The payment result information.
+          description: 'The payment result information.
 
 
-            Note: This parameter may be returned when the value of
-            paymentMethodType is CARD.
+            Note: This parameter may be returned when the value of paymentMethodType
+            is CARD.'
         acquirerInfo:
           $ref: '#/components/schemas/AcquirerInfo'
         promotionResult:
@@ -2403,8 +2083,8 @@ components:
             $ref: '#/components/schemas/PromotionResult'
           description: Promotion result.
       required:
-        - result
+      - result
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/payments/pay
-    description: 正式环境
+- url: https://open-sea-global.alipay.com/ams/api/v1/payments/pay
+  description: 正式环境

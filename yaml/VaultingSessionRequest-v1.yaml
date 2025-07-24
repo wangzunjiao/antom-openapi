@@ -1,3 +1,4 @@
+---
 openapi: 3.1.0
 info:
   title: vaults_createVaultingSession
@@ -9,10 +10,11 @@ paths:
     post:
       summary: createVaultingSession
       deprecated: false
-      description: >
-        Use this API to get the cashier page address. After getting the cashier
-        page address, you can redirect the user to the cashier page to make a
-        payment.
+      description: 'Use this API to get the cashier page address. After getting the
+        cashier page address, you can redirect the user to the cashier page to make
+        a payment.
+
+        '
       tags: []
       parameters: []
       requestBody:
@@ -38,104 +40,74 @@ components:
           type: string
           description: The result code.
         resultStatus:
-          description: |-
-            The result status. Valid values are:
-
-            S: indicates that the result status is successful.
-            F: indicates that the result status is failed. 
-            U: indicates that the result status is unknown. 
+          description: "The result status. Valid values are:\n\nS: indicates that\
+            \ the result status is successful.\nF: indicates that the result status\
+            \ is failed. \nU: indicates that the result status is unknown. "
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
           description: The result message.
       required:
-        - resultCode
-        - resultStatus
-        - resultMessage
+      - resultCode
+      - resultStatus
+      - resultMessage
     ResultStatusType:
       type:
-        - string
-        - 'null'
+      - string
+      - 'null'
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
     AlipayVaultingSessionRequest:
       type: object
       properties:
         paymentMethodType:
           type: string
-          description: >-
-            The payment method type is included in payment method options. See
-            Payment methods to check the valid values for card payments.  
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The payment method type is included in payment method options.\
+            \ See Payment methods to check the valid values for card payments.  \n\
+            \nMore information:\n\nMaximum length: 64 characters"
         vaultingRequestId:
           type: string
-          description: >
-            The unique ID that is assigned by a merchant to identify a card
-            vaulting request. 
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The unique ID that is assigned by a merchant to identify a\
+            \ card vaulting request. \n\nMore information:\n\nMaximum length: 64 characters\n"
         vaultingNotificationUrl:
           type: string
-          description: |-
-            The URL that is used to receive the vaulting result notification. 
-
-            More information:
-
-            Maximum length: 2048 characters
+          description: "The URL that is used to receive the vaulting result notification.\
+            \ \n\nMore information:\n\nMaximum length: 2048 characters"
         redirectUrl:
           type: string
-          description: >
-            The merchant page URL that the buyer is redirected to after the
-            vaulting is completed. 
-
-
-            Note: Specify this parameter if you want to redirect the buyer to
-            your page directly after the vaulting is completed.
-
-
-            More information:
-
-
-            Maximum length: 2048 characters
+          description: "The merchant page URL that the buyer is redirected to after\
+            \ the vaulting is completed. \n\nNote: Specify this parameter if you want\
+            \ to redirect the buyer to your page directly after the vaulting is completed.\n\
+            \nMore information:\n\nMaximum length: 2048 characters\n"
         merchantRegion:
           type: string
-          description: >-
-            The country or region where the merchant operates the business. The
-            value of this parameter is a 2-letter country or region code based
+          description: 'The country or region where the merchant operates the business.
+            The value of this parameter is a 2-letter country or region code based
             on the ISO 3166 Country Codes standard.
 
 
             Some possible values are US, SG, HK, PK, JP, CN, BR, AU, and MY.
 
 
-            Note: Specify this parameter when you use the Global Acquirer
-            Gateway (GAGW) product.
+            Note: Specify this parameter when you use the Global Acquirer Gateway
+            (GAGW) product.
 
 
             More information:
 
 
-            Maximum length: 2 characters
+            Maximum length: 2 characters'
         is3DSAuthentication:
           type: boolean
-          description: >-
-            Indicates whether the transaction authentication type is 3D secure.
-            Specify this parameter when the value of paymentMethodType is CARD.
+          description: Indicates whether the transaction authentication type is 3D
+            secure. Specify this parameter when the value of paymentMethodType is
+            CARD.
       required:
-        - paymentMethodType
-        - vaultingRequestId
-        - vaultingNotificationUrl
+      - paymentMethodType
+      - vaultingRequestId
+      - vaultingNotificationUrl
     AlipayVaultingSessionResponse:
       type: object
       properties:
@@ -144,44 +116,24 @@ components:
           description: 'The result of the API call. '
         vaultingSessionData:
           type: string
-          description: >
-            The encrypted vaulting session data. Pass the data to your front end
-            to initiate the client-side SDK.   
-
-
-            More information:
-
-
-            Maximum length: 4096 characters
+          description: "The encrypted vaulting session data. Pass the data to your\
+            \ front end to initiate the client-side SDK.   \n\nMore information:\n\
+            \nMaximum length: 4096 characters\n"
         vaultingSessionId:
           type: string
-          description: >
-            The encrypted ID is assigned by Antom to identify a vaulting
-            session.   
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The encrypted ID is assigned by Antom to identify a vaulting\
+            \ session.   \n\nMore information:\n\nMaximum length: 64 characters\n"
         vaultingSessionExpiryTime:
           type: string
-          description: >-
-            The specific date and time after which the vaulting session will
-            expire. 
-
-
-            More information:
-
-
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+          description: "The specific date and time after which the vaulting session\
+            \ will expire. \n\nMore information:\n\nThe value follows the ISO 8601\
+            \ standard format. For example, \"2019-11-27T12:01:01+08:00\"."
       required:
-        - vaultingSessionData
-        - vaultingSessionId
-        - vaultingSessionExpiryTime
+      - vaultingSessionData
+      - vaultingSessionId
+      - vaultingSessionExpiryTime
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/vaults/createVaultingSession
-    description: 正式环境
+- url: https://open-sea-global.alipay.com/ams/api/v1/vaults/createVaultingSession
+  description: 正式环境
 security: []

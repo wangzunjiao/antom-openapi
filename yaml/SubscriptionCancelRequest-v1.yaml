@@ -1,3 +1,4 @@
+---
 openapi: 3.1.0
 info:
   title: subscriptions_cancel
@@ -9,10 +10,11 @@ paths:
     post:
       summary: cancel
       deprecated: false
-      description: >
-        Use this API to get the cashier page address. After getting the cashier
-        page address, you can redirect the user to the cashier page to make a
-        payment.
+      description: 'Use this API to get the cashier page address. After getting the
+        cashier page address, you can redirect the user to the cashier page to make
+        a payment.
+
+        '
       tags: []
       parameters: []
       requestBody:
@@ -38,96 +40,79 @@ components:
           type: string
           description: The result code.
         resultStatus:
-          description: |-
-            The result status. Valid values are:
-
-            S: indicates that the result status is successful.
-            F: indicates that the result status is failed. 
-            U: indicates that the result status is unknown. 
+          description: "The result status. Valid values are:\n\nS: indicates that\
+            \ the result status is successful.\nF: indicates that the result status\
+            \ is failed. \nU: indicates that the result status is unknown. "
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
           description: The result message.
       required:
-        - resultCode
-        - resultStatus
-        - resultMessage
+      - resultCode
+      - resultStatus
+      - resultMessage
     ResultStatusType:
       type:
-        - string
-        - 'null'
+      - string
+      - 'null'
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
     AlipaySubscriptionCancelRequest:
       type: object
       properties:
         subscriptionId:
           type: string
-          description: >-
-            The unique ID assigned by Antom to identify a subscription. The
-            value of this parameter is the value of the same parameter that is
-            returned by notifyPayment and notifySubscription for the original
-            subscription.
+          description: 'The unique ID assigned by Antom to identify a subscription.
+            The value of this parameter is the value of the same parameter that is
+            returned by notifyPayment and notifySubscription for the original subscription.
 
 
-            Note: Specify at least one of subscriptionId and
-            subscriptionRequestId. A one-to-one correspondence between paymentId
-            and paymentRequestId exists.
+            Note: Specify at least one of subscriptionId and subscriptionRequestId.
+            A one-to-one correspondence between paymentId and paymentRequestId exists.
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         subscriptionRequestId:
           type: string
-          description: >
-            The unique ID assigned by a merchant to identify a subscription
+          description: 'The unique ID assigned by a merchant to identify a subscription
             request.
 
 
-            Note: Specify at least one of subscriptionId and
-            subscriptionRequestId. A one-to-one correspondence between paymentId
-            and paymentRequestId exists.
+            Note: Specify at least one of subscriptionId and subscriptionRequestId.
+            A one-to-one correspondence between paymentId and paymentRequestId exists.
 
 
             More information:
 
 
             Maximum length: 64 characters
+
+            '
         cancellationType:
           type: string
-          description: >-
-            The cancellation type for the subscription. Valid values are:
-
-
-            CANCEL: indicates canceling the subscription. The subscription
-            service is not provided to the user after the current subscription
-            period ends.
-
-            TERMINATE: indicates terminating the subscription. The subscription
-            service is ceased immediately.  
-
-            More information:
-
-
-            Maximum length: 32 characters
+          description: "The cancellation type for the subscription. Valid values are:\n\
+            \nCANCEL: indicates canceling the subscription. The subscription service\
+            \ is not provided to the user after the current subscription period ends.\n\
+            TERMINATE: indicates terminating the subscription. The subscription service\
+            \ is ceased immediately.  \nMore information:\n\nMaximum length: 32 characters"
       required:
-        - cancellationType
+      - cancellationType
     AlipaySubscriptionCancelResponse:
       type: object
       properties:
         result:
           $ref: '#/components/schemas/Result'
-          description: >-
-            Indicates whether this API is called successfully. If this API is
-            successfully called, the subscription is canceled successfully. 
+          description: 'Indicates whether this API is called successfully. If this
+            API is successfully called, the subscription is canceled successfully. '
       required:
-        - result
+      - result
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/subscriptions/cancel
-    description: 正式环境
+- url: https://open-sea-global.alipay.com/ams/api/v1/subscriptions/cancel
+  description: 正式环境
 security: []

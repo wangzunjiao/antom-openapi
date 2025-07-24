@@ -1,3 +1,4 @@
+---
 openapi: 3.1.0
 info:
   title: customs_inquiryDeclarationRequests
@@ -9,10 +10,11 @@ paths:
     post:
       summary: inquiryDeclarationRequests
       deprecated: false
-      description: >
-        Use this API to get the cashier page address. After getting the cashier
-        page address, you can redirect the user to the cashier page to make a
-        payment.
+      description: 'Use this API to get the cashier page address. After getting the
+        cashier page address, you can redirect the user to the cashier page to make
+        a payment.
+
+        '
       tags: []
       parameters: []
       requestBody:
@@ -38,119 +40,85 @@ components:
           type: string
           description: The result code.
         resultStatus:
-          description: |-
-            The result status. Valid values are:
-
-            S: indicates that the result status is successful.
-            F: indicates that the result status is failed. 
-            U: indicates that the result status is unknown. 
+          description: "The result status. Valid values are:\n\nS: indicates that\
+            \ the result status is successful.\nF: indicates that the result status\
+            \ is failed. \nU: indicates that the result status is unknown. "
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
           description: The result message.
       required:
-        - resultCode
-        - resultStatus
-        - resultMessage
+      - resultCode
+      - resultStatus
+      - resultMessage
     Amount:
       type: object
       properties:
         currency:
           type: string
-          description: >-
-            The transaction currency, which is a 3-letter currency code that
-            follows the ISO 4217 standard. 
-
-
-            More information:
-
-
-            Maximum length: 3 characters
+          description: "The transaction currency, which is a 3-letter currency code\
+            \ that follows the ISO 4217 standard. \n\nMore information:\n\nMaximum\
+            \ length: 3 characters"
         value:
           type: string
-          description: >-
-            The value of the amount as a positive integer in the smallest
-            currency unit. For example, if the currency is USD and the amount is
-            $1.00, set the value of this parameter to 100; or if the currency is
-            JPY and the amount is ￥1, set the value of this parameter to 1.
-
-
-            For details about the smallest currency unit, see Smallest unit of
-            the currency.
-
-
-            For details about the minimum payment amount allowed for each
-            payment method, see Minimum amount rules.  
-
-
-            More information:
-
-
-            Value range: [1, +∞)
+          description: "The value of the amount as a positive integer in the smallest\
+            \ currency unit. For example, if the currency is USD and the amount is\
+            \ $1.00, set the value of this parameter to 100; or if the currency is\
+            \ JPY and the amount is ￥1, set the value of this parameter to 1.\n\n\
+            For details about the smallest currency unit, see Smallest unit of the\
+            \ currency.\n\nFor details about the minimum payment amount allowed for\
+            \ each payment method, see Minimum amount rules.  \n\nMore information:\n\
+            \nValue range: [1, +∞)"
       required:
-        - currency
-        - value
+      - currency
+      - value
     ResultStatusType:
       type:
-        - string
-        - 'null'
+      - string
+      - 'null'
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
     CustomsInfo:
       type: object
       properties:
         customsCode:
           type: string
-          description: >-
-            Customs code. See the Customs Code section on this page for details
-            . 
-
-
-            More information:
-
-
-            Maximum length: 28 characters
+          description: "Customs code. See the Customs Code section on this page for\
+            \ details . \n\nMore information:\n\nMaximum length: 28 characters"
         region:
           type: string
-          description: >-
-            The customs region, which follows the 2-character ISO 3166 country
-            /region code.
-
-
-            Note: Only the China customs region of CN is supported for now. 
-
-
-            More information:
-
-
-            Maximum length: 2 characters
+          description: "The customs region, which follows the 2-character ISO 3166\
+            \ country /region code.\n\nNote: Only the China customs region of CN is\
+            \ supported for now. \n\nMore information:\n\nMaximum length: 2 characters"
       required:
-        - customsCode
-        - region
+      - customsCode
+      - region
     MerchantCustomsInfo:
       type: object
       properties:
         merchantCustomsCode:
           type: string
-          description: |-
-            The merchant recordation number in the customs system.
+          description: 'The merchant recordation number in the customs system.
+
 
             More information:
 
-            Maximum length: 128 characters
+
+            Maximum length: 128 characters'
         merchantCustomsName:
           type: string
-          description: |-
-            The merchant recordation name in the customs system.
+          description: 'The merchant recordation name in the customs system.
+
 
             More information:
 
-            Maximum length: 256 characters
+
+            Maximum length: 256 characters'
       required:
-        - merchantCustomsCode
-        - merchantCustomsName
+      - merchantCustomsCode
+      - merchantCustomsName
     AlipayCustomsQueryRequest:
       type: object
       properties:
@@ -158,218 +126,172 @@ components:
           type: array
           items:
             type: string
-          description: >-
-            The unique declaration request ID that is assigned by the merchant
-            to identify a declaration request. Batch queries are supported, and
-            up to 10 declaration request IDs are supported at a time. 
-
-
-            More information:
-
-
-            Maximum length: 32 characters
-
-            Maximum size: 10 elements
+          description: "The unique declaration request ID that is assigned by the\
+            \ merchant to identify a declaration request. Batch queries are supported,\
+            \ and up to 10 declaration request IDs are supported at a time. \n\nMore\
+            \ information:\n\nMaximum length: 32 characters\nMaximum size: 10 elements"
       required:
-        - declarationRequestIds
+      - declarationRequestIds
     DeclarationRecord:
       type: object
       properties:
         declarationRequestId:
           type: string
-          description: >-
-            The unique ID that is assigned by the merchant to identify a
-            declaration request.
+          description: 'The unique ID that is assigned by the merchant to identify
+            a declaration request.
 
 
             More information:
 
 
-            Maximum length: 32 characters
+            Maximum length: 32 characters'
         customsPaymentId:
           type: string
-          description: >-
-            The payment ID provided to the customs by the declaration service
-            provider.
+          description: 'The payment ID provided to the customs by the declaration
+            service provider.
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         customsOrderId:
           type: string
-          description: >-
-            The order ID provided to the customs by the declaration service
+          description: 'The order ID provided to the customs by the declaration service
             provider.
 
 
-            Note: If the order is not split, this field is the same as
-            paymentRequestId. If the order is split, this field is the same as
-            suborderId.
+            Note: If the order is not split, this field is the same as paymentRequestId.
+            If the order is split, this field is the same as suborderId.
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         customs:
           $ref: '#/components/schemas/CustomsInfo'
           description: The customs information
         merchantCustomsInfo:
           $ref: '#/components/schemas/MerchantCustomsInfo'
-          description: |+
-            The merchant information that is registered in the customs system.
+          description: 'The merchant information that is registered in the customs
+            system.
 
+
+            '
         declarationAmount:
           $ref: '#/components/schemas/Amount'
-          description: >-
-            The declaration amount. Only China customs declaration is supported.
-            The default currency is CNY (Chinese Renminbi).  
+          description: 'The declaration amount. Only China customs declaration is
+            supported. The default currency is CNY (Chinese Renminbi).  '
         splitOrder:
           type: boolean
-          description: |+
-            This field indicates whether the order is split for declaration. 
-
+          description: "This field indicates whether the order is split for declaration.\
+            \ \n\n"
         declarationRequestStatus:
           type: string
-          description: >-
-            The current status of this declaration order. Valid values are:
+          description: 'The current status of this declaration order. Valid values
+            are:
 
 
             IN_PROCESS: The customs declaration application is still processing.
 
-            CUSTOMS_PROCESSING_COMPLETED: Successfully received by customs, and
-            customs has returned the acceptance result. 
+            CUSTOMS_PROCESSING_COMPLETED: Successfully received by customs, and customs
+            has returned the acceptance result. '
         lastModifiedTime:
           type: string
-          description: >
-            The last status update time.
+          description: 'The last status update time.
 
 
             More information:
 
 
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".
+
+            '
         customsDeclarationResultCode:
           type: string
-          description: >-
-            After the declaration is initiated, the result code is returned in
-            the customs' receipt. Valid values are:
+          description: 'After the declaration is initiated, the result code is returned
+            in the customs'' receipt. Valid values are:
 
 
-            2: Declaration success and this result is recorded in the payment
-            information.
+            2: Declaration success and this result is recorded in the payment information.
 
-            120: The order, payment information, and the logistics number are
-            verified correctly by the customs.
+            120: The order, payment information, and the logistics number are verified
+            correctly by the customs.
 
-            Numbers less than 0: Error occurred. Check with the target customs
-            for more information.
+            Numbers less than 0: Error occurred. Check with the target customs for
+            more information.
 
             success: The declaration is sent to customs successfully.
 
-            Note: When the customs declaration request is sent to ZONGSHU and
-            successfully confirmed as received, and the value of
-            declarationRequestStatus is ​CUSTOMS_PROCESSING_COMPLETED​, Antom
-            will accurately return the information of this field provided by
+            Note: When the customs declaration request is sent to ZONGSHU and successfully
+            confirmed as received, and the value of declarationRequestStatus is ​CUSTOMS_PROCESSING_COMPLETED​,
+            Antom will accurately return the information of this field provided by
             customs.
 
 
             More information:
 
 
-            Maximum length: 64 characters
+            Maximum length: 64 characters'
         customsDeclarationResultDesc:
           type: string
-          description: >-
-            The description of the customs' returned result.
+          description: 'The description of the customs'' returned result.
 
 
-            Note:When the customs declaration request is sent to ZONGSHU and
-            successfully confirmed as received, and the value of
-            declarationRequestStatus is CUSTOMS_PROCESSING_COMPLETED, Antom will
-            accurately return the information of this field provided by customs.
+            Note:When the customs declaration request is sent to ZONGSHU and successfully
+            confirmed as received, and the value of declarationRequestStatus is CUSTOMS_PROCESSING_COMPLETED,
+            Antom will accurately return the information of this field provided by
+            customs.
 
 
             More information:
 
 
-            Maximum length: 2048 characters
+            Maximum length: 2048 characters'
         customsDeclarationReturnTime:
           type: string
-          description: >-
-            Customs' receipt return time.
-
-
-            Note: This field is returned when declarationRequestStatus is
-            CUSTOMS_PROCESSING_COMPLETED. 
-
-
-            More information:
-
-
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+          description: "Customs' receipt return time.\n\nNote: This field is returned\
+            \ when declarationRequestStatus is CUSTOMS_PROCESSING_COMPLETED. \n\n\
+            More information:\n\nThe value follows the ISO 8601 standard format. For\
+            \ example, \"2019-11-27T12:01:01+08:00\"."
       required:
-        - declarationRequestId
-        - customsPaymentId
-        - customsOrderId
-        - customs
-        - merchantCustomsInfo
-        - declarationAmount
-        - splitOrder
-        - declarationRequestStatus
-        - lastModifiedTime
+      - declarationRequestId
+      - customsPaymentId
+      - customsOrderId
+      - customs
+      - merchantCustomsInfo
+      - declarationAmount
+      - splitOrder
+      - declarationRequestStatus
+      - lastModifiedTime
     AlipayCustomsQueryResponse:
       type: object
       properties:
         result:
           $ref: '#/components/schemas/Result'
-          description: >-
-            The request result, which contains information such as status and
-            error codes.
+          description: The request result, which contains information such as status
+            and error codes.
         declarationRequestsNotFound:
           type: array
           items:
             type: string
-          description: >-
-            The list of declaration request IDs that cannot be found in the
-            system.
-
-
-            Note: This field is returned when result.resultCode is S and one or
-            more declaration request IDs cannot be found in the system. 
-
-
-            More information:
-
-
-            Maximum length: 32 characters
-
-            Maximum size: 10 elements
+          description: "The list of declaration request IDs that cannot be found in\
+            \ the system.\n\nNote: This field is returned when result.resultCode is\
+            \ S and one or more declaration request IDs cannot be found in the system.\
+            \ \n\nMore information:\n\nMaximum length: 32 characters\nMaximum size:\
+            \ 10 elements"
         declarationRecords:
           type: array
           items:
             $ref: '#/components/schemas/DeclarationRecord'
-          description: >-
-            The list of customs declaration records. Each record represents a
-            customs declaration.
-
-
-            Note: This field is returned when result.resultCode is S.  
-
-
-            More information:
-
-
-            Maximum size: 10 elements
+          description: "The list of customs declaration records. Each record represents\
+            \ a customs declaration.\n\nNote: This field is returned when result.resultCode\
+            \ is S.  \n\nMore information:\n\nMaximum size: 10 elements"
       required:
-        - result
+      - result
   securitySchemes: {}
 servers:
-  - url: >-
-      https://open-sea-global.alipay.com/ams/api/v1/customs/inquiryDeclarationRequests
-    description: 正式环境
+- url: https://open-sea-global.alipay.com/ams/api/v1/customs/inquiryDeclarationRequests
+  description: 正式环境
 security: []

@@ -289,7 +289,7 @@
           },
           "value": {
             "type": "string",
-            "description": "The amount to charge as a positive integer in the smallest currency unit. (That is, 100 cents to charge $1.00, or 100 to charge JPY ¥100, a 0-decimal currency).\n\nNotes: For details about the smallest currency unit, see Smallest unit of the currency.\n\nMore information:\n\nValue range: 0 - unlimited"
+            "description": "The amount to charge as a positive integer in the smallest currency unit. (That is, 100 cents to charge $1.00, or 100 to charge JPY \u00a5100, a 0-decimal currency).\n\nNotes: For details about the smallest currency unit, see Smallest unit of the currency.\n\nMore information:\n\nValue range: 0 - unlimited"
           }
         },
         "required": [
@@ -366,8 +366,7 @@
         }
       },
       "ResultStatusType": {
-        "type":
-          "string",
+        "type": "string",
         "enum": [
           "S",
           "F",
@@ -593,7 +592,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/inquiryPayment",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ],
   "security": []
