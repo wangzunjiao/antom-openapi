@@ -1,3 +1,4 @@
+---
 openapi: 3.1.0
 info:
   title: authorizations_revoke
@@ -9,10 +10,11 @@ paths:
     post:
       summary: revoke
       deprecated: false
-      description: >
-        Use this API to get the cashier page address. After getting the cashier
-        page address, you can redirect the user to the cashier page to make a
-        payment.
+      description: 'Use this API to get the cashier page address. After getting the
+        cashier page address, you can redirect the user to the cashier page to make
+        a payment.
+
+        '
       tags: []
       parameters: []
       requestBody:
@@ -38,46 +40,37 @@ components:
           type: string
           description: The result code.
         resultStatus:
-          description: |-
-            The result status. Valid values are:
-
-            S: indicates that the result status is successful.
-            F: indicates that the result status is failed. 
-            U: indicates that the result status is unknown. 
+          description: "The result status. Valid values are:\n\nS: indicates that\
+            \ the result status is successful.\nF: indicates that the result status\
+            \ is failed. \nU: indicates that the result status is unknown. "
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
           description: The result message.
       required:
-        - resultCode
-        - resultStatus
-        - resultMessage
+      - resultCode
+      - resultStatus
+      - resultMessage
     ResultStatusType:
       type:
-        - string
-        - 'null'
+      - string
+      - 'null'
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
     AlipayAuthRevokeTokenRequest:
       type: object
       properties:
         accessToken:
           type: string
-          description: >-
-            The access token that is used to access the corresponding scope of
-            the user resource. 
-
-
-            More information:
-
-
-            Maximum length: 128 characters
+          description: "The access token that is used to access the corresponding\
+            \ scope of the user resource. \n\nMore information:\n\nMaximum length:\
+            \ 128 characters"
         extendInfo:
           type: string
       required:
-        - accessToken
+      - accessToken
     AlipayAuthRevokeTokenResponse:
       type: object
       properties:
@@ -86,9 +79,9 @@ components:
         extendInfo:
           type: string
       required:
-        - result
+      - result
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/authorizations/revoke
-    description: 正式环境
+- url: https://open-sea-global.alipay.com/ams/api/v1/authorizations/revoke
+  description: 正式环境
 security: []

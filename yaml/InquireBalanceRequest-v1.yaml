@@ -1,3 +1,4 @@
+---
 openapi: 3.1.0
 info:
   title: marketplace_inquireBalance
@@ -9,10 +10,11 @@ paths:
     post:
       summary: inquireBalance
       deprecated: false
-      description: >
-        Use this API to get the cashier page address. After getting the cashier
-        page address, you can redirect the user to the cashier page to make a
-        payment.
+      description: 'Use this API to get the cashier page address. After getting the
+        cashier page address, you can redirect the user to the cashier page to make
+        a payment.
+
+        '
       tags: []
       parameters: []
       requestBody:
@@ -38,120 +40,80 @@ components:
           type: string
           description: The result code.
         resultStatus:
-          description: |-
-            The result status. Valid values are:
-
-            S: indicates that the result status is successful.
-            F: indicates that the result status is failed. 
-            U: indicates that the result status is unknown. 
+          description: "The result status. Valid values are:\n\nS: indicates that\
+            \ the result status is successful.\nF: indicates that the result status\
+            \ is failed. \nU: indicates that the result status is unknown. "
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
           description: The result message.
       required:
-        - resultCode
-        - resultStatus
-        - resultMessage
+      - resultCode
+      - resultStatus
+      - resultMessage
     Amount:
       type: object
       properties:
         currency:
           type: string
-          description: >-
-            The transaction currency, which is a 3-letter currency code that
-            follows the ISO 4217 standard. 
-
-
-            More information:
-
-
-            Maximum length: 3 characters
+          description: "The transaction currency, which is a 3-letter currency code\
+            \ that follows the ISO 4217 standard. \n\nMore information:\n\nMaximum\
+            \ length: 3 characters"
         value:
           type: string
-          description: >-
-            The value of the amount as a positive integer in the smallest
-            currency unit. For example, if the currency is USD and the amount is
-            $1.00, set the value of this parameter to 100; or if the currency is
-            JPY and the amount is ￥1, set the value of this parameter to 1.
-
-
-            For details about the smallest currency unit, see Smallest unit of
-            the currency.
-
-
-            For details about the minimum payment amount allowed for each
-            payment method, see Minimum amount rules.  
-
-
-            More information:
-
-
-            Value range: [1, +∞)
+          description: "The value of the amount as a positive integer in the smallest\
+            \ currency unit. For example, if the currency is USD and the amount is\
+            \ $1.00, set the value of this parameter to 100; or if the currency is\
+            \ JPY and the amount is ￥1, set the value of this parameter to 1.\n\n\
+            For details about the smallest currency unit, see Smallest unit of the\
+            \ currency.\n\nFor details about the minimum payment amount allowed for\
+            \ each payment method, see Minimum amount rules.  \n\nMore information:\n\
+            \nValue range: [1, +∞)"
       required:
-        - value
-        - currency
+      - value
+      - currency
     ResultStatusType:
       type:
-        - string
-        - 'null'
+      - string
+      - 'null'
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
     AlipayInquireBalanceRequest:
       type: object
       properties:
         referenceMerchantId:
           type: string
-          description: >-
-            The unique ID that is assigned by the marketplace to identify the
-            sub-merchant.
-
-
-            Specify this parameter if you inquire about the account balance of
-            the sub-merchant. If you leave this parameter empty or do not
-            specify this parameter, the default action is to inquire about the
-            account balance of the marketplace.  
-
-
-            More information:
-
-
-            Maximum length: 32 characters
+          description: "The unique ID that is assigned by the marketplace to identify\
+            \ the sub-merchant.\n\nSpecify this parameter if you inquire about the\
+            \ account balance of the sub-merchant. If you leave this parameter empty\
+            \ or do not specify this parameter, the default action is to inquire about\
+            \ the account balance of the marketplace.  \n\nMore information:\n\nMaximum\
+            \ length: 32 characters"
     AccountBalance:
       type: object
       properties:
         accountNo:
           type: string
-          description: |-
-            The balance account number.  
-
-            More information:
-
-            Maximum length: 32 characters
+          description: "The balance account number.  \n\nMore information:\n\nMaximum\
+            \ length: 32 characters"
         currency:
           type: string
-          description: >-
-            The currency associated with the balance account. The value of this
-            parameter is a 3-letter currency code that follows the ISO 4217
-            standard.  
-
-
-            More information:
-
-
-            Maximum length: 3 characters
-        availableBalance: &ref_0
+          description: "The currency associated with the balance account. The value\
+            \ of this parameter is a 3-letter currency code that follows the ISO 4217\
+            \ standard.  \n\nMore information:\n\nMaximum length: 3 characters"
+        availableBalance: &id001
           $ref: '#/components/schemas/Amount'
           description: 'The balance in the account that is accessible for use.  '
-        frozenBalance: *ref_0
-        totalBalance: *ref_0
+        frozenBalance: *id001
+        totalBalance: *id001
       required:
-        - accountNo
-        - currency
-        - availableBalance
-        - frozenBalance
-        - totalBalance
+      - accountNo
+      - currency
+      - availableBalance
+      - frozenBalance
+      - totalBalance
     AlipayInquireBalanceResponse:
       type: object
       properties:
@@ -162,14 +124,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AccountBalance'
-          description: >-
-            The list of balance accounts assigned by Alipay.  More
-            information:Maximum length: 64 characters
+          description: 'The list of balance accounts assigned by Alipay.  More information:Maximum
+            length: 64 characters'
       required:
-        - result
-        - accountBalances
+      - result
+      - accountBalances
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/accounts/inquireBalance
-    description: 正式环境
+- url: https://open-sea-global.alipay.com/ams/api/v1/accounts/inquireBalance
+  description: 正式环境
 security: []

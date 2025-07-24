@@ -1,3 +1,4 @@
+---
 openapi: 3.1.0
 info:
   title: marketplace_settle
@@ -9,10 +10,11 @@ paths:
     post:
       summary: settle
       deprecated: false
-      description: >
-        Use this API to get the cashier page address. After getting the cashier
-        page address, you can redirect the user to the cashier page to make a
-        payment.
+      description: 'Use this API to get the cashier page address. After getting the
+        cashier page address, you can redirect the user to the cashier page to make
+        a payment.
+
+        '
       tags: []
       parameters: []
       requestBody:
@@ -38,175 +40,113 @@ components:
           type: string
           description: The result code.
         resultStatus:
-          description: |-
-            The result status. Valid values are:
-
-            S: indicates that the result status is successful.
-            F: indicates that the result status is failed. 
-            U: indicates that the result status is unknown. 
+          description: "The result status. Valid values are:\n\nS: indicates that\
+            \ the result status is successful.\nF: indicates that the result status\
+            \ is failed. \nU: indicates that the result status is unknown. "
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
           description: The result message.
       required:
-        - resultCode
-        - resultStatus
-        - resultMessage
+      - resultCode
+      - resultStatus
+      - resultMessage
     Amount:
       type: object
       properties:
         currency:
           type: string
-          description: >-
-            The transaction currency, which is a 3-letter currency code that
-            follows the ISO 4217 standard. 
-
-
-            More information:
-
-
-            Maximum length: 3 characters
+          description: "The transaction currency, which is a 3-letter currency code\
+            \ that follows the ISO 4217 standard. \n\nMore information:\n\nMaximum\
+            \ length: 3 characters"
         value:
           type: string
-          description: >-
-            The value of the amount as a positive integer in the smallest
-            currency unit. For example, if the currency is USD and the amount is
-            $1.00, set the value of this parameter to 100; or if the currency is
-            JPY and the amount is ￥1, set the value of this parameter to 1.
-
-
-            For details about the smallest currency unit, see Smallest unit of
-            the currency.
-
-
-            For details about the minimum payment amount allowed for each
-            payment method, see Minimum amount rules.  
-
-
-            More information:
-
-
-            Value range: [1, +∞)
+          description: "The value of the amount as a positive integer in the smallest\
+            \ currency unit. For example, if the currency is USD and the amount is\
+            \ $1.00, set the value of this parameter to 100; or if the currency is\
+            \ JPY and the amount is ￥1, set the value of this parameter to 1.\n\n\
+            For details about the smallest currency unit, see Smallest unit of the\
+            \ currency.\n\nFor details about the minimum payment amount allowed for\
+            \ each payment method, see Minimum amount rules.  \n\nMore information:\n\
+            \nValue range: [1, +∞)"
       required:
-        - currency
-        - value
+      - currency
+      - value
     ResultStatusType:
       type:
-        - string
-        - 'null'
+      - string
+      - 'null'
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
     SettleToType:
       type: string
       enum:
-        - SELLER
-        - MARKETPLACE
+      - SELLER
+      - MARKETPLACE
     SettlementDetail:
       type: object
       properties:
         settleTo:
           $ref: '#/components/schemas/SettleToType'
-          description: >-
-            The destination where the funds of a successful payment are settled.
-            Valid values are:
-
-
-            SELLER: indicates that the funds are settled to the seller. 
-
-            MARKETPLACE: indicates that the funds are settled to the
-            marketplace.  
-
-            More information:
-
-
-            Maximum length: 32 characters
+          description: "The destination where the funds of a successful payment are\
+            \ settled. Valid values are:\n\nSELLER: indicates that the funds are settled\
+            \ to the seller. \nMARKETPLACE: indicates that the funds are settled to\
+            \ the marketplace.  \nMore information:\n\nMaximum length: 32 characters"
         settlementAmount:
           $ref: '#/components/schemas/Amount'
-          description: |+
-            The amount of funds that need to be settled.  
-
+          description: "The amount of funds that need to be settled.  \n\n"
       required:
-        - settleTo
-        - settlementAmount
+      - settleTo
+      - settlementAmount
     AlipaySettleRequest:
       type: object
       properties:
         settlementRequestId:
           type: string
-          description: >-
-            The unique ID that is assigned by the marketplace to identify a
-            settlement request. Antom uses this field for idempotence control. 
-
-
-            More information:
-
-
-            This field is an API idempotency field.For registration requests
-            that are initiated with the same value of settlementRequestId and
-            reach a final status (resultStatus = S or F), the same result is to
-            be returned for the request.
-
-            Maximum length: 64 characters
+          description: "The unique ID that is assigned by the marketplace to identify\
+            \ a settlement request. Antom uses this field for idempotence control.\
+            \ \n\nMore information:\n\nThis field is an API idempotency field.For\
+            \ registration requests that are initiated with the same value of settlementRequestId\
+            \ and reach a final status (resultStatus = S or F), the same result is\
+            \ to be returned for the request.\nMaximum length: 64 characters"
         paymentId:
           type: string
-          description: >-
-            The unique ID that is assigned by Antom to identify a payment. The
-            value of this parameter is returned through the same parameter in
-            the pay (Cashier Payment) API.  
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The unique ID that is assigned by Antom to identify a payment.\
+            \ The value of this parameter is returned through the same parameter in\
+            \ the pay (Cashier Payment) API.  \n\nMore information:\n\nMaximum length:\
+            \ 64 characters"
         settlementDetails:
           type: array
           items:
             $ref: '#/components/schemas/SettlementDetail'
-          description: |-
-            The settlement details for a payment.  
-
-            More information:
-
-            Maximum length: 20 characters
+          description: "The settlement details for a payment.  \n\nMore information:\n\
+            \nMaximum length: 20 characters"
       required:
-        - settlementRequestId
-        - paymentId
-        - settlementDetails
+      - settlementRequestId
+      - paymentId
+      - settlementDetails
     AlipaySettleResponse:
       type: object
       properties:
         result:
           $ref: '#/components/schemas/Result'
-          description: >-
-            The request result, which contains information such as status and
-            error codes. 
+          description: 'The request result, which contains information such as status
+            and error codes. '
         settlementRequestId:
           type: string
-          description: >-
-            The unique ID that is assigned by the marketplace to identify a
-            settlement request.  
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The unique ID that is assigned by the marketplace to identify\
+            \ a settlement request.  \n\nMore information:\n\nMaximum length: 64 characters"
         settlementId:
           type: string
-          description: |-
-            The unique ID that is assigned by Antom to identify a settlement.  
-
-            More information:
-
-            Maximum length: 64 characters
+          description: "The unique ID that is assigned by Antom to identify a settlement.\
+            \  \n\nMore information:\n\nMaximum length: 64 characters"
       required:
-        - settlementRequestId
-        - settlementId
+      - settlementRequestId
+      - settlementId
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/payments/settle
-    description: 正式环境
+- url: https://open-sea-global.alipay.com/ams/api/v1/payments/settle
+  description: 正式环境
 security: []

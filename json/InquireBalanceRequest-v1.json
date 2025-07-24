@@ -73,7 +73,7 @@
           },
           "value": {
             "type": "string",
-            "description": "The value of the amount as a positive integer in the smallest currency unit. For example, if the currency is USD and the amount is $1.00, set the value of this parameter to 100; or if the currency is JPY and the amount is ￥1, set the value of this parameter to 1.\n\nFor details about the smallest currency unit, see Smallest unit of the currency.\n\nFor details about the minimum payment amount allowed for each payment method, see Minimum amount rules.  \n\nMore information:\n\nValue range: [1, +∞)"
+            "description": "The value of the amount as a positive integer in the smallest currency unit. For example, if the currency is USD and the amount is $1.00, set the value of this parameter to 100; or if the currency is JPY and the amount is \uffe51, set the value of this parameter to 1.\n\nFor details about the smallest currency unit, see Smallest unit of the currency.\n\nFor details about the minimum payment amount allowed for each payment method, see Minimum amount rules.  \n\nMore information:\n\nValue range: [1, +\u221e)"
           }
         },
         "required": [
@@ -82,8 +82,7 @@
         ]
       },
       "ResultStatusType": {
-        "type":
-          "string",
+        "type": "string",
         "enum": [
           "S",
           "F",
@@ -157,7 +156,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/accounts/inquireBalance",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ],
   "security": []

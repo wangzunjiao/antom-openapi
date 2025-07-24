@@ -65,8 +65,7 @@
         ]
       },
       "ResultStatusType": {
-        "type":
-          "string",
+        "type": "string",
         "enum": [
           "S",
           "F",
@@ -103,7 +102,7 @@
           },
           "attachmentType": {
             "$ref": "#/components/schemas/AttachmentType",
-            "description": "The type of the attachment that you submit. Valid values are:\n\n​AUTHORIZER_SIGNATURE_CONFIRMATION_LETTER​: indicates that the attachment is a document that someone signs on behalf of an individual or a company.\n​ASSOCIATION_ARTICLE​: indicates that the attachment contains the rules and regulations of the company.\n​FINANCIAL_REPORT​: indicates that the attachment is the company's financial report.\n​OWNERSHIP_STRUCTURE_PIC​: indicates that the attachment is the company's ownership structure chart.\n​ADDRESS_PROOF​: indicates that the attachment serves as proof of the company member's residential address.\n​UBO_PROVE​: indicates that the attachment is the declaration of the company's UBO whose shareholding ratio is less than 25%.\n​ENTERPRISE_REGISTRATION​: indicates the enterprise registration certificate.\n​LICENSE_INFO​: indicates that the certificate is a business license.\n​ID_CARD​: indicates that the certificate is an identity card.\n​PASSPORT​: indicates that the certificate is a passport.\n​DRIVING_LICENSE​: indicates that the certificate is a driving license.\n​CPF​: indicates that the certificate is the Cadastro Pessoal de Pessoa Física (CPF) of the Brazilian individual taxpayer.\n​CNPJ​: indicates that the certificate is the Cadastro Nacional da Pessoa Jurídica (CNPJ), which is a federal identification number assigned to companies and businesses operating in Brazil.\nMore information:\n\nMaximum length: 64 characters"
+            "description": "The type of the attachment that you submit. Valid values are:\n\n\u200bAUTHORIZER_SIGNATURE_CONFIRMATION_LETTER\u200b: indicates that the attachment is a document that someone signs on behalf of an individual or a company.\n\u200bASSOCIATION_ARTICLE\u200b: indicates that the attachment contains the rules and regulations of the company.\n\u200bFINANCIAL_REPORT\u200b: indicates that the attachment is the company's financial report.\n\u200bOWNERSHIP_STRUCTURE_PIC\u200b: indicates that the attachment is the company's ownership structure chart.\n\u200bADDRESS_PROOF\u200b: indicates that the attachment serves as proof of the company member's residential address.\n\u200bUBO_PROVE\u200b: indicates that the attachment is the declaration of the company's UBO whose shareholding ratio is less than 25%.\n\u200bENTERPRISE_REGISTRATION\u200b: indicates the enterprise registration certificate.\n\u200bLICENSE_INFO\u200b: indicates that the certificate is a business license.\n\u200bID_CARD\u200b: indicates that the certificate is an identity card.\n\u200bPASSPORT\u200b: indicates that the certificate is a passport.\n\u200bDRIVING_LICENSE\u200b: indicates that the certificate is a driving license.\n\u200bCPF\u200b: indicates that the certificate is the Cadastro Pessoal de Pessoa F\u00edsica (CPF) of the Brazilian individual taxpayer.\n\u200bCNPJ\u200b: indicates that the certificate is the Cadastro Nacional da Pessoa Jur\u00eddica (CNPJ), which is a federal identification number assigned to companies and businesses operating in Brazil.\nMore information:\n\nMaximum length: 64 characters"
           },
           "fileSha256": {
             "type": "string",
@@ -129,7 +128,7 @@
           },
           "attachmentType": {
             "$ref": "#/components/schemas/AttachmentType",
-            "description": "The type of the attachment that you submit. Valid values are:\n\n​AUTHORIZER_SIGNATURE_CONFIRMATION_LETTER​: indicates that the attachment is a document that someone signs on behalf of an individual or a company.\n​ASSOCIATION_ARTICLE​: indicates that the attachment contains the rules and regulations of the company.\n​FINANCIAL_REPORT​: indicates that the attachment is the company's financial report.\n​OWNERSHIP_STRUCTURE_PIC​: indicates that the attachment is the company's ownership structure chart.\n​ADDRESS_PROOF​: indicates that the attachment serves as proof of the company member's residential address.\n​UBO_PROVE​: indicates that the attachment is the declaration of the company's UBO whose shareholding ratio is less than 25%.\n​ENTERPRISE_REGISTRATION​: indicates the enterprise registration certificate.\n​LICENSE_INFO​: indicates that the certificate is a business license.\n​ID_CARD​: indicates that the certificate is an identity card.\n​PASSPORT​: indicates that the certificate is a passport.\n​DRIVING_LICENSE​: indicates that the certificate is a driving license.\n​CPF​: indicates that the certificate is the Cadastro Pessoal de Pessoa Física (CPF) of the Brazilian individual taxpayer.\n​CNPJ​: indicates that the certificate is the Cadastro Nacional da Pessoa Jurídica (CNPJ), which is a federal identification number assigned to companies and businesses operating in Brazil.\nMore information:\n\nMaximum length: 64 characters"
+            "description": "The type of the attachment that you submit. Valid values are:\n\n\u200bAUTHORIZER_SIGNATURE_CONFIRMATION_LETTER\u200b: indicates that the attachment is a document that someone signs on behalf of an individual or a company.\n\u200bASSOCIATION_ARTICLE\u200b: indicates that the attachment contains the rules and regulations of the company.\n\u200bFINANCIAL_REPORT\u200b: indicates that the attachment is the company's financial report.\n\u200bOWNERSHIP_STRUCTURE_PIC\u200b: indicates that the attachment is the company's ownership structure chart.\n\u200bADDRESS_PROOF\u200b: indicates that the attachment serves as proof of the company member's residential address.\n\u200bUBO_PROVE\u200b: indicates that the attachment is the declaration of the company's UBO whose shareholding ratio is less than 25%.\n\u200bENTERPRISE_REGISTRATION\u200b: indicates the enterprise registration certificate.\n\u200bLICENSE_INFO\u200b: indicates that the certificate is a business license.\n\u200bID_CARD\u200b: indicates that the certificate is an identity card.\n\u200bPASSPORT\u200b: indicates that the certificate is a passport.\n\u200bDRIVING_LICENSE\u200b: indicates that the certificate is a driving license.\n\u200bCPF\u200b: indicates that the certificate is the Cadastro Pessoal de Pessoa F\u00edsica (CPF) of the Brazilian individual taxpayer.\n\u200bCNPJ\u200b: indicates that the certificate is the Cadastro Nacional da Pessoa Jur\u00eddica (CNPJ), which is a federal identification number assigned to companies and businesses operating in Brazil.\nMore information:\n\nMaximum length: 64 characters"
           },
           "attachmentKey": {
             "type": "string",
@@ -146,7 +145,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/open/openapiv2_file/v1/business/attachment/submitAttachment",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ],
   "security": []

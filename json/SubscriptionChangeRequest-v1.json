@@ -82,8 +82,7 @@
         ]
       },
       "ResultStatusType": {
-        "type":
-          "string",
+        "type": "string",
         "enum": [
           "S",
           "F",
@@ -124,7 +123,7 @@
         "properties": {
           "subscriptionChangeRequestId": {
             "type": "string",
-            "description": "The unique ID assigned by a merchant to identify a subscription change request. Antom uses this field for idempotency control. \n\nNote: For subscription change requests that are initiated with the same value of subscriptionChangeRequestId and reach a final status of ​S​ or​F​, the same result is to be returned for the request.\n\nMore information:\n\nThis field is an API idempotency field.\nMaximum length: 64 characters"
+            "description": "The unique ID assigned by a merchant to identify a subscription change request. Antom uses this field for idempotency control. \n\nNote: For subscription change requests that are initiated with the same value of subscriptionChangeRequestId and reach a final status of \u200bS\u200b or\u200bF\u200b, the same result is to be returned for the request.\n\nMore information:\n\nThis field is an API idempotency field.\nMaximum length: 64 characters"
           },
           "subscriptionId": {
             "type": "string",
@@ -186,7 +185,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/subscriptions/change",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ],
   "security": []

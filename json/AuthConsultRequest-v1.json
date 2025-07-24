@@ -118,8 +118,7 @@
         ]
       },
       "ResultStatusType": {
-        "type":
-          "string",
+        "type": "string",
         "enum": [
           "S",
           "F",
@@ -283,7 +282,7 @@
           },
           "appIdentifier": {
             "type": "string",
-            "description": "Android package name, which is used for Android app to open a cashier page.\n\nNote: This field is returned when result.resultCode is SUCCESS and terminalType is ​APP or ​WAP​.\n\nMore information:\n\nMaximum length: 128 characters"
+            "description": "Android package name, which is used for Android app to open a cashier page.\n\nNote: This field is returned when result.resultCode is SUCCESS and terminalType is \u200bAPP or \u200bWAP\u200b.\n\nMore information:\n\nMaximum length: 128 characters"
           },
           "authCodeForm": {
             "$ref": "#/components/schemas/AuthCodeForm",
@@ -300,7 +299,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/authorizations/consult",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ],
   "security": []
