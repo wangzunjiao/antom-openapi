@@ -826,12 +826,42 @@ components:
           description: 卡支付失败且渠道返回时的原始错误码
         refusalReasonRaw:
           type: string
-          maxLength: 256
-          description: 交易失败时返回的原始拒绝原因，卡支付场景且渠道有返回时提供
-        merchantAdviceCode:
+          description: 支付失败时的原始失败原因
+        merchantOrderNo:
           type: string
-          maxLength: 128
-          description: 卡支付场景且渠道有返回时提供的商户建议代码
+          description: 商户订单号
+        channel:
+          type: string
+          description: 交易渠道
+        tradeNo:
+          type: string
+          description: 交易单号
+        acquirerInfo:
+          $ref: '#/components/schemas/AcquirerInfo'
+        settlementCurrency:
+          type: string
+          description: 分账结算币种
+        afterSalesStatus:
+          type: string
+          description: 售后状态
+        channelAmount:
+          type: object
+          properties:
+            value:
+              type: string
+              description: 渠道支付金额
+            currency:
+              type: string
+              description: 渠道支付币种
+        promotionList:
+        - type: object
+          properties:
+            type:
+              type: string
+              description: 优惠类型
+            value:
+              type: string
+              description: 优惠金额
         cardNo:
           type: string
           description: The masked card number, which just shows part of the card number
@@ -954,16 +984,35 @@ components:
       properties:
         acquirerName:
           type: string
+          description: "The name of the acquirer. \n\nNote: This parameter is returned\
+            \ if you integrate the APO product.  \n\nMore information:\n\nMaximum\
+            \ length: 64 characters"
         referenceRequestId:
           type: string
+          description: "The unique ID that is assigned by APO to identify a payment\
+            \ request sent to the acquirer.\n\nNote: This parameter is returned if\
+            \ you integrate the APO product.  \n\nMore information:\n\nMaximum length:\
+            \ 64 characters"
         acquirerTransactionId:
           type: string
+          description: "The unique ID that is assigned by the acquirer to identify\
+            \ a transaction. \n\nNote: This parameter is returned if you integrate\
+            \ the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
         acquirerMerchantId:
           type: string
+          description: "The unique ID that is assigned by the acquirer to identify\
+            \ a merchant. \n\nNote: This parameter is returned if you integrate the\
+            \ APO product.  \n\nMore information:\n\nMaximum length: 64 characters\n"
         acquirerResultCode:
           type: string
+          description: "The acquirer's result code that indicates the transaction\
+            \ process result.  \n\nNote: This parameter is returned if you integrate\
+            \ the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
         acquirerResultMessage:
           type: string
+          description: "The result message that describes acquirerResultCode in detail.\
+            \  \n\nNote: This parameter is returned if you integrate the APO product.\n\
+            \nMore information:\n\nMaximum length: 64 characters"
     PromotionType:
       type: string
       enum:
