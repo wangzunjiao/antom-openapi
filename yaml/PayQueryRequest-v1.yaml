@@ -175,18 +175,6 @@ components:
     PaymentResultInfo:
       type: object
       properties:
-        refusalCodeRaw:
-          type: string
-          maxLength: 16
-          description: 卡支付失败且渠道返回时的原始错误码
-        refusalReasonRaw:
-          type: string
-          maxLength: 256
-          description: 交易失败时返回的原始拒绝原因，卡支付场景且渠道有返回时提供
-        merchantAdviceCode:
-          type: string
-          maxLength: 128
-          description: 卡支付场景且渠道有返回时提供的商户建议代码
         cardNo:
           type: string
           description: The masked card number, which just shows part of the card number
@@ -426,20 +414,13 @@ components:
     ThreeDSResult:
       type: object
       properties:
-        eci:
-          type: string
-          enum:
-          - '01'
-          - '02'
-          - '05'
-          - '06'
-          - '07'
-          - '04'
-          description: Electronic Commerce Indicator (ECI) that is returned by the
-            card scheme
         threeDSVersion:
           type: string
           description: The version of 3D Secure protocol
+        eci:
+          type: string
+          description: Electronic Commerce Indicator (ECI) that is returned by the
+            card scheme
         cavv:
           type: string
           description: The cardholder authentication value
