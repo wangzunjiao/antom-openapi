@@ -365,11 +365,11 @@
         "properties": {
           "paymentMethodType": {
             "type": "string",
-            "description": "The payment method type that is included in payment method options. By specifying the value of this parameter, you can receive the cashier URL of the specified payment method returned by Antom. See Payment methods to check the valid values. \n\nMore information:\n\nMaximum length: 64 characters"
+            "description": "The payment method type that is included in payment method options. By specifying the value of this parameter, you can receive the cashier URL of the specified payment method returned by Alipay. See Payment methods to check the valid values.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "paymentMethodId": {
             "type": "string",
-            "description": "The unique ID that is used to identify a payment method. The value of this parameter is that of cardToken obtained from the notifyPayment or inquiryPayment API. \n\nNote: Specify this parameter when the value of paymentMethodType is CARD.\n\nMore information:\n\nMaximum length: 128 characters"
+            "description": "The unique ID that is used to identify a payment method. The value of this parameter is that of cardToken obtained from the notifyPayment or inquiryPayment API. \n\nSpecify this parameter when the value of paymentMethodType is CARD.\n\nMore information:\n\nMaximum length: 128 characters"
           },
           "paymentMethodMetaData": {
             "type": "object",
@@ -377,7 +377,7 @@
             "additionalProperties": {
               "type": "object"
             },
-            "description": "Additional information required for some specific payment methods.  \n\nNote: Specify this parameter when the value of paymentMethodType is BLIK, P24 , CARD, MERCADOPAGO_BR, MERCADOPAGO_MX, MERCADOPAGO_CL, MERCADOPAGO_PE, ONLINEBANKING_FPX, PAGALEVE ,GOOGLEPAY or APPLEPAY."
+            "description": "Additional information required for some specific payment methods.  "
           },
           "customerId": {
             "type": "string",
@@ -388,9 +388,13 @@
             "description": "Extended information.\n\nNote: Specify this field if you need to use the extended information.\n\nMore information:\n\nMaximum length: 2048 characters"
           },
           "requireIssuerAuthentication": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Indicates whether Korean card transactions require authentication from the issuing bank. Valid values are:\n\ntrue: indicates that Korean card transactions require authentication from the issuing bank.\nfalse: indicates that Korean card transactions do not require authentication from the issuing bank. The same applies when you do not specify this parameter or the value is empty.\nSpecify this parameter when all the following conditions are met:\n\nThe value of paymentMethodType is CARD.\nThe value of paymentMethodRegion is KR.\nThe Korean card transactions require issuer authentication."
           }
-        }
+        },
+        "required": [
+          "paymentMethodType"
+        ]
       },
       "CreditPayFeeType": {
         "type": "string",
@@ -614,13 +618,16 @@
           },
           "refusalReasonRaw": {
             "type": "string",
-            "maxLength": 256,
-            "description": "\u4ea4\u6613\u5931\u8d25\u65f6\u8fd4\u56de\u7684\u539f\u59cb\u62d2\u7edd\u539f\u56e0\uff0c\u5361\u652f\u4ed8\u573a\u666f\u4e14\u6e20\u9053\u6709\u8fd4\u56de\u65f6\u63d0\u4f9b"
+            "description": "\u4ea4\u6613\u5931\u8d25\u65f6\u8fd4\u56de\u7684\u539f\u59cb\u62d2\u7edd\u539f\u56e0\uff0c\u5361\u652f\u4ed8\u573a\u666f\u4e14\u6e20\u9053\u6709\u8fd4\u56de\u65f6\u63d0\u4f9b",
+            "maxLength": 256
           },
           "merchantAdviceCode": {
             "type": "string",
-            "maxLength": 128,
-            "description": "\u5361\u652f\u4ed8\u573a\u666f\u4e14\u6e20\u9053\u6709\u8fd4\u56de\u65f6\u63d0\u4f9b\u7684\u5546\u6237\u5efa\u8bae\u4ee3\u7801"
+            "description": "\u5361\u652f\u4ed8\u573a\u666f\u4e14\u6e20\u9053\u6709\u8fd4\u56de\u65f6\u63d0\u4f9b\u7684\u5546\u6237\u5efa\u8bae\u4ee3\u7801",
+            "maxLength": 128
+          },
+          "acquirerInfo": {
+            "$ref": "#/components/schemas/AcquirerInfo"
           },
           "cardNo": {
             "type": "string",

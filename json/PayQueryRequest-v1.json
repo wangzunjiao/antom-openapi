@@ -159,13 +159,16 @@
           },
           "refusalReasonRaw": {
             "type": "string",
-            "maxLength": 256,
-            "description": "\u4ea4\u6613\u5931\u8d25\u65f6\u8fd4\u56de\u7684\u539f\u59cb\u62d2\u7edd\u539f\u56e0\uff0c\u5361\u652f\u4ed8\u573a\u666f\u4e14\u6e20\u9053\u6709\u8fd4\u56de\u65f6\u63d0\u4f9b"
+            "description": "\u4ea4\u6613\u5931\u8d25\u65f6\u8fd4\u56de\u7684\u539f\u59cb\u62d2\u7edd\u539f\u56e0\uff0c\u5361\u652f\u4ed8\u573a\u666f\u4e14\u6e20\u9053\u6709\u8fd4\u56de\u65f6\u63d0\u4f9b",
+            "maxLength": 256
           },
           "merchantAdviceCode": {
             "type": "string",
-            "maxLength": 128,
-            "description": "\u5361\u652f\u4ed8\u573a\u666f\u4e14\u6e20\u9053\u6709\u8fd4\u56de\u65f6\u63d0\u4f9b\u7684\u5546\u6237\u5efa\u8bae\u4ee3\u7801"
+            "description": "\u5361\u652f\u4ed8\u573a\u666f\u4e14\u6e20\u9053\u6709\u8fd4\u56de\u65f6\u63d0\u4f9b\u7684\u5546\u6237\u5efa\u8bae\u4ee3\u7801",
+            "maxLength": 128
+          },
+          "acquirerInfo": {
+            "$ref": "#/components/schemas/AcquirerInfo"
           },
           "cardNo": {
             "type": "string",
