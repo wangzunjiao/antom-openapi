@@ -215,25 +215,35 @@
         ]
       },
       "AcquirerInfo": {
+        "acquirerMerchantName": {
+          "type": "string",
+          "description": "\u6536\u5355\u65b9\u5546\u6237\u540d\u79f0"
+        },
         "type": "object",
         "properties": {
           "acquirerName": {
-            "type": "string"
+            "type": "string",
+            "description": "The name of the acquirer. \n\nNote: This parameter is returned if you integrate the APO product.  \n\nMore information:\n\nMaximum length: 64 characters"
           },
           "referenceRequestId": {
-            "type": "string"
+            "type": "string",
+            "description": "The unique ID that is assigned by APO to identify a payment request sent to the acquirer.\n\nNote: This parameter is returned if you integrate the APO product.  \n\nMore information:\n\nMaximum length: 64 characters"
           },
           "acquirerTransactionId": {
-            "type": "string"
+            "type": "string",
+            "description": "The unique ID that is assigned by the acquirer to identify a transaction. \n\nNote: This parameter is returned if you integrate the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "acquirerMerchantId": {
-            "type": "string"
+            "type": "string",
+            "description": "The unique ID that is assigned by the acquirer to identify a merchant. \n\nNote: This parameter is returned if you integrate the APO product.  \n\nMore information:\n\nMaximum length: 64 characters\n"
           },
           "acquirerResultCode": {
-            "type": "string"
+            "type": "string",
+            "description": "The acquirer's result code that indicates the transaction process result.  \n\nNote: This parameter is returned if you integrate the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "acquirerResultMessage": {
-            "type": "string"
+            "type": "string",
+            "description": "The result message that describes acquirerResultCode in detail.  \n\nNote: This parameter is returned if you integrate the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
           }
         }
       },

@@ -77,6 +77,10 @@
         ]
       },
       "AcquirerInfo": {
+        "acquirerMerchantName": {
+          "type": "string",
+          "description": "\u6536\u5355\u65b9\u5546\u6237\u540d\u79f0"
+        },
         "type": "object",
         "properties": {
           "acquirerName": {
