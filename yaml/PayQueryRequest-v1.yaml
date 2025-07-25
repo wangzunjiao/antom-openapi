@@ -175,18 +175,6 @@ components:
     PaymentResultInfo:
       type: object
       properties:
-        refusalCodeRaw:
-          type: string
-          maxLength: 16
-          description: 卡支付失败且渠道返回时的原始错误码
-        refusalReasonRaw:
-          type: string
-          maxLength: 256
-          description: 交易失败时返回的原始拒绝原因，卡支付场景且渠道有返回时提供
-        merchantAdviceCode:
-          type: string
-          maxLength: 128
-          description: 卡支付场景且渠道有返回时提供的商户建议代码
         cardNo:
           type: string
           description: The masked card number, which just shows part of the card number
@@ -209,8 +197,8 @@ components:
           description: The region code that represents the country or region of the
             payment method
         threeDSResult:
-          description: The result of 3D Secure authentication
           $ref: '#/components/schemas/ThreeDSResult'
+          description: The result of 3D Secure authentication
         avsResultRaw:
           type: string
           description: The raw AVS result. See AVS result codes to check the valid
@@ -224,9 +212,30 @@ components:
           description: The unique ID assigned by the card scheme to identify a transaction.
             The value of this parameter is used by the same parameter of pay (Cashier
             Payment) request in subsequent payments
+        refusalCodeRaw:
+          type: string
+          description: 交易失败且渠道返回时可见，最大长度 16
+        refusalReasonRaw:
+          type: string
+          description: 交易失败且渠道返回时可见，最大长度 256
+        merchantAdviceCode:
+          type: string
+          description: 卡支付场景且渠道返回时可见，最大长度 128
+        acquirerInfo:
+          type: object
+          properties:
+            acquirerName:
+              type: string
+              description: 收单机构 MID
+            acquirerMerchantName:
+              type: string
+              description: 收单机构侧商户名称，最大长度 64
         creditPayPlan:
-          description: The installment plan information for an installment payment
           $ref: '#/components/schemas/CreditPayPlan'
+          description: The installment plan information for an installment payment
+        is3DSDataOnly:
+          type: boolean
+          description: 卡支付场景新增字段，与is3DsAuthentication不能同时为 true
         cardholderName:
           type: string
           description: 'The cardholder''s name.

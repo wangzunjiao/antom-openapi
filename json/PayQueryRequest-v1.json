@@ -177,8 +177,8 @@
             "description": "The region code that represents the country or region of the payment method"
           },
           "threeDSResult": {
-            "description": "The result of 3D Secure authentication",
-            "$ref": "#/components/schemas/ThreeDSResult"
+            "$ref": "#/components/schemas/ThreeDSResult",
+            "description": "The result of 3D Secure authentication"
           },
           "avsResultRaw": {
             "type": "string",
@@ -192,9 +192,38 @@
             "type": "string",
             "description": "The unique ID assigned by the card scheme to identify a transaction. The value of this parameter is used by the same parameter of pay (Cashier Payment) request in subsequent payments"
           },
+          "refusalCodeRaw": {
+            "type": "string",
+            "description": "\u4ea4\u6613\u5931\u8d25\u4e14\u6e20\u9053\u8fd4\u56de\u65f6\u53ef\u89c1\uff0c\u6700\u5927\u957f\u5ea6 16"
+          },
+          "refusalReasonRaw": {
+            "type": "string",
+            "description": "\u4ea4\u6613\u5931\u8d25\u4e14\u6e20\u9053\u8fd4\u56de\u65f6\u53ef\u89c1\uff0c\u6700\u5927\u957f\u5ea6 256"
+          },
+          "merchantAdviceCode": {
+            "type": "string",
+            "description": "\u5361\u652f\u4ed8\u573a\u666f\u4e14\u6e20\u9053\u8fd4\u56de\u65f6\u53ef\u89c1\uff0c\u6700\u5927\u957f\u5ea6 128"
+          },
+          "acquirerInfo": {
+            "type": "object",
+            "properties": {
+              "acquirerName": {
+                "type": "string",
+                "description": "\u6536\u5355\u673a\u6784 MID"
+              },
+              "acquirerMerchantName": {
+                "type": "string",
+                "description": "\u6536\u5355\u673a\u6784\u4fa7\u5546\u6237\u540d\u79f0\uff0c\u6700\u5927\u957f\u5ea6 64"
+              }
+            }
+          },
           "creditPayPlan": {
-            "description": "The installment plan information for an installment payment",
-            "$ref": "#/components/schemas/CreditPayPlan"
+            "$ref": "#/components/schemas/CreditPayPlan",
+            "description": "The installment plan information for an installment payment"
+          },
+          "is3DSDataOnly": {
+            "type": "boolean",
+            "description": "\u5361\u652f\u4ed8\u573a\u666f\u65b0\u589e\u5b57\u6bb5\uff0c\u4e0eis3DsAuthentication\u4e0d\u80fd\u540c\u65f6\u4e3a true"
           },
           "cardholderName": {
             "type": "string",
@@ -371,8 +400,7 @@
         }
       },
       "ResultStatusType": {
-        "type":
-          "string",
+        "type": "string",
         "enum": [
           "S",
           "F",
@@ -598,7 +626,7 @@
   "servers": [
     {
       "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/inquiryPayment",
-      "description": "正式环境"
+      "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ],
   "security": []
