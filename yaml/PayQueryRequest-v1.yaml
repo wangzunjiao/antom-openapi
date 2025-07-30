@@ -177,16 +177,18 @@ components:
       properties:
         refusalCodeRaw:
           type: string
-          maxLength: 16
+          example: '51'
           description: 卡支付失败且渠道返回时的原始错误码
         refusalReasonRaw:
           type: string
-          maxLength: 256
-          description: 交易失败时返回的原始拒绝原因，卡支付场景且渠道有返回时提供
+          example: Not sufficient funds
+          description: 卡支付失败且渠道返回时的原始拒付原因
         merchantAdviceCode:
           type: string
-          maxLength: 128
-          description: 卡支付场景且渠道有返回时提供的商户建议代码
+          example: '00'
+          description: 支付结果的商户建议码
+        acquirerInfo:
+          $ref: '#/components/schemas/AcquirerInfo'
         cardNo:
           type: string
           description: The masked card number, which just shows part of the card number
