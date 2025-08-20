@@ -820,24 +820,30 @@ components:
     PaymentResultInfo:
       type: object
       properties:
-        refusalCodeRaw:
-          type: string
-          example: '51'
-          description: 卡支付失败且渠道返回时的原始错误码
-        refusalReasonRaw:
-          type: string
-          example: Not sufficient funds
-          description: 卡支付失败且渠道返回时的原始拒付原因
-        merchantAdviceCode:
-          type: string
-          example: '00'
-          description: 支付结果的商户建议码
-        acquirerInfo:
-          $ref: '#/components/schemas/AcquirerInfo'
         cardNo:
           type: string
           description: The masked card number, which just shows part of the card number
             and can be used to display to the user
+        funding:
+          type: string
+          description: The funding type of the card.
+        refusalCodeRaw:
+          type: string
+          maxLength: 16
+          description: 卡支付失败且渠道返回时的原始错误码
+          example: '51'
+        refusalReasonRaw:
+          type: string
+          maxLength: 256
+          description: 卡支付失败且渠道返回时的原始拒付原因
+          example: Not sufficient funds
+        merchantAdviceCode:
+          type: string
+          maxLength: 128
+          description: 支付结果的商户建议码
+          example: '00'
+        acquirerInfo:
+          $ref: '#/components/schemas/AcquirerInfo'
         cardBrand:
           type: string
           description: The card brand, which can be used to display to the user
@@ -848,9 +854,6 @@ components:
         issuingCountry:
           type: string
           description: The issuing country of the card
-        funding:
-          type: string
-          description: The funding type of the card.
         paymentMethodRegion:
           type: string
           description: The region code that represents the country or region of the
