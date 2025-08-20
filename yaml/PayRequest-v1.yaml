@@ -521,27 +521,30 @@ components:
       properties:
         paymentMethodType:
           type: string
-          description: "The payment method type that is included in payment method\
-            \ options. By specifying the value of this parameter, you can receive\
-            \ the cashier URL of the specified payment method returned by Antom. See\
-            \ Payment methods to check the valid values. \n\nMore information:\n\n\
-            Maximum length: 64 characters"
+          description: 'The payment method type that is included in payment method
+            options. By specifying the value of this parameter, you can receive the
+            cashier URL of the specified payment method returned by Alipay. See Payment
+            methods to check the valid values.
+
+
+            More information:
+
+
+            Maximum length: 64 characters'
         paymentMethodId:
           type: string
           description: "The unique ID that is used to identify a payment method. The\
             \ value of this parameter is that of cardToken obtained from the notifyPayment\
-            \ or inquiryPayment API. \n\nNote: Specify this parameter when the value\
-            \ of paymentMethodType is CARD.\n\nMore information:\n\nMaximum length:\
-            \ 128 characters"
+            \ or inquiryPayment API. \n\nSpecify this parameter when the value of\
+            \ paymentMethodType is CARD.\n\nMore information:\n\nMaximum length: 128\
+            \ characters"
         paymentMethodMetaData:
           type: object
           properties: {}
           additionalProperties:
             type: object
-          description: "Additional information required for some specific payment\
-            \ methods.  \n\nNote: Specify this parameter when the value of paymentMethodType\
-            \ is BLIK, P24 , CARD, MERCADOPAGO_BR, MERCADOPAGO_MX, MERCADOPAGO_CL,\
-            \ MERCADOPAGO_PE, ONLINEBANKING_FPX, PAGALEVE ,GOOGLEPAY or APPLEPAY."
+          description: 'Additional information required for some specific payment
+            methods.  '
         customerId:
           type: string
           description: 'The unique ID to identify a buyer.
@@ -564,6 +567,27 @@ components:
             Maximum length: 2048 characters'
         requireIssuerAuthentication:
           type: boolean
+          description: 'Indicates whether Korean card transactions require authentication
+            from the issuing bank. Valid values are:
+
+
+            true: indicates that Korean card transactions require authentication from
+            the issuing bank.
+
+            false: indicates that Korean card transactions do not require authentication
+            from the issuing bank. The same applies when you do not specify this parameter
+            or the value is empty.
+
+            Specify this parameter when all the following conditions are met:
+
+
+            The value of paymentMethodType is CARD.
+
+            The value of paymentMethodRegion is KR.
+
+            The Korean card transactions require issuer authentication.'
+      required:
+      - paymentMethodType
     CreditPayFeeType:
       type: string
       enum:
@@ -956,16 +980,35 @@ components:
       properties:
         acquirerName:
           type: string
+          description: "The name of the acquirer. \n\nNote: This parameter is returned\
+            \ if you integrate the APO product.  \n\nMore information:\n\nMaximum\
+            \ length: 64 characters"
         referenceRequestId:
           type: string
+          description: "The unique ID that is assigned by APO to identify a payment\
+            \ request sent to the acquirer.\n\nNote: This parameter is returned if\
+            \ you integrate the APO product.  \n\nMore information:\n\nMaximum length:\
+            \ 64 characters"
         acquirerTransactionId:
           type: string
+          description: "The unique ID that is assigned by the acquirer to identify\
+            \ a transaction. \n\nNote: This parameter is returned if you integrate\
+            \ the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
         acquirerMerchantId:
           type: string
+          description: "The unique ID that is assigned by the acquirer to identify\
+            \ a merchant. \n\nNote: This parameter is returned if you integrate the\
+            \ APO product.  \n\nMore information:\n\nMaximum length: 64 characters\n"
         acquirerResultCode:
           type: string
+          description: "The acquirer's result code that indicates the transaction\
+            \ process result.  \n\nNote: This parameter is returned if you integrate\
+            \ the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
         acquirerResultMessage:
           type: string
+          description: "The result message that describes acquirerResultCode in detail.\
+            \  \n\nNote: This parameter is returned if you integrate the APO product.\n\
+            \nMore information:\n\nMaximum length: 64 characters"
     PromotionType:
       type: string
       enum:
@@ -1332,20 +1375,13 @@ components:
     ThreeDSResult:
       type: object
       properties:
-        eci:
-          type: string
-          enum:
-          - '01'
-          - '02'
-          - '05'
-          - '06'
-          - '07'
-          - '04'
-          description: Electronic Commerce Indicator (ECI) that is returned by the
-            card scheme
         threeDSVersion:
           type: string
           description: The version of 3D Secure protocol
+        eci:
+          type: string
+          description: Electronic Commerce Indicator (ECI) that is returned by the
+            card scheme
         cavv:
           type: string
           description: The cardholder authentication value

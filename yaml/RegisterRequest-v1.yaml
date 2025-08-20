@@ -50,15 +50,38 @@ components:
             Maximum length: 64 characters'
         paymentMethodId:
           type: string
+          description: "The unique ID that is used to identify a payment method. The\
+            \ value of this parameter is that of cardToken obtained from the notifyPayment\
+            \ or inquiryPayment API. \n\nSpecify this parameter when the value of\
+            \ paymentMethodType is CARD.\n\nMore information:\n\nMaximum length: 128\
+            \ characters"
         paymentMethodMetaData:
           type: object
           properties: {}
           additionalProperties:
             type: object
+          description: 'Additional information required for some specific payment
+            methods.  '
         customerId:
           type: string
+          description: 'The unique ID to identify a buyer.
+
+
+            Note: Specify this field if you have the information. Providing this information
+            helps to increase the accuracy of anti-money laundering and fraud detection,
+            and increase payment success rates.'
         extendInfo:
           type: string
+          description: 'Extended information.
+
+
+            Note: Specify this field if you need to use the extended information.
+
+
+            More information:
+
+
+            Maximum length: 2048 characters'
         requireIssuerAuthentication:
           type: boolean
           description: 'Indicates whether Korean card transactions require authentication
