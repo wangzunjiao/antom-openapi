@@ -607,24 +607,6 @@
       "PaymentResultInfo": {
         "type": "object",
         "properties": {
-          "refusalCodeRaw": {
-            "type": "string",
-            "example": "51",
-            "description": "\u5361\u652f\u4ed8\u5931\u8d25\u4e14\u6e20\u9053\u8fd4\u56de\u65f6\u7684\u539f\u59cb\u9519\u8bef\u7801"
-          },
-          "refusalReasonRaw": {
-            "type": "string",
-            "example": "Not sufficient funds",
-            "description": "\u5361\u652f\u4ed8\u5931\u8d25\u4e14\u6e20\u9053\u8fd4\u56de\u65f6\u7684\u539f\u59cb\u62d2\u4ed8\u539f\u56e0"
-          },
-          "merchantAdviceCode": {
-            "type": "string",
-            "example": "00",
-            "description": "\u652f\u4ed8\u7ed3\u679c\u7684\u5546\u6237\u5efa\u8bae\u7801"
-          },
-          "acquirerInfo": {
-            "$ref": "#/components/schemas/AcquirerInfo"
-          },
           "cardNo": {
             "type": "string",
             "description": "The masked card number, which just shows part of the card number and can be used to display to the user"
@@ -632,6 +614,24 @@
           "cardBrand": {
             "type": "string",
             "description": "The card brand, which can be used to display to the user"
+          },
+          "refusalCodeRaw": {
+            "type": "string",
+            "description": "\u5361\u652f\u4ed8\u5931\u8d25\u4e14\u6e20\u9053\u8fd4\u56de\u65f6\u7684\u539f\u59cb\u9519\u8bef\u7801",
+            "example": "51"
+          },
+          "refusalReasonRaw": {
+            "type": "string",
+            "description": "\u5361\u652f\u4ed8\u5931\u8d25\u4e14\u6e20\u9053\u8fd4\u56de\u65f6\u7684\u539f\u59cb\u62d2\u4ed8\u539f\u56e0",
+            "example": "Not sufficient funds"
+          },
+          "merchantAdviceCode": {
+            "type": "string",
+            "description": "\u652f\u4ed8\u7ed3\u679c\u7684\u5546\u6237\u5efa\u8bae\u7801",
+            "example": "00"
+          },
+          "acquirerInfo": {
+            "$ref": "#/components/schemas/AcquirerInfo"
           },
           "cardToken": {
             "type": "string",
