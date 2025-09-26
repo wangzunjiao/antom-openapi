@@ -2142,6 +2142,32 @@ components:
           type: string
           description: 用于唯一标识用于申报额度累计的三方收款人Id。非OTA结汇场景不传，OTA场景必传，且与declarationBizScene需同时存在。
           example: SJSOXUSO23211XJSP4IS
+    Declaration:
+      type: object
+      properties:
+        declarationBizScene:
+          type: string
+          enum:
+          - AIRLINE
+          - HOTEL
+          description: 申报时对应的行业分类。非OTA结汇场景不传，OTA场景必传，且与declarationBeneficiaryId需同时存在。
+        declarationBeneficiaryId:
+          type: string
+          description: 用于唯一标识用于申报额度累计的三方收款人Id。非OTA结汇场景不传，OTA场景必传，且与declarationBizScene需同时存在。
+          example: SJSOXUSO23211XJSP4IS
+    Declaration11:
+      type: object
+      properties:
+        declarationBizScene:
+          type: string
+          enum:
+          - AIRLINE
+          - HOTEL
+          description: 申报时对应的行业分类。非OTA结汇场景不传，OTA场景必传，且与declarationBeneficiaryId需同时存在。
+        declarationBeneficiaryId:
+          type: string
+          description: 用于唯一标识用于申报额度累计的三方收款人Id。非OTA结汇场景不传，OTA场景必传，且与declarationBizScene需同时存在。
+          example: SJSOXUSO23211XJSP4IS
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/pay
