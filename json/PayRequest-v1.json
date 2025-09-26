@@ -151,8 +151,15 @@
             "type": "string",
             "description": "Summary description of the order, which is used for user consumption records display or other further actions.\n\nMore information:\n\nMaximum length: 256 characters"
           },
+          "declaration": {
+            "$ref": "#/components/schemas/Declaration"
+          },
+          "needDeclaration": {
+            "type": "boolean"
+          },
           "orderAmount": {
-            "$ref": "#/components/schemas/Amount"
+            "$ref": "#/components/schemas/Amount",
+            "description": "The payment amount that the merchant requests to receive in the order currency."
           },
           "merchant": {
             "$ref": "#/components/schemas/Merchant",
@@ -163,18 +170,19 @@
             "items": {
               "$ref": "#/components/schemas/Goods"
             },
-            "description": "Summary description of the order, which is used for user consumption records display or other further actions.\n\nMore information:\n\nMaximum length: 256 characters"
+            "description": "Goods information, including the ID, name, price, and quantity of the goods in the order. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum size: 100 elements"
           },
           "shipping": {
             "$ref": "#/components/schemas/Shipping",
-            "description": "Shipping information, including information about the recipient (name, phone number, email, and shipping address), and shipping service provider. \n\nSpecify this parameter when one of the following conditions is met:\n\nYou require risk control.\nThe value of paymentMethodType is OVO and you collect this information during the payment process.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
+            "description": "Shipping information, including information about the recipient (name, phone number, email, and shipping address), and shipping service provider. \n\nSpecify this parameter when you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
           },
           "buyer": {
             "$ref": "#/components/schemas/Buyer",
-            "description": "Buyer information, including the ID, name, phone number, and email of the buyer.\n\nSpecify this parameter when one of the following conditions is met:\n\nYou require risk control.\nThe value of paymentMethodType is CARD, OVO, BANCOMATPAY, KONBINI, BANKTRANSFER_PAYEASY, or ONLINEBANKING_PAYEASY and you collect this information during the payment process.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
+            "description": "Buyer information, including the ID, name, phone number, and email of the buyer.\n\nSpecify this parameter when one of the following conditions is met:\n\nYou require risk control.\nThe value of paymentMethodType is CARD. \nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
           },
           "env": {
-            "$ref": "#/components/schemas/Env"
+            "$ref": "#/components/schemas/Env",
+            "description": "Information about the environment where the order is placed.\n\nNote: Specify this parameter when you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\n"
           },
           "extendInfo": {
             "type": "string",
@@ -182,27 +190,28 @@
           },
           "transit": {
             "$ref": "#/components/schemas/Transit",
-            "description": "Trip information, including trip modes, legs of trips and passenger information.\n\nNote: Specify this field if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
+            "description": "Trip information, including trip modes, legs of trips and passenger information.\n\nSpecify this field if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\n"
           },
           "lodging": {
             "$ref": "#/components/schemas/Lodging",
-            "description": "Information about lodging service that was purchased, including hotel name, hotel address, check-in date, check-out date, number of booked rooms, number of booked nights and guest names.\n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
+            "description": "Information about lodging service that was purchased, including hotel name, hotel address, check-in date, check-out date, number of booked rooms, number of booked nights and guest names.\n\nSpecify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
           },
           "gaming": {
             "$ref": "#/components/schemas/Gaming",
-            "description": "Information about gaming top-up, including game name, the topped up user name or ID, user email and user phone number.\n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
-          },
-          "needDeclaration": {
-            "type": "boolean"
+            "description": "Information about gaming top-up, including game name, the topped up user name or ID, user email and user phone number.\n\nSpecify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
           },
           "orderTest": {
             "type": "string"
+          },
+          "orderType": {
+            "type": "string",
+            "description": "test "
           }
         },
         "required": [
           "orderAmount",
-          "orderDescription",
-          "referenceOrderId"
+          "referenceOrderId",
+          "orderType"
         ]
       },
       "TransitType": {

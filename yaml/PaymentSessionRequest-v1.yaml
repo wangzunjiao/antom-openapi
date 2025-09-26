@@ -917,7 +917,61 @@ components:
       - ENTERPRISE
       type: string
     Order:
+      type: object
       properties:
+        referenceOrderId:
+          type: string
+          description: 'The unique ID to identify the order on the merchant side,
+            which is assigned by the merchant that provides services or goods directly
+            to the customer. This field is used for user consumption records display
+            and other further actions such as disputes track or handling of customer
+            complaints.
+
+
+            More information:
+
+
+            Maximum length: 64 characters'
+        orderDescription:
+          type: string
+          description: 'Summary description of the order, which is used for user consumption
+            records display or other further actions.
+
+
+            More information:
+
+
+            Maximum length: 256 characters'
+        declaration:
+          $ref: '#/components/schemas/Declaration'
+        needDeclaration:
+          type: boolean
+        orderAmount:
+          $ref: '#/components/schemas/Amount'
+          description: The payment amount that the merchant requests to receive in
+            the order currency.
+        merchant:
+          $ref: '#/components/schemas/Merchant'
+          description: 'Information about the secondary merchant.
+
+
+            Note: Specify this field if you are an acquirer that has secondary merchants.'
+        goods:
+          type: array
+          items:
+            $ref: '#/components/schemas/Goods'
+          description: "Goods information, including the ID, name, price, and quantity\
+            \ of the goods in the order. \n\nNote: Specify this parameter if you require\
+            \ risk control. Providing this information helps to increase the accuracy\
+            \ of anti-money laundering and fraud detection, and increase payment success\
+            \ rates.\n\nMore information:\n\nMaximum size: 100 elements"
+        shipping:
+          $ref: '#/components/schemas/Shipping'
+          description: "Shipping information, including information about the recipient\
+            \ (name, phone number, email, and shipping address), and shipping service\
+            \ provider. \n\nSpecify this parameter when you require risk control.\
+            \ Providing this information helps to increase the accuracy of anti-money\
+            \ laundering and fraud detection, and increase payment success rates."
         buyer:
           $ref: '#/components/schemas/Buyer'
           description: "Buyer information, including the ID, name, phone number, and\
@@ -934,75 +988,14 @@ components:
             \ and fraud detection, and increase payment success rates.  \n\n"
         extendInfo:
           type: string
-        gaming:
-          $ref: '#/components/schemas/Gaming'
-          description: 'Information about gaming top-up, including game name, the
-            topped up user name or ID, user email and user phone number.
+          description: 'Extended information data, including information for special
+            use cases.
 
 
-            Specify this parameter if you require risk control. Providing this information
-            helps to increase the accuracy of anti-money laundering and fraud detection,
-            and increase payment success rates.'
-        goods:
-          description: "Goods information, including the ID, name, price, and quantity\
-            \ of the goods in the order. \n\nNote: Specify this parameter if you require\
-            \ risk control. Providing this information helps to increase the accuracy\
-            \ of anti-money laundering and fraud detection, and increase payment success\
-            \ rates.\n\nMore information:\n\nMaximum size: 100 elements"
-          items:
-            $ref: '#/components/schemas/Goods'
-          type: array
-        lodging:
-          $ref: '#/components/schemas/Lodging'
-          description: 'Information about lodging service that was purchased, including
-            hotel name, hotel address, check-in date, check-out date, number of booked
-            rooms, number of booked nights and guest names.
+            Note: Specify this field when you need to use the extended information.
 
 
-            Specify this parameter if you require risk control. Providing this information
-            helps to increase the accuracy of anti-money laundering and fraud detection,
-            and increase payment success rates.'
-        merchant:
-          $ref: '#/components/schemas/Merchant'
-        needDeclaration:
-          type: boolean
-        orderAmount:
-          $ref: '#/components/schemas/Amount'
-          description: The payment amount that the merchant requests to receive in
-            the order currency.
-        orderDescription:
-          description: 'Summary description of the order, which is used for user consumption
-            records display or other further actions.
-
-
-            More information:
-
-
-            Maximum length: 256 characters'
-          type: string
-        orderType:
-          description: 'test '
-          type: string
-        referenceOrderId:
-          description: 'The unique ID to identify the order on the merchant side,
-            which is assigned by the merchant that provides services or goods directly
-            to the customer. This field is used for user consumption records display
-            and other further actions such as disputes track or handling of customer
-            complaints.
-
-
-            More information:
-
-
-            Maximum length: 64 characters'
-          type: string
-        shipping:
-          $ref: '#/components/schemas/Shipping'
-          description: "Shipping information, including information about the recipient\
-            \ (name, phone number, email, and shipping address), and shipping service\
-            \ provider. \n\nSpecify this parameter when you require risk control.\
-            \ Providing this information helps to increase the accuracy of anti-money\
-            \ laundering and fraud detection, and increase payment success rates."
+            '
         transit:
           $ref: '#/components/schemas/Transit'
           description: 'Trip information, including trip modes, legs of trips and
@@ -1015,11 +1008,34 @@ components:
 
 
             '
+        lodging:
+          $ref: '#/components/schemas/Lodging'
+          description: 'Information about lodging service that was purchased, including
+            hotel name, hotel address, check-in date, check-out date, number of booked
+            rooms, number of booked nights and guest names.
+
+
+            Specify this parameter if you require risk control. Providing this information
+            helps to increase the accuracy of anti-money laundering and fraud detection,
+            and increase payment success rates.'
+        gaming:
+          $ref: '#/components/schemas/Gaming'
+          description: 'Information about gaming top-up, including game name, the
+            topped up user name or ID, user email and user phone number.
+
+
+            Specify this parameter if you require risk control. Providing this information
+            helps to increase the accuracy of anti-money laundering and fraud detection,
+            and increase payment success rates.'
+        orderTest:
+          type: string
+        orderType:
+          type: string
+          description: 'test '
       required:
       - orderAmount
       - referenceOrderId
       - orderType
-      type: object
     OsType:
       enum:
       - IOS

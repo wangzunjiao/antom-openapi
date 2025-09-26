@@ -675,12 +675,19 @@
             "type": "string",
             "description": "Summary description of the order, which is used for user consumption records display or other further actions.\n\nMore information:\n\nMaximum length: 256 characters"
           },
+          "declaration": {
+            "$ref": "#/components/schemas/Declaration"
+          },
+          "needDeclaration": {
+            "type": "boolean"
+          },
           "orderAmount": {
             "$ref": "#/components/schemas/Amount",
             "description": "The payment amount that the merchant requests to receive in the order currency."
           },
           "merchant": {
-            "$ref": "#/components/schemas/Merchant"
+            "$ref": "#/components/schemas/Merchant",
+            "description": "Information about the secondary merchant.\n\nNote: Specify this field if you are an acquirer that has secondary merchants."
           },
           "goods": {
             "type": "array",
@@ -702,7 +709,8 @@
             "description": "Information about the environment where the order is placed.\n\nNote: Specify this parameter when you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\n"
           },
           "extendInfo": {
-            "type": "string"
+            "type": "string",
+            "description": "Extended information data, including information for special use cases.\n\nNote: Specify this field when you need to use the extended information.\n\n"
           },
           "transit": {
             "$ref": "#/components/schemas/Transit",
@@ -716,8 +724,8 @@
             "$ref": "#/components/schemas/Gaming",
             "description": "Information about gaming top-up, including game name, the topped up user name or ID, user email and user phone number.\n\nSpecify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
           },
-          "needDeclaration": {
-            "type": "boolean"
+          "orderTest": {
+            "type": "string"
           },
           "orderType": {
             "type": "string",
