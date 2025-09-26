@@ -78,13 +78,13 @@ components:
     Shipping:
       type: object
       properties:
-        shippingName: &id004
+        shippingName: &id003
           $ref: '#/components/schemas/UserName'
           description: "The name of the recipient. \n\nNote: Specify this parameter\
             \ if you require risk control. Providing this information helps to increase\
             \ the accuracy of anti-money laundering and fraud detection, and increase\
             \ payment success rates."
-        shippingAddress: &id003
+        shippingAddress: &id002
           $ref: '#/components/schemas/Address'
           description: "Shipping address. \n\nSpecify this parameter when one of the\
             \ following conditions is met:\n\nThe value of paymentMethodType is PAGALEVE.\n\
@@ -130,15 +130,16 @@ components:
             \ detection.  \n\nMore information:\n\nMaximum length: 64 characters"
         shippingFeeId:
           type: string
-        shippingFee: &id002
+        shippingFee: &id004
           $ref: '#/components/schemas/Amount'
         shippingDescription:
           type: string
         deliveryEstimate:
           $ref: '#/components/schemas/DeliveryEstimate'
     Order:
-      type: object
       properties:
+        declaration:
+          $ref: '#/components/schemas/Declaration'
         referenceOrderId:
           type: string
           description: 'The unique ID to identify the order on the merchant side,
@@ -162,8 +163,11 @@ components:
 
 
             Maximum length: 256 characters'
-        orderAmount: *id002
-        merchant: &id007
+        orderAmount:
+          $ref: '#/components/schemas/Amount'
+          description: The payment amount that the merchant requests to receive in
+            the order currency.
+        merchant:
           $ref: '#/components/schemas/Merchant'
           description: 'Information about the secondary merchant.
 
@@ -173,42 +177,32 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Goods'
-          description: 'Summary description of the order, which is used for user consumption
-            records display or other further actions.
-
-
-            More information:
-
-
-            Maximum length: 256 characters'
+          description: "Goods information, including the ID, name, price, and quantity\
+            \ of the goods in the order. \n\nNote: Specify this parameter if you require\
+            \ risk control. Providing this information helps to increase the accuracy\
+            \ of anti-money laundering and fraud detection, and increase payment success\
+            \ rates.\n\nMore information:\n\nMaximum size: 100 elements"
         shipping:
           $ref: '#/components/schemas/Shipping'
           description: "Shipping information, including information about the recipient\
             \ (name, phone number, email, and shipping address), and shipping service\
-            \ provider. \n\nSpecify this parameter when one of the following conditions\
-            \ is met:\n\nYou require risk control.\nThe value of paymentMethodType\
-            \ is OVO and you collect this information during the payment process.\n\
-            Providing this information helps to increase the accuracy of anti-money\
+            \ provider. \n\nSpecify this parameter when you require risk control.\
+            \ Providing this information helps to increase the accuracy of anti-money\
             \ laundering and fraud detection, and increase payment success rates."
         buyer:
           $ref: '#/components/schemas/Buyer'
-          description: 'Buyer information, including the ID, name, phone number, and
-            email of the buyer.
-
-
-            Specify this parameter when one of the following conditions is met:
-
-
-            You require risk control.
-
-            The value of paymentMethodType is CARD, OVO, BANCOMATPAY, KONBINI, BANKTRANSFER_PAYEASY,
-            or ONLINEBANKING_PAYEASY and you collect this information during the payment
-            process.
-
-            Providing this information helps to increase the accuracy of anti-money
-            laundering and fraud detection, and increase payment success rates.'
-        env: &id005
+          description: "Buyer information, including the ID, name, phone number, and\
+            \ email of the buyer.\n\nSpecify this parameter when one of the following\
+            \ conditions is met:\n\nYou require risk control.\nThe value of paymentMethodType\
+            \ is CARD. \nProviding this information helps to increase the accuracy\
+            \ of anti-money laundering and fraud detection, and increase payment success\
+            \ rates."
+        env:
           $ref: '#/components/schemas/Env'
+          description: "Information about the environment where the order is placed.\n\
+            \nNote: Specify this parameter when you require risk control. Providing\
+            \ this information helps to increase the accuracy of anti-money laundering\
+            \ and fraud detection, and increase payment success rates.  \n\n"
         extendInfo:
           type: string
           description: 'Extended information data, including information for special
@@ -225,9 +219,12 @@ components:
             passenger information.
 
 
-            Note: Specify this field if you require risk control. Providing this information
+            Specify this field if you require risk control. Providing this information
             helps to increase the accuracy of anti-money laundering and fraud detection,
-            and increase payment success rates.'
+            and increase payment success rates.
+
+
+            '
         lodging:
           $ref: '#/components/schemas/Lodging'
           description: 'Information about lodging service that was purchased, including
@@ -235,26 +232,30 @@ components:
             rooms, number of booked nights and guest names.
 
 
-            Note: Specify this parameter if you require risk control. Providing this
-            information helps to increase the accuracy of anti-money laundering and
-            fraud detection, and increase payment success rates.'
+            Specify this parameter if you require risk control. Providing this information
+            helps to increase the accuracy of anti-money laundering and fraud detection,
+            and increase payment success rates.'
         gaming:
           $ref: '#/components/schemas/Gaming'
           description: 'Information about gaming top-up, including game name, the
             topped up user name or ID, user email and user phone number.
 
 
-            Note: Specify this parameter if you require risk control. Providing this
-            information helps to increase the accuracy of anti-money laundering and
-            fraud detection, and increase payment success rates.'
+            Specify this parameter if you require risk control. Providing this information
+            helps to increase the accuracy of anti-money laundering and fraud detection,
+            and increase payment success rates.'
         needDeclaration:
           type: boolean
         orderTest:
           type: string
+        orderType:
+          type: string
+          description: 'test '
+      type: object
       required:
       - orderAmount
-      - orderDescription
       - referenceOrderId
+      - orderType
     TransitType:
       type: string
       enum:
@@ -289,8 +290,8 @@ components:
 
 
             The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
-        departureAddress: *id003
-        arrivalAddress: *id003
+        departureAddress: *id002
+        arrivalAddress: *id002
         carrierName:
           type: string
         carrierNo:
@@ -350,7 +351,7 @@ components:
     Passenger:
       type: object
       properties:
-        passengerName: *id004
+        passengerName: *id003
         passengerEmail:
           type: string
           description: 'The email of the passenger.
@@ -421,7 +422,7 @@ components:
 
 
             Maximum length: 128 characters'
-        hotelAddress: *id003
+        hotelAddress: *id002
         checkInDate:
           type: string
           description: 'Date on which the guest checked in. In the case of a no-show
@@ -467,7 +468,7 @@ components:
             '
         guestNames:
           type: array
-          items: *id004
+          items: *id003
           description: 'Name of the guest under which the room is reserved.
 
 
@@ -1497,7 +1498,7 @@ components:
           type: string
         storeOperatorId:
           type: string
-        storeAddress: *id003
+        storeAddress: *id002
         storePhoneNo:
           type: string
     MerchantType:
@@ -1567,7 +1568,7 @@ components:
 
 
             Maximum length: 64 characters'
-        merchantAddress: *id003
+        merchantAddress: *id002
         merchantRegisterDate:
           type: string
           description: 'Merchant registration date.
@@ -1628,7 +1629,7 @@ components:
             Maximum length: 64 characters'
         goodsBrand:
           type: string
-        goodsUnitAmount: *id002
+        goodsUnitAmount: *id004
         goodsQuantity:
           type: string
           description: "Quantity of goods. \n\nNote: Specify this parameter if you\
@@ -1700,7 +1701,7 @@ components:
 
 
             Maximum length: 64 characters'
-        buyerName: *id004
+        buyerName: *id003
         buyerPhoneNo:
           type: string
           description: 'The mobile phone number of the buyer.
@@ -1782,8 +1783,8 @@ components:
           type: string
         discountName:
           type: string
-        savingsAmount: *id002
-        estimateSavingsAmount: *id002
+        savingsAmount: *id004
+        estimateSavingsAmount: *id004
       required:
       - discountName
       - savingsAmount
@@ -1823,8 +1824,8 @@ components:
 
             After the payment is completed, this field is used for recording and reporting
             purposes such as purchase tracking and regulatory reporting.'
-        paymentAmount: *id002
-        paymentMethod: &id006
+        paymentAmount: *id004
+        paymentMethod: &id005
           $ref: '#/components/schemas/PaymentMethod'
           description: The payment method that is used to collect the payment by the
             merchant or acquirer.
@@ -1915,11 +1916,17 @@ components:
             \ Korea, KAKAOPAY will be listed first on the Alipay+ cashier page.\n\n\
             Note: This parameter is only for the merchant that has integrated the\
             \ Alipay+ cashier page.  \n\nMore information:\n\nMaximum length: 2 characters"
-        env: *id005
-        payToMethod: *id006
+        env:
+          $ref: '#/components/schemas/Env'
+        payToMethod: *id005
         isAuthorization:
           type: boolean
-        merchant: *id007
+        merchant:
+          $ref: '#/components/schemas/Merchant'
+          description: 'Information about the secondary merchant.
+
+
+            Note: Specify this field if you are an acquirer that has secondary merchants.'
         paymentVerificationData:
           $ref: '#/components/schemas/PaymentVerificationData'
         extendInfo:
@@ -1979,7 +1986,7 @@ components:
 
 
             Maximum length: 64 characters'
-        paymentAmount: *id002
+        paymentAmount: *id004
         paymentData:
           type: string
           description: 'Used by the Antom client SDK to render the checkout page.
@@ -1992,8 +1999,8 @@ components:
 
 
             Maximum length: 20000 characters'
-        actualPaymentAmount: *id002
-        paymentQuote: &id008
+        actualPaymentAmount: *id004
+        paymentQuote: &id006
           $ref: '#/components/schemas/Quote'
         paymentTime:
           type: string
@@ -2011,7 +2018,7 @@ components:
             The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
         authExpiryTime:
           type: string
-        nonGuaranteeCouponValue: *id002
+        nonGuaranteeCouponValue: *id004
         paymentActionForm:
           type: string
         pspCustomerInfo:
@@ -2033,8 +2040,8 @@ components:
 
             Note: This parameter is returned when the payment method supports providing
             the related information.'
-        grossSettlementAmount: *id002
-        settlementQuote: *id008
+        grossSettlementAmount: *id004
+        settlementQuote: *id006
         extendInfo:
           type: string
         normalUrl:
