@@ -680,7 +680,8 @@
             "description": "The payment amount that the merchant requests to receive in the order currency."
           },
           "merchant": {
-            "$ref": "#/components/schemas/Merchant"
+            "$ref": "#/components/schemas/Merchant",
+            "description": "Information about the secondary merchant.\n\nNote: Specify this field if you are an acquirer that has secondary merchants."
           },
           "goods": {
             "type": "array",
@@ -702,7 +703,8 @@
             "description": "Information about the environment where the order is placed.\n\nNote: Specify this parameter when you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\n"
           },
           "extendInfo": {
-            "type": "string"
+            "type": "string",
+            "description": "Extended information data, including information for special use cases.\n\nNote: Specify this field when you need to use the extended information.\n\n"
           },
           "transit": {
             "$ref": "#/components/schemas/Transit",
@@ -718,6 +720,12 @@
           },
           "needDeclaration": {
             "type": "boolean"
+          },
+          "orderTest": {
+            "type": "string"
+          },
+          "declaration": {
+            "$ref": "#/components/schemas/Declaration"
           },
           "orderType": {
             "type": "string",
