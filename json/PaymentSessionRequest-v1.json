@@ -724,12 +724,6 @@
           "orderTest": {
             "type": "string"
           },
-          "declaration": {
-            "$ref": "#/components/schemas/Declaration"
-          },
-          "declaration11": {
-            "$ref": "#/components/schemas/Declaration11"
-          },
           "orderType": {
             "type": "string",
             "description": "test "
@@ -1225,42 +1219,6 @@
           "AGREEMENT_PAYMENT",
           "IN_STORE_PAYMENT"
         ]
-      },
-      "declaration": {
-        "type": "object",
-        "properties": {
-          "declarationBizScene": {
-            "type": "string",
-            "enum": [
-              "AIRLINE",
-              "HOTEL"
-            ],
-            "description": "\u7533\u62a5\u65f6\u5bf9\u5e94\u7684\u884c\u4e1a\u5206\u7c7b\u3002\u975eOTA\u7ed3\u6c47\u573a\u666f\u4e0d\u4f20\uff0cOTA\u573a\u666f\u5fc5\u4f20\uff0c\u4e14\u4e0edeclarationBeneficiaryId\u9700\u540c\u65f6\u5b58\u5728\u3002"
-          },
-          "declarationBeneficiaryId": {
-            "type": "string",
-            "description": "\u7528\u4e8e\u552f\u4e00\u6807\u8bc6\u7528\u4e8e\u7533\u62a5\u989d\u5ea6\u7d2f\u8ba1\u7684\u4e09\u65b9\u6536\u6b3e\u4ebaId\u3002\u975eOTA\u7ed3\u6c47\u573a\u666f\u4e0d\u4f20\uff0cOTA\u573a\u666f\u5fc5\u4f20\uff0c\u4e14\u4e0edeclarationBizScene\u9700\u540c\u65f6\u5b58\u5728\u3002",
-            "example": "SJSOXUSO23211XJSP4IS"
-          }
-        }
-      },
-      "declaration11": {
-        "type": "object",
-        "properties": {
-          "declarationBizScene": {
-            "type": "string",
-            "enum": [
-              "AIRLINE",
-              "HOTEL"
-            ],
-            "description": "\u7533\u62a5\u65f6\u5bf9\u5e94\u7684\u884c\u4e1a\u5206\u7c7b\u3002\u975eOTA\u7ed3\u6c47\u573a\u666f\u4e0d\u4f20\uff0cOTA\u573a\u666f\u5fc5\u4f20\uff0c\u4e14\u4e0edeclarationBeneficiaryId\u9700\u540c\u65f6\u5b58\u5728\u3002"
-          },
-          "declarationBeneficiaryId": {
-            "type": "string",
-            "description": "\u7528\u4e8e\u552f\u4e00\u6807\u8bc6\u7528\u4e8e\u7533\u62a5\u989d\u5ea6\u7d2f\u8ba1\u7684\u4e09\u65b9\u6536\u6b3e\u4ebaId\u3002\u975eOTA\u7ed3\u6c47\u573a\u666f\u4e0d\u4f20\uff0cOTA\u573a\u666f\u5fc5\u4f20\uff0c\u4e14\u4e0edeclarationBizScene\u9700\u540c\u65f6\u5b58\u5728\u3002",
-            "example": "SJSOXUSO23211XJSP4IS"
-          }
-        }
       }
     },
     "securitySchemes": {}
