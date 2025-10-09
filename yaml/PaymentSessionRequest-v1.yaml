@@ -1551,6 +1551,9 @@ components:
           type: string
           description: 用于唯一标识用于申报额度累计的三方收款人Id。非OTA结汇场景不传，OTA场景必传，且与declarationBizScene需同时存在。
           example: SJSOXUSO23211XJSP4IS
+        declarationBeneficiaryTest:
+          type: string
+          description: 测试环境专用字段
     Declaration11:
       type: object
       properties:

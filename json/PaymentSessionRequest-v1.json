@@ -1238,6 +1238,10 @@
             "type": "string",
             "description": "\u7528\u4e8e\u552f\u4e00\u6807\u8bc6\u7528\u4e8e\u7533\u62a5\u989d\u5ea6\u7d2f\u8ba1\u7684\u4e09\u65b9\u6536\u6b3e\u4ebaId\u3002\u975eOTA\u7ed3\u6c47\u573a\u666f\u4e0d\u4f20\uff0cOTA\u573a\u666f\u5fc5\u4f20\uff0c\u4e14\u4e0edeclarationBizScene\u9700\u540c\u65f6\u5b58\u5728\u3002",
             "example": "SJSOXUSO23211XJSP4IS"
+          },
+          "declarationBeneficiaryTest": {
+            "type": "string",
+            "description": "\u6d4b\u8bd5\u73af\u5883\u4e13\u7528\u5b57\u6bb5"
           }
         }
       }
