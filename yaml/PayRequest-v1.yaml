@@ -1632,72 +1632,65 @@ components:
             More information:
 
 
-            Maximum length: 256 characters'
+            Maximum length: 256 characters
+
+            '
         goodsCategory:
           type: string
-          description: 'The category of the goods. If the goods have multiple layers
-            for categorization, use slashes between different categories and write
-            the parent category before the subcategory, such as Digital Goods/Digital
-            Vouchers/Food and Beverages.
-
-
-            Note: Specify this parameter if you require risk control. Providing this
-            information helps to increase the accuracy of anti-money laundering and
-            fraud detection, and increase payment success rates.
+          description: "The category of the goods. If the goods have multiple layers\
+            \ for categorization, use slashes between different categories and write\
+            \ the parent category before the subcategory, such as Digital Goods/Digital\
+            \ Vouchers/Food and Beverages.  \n\nNote: Specify this parameter if you\
+            \ require risk control. Providing this information helps to increase the\
+            \ accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates.\n\nMore information:\n\nMaximum length: 64 characters"
+        goodsBrand:
+          type: string
+        goodsUnitAmount:
+          $ref: '#/components/schemas/Amount'
+          description: The payment amount that the merchant requests to receive in
+            the order currency.
+        goodsQuantity:
+          type: string
+          description: "Quantity of goods. \n\nSpecify this parameter if you require\
+            \ risk control. Providing this information helps to increase the accuracy\
+            \ of anti-money laundering and fraud detection, and increase payment success\
+            \ rates.\n\nMore information:\n\nValue range: 1 - unlimited"
+        goodsSkuName:
+          type: string
+        goodsUrl:
+          type: string
+          description: "The URL of the website where the user places an order.\n\n\
+            Specify this parameter if you require risk control. Providing this information\
+            \ helps to identify black-market behavior. \n\nMore information:\n\nMaximum\
+            \ length: 2048 characters"
+        deliveryMethodType:
+          type: string
+          description: "The delivery method of the goods. Valid values are:\n\nPHYSICAL:\
+            \ indicates that the delivery method is physical delivery.\nDIGITAL: indicates\
+            \ that the delivery method is digital delivery.\nSpecify this parameter\
+            \ if you require risk control. Providing this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates.  \n\nMore information:\n\nMaximum length: 32\
+            \ characters\n"
+        goodsImageUrl:
+          type: string
+        priceId:
+          type: string
+          description: 'The ID of the Price object. One of ​priceId​ or ​referenceGoodsId​
+            is required.
 
 
             More information:
 
 
             Maximum length: 64 characters'
-        goodsBrand:
-          type: string
-        goodsUnitAmount: *id004
-        goodsQuantity:
-          type: string
-          description: "Quantity of goods. \n\nNote: Specify this parameter if you\
-            \ require risk control. Providing this information helps to increase the\
-            \ accuracy of anti-money laundering and fraud detection, and increase\
-            \ payment success rates.\n\nMore information:\n\nValue range: 1 - unlimited"
-        goodsSkuName:
-          type: string
-        goodsUrl:
-          type: string
-          description: 'The URL of the website where the user places an order.
-
-
-            Note: Specify this parameter if you require risk control. Providing this
-            information helps to identify black-market behavior.
-
-
-            More information:
-
-
-            Maximum length: 2048 characters'
-        deliveryMethodType:
-          type: string
-          description: 'The delivery method of the goods. Valid values are:
-
-
-            PHYSICAL: indicates that the delivery method is physical delivery.
-
-            DIGITAL: indicates that the delivery method is digital delivery.
-
-            Note: Specify this parameter if you require risk control. Providing this
-            information helps to increase the accuracy of anti-money laundering and
-            fraud detection, and increase payment success rates.
-
-
-            More information:
-
-
-            Maximum length: 32 characters
-
-            '
-        goodsImageUrl:
-          type: string
-        priceId:
-          type: string
+        goodsDiscountAmount:
+          $ref: '#/components/schemas/Amount'
+          description: The discount amount of the goods.
+        crossSell:
+          $ref: '#/components/schemas/Goods'
+          description: Cross-selling goods information.
       required:
       - referenceGoodsId
       - goodsName
