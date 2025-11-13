@@ -206,6 +206,14 @@
           "orderType": {
             "type": "string",
             "description": "test "
+          },
+          "goodsDiscountAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "The discount amount applied to goods in the order."
+          },
+          "crossSell": {
+            "$ref": "#/components/schemas/Goods",
+            "description": "Cross-selling products information."
           }
         },
         "required": [
