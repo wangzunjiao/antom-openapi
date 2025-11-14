@@ -527,6 +527,7 @@ components:
       - PREPAID
       - CHARGE
       - DEFERRED_DEBIT
+      - CSSSSS-test
       description: The funding source type for the payment method
   securitySchemes: {}
 info:

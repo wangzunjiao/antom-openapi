@@ -690,7 +690,8 @@
           "DEBIT",
           "PREPAID",
           "CHARGE",
-          "DEFERRED_DEBIT"
+          "DEFERRED_DEBIT",
+          "CSSSSS-test"
         ],
         "description": "The funding source type for the payment method"
       }
