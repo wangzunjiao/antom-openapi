@@ -78,13 +78,13 @@ components:
     Shipping:
       type: object
       properties:
-        shippingName: &id002
+        shippingName: &id003
           $ref: '#/components/schemas/UserName'
           description: "The name of the recipient. \n\nNote: Specify this parameter\
             \ if you require risk control. Providing this information helps to increase\
             \ the accuracy of anti-money laundering and fraud detection, and increase\
             \ payment success rates."
-        shippingAddress: &id003
+        shippingAddress: &id002
           $ref: '#/components/schemas/Address'
           description: "Shipping address. \n\nSpecify this parameter when one of the\
             \ following conditions is met:\n\nThe value of paymentMethodType is PAGALEVE.\n\
@@ -374,7 +374,12 @@ components:
     Passenger:
       type: object
       properties:
-        passengerName: *id002
+        passengerName:
+          $ref: '#/components/schemas/UserName'
+          description: "The name of the recipient. \n\nNote: Specify this parameter\
+            \ if you require risk control. Providing this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates.  "
         passengerEmail:
           type: string
           description: 'The email of the passenger.
@@ -393,6 +398,25 @@ components:
 
 
             Maximum length: 32 characters'
+        passengerId:
+          type: string
+          description: Passenger identification number
+        passengerIdType:
+          type: string
+          enum:
+          - PASSPORT
+          - NATIONAL_ID_CARD
+          - DRIVER_LICENSE
+          - MILITARY_ID
+          - GREEN_CARD
+          - TRAVEL_DOCUMENT
+          - ALIEN_REGISTRATION_CARD
+          - BIRTH_CERTIFICATE
+          - OTHERS
+          description: Type of passenger identification
+        passengerCode:
+          type: string
+          description: Passenger code or reference number
     Transit:
       type: object
       properties:
@@ -445,7 +469,7 @@ components:
 
 
             Maximum length: 128 characters'
-        hotelAddress: *id003
+        hotelAddress: *id002
         checkInDate:
           type: string
           description: 'Date on which the guest checked in. In the case of a no-show
@@ -491,7 +515,7 @@ components:
             '
         guestNames:
           type: array
-          items: *id002
+          items: *id003
           description: 'Name of the guest under which the room is reserved.
 
 
@@ -1542,7 +1566,7 @@ components:
           type: string
         storeOperatorId:
           type: string
-        storeAddress: *id003
+        storeAddress: *id002
         storePhoneNo:
           type: string
     MerchantType:
@@ -1612,7 +1636,7 @@ components:
 
 
             Maximum length: 64 characters'
-        merchantAddress: *id003
+        merchantAddress: *id002
         merchantRegisterDate:
           type: string
           description: 'Merchant registration date.
@@ -1738,7 +1762,7 @@ components:
 
 
             Maximum length: 64 characters'
-        buyerName: *id002
+        buyerName: *id003
         buyerPhoneNo:
           type: string
           description: 'The mobile phone number of the buyer.
