@@ -240,18 +240,19 @@
           },
           "arrivalTime": {
             "type": "string",
-            "description": "Time of arrival for this leg of the trip.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
+            "description": "Time of arrival for this leg of the trip.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
           },
           "departureAddress": {
             "$ref": "#/components/schemas/Address",
-            "description": "Shipping address. \n\nSpecify this parameter when one of the following conditions is met:\n\nThe value of paymentMethodType is PAGALEVE.\nYou require risk control.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
+            "description": "Hotel address."
           },
           "arrivalAddress": {
             "$ref": "#/components/schemas/Address",
-            "description": "Shipping address. \n\nSpecify this parameter when one of the following conditions is met:\n\nThe value of paymentMethodType is PAGALEVE.\nYou require risk control.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
+            "description": "Hotel address."
           },
           "carrierName": {
-            "type": "string"
+            "type": "string",
+            "description": "Company name of the transportation service provider for this leg of the trip.\n\nMore information:\n\nMaximum length: 128 characters"
           },
           "carrierNo": {
             "type": "string",
@@ -268,6 +269,18 @@
           "arrivalAirportCode": {
             "type": "string",
             "description": "IATA code for the destination airport for this leg of the trip.\n\nMore information:\n\nMaximum length: 8 characters\n"
+          },
+          "fareBasis": {
+            "type": "string",
+            "description": "Fare basis code for this leg of the trip."
+          },
+          "couponNumber": {
+            "type": "string",
+            "description": "Coupon number associated with this leg of the trip."
+          },
+          "flightNumber": {
+            "type": "string",
+            "description": "Flight number for this leg of the trip."
           }
         }
       },

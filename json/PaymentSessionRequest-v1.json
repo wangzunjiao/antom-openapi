@@ -927,6 +927,18 @@
           "arrivalAirportCode": {
             "type": "string",
             "description": "IATA code for the destination airport for this leg of the trip.\n\nMore information:\n\nMaximum length: 8 characters\n"
+          },
+          "fareBasis": {
+            "type": "string",
+            "description": "Fare basis code for this leg of the trip."
+          },
+          "couponNumber": {
+            "type": "string",
+            "description": "Coupon number associated with this leg of the trip."
+          },
+          "flightNumber": {
+            "type": "string",
+            "description": "Flight number for this leg of the trip."
           }
         }
       },
