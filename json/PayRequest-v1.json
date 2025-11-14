@@ -298,6 +298,29 @@
           "passengerPhoneNo": {
             "type": "string",
             "description": "The mobile phone number of the passenger.\n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "passengerId": {
+            "type": "string",
+            "description": "Passenger identification number"
+          },
+          "passengerIdType": {
+            "type": "string",
+            "enum": [
+              "PASSPORT",
+              "NATIONAL_ID_CARD",
+              "DRIVER_LICENSE",
+              "MILITARY_ID",
+              "GREEN_CARD",
+              "TRAVEL_DOCUMENT",
+              "ALIEN_REGISTRATION_CARD",
+              "BIRTH_CERTIFICATE",
+              "OTHERS"
+            ],
+            "description": "Type of passenger identification"
+          },
+          "passengerCode": {
+            "type": "string",
+            "description": "Passenger code or reference number"
           }
         }
       },

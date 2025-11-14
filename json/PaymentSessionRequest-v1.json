@@ -879,13 +879,39 @@
         "type": "object",
         "properties": {
           "passengerName": {
-            "$ref": "#/components/schemas/UserName"
+            "$ref": "#/components/schemas/UserName",
+            "description": "The name of the recipient. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  "
           },
           "passengerEmail": {
-            "type": "string"
+            "type": "string",
+            "description": "The email of the passenger.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "passengerPhoneNo": {
-            "type": "string"
+            "type": "string",
+            "description": "The mobile phone number of the passenger.\n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "passengerId": {
+            "type": "string",
+            "description": "Passenger identification number"
+          },
+          "passengerIdType": {
+            "type": "string",
+            "enum": [
+              "PASSPORT",
+              "NATIONAL_ID_CARD",
+              "DRIVER_LICENSE",
+              "MILITARY_ID",
+              "GREEN_CARD",
+              "TRAVEL_DOCUMENT",
+              "ALIEN_REGISTRATION_CARD",
+              "BIRTH_CERTIFICATE",
+              "OTHERS"
+            ],
+            "description": "Type of passenger identification"
+          },
+          "passengerCode": {
+            "type": "string",
+            "description": "Passenger code or reference number"
           }
         }
       },
