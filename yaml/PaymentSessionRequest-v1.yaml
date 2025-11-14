@@ -731,23 +731,19 @@ components:
       - EntryCode
       type: string
     Leg:
+      type: object
       properties:
-        arrivalAddress:
-          $ref: '#/components/schemas/Address'
-          description: Hotel address.
-        arrivalAirportCode:
-          description: 'IATA code for the destination airport for this leg of the
-            trip.
+        departureTime:
+          type: string
+          description: 'Time of departure for this leg of the trip.
 
 
             More information:
 
 
-            Maximum length: 8 characters
-
-            '
-          type: string
+            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
         arrivalTime:
+          type: string
           description: 'Time of arrival for this leg of the trip.
 
 
@@ -757,8 +753,14 @@ components:
             The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".
 
             '
-          type: string
+        departureAddress:
+          $ref: '#/components/schemas/Address'
+          description: Hotel address.
+        arrivalAddress:
+          $ref: '#/components/schemas/Address'
+          description: Hotel address.
         carrierName:
+          type: string
           description: 'Company name of the transportation service provider for this
             leg of the trip.
 
@@ -767,8 +769,8 @@ components:
 
 
             Maximum length: 128 characters'
-          type: string
         carrierNo:
+          type: string
           description: 'Code for the carrier for this leg of the trip.
 
 
@@ -776,7 +778,6 @@ components:
 
 
             Maximum length: 64 characters'
-          type: string
         classType:
           $ref: '#/components/schemas/ClassType'
           description: 'Service level for this leg of the trip. Valid values are:
@@ -798,10 +799,8 @@ components:
 
 
             Maximum length: 32 characters'
-        departureAddress:
-          $ref: '#/components/schemas/Address'
-          description: Hotel address.
         departureAirportCode:
+          type: string
           description: 'IATA code for the originating airport for this leg of the
             trip.
 
@@ -812,17 +811,27 @@ components:
             Maximum length: 8 characters
 
             '
+        arrivalAirportCode:
           type: string
-        departureTime:
-          description: 'Time of departure for this leg of the trip.
+          description: 'IATA code for the destination airport for this leg of the
+            trip.
 
 
             More information:
 
 
-            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
+            Maximum length: 8 characters
+
+            '
+        fareBasis:
           type: string
-      type: object
+          description: Fare basis code for this leg of the trip.
+        couponNumber:
+          type: string
+          description: Coupon number associated with this leg of the trip.
+        flightNumber:
+          type: string
+          description: Flight number for this leg of the trip.
     Lodging:
       properties:
         checkInDate:

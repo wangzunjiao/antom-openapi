@@ -78,13 +78,13 @@ components:
     Shipping:
       type: object
       properties:
-        shippingName: &id003
+        shippingName: &id002
           $ref: '#/components/schemas/UserName'
           description: "The name of the recipient. \n\nNote: Specify this parameter\
             \ if you require risk control. Providing this information helps to increase\
             \ the accuracy of anti-money laundering and fraud detection, and increase\
             \ payment success rates."
-        shippingAddress: &id002
+        shippingAddress: &id003
           $ref: '#/components/schemas/Address'
           description: "Shipping address. \n\nSpecify this parameter when one of the\
             \ following conditions is met:\n\nThe value of paymentMethodType is PAGALEVE.\n\
@@ -289,11 +289,25 @@ components:
             More information:
 
 
-            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
-        departureAddress: *id002
-        arrivalAddress: *id002
+            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".
+
+            '
+        departureAddress:
+          $ref: '#/components/schemas/Address'
+          description: Hotel address.
+        arrivalAddress:
+          $ref: '#/components/schemas/Address'
+          description: Hotel address.
         carrierName:
           type: string
+          description: 'Company name of the transportation service provider for this
+            leg of the trip.
+
+
+            More information:
+
+
+            Maximum length: 128 characters'
         carrierNo:
           type: string
           description: 'Code for the carrier for this leg of the trip.
@@ -348,10 +362,19 @@ components:
             Maximum length: 8 characters
 
             '
+        fareBasis:
+          type: string
+          description: Fare basis code for this leg of the trip.
+        couponNumber:
+          type: string
+          description: Coupon number associated with this leg of the trip.
+        flightNumber:
+          type: string
+          description: Flight number for this leg of the trip.
     Passenger:
       type: object
       properties:
-        passengerName: *id003
+        passengerName: *id002
         passengerEmail:
           type: string
           description: 'The email of the passenger.
@@ -422,7 +445,7 @@ components:
 
 
             Maximum length: 128 characters'
-        hotelAddress: *id002
+        hotelAddress: *id003
         checkInDate:
           type: string
           description: 'Date on which the guest checked in. In the case of a no-show
@@ -468,7 +491,7 @@ components:
             '
         guestNames:
           type: array
-          items: *id003
+          items: *id002
           description: 'Name of the guest under which the room is reserved.
 
 
@@ -1519,7 +1542,7 @@ components:
           type: string
         storeOperatorId:
           type: string
-        storeAddress: *id002
+        storeAddress: *id003
         storePhoneNo:
           type: string
     MerchantType:
@@ -1589,7 +1612,7 @@ components:
 
 
             Maximum length: 64 characters'
-        merchantAddress: *id002
+        merchantAddress: *id003
         merchantRegisterDate:
           type: string
           description: 'Merchant registration date.
@@ -1715,7 +1738,7 @@ components:
 
 
             Maximum length: 64 characters'
-        buyerName: *id003
+        buyerName: *id002
         buyerPhoneNo:
           type: string
           description: 'The mobile phone number of the buyer.
@@ -2149,8 +2172,8 @@ components:
     DeclarationBizSceneType:
       type: string
       enum:
-        - AIRLINE
-        - HOTEL
+      - AIRLINE
+      - HOTEL
       description: 申报时对应的行业分类。非OTA结汇场景不传，OTA场景必传，且与declarationBeneficiaryId需同时存在。
   securitySchemes: {}
 servers:
