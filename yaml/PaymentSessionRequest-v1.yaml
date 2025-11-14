@@ -1207,8 +1207,27 @@ components:
       required:
       - paymentMethodType
     PaymentMethodTypeItem:
+      type: object
       properties:
+        paymentMethodType:
+          type: string
+          description: "The payment method type that is included in payment method\
+            \ options. See Payment methods to check the valid values. \n\nMore information:\n\
+            \nValue range: 64"
+        paymentMethodOrder:
+          type: string
+          description: 'The priority order of the payment methods configured by the
+            user is indicated by numerical values, with smaller numbers representing
+            higher priority. If the user does not specify a setting, Antom will apply
+            a default sorting method.
+
+
+            More information:
+
+
+            Value range: [1, +∞)'
         expressCheckout:
+          type: string
           description: 'Indicates whether the payment method selected by the user
             is displayed as a quick payment method. The currently supported quick
             payment methods include ALIPAY_CN, APPLEPAY, and GOOGLAPAY. The valid
@@ -1222,25 +1241,6 @@ components:
             payment method.
 
             '
-          type: string
-        paymentMethodOrder:
-          description: 'The priority order of the payment methods configured by the
-            user is indicated by numerical values, with smaller numbers representing
-            higher priority. If the user does not specify a setting, Antom will apply
-            a default sorting method.
-
-
-            More information:
-
-
-            Value range: [1, +∞)'
-          type: string
-        paymentMethodType:
-          description: "The payment method type that is included in payment method\
-            \ options. See Payment methods to check the valid values. \n\nMore information:\n\
-            \nValue range: 64"
-          type: string
-      type: object
     PresentmentMode:
       enum:
       - BUNDLE
