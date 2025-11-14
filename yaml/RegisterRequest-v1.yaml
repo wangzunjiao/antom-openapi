@@ -748,8 +748,7 @@ components:
             \nMaximum length: 32 characters\n"
         placeOfBirth: *id001
         certificates:
-          type: array
-          items: *id003
+          $ref: '#/components/schemas/Certificate'
           description: 'The list of certificate information of the individual. The
             information is used to verify the company''s legal status and ensure the
             company complies with regulatory requirements.

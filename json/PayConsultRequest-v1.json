@@ -761,13 +761,13 @@
         "type": "object",
         "properties": {
           "maxAmount": {
-            "type": "string"
+            "$ref": "#/components/schemas/Amount"
           },
           "minAmount": {
-            "type": "string"
+            "$ref": "#/components/schemas/Amount"
           },
           "remainAmount": {
-            "type": "string"
+            "$ref": "#/components/schemas/Amount"
           }
         },
         "required": [

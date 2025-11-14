@@ -615,11 +615,7 @@
             "description": "The address of the account holder.\n\nSpecify this parameter when the card issuing country is the United States or Canada.  "
           },
           "certificates": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Certificate",
-              "description": "The list of certificate information. The information is used to verify the company's legal status and ensure the company complies with regulatory requirements.\n\nSpecify this parameter when one of the following conditions is met:\n\nThe value of merchantInfo.company.registeredAddress.region is BR.\nThe value of merchantInfo.company.certificates.certificateType is ENTERPRISE_REGISTRATION and the value of merchantInfo.company.registeredAddress.region is AU, SG, HK, GB, MY, US or belongs to the European Union.  \nMore information:\n\nMaximum size: 10 elements"
-            },
+            "$ref": "#/components/schemas/Certificate",
             "description": "The list of certificate information of the individual. The information is used to verify the company's legal status and ensure the company complies with regulatory requirements.\n\nSpecify this parameter when the value of merchantInfo.company.registeredAddress.region is BR or US.  "
           },
           "nationality": {

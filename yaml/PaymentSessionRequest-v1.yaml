@@ -1029,8 +1029,6 @@ components:
           type: string
         declaration:
           $ref: '#/components/schemas/Declaration'
-        declaration11:
-          $ref: '#/components/schemas/Declaration11'
         orderType:
           type: string
           description: 'test '
@@ -1516,24 +1514,7 @@ components:
       type: object
       properties:
         declarationBizScene:
-          type: string
-          enum:
-          - AIRLINE
-          - HOTEL
-          description: 申报时对应的行业分类。非OTA结汇场景不传，OTA场景必传，且与declarationBeneficiaryId需同时存在。
-        declarationBeneficiaryId:
-          type: string
-          description: 用于唯一标识用于申报额度累计的三方收款人Id。非OTA结汇场景不传，OTA场景必传，且与declarationBizScene需同时存在。
-          example: SJSOXUSO23211XJSP4IS
-    declaration11:
-      type: object
-      properties:
-        declarationBizScene:
-          type: string
-          enum:
-          - AIRLINE
-          - HOTEL
-          description: 申报时对应的行业分类。非OTA结汇场景不传，OTA场景必传，且与declarationBeneficiaryId需同时存在。
+          $ref: '#/components/schemas/DeclarationBizSceneType'
         declarationBeneficiaryId:
           type: string
           description: 用于唯一标识用于申报额度累计的三方收款人Id。非OTA结汇场景不传，OTA场景必传，且与declarationBizScene需同时存在。
@@ -1542,28 +1523,17 @@ components:
       type: object
       properties:
         declarationBizScene:
-          type: string
-          enum:
-          - AIRLINE
-          - HOTEL
-          description: 申报时对应的行业分类。非OTA结汇场景不传，OTA场景必传，且与declarationBeneficiaryId需同时存在。
+          $ref: '#/components/schemas/DeclarationBizSceneType'
         declarationBeneficiaryId:
           type: string
           description: 用于唯一标识用于申报额度累计的三方收款人Id。非OTA结汇场景不传，OTA场景必传，且与declarationBizScene需同时存在。
           example: SJSOXUSO23211XJSP4IS
-    Declaration11:
-      type: object
-      properties:
-        declarationBizScene:
-          type: string
-          enum:
-          - AIRLINE
-          - HOTEL
-          description: 申报时对应的行业分类。非OTA结汇场景不传，OTA场景必传，且与declarationBeneficiaryId需同时存在。
-        declarationBeneficiaryId:
-          type: string
-          description: 用于唯一标识用于申报额度累计的三方收款人Id。非OTA结汇场景不传，OTA场景必传，且与declarationBizScene需同时存在。
-          example: SJSOXUSO23211XJSP4IS
+    DeclarationBizSceneType:
+      type: string
+      enum:
+      - AIRLINE
+      - HOTEL
+      description: 申报时对应的行业分类。非OTA结汇场景不传，OTA场景必传，且与declarationBeneficiaryId需同时存在。
   securitySchemes: {}
 info:
   description: ''
