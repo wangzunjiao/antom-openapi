@@ -1121,6 +1121,14 @@
           "priceId": {
             "type": "string",
             "description": "The ID of the Price object. One of \u200bpriceId\u200b or \u200breferenceGoodsId\u200b is required.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "goodsDiscountAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "The discount amount of the goods."
+          },
+          "crossSell": {
+            "$ref": "#/components/schemas/Goods",
+            "description": "Cross-selling goods information."
           }
         },
         "required": [
