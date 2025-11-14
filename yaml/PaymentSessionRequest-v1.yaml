@@ -1094,15 +1094,15 @@ components:
     PassengerIdType:
       type: string
       enum:
-        - PASSPORT
-        - NATIONAL_ID_CARD
-        - DRIVER_LICENSE
-        - MILITARY_ID
-        - GREEN_CARD
-        - TRAVEL_DOCUMENT
-        - ALIEN_REGISTRATION_CARD
-        - BIRTH_CERTIFICATE
-        - OTHERS
+      - PASSPORT
+      - NATIONAL_ID_CARD
+      - DRIVER_LICENSE
+      - MILITARY_ID
+      - GREEN_CARD
+      - TRAVEL_DOCUMENT
+      - ALIEN_REGISTRATION_CARD
+      - BIRTH_CERTIFICATE
+      - OTHERS
       description: Type of passenger identification
     PaymentFactor:
       properties:
@@ -1133,38 +1133,86 @@ components:
           $ref: '#/components/schemas/PresentmentMode'
       type: object
     PaymentMethod:
+      type: object
       properties:
-        customerId:
-          type: string
-        extendInfo:
-          type: string
-        paymentMethodId:
-          description: "The unique ID that is used to identify a payment method. The\
-            \ value of this parameter is that of cardToken obtained from the notifyPayment\
-            \ or inquiryPayment API. \n\nSpecify this parameter when the value of\
-            \ paymentMethodType is CARD.\n\nMore information:\n\nMaximum length: 128\
-            \ characters"
-          type: string
-        paymentMethodMetaData:
-          additionalProperties:
-            type: object
-          description: 'Additional information required for some specific payment
-            methods.  '
-          properties: {}
-          type: object
         paymentMethodType:
+          type: string
           description: 'The payment method type that is included in payment method
-            options. The value of this parameter is fixed as CARD.
+            options. By specifying the value of this parameter, you can receive the
+            cashier URL of the specified payment method returned by Alipay. See Payment
+            methods to check the valid values.
 
 
             More information:
 
 
             Maximum length: 64 characters'
+        paymentMethodId:
           type: string
+          description: "The unique ID that is used to identify a payment method. The\
+            \ value of this parameter is that of cardToken obtained from the notifyPayment\
+            \ or inquiryPayment API. \n\nSpecify this parameter when the value of\
+            \ paymentMethodType is CARD.\n\nMore information:\n\nMaximum length: 128\
+            \ characters"
+        funding:
+          type: string
+          enum:
+          - CREDIT
+          - DEBIT
+          - PREPAID
+          - CHARGE
+          - DEFERRED_DEBIT
+          description: The funding source type for the payment method
+        customerId:
+          type: string
+          description: 'The unique ID to identify a buyer.
+
+
+            Note: Specify this field if you have the information. Providing this information
+            helps to increase the accuracy of anti-money laundering and fraud detection,
+            and increase payment success rates.'
+        extendInfo:
+          type: string
+          description: 'Extended information.
+
+
+            Note: Specify this field if you need to use the extended information.
+
+
+            More information:
+
+
+            Maximum length: 2048 characters'
         requireIssuerAuthentication:
           type: boolean
-      type: object
+          description: 'Indicates whether Korean card transactions require authentication
+            from the issuing bank. Valid values are:
+
+
+            true: indicates that Korean card transactions require authentication from
+            the issuing bank.
+
+            false: indicates that Korean card transactions do not require authentication
+            from the issuing bank. The same applies when you do not specify this parameter
+            or the value is empty.
+
+            Specify this parameter when all the following conditions are met:
+
+
+            The value of paymentMethodType is CARD.
+
+            The value of paymentMethodRegion is KR.
+
+            The Korean card transactions require issuer authentication.'
+        paymentMethodMetaData:
+          type: object
+          properties: {}
+          additionalProperties:
+            type: object
+          description: 'Additional information required for some specific payment
+            methods.  '
+      required:
+      - paymentMethodType
     PaymentMethodTypeItem:
       properties:
         expressCheckout:

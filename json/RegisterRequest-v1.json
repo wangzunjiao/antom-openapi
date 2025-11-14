@@ -50,24 +50,39 @@
             "description": "The payment method type that is included in payment method options. By specifying the value of this parameter, you can receive the cashier URL of the specified payment method returned by Alipay. See Payment methods to check the valid values.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "paymentMethodId": {
-            "type": "string"
+            "type": "string",
+            "description": "The unique ID that is used to identify a payment method. The value of this parameter is that of cardToken obtained from the notifyPayment or inquiryPayment API. \n\nSpecify this parameter when the value of paymentMethodType is CARD.\n\nMore information:\n\nMaximum length: 128 characters"
+          },
+          "funding": {
+            "type": "string",
+            "enum": [
+              "CREDIT",
+              "DEBIT",
+              "PREPAID",
+              "CHARGE",
+              "DEFERRED_DEBIT"
+            ],
+            "description": "The funding source type for the payment method"
+          },
+          "customerId": {
+            "type": "string",
+            "description": "The unique ID to identify a buyer.\n\nNote: Specify this field if you have the information. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
+          },
+          "extendInfo": {
+            "type": "string",
+            "description": "Extended information.\n\nNote: Specify this field if you need to use the extended information.\n\nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "requireIssuerAuthentication": {
+            "type": "boolean",
+            "description": "Indicates whether Korean card transactions require authentication from the issuing bank. Valid values are:\n\ntrue: indicates that Korean card transactions require authentication from the issuing bank.\nfalse: indicates that Korean card transactions do not require authentication from the issuing bank. The same applies when you do not specify this parameter or the value is empty.\nSpecify this parameter when all the following conditions are met:\n\nThe value of paymentMethodType is CARD.\nThe value of paymentMethodRegion is KR.\nThe Korean card transactions require issuer authentication."
           },
           "paymentMethodMetaData": {
             "type": "object",
             "properties": {},
             "additionalProperties": {
               "type": "object"
-            }
-          },
-          "customerId": {
-            "type": "string"
-          },
-          "extendInfo": {
-            "type": "string"
-          },
-          "requireIssuerAuthentication": {
-            "type": "boolean",
-            "description": "Indicates whether Korean card transactions require authentication from the issuing bank. Valid values are:\n\ntrue: indicates that Korean card transactions require authentication from the issuing bank.\nfalse: indicates that Korean card transactions do not require authentication from the issuing bank. The same applies when you do not specify this parameter or the value is empty.\nSpecify this parameter when all the following conditions are met:\n\nThe value of paymentMethodType is CARD.\nThe value of paymentMethodRegion is KR.\nThe Korean card transactions require issuer authentication."
+            },
+            "description": "Additional information required for some specific payment methods.  "
           }
         },
         "required": [

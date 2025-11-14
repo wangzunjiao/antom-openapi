@@ -50,15 +50,40 @@ components:
             Maximum length: 64 characters'
         paymentMethodId:
           type: string
-        paymentMethodMetaData:
-          type: object
-          properties: {}
-          additionalProperties:
-            type: object
+          description: "The unique ID that is used to identify a payment method. The\
+            \ value of this parameter is that of cardToken obtained from the notifyPayment\
+            \ or inquiryPayment API. \n\nSpecify this parameter when the value of\
+            \ paymentMethodType is CARD.\n\nMore information:\n\nMaximum length: 128\
+            \ characters"
+        funding:
+          type: string
+          enum:
+          - CREDIT
+          - DEBIT
+          - PREPAID
+          - CHARGE
+          - DEFERRED_DEBIT
+          description: The funding source type for the payment method
         customerId:
           type: string
+          description: 'The unique ID to identify a buyer.
+
+
+            Note: Specify this field if you have the information. Providing this information
+            helps to increase the accuracy of anti-money laundering and fraud detection,
+            and increase payment success rates.'
         extendInfo:
           type: string
+          description: 'Extended information.
+
+
+            Note: Specify this field if you need to use the extended information.
+
+
+            More information:
+
+
+            Maximum length: 2048 characters'
         requireIssuerAuthentication:
           type: boolean
           description: 'Indicates whether Korean card transactions require authentication
@@ -80,6 +105,13 @@ components:
             The value of paymentMethodRegion is KR.
 
             The Korean card transactions require issuer authentication.'
+        paymentMethodMetaData:
+          type: object
+          properties: {}
+          additionalProperties:
+            type: object
+          description: 'Additional information required for some specific payment
+            methods.  '
       required:
       - paymentMethodType
     Result:
@@ -492,7 +524,7 @@ components:
           $ref: '#/components/schemas/StockInfo'
           description: "The stock-related information. \n\nSpecify this parameter\
             \ when the company is listed on the stock exchange. "
-        certificates: &id003
+        certificates:
           $ref: '#/components/schemas/Certificate'
           description: "The list of certificate information. The information is used\
             \ to verify the company's legal status and ensure the company complies\
@@ -530,7 +562,7 @@ components:
             Maximum length: 32 characters'
         contacts:
           type: array
-          items: &id004
+          items: &id003
             $ref: '#/components/schemas/Contact'
           description: 'A list of contact information.
 
@@ -562,12 +594,12 @@ components:
             \ value of this parameter is an email. The email that is successfully\
             \ used to register with Alipay cannot be used again.  \n\nMore information:\n\
             \nMaximum length: 64 characters"
-        legalEntityType: &id005
+        legalEntityType: &id004
           $ref: '#/components/schemas/LegalEntityType'
           description: "The legal entity type of the sub-merchant. The value of this\
             \ parameter is fixed to COMPANY.  \n\nMore information:\n\nMaximum length:\
             \ 32 characters"
-        company: &id006
+        company: &id005
           $ref: '#/components/schemas/Company'
           description: "The company information of the sub-merchant. \n\nSpecify this\
             \ parameter when the value of merchantInfo.legalEntifyType is COMPANY. "
@@ -765,7 +797,7 @@ components:
             \ 2 characters"
         contacts:
           type: array
-          items: *id004
+          items: *id003
           description: "A list of contact information.\n\nSpecify this parameter when\
             \ the value of merchantInfo.company.registeredAddress.region is JP and\
             \ the value of merchantInfo.entityAssociations.associationType is LEGAL_REPRESENTATIVE.\
@@ -790,8 +822,8 @@ components:
             \ of the sub-merchant.\nAU, SG, or HK\nBOARD_MEMBER: indicates that the\
             \ associated legal entity is the board member of the sub-merchant.  \n\
             More information:\n\nMaximum length: 32 characters\n"
-        legalEntityType: *id005
-        company: *id006
+        legalEntityType: *id004
+        company: *id005
         individual:
           $ref: '#/components/schemas/Individual'
           description: "The individual information of the associated legal entity.\
