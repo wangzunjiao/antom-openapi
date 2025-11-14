@@ -81,7 +81,7 @@
           },
           "subscriptionRequestId": {
             "type": "string",
-            "description": "The unique ID assigned by a merchant to identify a subscription request.\n\nNote: Specify at least one of subscriptionId and subscriptionRequestId. A one-to-one correspondence between paymentId and paymentRequestId exists.\n\nMore information:\n\nMaximum length: 64 characters\n"
+            "description": "The unique ID assigned by a merchant to identify a subscription request.\nNote: Specify at least one of subscriptionId and subscriptionRequestId. A one-to-one correspondence between paymentId and paymentRequestId exists.\n\nMore information:\n\nMaximum length: 64 characters\n"
           },
           "cancellationType": {
             "type": "string",
