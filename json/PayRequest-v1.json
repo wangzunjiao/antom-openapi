@@ -379,6 +379,10 @@
           "restrictedTicketIndicator": {
             "type": "string",
             "description": "Added field for restricted ticket indicator"
+          },
+          "ancillaryData": {
+            "$ref": "#/components/schemas/AncillaryData",
+            "description": "Ancillary data for the transit"
           }
         }
       },
