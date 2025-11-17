@@ -1342,6 +1342,22 @@
           "DEFERRED_DEBIT"
         ],
         "description": "The funding source type for the payment method"
+      },
+      "AncillaryData": {
+        "type": "object",
+        "properties": {
+          "services": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Service"
+            },
+            "description": "List of services for ancillary data"
+          },
+          "connectedTicketNumber": {
+            "type": "string",
+            "description": "Connected ticket number"
+          }
+        }
       }
     },
     "securitySchemes": {}
