@@ -819,13 +819,6 @@
             "type": "string",
             "description": "The reason why the payment method is not available. Valid values are:\n\nPAYMENT_ACCOUNT_NOT_AVAILABLE\nEXCEED_CHANNEL_LIMIT_RULE\nSERVICE_DEGRADE\nCHANNEL_NOT_SUPPORT_CURRENCY\nCHANNEL_DISABLE\nCHANNEL_NOT_IN_SERVICE_TIME\nQUERY_IPP_INFO_FAILED\nLIMIT_CENTER_ACCESS_FAIL \nCURRENT_CHANNEL_NOT_EXIST "
           },
-          "amountLimitInfoMap": {
-            "type": "object",
-            "properties": {},
-            "additionalProperties": {
-              "$ref": "#/components/schemas/AmountLimitInfo"
-            }
-          },
           "supportedCurrencies": {
             "type": "array",
             "items": {
@@ -860,6 +853,21 @@
               "$ref": "#/components/schemas/PromotionInfo"
             },
             "description": "Promotion information.\n\nThis parameter is returned when the payment method offers a promotion to the buyer."
+          },
+          "interactionType": {
+            "$ref": "#/components/schemas/InteractionType"
+          },
+          "bankIdentifierCode": {
+            "type": "string",
+            "description": "The bank identifier code for the payment method."
+          },
+          "amountLimitInfoMap": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AmountLimitInfo",
+              "type": "object"
+            }
           }
         },
         "required": [
@@ -914,6 +922,19 @@
         "required": [
           "result"
         ]
+      },
+      "InteractionType": {
+        "type": "string",
+        "enum": [
+          "QR",
+          "REDIRECT",
+          "PUSH",
+          "ATM",
+          "IBANKING",
+          "BANKCOUNTER",
+          "OTC"
+        ],
+        "description": "The interaction type for the payment method."
       }
     },
     "securitySchemes": {}
