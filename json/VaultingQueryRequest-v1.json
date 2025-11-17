@@ -372,7 +372,16 @@
             "type": "string"
           },
           "billingAddress": {
-            "$ref": "#/components/schemas/Address"
+            "$ref": "#/components/schemas/Address",
+            "description": "The billing address that is associated with the cardholder's card account. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
+          },
+          "token": {
+            "type": "string",
+            "description": "Added field for wallet token"
+          },
+          "tokenExpiryTime": {
+            "type": "string",
+            "description": "Added field for token expiry time"
           }
         }
       },
