@@ -372,6 +372,7 @@ components:
           type: string
       type: object
     CustomizedInfo:
+      type: object
       properties:
         customizedField1:
           type: string
@@ -383,7 +384,6 @@ components:
           type: string
         customizedField5:
           type: string
-      type: object
     DiscountPaymentMethodDetail:
       properties:
         availableAmount:
