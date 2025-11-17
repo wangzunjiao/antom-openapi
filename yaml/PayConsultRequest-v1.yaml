@@ -163,6 +163,15 @@ components:
       - currency
       - value
       type: object
+    AmountLimitInfo:
+      properties:
+        monthLimit:
+          $ref: '#/components/schemas/AmountLimit'
+        dayLimit:
+          $ref: '#/components/schemas/AmountLimit'
+        singleLimit:
+          $ref: '#/components/schemas/AmountLimit'
+      type: object
     AmountLimit:
       properties:
         maxAmount:
@@ -171,10 +180,6 @@ components:
           $ref: '#/components/schemas/Amount'
         remainAmount:
           $ref: '#/components/schemas/Amount'
-      required:
-      - maxAmount
-      - minAmount
-      - remainAmount
       type: object
     BrowserInfo:
       properties:
@@ -511,7 +516,7 @@ components:
       properties:
         amountLimitInfoMap:
           additionalProperties:
-            $ref: '#/components/schemas/AmountLimit'
+            $ref: '#/components/schemas/AmountLimitInfo'
           properties: {}
           type: object
         disableReason:

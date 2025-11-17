@@ -757,6 +757,20 @@
           "promotionType"
         ]
       },
+      "AmountLimitInfo": {
+        "type": "object",
+        "properties": {
+          "singleLimit": {
+            "$ref": "#/components/schemas/AmountLimit"
+          },
+          "dayLimit": {
+            "$ref": "#/components/schemas/AmountLimit"
+          },
+          "monthLimit": {
+            "$ref": "#/components/schemas/AmountLimit"
+          }
+        }
+      },
       "AmountLimit": {
         "type": "object",
         "properties": {
@@ -810,7 +824,7 @@
             "properties": {},
             "additionalProperties": {
               "type": "object",
-              "$ref": "#/components/schemas/AmountLimit"
+              "$ref": "#/components/schemas/AmountLimitInfo"
             }
           },
           "supportedCurrencies": {
