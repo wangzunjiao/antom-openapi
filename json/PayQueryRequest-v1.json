@@ -156,6 +156,21 @@
       "PaymentResultInfo": {
         "type": "object",
         "properties": {
+          "customizedField1": {
+            "type": "string"
+          },
+          "customizedField2": {
+            "type": "string"
+          },
+          "customizedField3": {
+            "type": "string"
+          },
+          "customizedField4": {
+            "type": "string"
+          },
+          "customizedField5": {
+            "type": "string"
+          },
           "refusalCodeRaw": {
             "type": "string",
             "example": "51",
