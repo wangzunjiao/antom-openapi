@@ -64,6 +64,9 @@
       "Result": {
         "type": "object",
         "properties": {
+          "actualRefundAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
           "resultCode": {
             "type": "string",
             "description": "The result code.\n\nMore information:\n\nMaximum length: 64 characters"
@@ -74,7 +77,8 @@
           },
           "resultMessage": {
             "type": "string",
-            "description": "The result message.\n\nMore information:\n\nMaximum length: 256 characters"
+            "description": "The result message.\n\nMore information:\n\nMaximum length: 256 characters",
+            "maxLength": 256
           }
         },
         "required": [

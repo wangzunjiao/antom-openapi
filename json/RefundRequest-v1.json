@@ -115,17 +115,21 @@
       "Result": {
         "type": "object",
         "properties": {
+          "actualRefundAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
           "resultCode": {
             "type": "string",
-            "description": "Result code. Possible values are listed in the Result/Error codes table on this page.\n\nMore information:\n\nMaximum length: 64 characters"
+            "description": "The result code.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "resultStatus": {
-            "description": "Result status. Valid values are:\n\nS: Indicates that the refund succeeded.\nF: Indicates that the refund failed.\nU: Indicates that the refund result is unknown. ",
+            "description": "The result status. Valid values are:  \n\nS: Indicates that the result status is successful. \nF: Indicates that the result status is failed. \nU: Indicates that the result status is unknown. ",
             "$ref": "#/components/schemas/ResultStatusType"
           },
           "resultMessage": {
             "type": "string",
-            "description": "Result message that explains the result code.\n\nMore information:\n\nMaximum length: 256 characters"
+            "description": "The result message.\n\nMore information:\n\nMaximum length: 256 characters",
+            "maxLength": 256
           }
         },
         "required": [
