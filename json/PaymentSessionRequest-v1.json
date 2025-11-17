@@ -1122,6 +1122,10 @@
           "normalUrl": {
             "type": "string",
             "description": "The URL used to redirect to the Checkout Page.\n\nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "url": {
+            "type": "string",
+            "description": "\u65b0\u589e\u7684url\u5b57\u6bb5"
           }
         },
         "required": [

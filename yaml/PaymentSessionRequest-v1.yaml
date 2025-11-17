@@ -238,22 +238,18 @@ components:
       - testFile
       type: object
     AlipayPaymentSessionResponse:
+      type: object
       properties:
-        normalUrl:
-          description: 'The URL used to redirect to the Checkout Page.
-
-
-            More information:
-
-
-            Maximum length: 2048 characters'
-          type: string
+        result:
+          $ref: '#/components/schemas/Result'
+          description: The result of the API call.
         paymentSessionData:
+          type: string
           description: "The encrypted payment session data. Pass the data to your\
             \ front end to initiate the client-side SDK.  \n\nMore information:\n\n\
             Maximum length: 4096 characters"
-          type: string
         paymentSessionExpiryTime:
+          type: string
           description: 'The specific date and time after which the payment session
             will expire.
 
@@ -262,20 +258,27 @@ components:
 
 
             The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
-          type: string
         paymentSessionId:
+          type: string
           description: "The encrypted ID that is assigned by Antom to identify a payment\
             \ session.  \n\nMore information:\n\nMaximum length: 64 characters"
+        normalUrl:
           type: string
-        result:
-          $ref: '#/components/schemas/Result'
-          description: The result of the API call.
+          description: 'The URL used to redirect to the Checkout Page.
+
+
+            More information:
+
+
+            Maximum length: 2048 characters'
+        url:
+          type: string
+          description: 新增的url字段
       required:
       - paymentSessionData
       - paymentSessionExpiryTime
       - paymentSessionId
       - result
-      type: object
     Amount:
       properties:
         currency:
