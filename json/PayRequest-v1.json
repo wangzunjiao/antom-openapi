@@ -383,6 +383,10 @@
           "connectedTicketNumber": {
             "type": "string",
             "description": "Added field for connected ticket number"
+          },
+          "ancillaryData": {
+            "type": "object",
+            "description": "Ancillary data for the transit"
           }
         }
       },
