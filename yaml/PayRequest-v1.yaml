@@ -2283,6 +2283,18 @@ components:
       - CHARGE
       - DEFERRED_DEBIT
       description: The funding source type for the payment method
+    AncillaryData:
+      AncillaryData:
+        type: object
+        properties:
+          services:
+            type: array
+            items:
+              $ref: '#/components/schemas/Service'
+            description: List of services for ancillary data
+          connectedTicketNumber:
+            type: string
+            description: Connected ticket number
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/pay
