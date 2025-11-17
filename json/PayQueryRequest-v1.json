@@ -539,6 +539,14 @@
       "AlipayPayQueryResponse": {
         "type": "object",
         "properties": {
+          "customizedInfo": {
+            "$ref": "#/components/schemas/CustomizedInfo",
+            "description": "Customized information object"
+          },
+          "processingAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "Processing amount information"
+          },
           "result": {
             "$ref": "#/components/schemas/Result",
             "description": "The result of the subsequent action against the transaction. "

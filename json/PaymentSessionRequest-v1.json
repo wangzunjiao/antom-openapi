@@ -1103,6 +1103,10 @@
       "AlipayPaymentSessionResponse": {
         "type": "object",
         "properties": {
+          "url": {
+            "type": "string",
+            "description": "The URL for payment session"
+          },
           "result": {
             "$ref": "#/components/schemas/Result",
             "description": "The result of the API call."
