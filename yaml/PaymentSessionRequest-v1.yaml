@@ -1572,6 +1572,9 @@ components:
 
 
             Maximum size: 100 elements'
+        ancillaryData:
+          $ref: '#/components/schemas/AncillaryData'
+          description: Ancillary data for the transit
         agentCode:
           type: string
           description: Added field for agent code

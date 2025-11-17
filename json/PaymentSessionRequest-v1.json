@@ -882,6 +882,10 @@
             },
             "description": "Information about the passenger of the trip, including the passenger names, passenger email and phone number.\n\nMore information:\n\nMaximum size: 100 elements"
           },
+          "ancillaryData": {
+            "$ref": "#/components/schemas/AncillaryData",
+            "description": "Ancillary data for the transit"
+          },
           "agentCode": {
             "type": "string",
             "description": "Added field for agent code"
