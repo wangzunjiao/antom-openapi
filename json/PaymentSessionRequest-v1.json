@@ -1122,6 +1122,10 @@
           "normalUrl": {
             "type": "string",
             "description": "The URL used to redirect to the Checkout Page.\n\nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "url": {
+            "type": "string",
+            "description": "The URL for payment session"
           }
         },
         "required": [
@@ -1134,23 +1138,31 @@
       "Result": {
         "type": "object",
         "properties": {
+          "normalUrl": {
+            "type": "string",
+            "description": "The normal URL for vaulting session"
+          },
+          "actualRefundAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "The actual refund amount"
+          },
           "resultCode": {
             "type": "string",
-            "description": "Result code. The result code that might be returned are listed in the Result/Error codes table on this page.\n\nMore information:\n\nMaximum length: 64 characters"
+            "description": "The result code.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "resultStatus": {
-            "description": "Result status. Valid values are:\n\nS: Indicates that the result status is successful.\nF: Indicates that the result status is failed. \nU: Indicates that the result status is unknown. ",
+            "description": "The result status. Valid values are:  \n\nS: Indicates that the result status is successful. \nF: Indicates that the result status is failed. \nU: Indicates that the result status is unknown. ",
             "$ref": "#/components/schemas/ResultStatusType"
           },
           "resultMessage": {
             "type": "string",
-            "description": "Result message that explains the result code.\n\nMore information:\n\nMaximum length: 256 characters\n"
+            "description": "The result message.\n\nMore information:\n\nMaximum length: 256 characters",
+            "maxLength": 256
           }
         },
         "required": [
           "resultCode",
-          "resultStatus",
-          "resultMessage"
+          "resultStatus"
         ]
       },
       "ResultStatusType": {

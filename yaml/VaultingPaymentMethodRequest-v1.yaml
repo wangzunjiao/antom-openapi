@@ -372,6 +372,7 @@ components:
           type: string
       type: object
     CustomizedInfo:
+      type: object
       properties:
         customizedField1:
           type: string
@@ -383,7 +384,6 @@ components:
           type: string
         customizedField5:
           type: string
-      type: object
     DiscountPaymentMethodDetail:
       properties:
         availableAmount:
@@ -576,23 +576,41 @@ components:
       - DISCOUNT
       type: string
     Result:
+      type: object
       properties:
+        normalUrl:
+          type: string
+          description: The normal URL for vaulting session
+        actualRefundAmount:
+          $ref: '#/components/schemas/Amount'
+          description: The actual refund amount
         resultCode:
-          description: The result code.
           type: string
-        resultMessage:
-          description: The result message.
-          type: string
+          description: 'The result code.
+
+
+            More information:
+
+
+            Maximum length: 64 characters'
         resultStatus:
+          description: "The result status. Valid values are:  \n\nS: Indicates that\
+            \ the result status is successful. \nF: Indicates that the result status\
+            \ is failed. \nU: Indicates that the result status is unknown. "
           $ref: '#/components/schemas/ResultStatusType'
-          description: "The result status. Valid values are:\nS: indicates that the\
-            \ result status is successful.\nF: indicates that the result status is\
-            \ failed. \nU: indicates that the result status is unknown. "
+        resultMessage:
+          type: string
+          description: 'The result message.
+
+
+            More information:
+
+
+            Maximum length: 256 characters'
+          maxLength: 256
       required:
       - resultCode
       - resultStatus
-      - resultMessage
-      type: object
     ResultStatusType:
       enum:
       - S

@@ -699,8 +699,16 @@ components:
       - INTEREST_FREE
       type: string
     Result:
+      type: object
       properties:
+        normalUrl:
+          type: string
+          description: The normal URL for vaulting session
+        actualRefundAmount:
+          $ref: '#/components/schemas/Amount'
+          description: The actual refund amount
         resultCode:
+          type: string
           description: 'The result code.
 
 
@@ -708,8 +716,13 @@ components:
 
 
             Maximum length: 64 characters'
-          type: string
+        resultStatus:
+          description: "The result status. Valid values are:  \n\nS: Indicates that\
+            \ the result status is successful. \nF: Indicates that the result status\
+            \ is failed. \nU: Indicates that the result status is unknown. "
+          $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
+          type: string
           description: 'The result message.
 
 
@@ -717,16 +730,10 @@ components:
 
 
             Maximum length: 256 characters'
-          type: string
-        resultStatus:
-          $ref: '#/components/schemas/ResultStatusType'
-          description: "The result status. Valid values are:  \n\nS: Indicates that\
-            \ the result status is successful. \nF: Indicates that the result status\
-            \ is failed. \nU: Indicates that the result status is unknown."
+          maxLength: 256
       required:
       - resultCode
       - resultStatus
-      type: object
     ResultStatusType:
       enum:
       - S
