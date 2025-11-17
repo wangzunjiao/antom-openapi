@@ -919,6 +919,12 @@ components:
     PaymentResultInfo:
       type: object
       properties:
+        customizedInfo:
+          $ref: '#/components/schemas/CustomizedInfo'
+          description: Customized information fields
+        processingAmount:
+          $ref: '#/components/schemas/Amount'
+          description: Processing amount information
         refusalCodeRaw:
           type: string
           example: '51'
