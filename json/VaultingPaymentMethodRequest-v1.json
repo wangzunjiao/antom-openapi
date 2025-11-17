@@ -510,6 +510,14 @@
       "Wallet": {
         "type": "object",
         "properties": {
+          "token": {
+            "type": "string",
+            "description": "Token representing the wallet payment method"
+          },
+          "tokenExpiryTime": {
+            "type": "string",
+            "description": "Expiration time of the wallet token"
+          },
           "accountNo": {
             "type": "string"
           },

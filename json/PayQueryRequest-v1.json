@@ -68,6 +68,10 @@
       "Quote": {
         "type": "object",
         "properties": {
+          "exchangeAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "The converted amount using the quote price"
+          },
           "quoteId": {
             "type": "string",
             "description": "The unique ID that is assigned by Antom to identify an exchange rate. \n\nMore information:\n\nMaximum length: 64 characters"
@@ -152,6 +156,22 @@
       "PaymentResultInfo": {
         "type": "object",
         "properties": {
+          "cardCategory": {
+            "type": "string",
+            "description": "The category of the card used for payment"
+          },
+          "accountNo": {
+            "type": "string",
+            "description": "The account number used for payment"
+          },
+          "exemptionRequested": {
+            "type": "string",
+            "description": "The type of exemption requested for the payment"
+          },
+          "credentialTypeUsed": {
+            "type": "string",
+            "description": "The type of credential used for authentication"
+          },
           "refusalCodeRaw": {
             "type": "string",
             "example": "51",
@@ -342,6 +362,26 @@
       "ThreeDSResult": {
         "type": "object",
         "properties": {
+          "threeDStransactionStatusReason": {
+            "type": "string",
+            "description": "Reason for the 3DS transaction status"
+          },
+          "challengeCancel": {
+            "type": "string",
+            "description": "Indicates if the challenge was cancelled"
+          },
+          "challenged": {
+            "type": "boolean",
+            "description": "Indicates if a challenge was presented"
+          },
+          "exemptionType": {
+            "type": "string",
+            "description": "Type of exemption applied to the transaction"
+          },
+          "threeDSOffered": {
+            "type": "boolean",
+            "description": "Indicates if 3DS was offered"
+          },
           "threeDSVersion": {
             "type": "string",
             "description": "The version of 3D Secure protocol"

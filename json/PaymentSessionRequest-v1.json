@@ -1030,8 +1030,17 @@
       "Shipping": {
         "type": "object",
         "properties": {
+          "shippingNumber": {
+            "type": "string",
+            "description": "The tracking number for the shipment"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes about the shipping"
+          },
           "shippingName": {
-            "$ref": "#/components/schemas/UserName"
+            "$ref": "#/components/schemas/UserName",
+            "description": "The name of the recipient. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  "
           },
           "shippingAddress": {
             "$ref": "#/components/schemas/Address",

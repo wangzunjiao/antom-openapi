@@ -359,6 +359,14 @@
       "Wallet": {
         "type": "object",
         "properties": {
+          "token": {
+            "type": "string",
+            "description": "Token representing the wallet payment method"
+          },
+          "tokenExpiryTime": {
+            "type": "string",
+            "description": "Expiration time of the wallet token"
+          },
           "accountNo": {
             "type": "string"
           },
@@ -372,7 +380,8 @@
             "type": "string"
           },
           "billingAddress": {
-            "$ref": "#/components/schemas/Address"
+            "$ref": "#/components/schemas/Address",
+            "description": "The billing address that is associated with the cardholder's card account. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
           }
         }
       },
