@@ -868,6 +868,10 @@
             "$ref": "#/components/schemas/TransitType",
             "description": "Trip modes, valid values are:\n\nFLIGHT: indicates that the trip mode is by plane.\nTRAIN: indicates that the trip mode is by train.\nCRUISE: indicates that the trip mode is by cruise.\nCOACH: indicates that the trip mode is by coach.\n"
           },
+          "ancillaryData": {
+            "$ref": "#/components/schemas/AncillaryData",
+            "description": "Ancillary data for the transit"
+          },
           "legs": {
             "type": "array",
             "items": {

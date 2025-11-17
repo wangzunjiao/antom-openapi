@@ -448,6 +448,9 @@ components:
             COACH: indicates that the trip mode is by coach.
 
             '
+        ancillaryData:
+          $ref: '#/components/schemas/AncillaryData'
+          description: Ancillary data for the transit
         legs:
           type: array
           items:
@@ -2277,6 +2280,28 @@ components:
       - CHARGE
       - DEFERRED_DEBIT
       description: The funding source type for the payment method
+    AncillaryData:
+      AncillaryData:
+        type: object
+        properties:
+          services:
+            type: array
+            items:
+              $ref: '#/components/schemas/Service'
+            description: List of services for ancillary data
+          connectedTicketNumber:
+            type: string
+            description: Connected ticket number
+    Service:
+      Service:
+        type: object
+        properties:
+          categoryCode:
+            type: string
+            description: Category code for the service
+          subCategoryCode:
+            type: string
+            description: Sub-category code for the service
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/pay

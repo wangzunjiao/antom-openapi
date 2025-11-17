@@ -1547,6 +1547,9 @@ components:
             COACH: indicates that the trip mode is by coach.
 
             '
+        ancillaryData:
+          $ref: '#/components/schemas/AncillaryData'
+          description: Ancillary data for the transit
         legs:
           type: array
           items:
