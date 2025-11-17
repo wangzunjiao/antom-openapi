@@ -372,18 +372,23 @@ components:
           type: string
       type: object
     CustomizedInfo:
+      type: object
       properties:
         customizedField1:
           type: string
+          description: Customized field 1
         customizedField2:
           type: string
+          description: Customized field 2
         customizedField3:
           type: string
+          description: Customized field 3
         customizedField4:
           type: string
+          description: Customized field 4
         customizedField5:
           type: string
-      type: object
+          description: Customized field 5
     DiscountPaymentMethodDetail:
       properties:
         availableAmount:
