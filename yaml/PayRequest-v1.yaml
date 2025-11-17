@@ -488,9 +488,6 @@ components:
         restrictedTicketIndicator:
           type: string
           description: Added field for restricted ticket indicator
-        connectedTicketNumber:
-          type: string
-          description: Added field for connected ticket number
     Lodging:
       type: object
       properties:
