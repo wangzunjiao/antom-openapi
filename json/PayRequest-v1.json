@@ -1509,6 +1509,10 @@
       "AlipayPayResponse": {
         "type": "object",
         "properties": {
+          "processingAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "The processing amount"
+          },
           "result": {
             "$ref": "#/components/schemas/Result",
             "description": "The result of the API call."
