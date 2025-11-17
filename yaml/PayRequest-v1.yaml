@@ -78,49 +78,36 @@ components:
     Shipping:
       type: object
       properties:
-        shippingName: &id003
+        shippingName:
           $ref: '#/components/schemas/UserName'
           description: "The name of the recipient. \n\nNote: Specify this parameter\
             \ if you require risk control. Providing this information helps to increase\
             \ the accuracy of anti-money laundering and fraud detection, and increase\
-            \ payment success rates."
-        shippingAddress: &id002
+            \ payment success rates.  "
+        shippingAddress:
           $ref: '#/components/schemas/Address'
-          description: "Shipping address. \n\nSpecify this parameter when one of the\
-            \ following conditions is met:\n\nThe value of paymentMethodType is PAGALEVE.\n\
-            You require risk control.\nProviding this information helps to increase\
-            \ the accuracy of anti-money laundering and fraud detection, and increase\
-            \ payment success rates."
+          description: Hotel address.
         shippingCarrier:
           type: string
           description: "The delivery service provider for shipping a physical product,\
-            \ such as FedEx, UPS, or USPS. \n\nNote: Specify this parameter if you\
-            \ require risk control. Providing this information helps to increase the\
-            \ accuracy of anti-money laundering and fraud detection, and increase\
-            \ payment success rates.\n\nMore information:\n\nMaximum length: 128 characters"
+            \ such as FedEx, UPS, or USPS. \n\nSpecify this parameter if you require\
+            \ risk control. Providing this information helps to increase the accuracy\
+            \ of anti-money laundering and fraud detection, and increase payment success\
+            \ rates.\n\nMore information:\n\nMaximum length: 128 characters"
         shippingPhoneNo:
           type: string
           description: 'The phone number of a recipient (including extension).
 
 
-            Specify this parameter when one of the following conditions is met:
-
-
-            You require risk control.
-
-            The value of paymentMethodType is OVO and you collect the phone number
-            that is bound to the OVO account during the payment process.
-
-            Providing this information helps to increase the accuracy of anti-money
-            laundering and fraud detection, and increase payment success rates.
+            Specify this parameter when you require risk control. Providing this information
+            helps to increase the accuracy of anti-money laundering and fraud detection,
+            and increase payment success rates.
 
 
             More information:
 
 
-            Maximum length: 16 characters
-
-            '
+            Maximum length: 16 characters'
         shipToEmail:
           type: string
           description: "The email address where virtual goods are sent.\n\nSpecify\
@@ -130,12 +117,37 @@ components:
             \ detection.  \n\nMore information:\n\nMaximum length: 64 characters"
         shippingFeeId:
           type: string
-        shippingFee: &id004
+          description: 'The ID of the shipping fee used for identifying the shipping
+            option.
+
+
+            More information:
+
+
+            Maximum length: 64 characters'
+        shippingFee:
           $ref: '#/components/schemas/Amount'
+          description: The payment amount that the merchant requests to receive in
+            the order currency.
         shippingDescription:
           type: string
+          description: 'Extended information about logistics-related services, including
+            shipping time, logistics companies, etc.
+
+
+            More information:
+
+
+            Maximum length: 64 characters'
         deliveryEstimate:
           $ref: '#/components/schemas/DeliveryEstimate'
+          description: Estimated shipping time range.
+        shippingNumber:
+          type: string
+          description: Added field for shipping number
+        notes:
+          type: string
+          description: Added field for shipping notes
     Order:
       type: object
       properties:
@@ -433,7 +445,9 @@ components:
 
             CRUISE: indicates that the trip mode is by cruise.
 
-            COACH: indicates that the trip mode is by coach.'
+            COACH: indicates that the trip mode is by coach.
+
+            '
         legs:
           type: array
           items:
@@ -452,13 +466,31 @@ components:
           items:
             $ref: '#/components/schemas/Passenger'
           description: 'Information about the passenger of the trip, including the
-            passenger names, passenger email and passenger phone number.
+            passenger names, passenger email and phone number.
 
 
             More information:
 
 
             Maximum size: 100 elements'
+        agentCode:
+          type: string
+          description: Added field for agent code
+        agentName:
+          type: string
+          description: Added field for agent name
+        ticketNumber:
+          type: string
+          description: Added field for ticket number
+        ticketIssuerCode:
+          type: string
+          description: Added field for ticket issuer code
+        restrictedTicketIndicator:
+          type: string
+          description: Added field for restricted ticket indicator
+        connectedTicketNumber:
+          type: string
+          description: Added field for connected ticket number
     Lodging:
       type: object
       properties:
@@ -471,7 +503,13 @@ components:
 
 
             Maximum length: 128 characters'
-        hotelAddress: *id002
+        hotelAddress: &id002
+          $ref: '#/components/schemas/Address'
+          description: "Shipping address. \n\nSpecify this parameter when one of the\
+            \ following conditions is met:\n\nThe value of paymentMethodType is PAGALEVE.\n\
+            You require risk control.\nProviding this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates."
         checkInDate:
           type: string
           description: 'Date on which the guest checked in. In the case of a no-show
@@ -517,7 +555,12 @@ components:
             '
         guestNames:
           type: array
-          items: *id003
+          items: &id003
+            $ref: '#/components/schemas/UserName'
+            description: "The name of the recipient. \n\nNote: Specify this parameter\
+              \ if you require risk control. Providing this information helps to increase\
+              \ the accuracy of anti-money laundering and fraud detection, and increase\
+              \ payment success rates."
           description: 'Name of the guest under which the room is reserved.
 
 
@@ -695,58 +738,38 @@ components:
       properties:
         quoteId:
           type: string
-          description: 'The unique ID that is assigned by Antom to identify an exchange
-            rate.
-
-
-            More information:
-
-
-            Maximum length: 64 characters'
+          description: "The unique ID that is assigned by Antom to identify an exchange\
+            \ rate. \n\nMore information:\n\nMaximum length: 64 characters"
         quoteCurrencyPair:
           type: string
-          description: 'A currency pair of settlement currency and transaction currency.
-            The two currencies are separated with a slash and use the 3-letter ISO-4217
-            currency code.
-
-
-            More information:
-
-
-            Maximum length: 16 characters'
+          description: "The exchange rate between settlement currency and transaction\
+            \ currency. Two currencies are separated with a slash and use the three-letter\
+            \ ISO-4217 currency code.  \n\nMore information:\n\nMaximum length: 16\
+            \ characters"
         quotePrice:
           type: number
-          description: 'The exchange rate used when a currency conversion between
-            settlement currency and transaction currency occurs.
-
-
-            More information:
-
-
-            Value range: 0 - unlimited'
+          description: "The exchange rate used when a currency conversion between\
+            \ settlement currency and transaction currency occurs.  \n\nMore information:\n\
+            \nValue range: 1 - unlimited"
         quoteStartTime:
           type: string
-          description: 'The date and time when quotePrice is effective.
-
-
-            More information:
-
-
-            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
+          description: "Effective time of the exchange rate. \n\nMore information:\n\
+            \nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"\
+            .\n"
         quoteExpiryTime:
           type: string
-          description: 'The date and time when quotePrice expires.
-
-
-            More information:
-
-
-            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
+          description: "Expiration time of the exchange rate.  \n\nMore information:\n\
+            \nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"\
+            .\n"
         guaranteed:
           type: boolean
-          description: Guaranteed exchange rate available for payment.
+          description: "Guaranteed exchange rate available for payment.  \n\n"
+        exchangeAmount:
+          $ref: '#/components/schemas/Amount'
+          description: Added field for exchange amount
       required:
       - quoteCurrencyPair
+      - quotePrice
     PspCustomerInfo:
       type: object
       properties:
@@ -932,8 +955,8 @@ components:
           description: The region code that represents the country or region of the
             payment method
         threeDSResult:
-          description: The result of 3D Secure authentication
           $ref: '#/components/schemas/ThreeDSResult'
+          description: The result of 3D Secure authentication
         avsResultRaw:
           type: string
           description: The raw AVS result. See AVS result codes to check the valid
@@ -948,8 +971,8 @@ components:
             The value of this parameter is used by the same parameter of pay (Cashier
             Payment) request in subsequent payments
         creditPayPlan:
-          description: The installment plan information for an installment payment
           $ref: '#/components/schemas/CreditPayPlan'
+          description: The installment plan information for an installment payment
         cardholderName:
           type: string
           description: 'The cardholder''s name.
@@ -1027,6 +1050,18 @@ components:
 
 
             Maximum length: 2 characters'
+        cardCategory:
+          type: string
+          description: Added field for card category
+        accountNo:
+          type: string
+          description: Added field for account number
+        exemptionRequested:
+          type: string
+          description: Added field for exemption requested
+        credentialTypeUsed:
+          type: string
+          description: Added field for credential type used
     AcquirerInfo:
       type: object
       properties:
@@ -1429,20 +1464,13 @@ components:
     ThreeDSResult:
       type: object
       properties:
-        eci:
-          type: string
-          enum:
-          - '01'
-          - '02'
-          - '05'
-          - '06'
-          - '07'
-          - '04'
-          description: Electronic Commerce Indicator (ECI) that is returned by the
-            card scheme
         threeDSVersion:
           type: string
           description: The version of 3D Secure protocol
+        eci:
+          type: string
+          description: Electronic Commerce Indicator (ECI) that is returned by the
+            card scheme
         cavv:
           type: string
           description: The cardholder authentication value
@@ -1453,6 +1481,21 @@ components:
           type: string
           description: The unique transaction identifier assigned by the Directory
             Server (DS) for 3D Secure authentication
+        threeDStransactionStatusReason:
+          type: string
+          description: Added field for 3DS transaction status reason
+        challengeCancel:
+          type: string
+          description: Added field for challenge cancel
+        challenged:
+          type: boolean
+          description: Added field for challenged status
+        exemptionType:
+          type: string
+          description: Added field for exemption type
+        threeDSOffered:
+          type: boolean
+          description: Added field for 3DS offered
     ResultStatusType:
       type: string
       enum:
@@ -1872,7 +1915,8 @@ components:
           type: string
         discountName:
           type: string
-        savingsAmount: *id004
+        savingsAmount: &id004
+          $ref: '#/components/schemas/Amount'
         estimateSavingsAmount: *id004
       required:
       - discountName

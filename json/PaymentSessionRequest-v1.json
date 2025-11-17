@@ -881,6 +881,30 @@
               "$ref": "#/components/schemas/Passenger"
             },
             "description": "Information about the passenger of the trip, including the passenger names, passenger email and phone number.\n\nMore information:\n\nMaximum size: 100 elements"
+          },
+          "agentCode": {
+            "type": "string",
+            "description": "Added field for agent code"
+          },
+          "agentName": {
+            "type": "string",
+            "description": "Added field for agent name"
+          },
+          "ticketNumber": {
+            "type": "string",
+            "description": "Added field for ticket number"
+          },
+          "ticketIssuerCode": {
+            "type": "string",
+            "description": "Added field for ticket issuer code"
+          },
+          "restrictedTicketIndicator": {
+            "type": "string",
+            "description": "Added field for restricted ticket indicator"
+          },
+          "connectedTicketNumber": {
+            "type": "string",
+            "description": "Added field for connected ticket number"
           }
         }
       },
@@ -1031,7 +1055,8 @@
         "type": "object",
         "properties": {
           "shippingName": {
-            "$ref": "#/components/schemas/UserName"
+            "$ref": "#/components/schemas/UserName",
+            "description": "The name of the recipient. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  "
           },
           "shippingAddress": {
             "$ref": "#/components/schemas/Address",
@@ -1064,6 +1089,14 @@
           "deliveryEstimate": {
             "$ref": "#/components/schemas/DeliveryEstimate",
             "description": "Estimated shipping time range."
+          },
+          "shippingNumber": {
+            "type": "string",
+            "description": "Added field for shipping number"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Added field for shipping notes"
           }
         }
       },

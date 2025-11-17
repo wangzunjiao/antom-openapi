@@ -630,10 +630,15 @@ components:
       - lastName
       type: object
     Wallet:
+      type: object
       properties:
+        accountNo:
+          type: string
         accountHolderName:
           $ref: '#/components/schemas/UserName'
-        accountNo:
+        phoneNo:
+          type: string
+        email:
           type: string
         billingAddress:
           $ref: '#/components/schemas/Address'
@@ -641,11 +646,12 @@ components:
             \ card account. \n\nNote: Specify this parameter if you require risk control.\
             \ Providing this information helps to increase the accuracy of anti-money\
             \ laundering and fraud detection, and increase payment success rates."
-        email:
+        token:
           type: string
-        phoneNo:
+          description: Added field for wallet token
+        tokenExpiryTime:
           type: string
-      type: object
+          description: Added field for token expiry time
   securitySchemes: {}
 info:
   description: ''

@@ -155,7 +155,7 @@ components:
           type: string
         expiryMonth:
           type: string
-        billingAddress: &id004
+        billingAddress:
           $ref: '#/components/schemas/Address'
         mask:
           type: string
@@ -264,12 +264,24 @@ components:
       properties:
         accountNo:
           type: string
-        accountHolderName: *id002
+        accountHolderName:
+          $ref: '#/components/schemas/UserName'
         phoneNo:
           type: string
         email:
           type: string
-        billingAddress: *id004
+        billingAddress:
+          $ref: '#/components/schemas/Address'
+          description: "The billing address that is associated with the cardholder's\
+            \ card account. \n\nNote: Specify this parameter if you require risk control.\
+            \ Providing this information helps to increase the accuracy of anti-money\
+            \ laundering and fraud detection, and increase payment success rates."
+        token:
+          type: string
+          description: Added field for wallet token
+        tokenExpiryTime:
+          type: string
+          description: Added field for token expiry time
     PaymentMethodDetail:
       type: object
       properties:

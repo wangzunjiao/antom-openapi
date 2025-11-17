@@ -112,31 +112,43 @@
           },
           "shippingAddress": {
             "$ref": "#/components/schemas/Address",
-            "description": "Shipping address. \n\nSpecify this parameter when one of the following conditions is met:\n\nThe value of paymentMethodType is PAGALEVE.\nYou require risk control.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
+            "description": "Hotel address."
           },
           "shippingCarrier": {
             "type": "string",
-            "description": "The delivery service provider for shipping a physical product, such as FedEx, UPS, or USPS. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 128 characters"
+            "description": "The delivery service provider for shipping a physical product, such as FedEx, UPS, or USPS. \n\nSpecify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 128 characters"
           },
           "shippingPhoneNo": {
             "type": "string",
-            "description": "The phone number of a recipient (including extension).\n\nSpecify this parameter when one of the following conditions is met:\n\nYou require risk control.\nThe value of paymentMethodType is OVO and you collect the phone number that is bound to the OVO account during the payment process.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 16 characters\n"
+            "description": "The phone number of a recipient (including extension).\n\nSpecify this parameter when you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 16 characters"
           },
           "shipToEmail": {
             "type": "string",
             "description": "The email address where virtual goods are sent.\n\nSpecify this parameter when one of the following conditions is met:\n\nif you require risk control.\nif you are a digital and entertainment merchant.\nProviding this information helps to increase fraud and identity theft detection.  \n\nMore information:\n\nMaximum length: 64 characters"
           },
           "shippingFeeId": {
-            "type": "string"
+            "type": "string",
+            "description": "The ID of the shipping fee used for identifying the shipping option.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "shippingFee": {
-            "$ref": "#/components/schemas/Amount"
+            "$ref": "#/components/schemas/Amount",
+            "description": "The payment amount that the merchant requests to receive in the order currency."
           },
           "shippingDescription": {
-            "type": "string"
+            "type": "string",
+            "description": "Extended information about logistics-related services, including shipping time, logistics companies, etc.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "deliveryEstimate": {
-            "$ref": "#/components/schemas/DeliveryEstimate"
+            "$ref": "#/components/schemas/DeliveryEstimate",
+            "description": "Estimated shipping time range."
+          },
+          "shippingNumber": {
+            "type": "string",
+            "description": "Added field for shipping number"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Added field for shipping notes"
           }
         }
       },
@@ -332,7 +344,7 @@
         "properties": {
           "transitType": {
             "$ref": "#/components/schemas/TransitType",
-            "description": "Trip modes, valid values are:\n\nFLIGHT: indicates that the trip mode is by plane.\nTRAIN: indicates that the trip mode is by train.\nCRUISE: indicates that the trip mode is by cruise.\nCOACH: indicates that the trip mode is by coach."
+            "description": "Trip modes, valid values are:\n\nFLIGHT: indicates that the trip mode is by plane.\nTRAIN: indicates that the trip mode is by train.\nCRUISE: indicates that the trip mode is by cruise.\nCOACH: indicates that the trip mode is by coach.\n"
           },
           "legs": {
             "type": "array",
@@ -346,7 +358,31 @@
             "items": {
               "$ref": "#/components/schemas/Passenger"
             },
-            "description": "Information about the passenger of the trip, including the passenger names, passenger email and passenger phone number.\n\nMore information:\n\nMaximum size: 100 elements"
+            "description": "Information about the passenger of the trip, including the passenger names, passenger email and phone number.\n\nMore information:\n\nMaximum size: 100 elements"
+          },
+          "agentCode": {
+            "type": "string",
+            "description": "Added field for agent code"
+          },
+          "agentName": {
+            "type": "string",
+            "description": "Added field for agent name"
+          },
+          "ticketNumber": {
+            "type": "string",
+            "description": "Added field for ticket number"
+          },
+          "ticketIssuerCode": {
+            "type": "string",
+            "description": "Added field for ticket issuer code"
+          },
+          "restrictedTicketIndicator": {
+            "type": "string",
+            "description": "Added field for restricted ticket indicator"
+          },
+          "connectedTicketNumber": {
+            "type": "string",
+            "description": "Added field for connected ticket number"
           }
         }
       },
@@ -492,31 +528,36 @@
         "properties": {
           "quoteId": {
             "type": "string",
-            "description": "The unique ID that is assigned by Antom to identify an exchange rate.\n\nMore information:\n\nMaximum length: 64 characters"
+            "description": "The unique ID that is assigned by Antom to identify an exchange rate. \n\nMore information:\n\nMaximum length: 64 characters"
           },
           "quoteCurrencyPair": {
             "type": "string",
-            "description": "A currency pair of settlement currency and transaction currency. The two currencies are separated with a slash and use the 3-letter ISO-4217 currency code.\n\nMore information:\n\nMaximum length: 16 characters"
+            "description": "The exchange rate between settlement currency and transaction currency. Two currencies are separated with a slash and use the three-letter ISO-4217 currency code.  \n\nMore information:\n\nMaximum length: 16 characters"
           },
           "quotePrice": {
             "type": "number",
-            "description": "The exchange rate used when a currency conversion between settlement currency and transaction currency occurs.\n\nMore information:\n\nValue range: 0 - unlimited"
+            "description": "The exchange rate used when a currency conversion between settlement currency and transaction currency occurs.  \n\nMore information:\n\nValue range: 1 - unlimited"
           },
           "quoteStartTime": {
             "type": "string",
-            "description": "The date and time when quotePrice is effective.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
+            "description": "Effective time of the exchange rate. \n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
           },
           "quoteExpiryTime": {
             "type": "string",
-            "description": "The date and time when quotePrice expires.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
+            "description": "Expiration time of the exchange rate.  \n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
           },
           "guaranteed": {
             "type": "boolean",
-            "description": "Guaranteed exchange rate available for payment."
+            "description": "Guaranteed exchange rate available for payment.  \n\n"
+          },
+          "exchangeAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "Added field for exchange amount"
           }
         },
         "required": [
-          "quoteCurrencyPair"
+          "quoteCurrencyPair",
+          "quotePrice"
         ]
       },
       "PspCustomerInfo": {
@@ -705,8 +746,8 @@
             "description": "The region code that represents the country or region of the payment method"
           },
           "threeDSResult": {
-            "description": "The result of 3D Secure authentication",
-            "$ref": "#/components/schemas/ThreeDSResult"
+            "$ref": "#/components/schemas/ThreeDSResult",
+            "description": "The result of 3D Secure authentication"
           },
           "avsResultRaw": {
             "type": "string",
@@ -721,8 +762,8 @@
             "description": "The unique ID assigned by the card scheme to identify a transaction. The value of this parameter is used by the same parameter of pay (Cashier Payment) request in subsequent payments"
           },
           "creditPayPlan": {
-            "description": "The installment plan information for an installment payment",
-            "$ref": "#/components/schemas/CreditPayPlan"
+            "$ref": "#/components/schemas/CreditPayPlan",
+            "description": "The installment plan information for an installment payment"
           },
           "cardholderName": {
             "type": "string",
@@ -743,6 +784,22 @@
           "expiryYear": {
             "type": "string",
             "description": "The year the card expires. Pass in the last two digits of the year number. For example, if the expiry year is 2025, the value of this parameter is 25.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 2 characters"
+          },
+          "cardCategory": {
+            "type": "string",
+            "description": "Added field for card category"
+          },
+          "accountNo": {
+            "type": "string",
+            "description": "Added field for account number"
+          },
+          "exemptionRequested": {
+            "type": "string",
+            "description": "Added field for exemption requested"
+          },
+          "credentialTypeUsed": {
+            "type": "string",
+            "description": "Added field for credential type used"
           }
         }
       },
@@ -1068,6 +1125,26 @@
           "xid": {
             "type": "string",
             "description": "The unique transaction identifier assigned by the Directory Server (DS) for 3D Secure authentication"
+          },
+          "threeDStransactionStatusReason": {
+            "type": "string",
+            "description": "Added field for 3DS transaction status reason"
+          },
+          "challengeCancel": {
+            "type": "string",
+            "description": "Added field for challenge cancel"
+          },
+          "challenged": {
+            "type": "boolean",
+            "description": "Added field for challenged status"
+          },
+          "exemptionType": {
+            "type": "string",
+            "description": "Added field for exemption type"
+          },
+          "threeDSOffered": {
+            "type": "boolean",
+            "description": "Added field for 3DS offered"
           }
         }
       },

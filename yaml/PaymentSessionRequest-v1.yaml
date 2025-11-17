@@ -1422,54 +1422,26 @@ components:
           type: string
       type: object
     Shipping:
+      type: object
       properties:
-        deliveryEstimate:
-          $ref: '#/components/schemas/DeliveryEstimate'
-          description: Estimated shipping time range.
-        shipToEmail:
-          description: "The email address where virtual goods are sent.\n\nSpecify\
-            \ this parameter when one of the following conditions is met:\n\nif you\
-            \ require risk control.\nif you are a digital and entertainment merchant.\n\
-            Providing this information helps to increase fraud and identity theft\
-            \ detection.  \n\nMore information:\n\nMaximum length: 64 characters"
-          type: string
+        shippingName:
+          $ref: '#/components/schemas/UserName'
+          description: "The name of the recipient. \n\nNote: Specify this parameter\
+            \ if you require risk control. Providing this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates.  "
         shippingAddress:
           $ref: '#/components/schemas/Address'
           description: Hotel address.
         shippingCarrier:
+          type: string
           description: "The delivery service provider for shipping a physical product,\
             \ such as FedEx, UPS, or USPS. \n\nSpecify this parameter if you require\
             \ risk control. Providing this information helps to increase the accuracy\
             \ of anti-money laundering and fraud detection, and increase payment success\
             \ rates.\n\nMore information:\n\nMaximum length: 128 characters"
-          type: string
-        shippingDescription:
-          description: 'Extended information about logistics-related services, including
-            shipping time, logistics companies, etc.
-
-
-            More information:
-
-
-            Maximum length: 64 characters'
-          type: string
-        shippingFee:
-          $ref: '#/components/schemas/Amount'
-          description: The payment amount that the merchant requests to receive in
-            the order currency.
-        shippingFeeId:
-          description: 'The ID of the shipping fee used for identifying the shipping
-            option.
-
-
-            More information:
-
-
-            Maximum length: 64 characters'
-          type: string
-        shippingName:
-          $ref: '#/components/schemas/UserName'
         shippingPhoneNo:
+          type: string
           description: 'The phone number of a recipient (including extension).
 
 
@@ -1482,8 +1454,46 @@ components:
 
 
             Maximum length: 16 characters'
+        shipToEmail:
           type: string
-      type: object
+          description: "The email address where virtual goods are sent.\n\nSpecify\
+            \ this parameter when one of the following conditions is met:\n\nif you\
+            \ require risk control.\nif you are a digital and entertainment merchant.\n\
+            Providing this information helps to increase fraud and identity theft\
+            \ detection.  \n\nMore information:\n\nMaximum length: 64 characters"
+        shippingFeeId:
+          type: string
+          description: 'The ID of the shipping fee used for identifying the shipping
+            option.
+
+
+            More information:
+
+
+            Maximum length: 64 characters'
+        shippingFee:
+          $ref: '#/components/schemas/Amount'
+          description: The payment amount that the merchant requests to receive in
+            the order currency.
+        shippingDescription:
+          type: string
+          description: 'Extended information about logistics-related services, including
+            shipping time, logistics companies, etc.
+
+
+            More information:
+
+
+            Maximum length: 64 characters'
+        deliveryEstimate:
+          $ref: '#/components/schemas/DeliveryEstimate'
+          description: Estimated shipping time range.
+        shippingNumber:
+          type: string
+          description: Added field for shipping number
+        notes:
+          type: string
+          description: Added field for shipping notes
     Store:
       properties:
         referenceStoreId:
@@ -1521,32 +1531,8 @@ components:
       - MINI_APP
       type: string
     Transit:
+      type: object
       properties:
-        legs:
-          description: 'Information about sections of the trip, including departure
-            time, arrival time, departure address, arrival address, transportation
-            company name, carrier code and service type.
-
-
-            More information:
-
-
-            Maximum size: 10 elements'
-          items:
-            $ref: '#/components/schemas/Leg'
-          type: array
-        passengers:
-          description: 'Information about the passenger of the trip, including the
-            passenger names, passenger email and phone number.
-
-
-            More information:
-
-
-            Maximum size: 100 elements'
-          items:
-            $ref: '#/components/schemas/Passenger'
-          type: array
         transitType:
           $ref: '#/components/schemas/TransitType'
           description: 'Trip modes, valid values are:
@@ -1561,7 +1547,49 @@ components:
             COACH: indicates that the trip mode is by coach.
 
             '
-      type: object
+        legs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Leg'
+          description: 'Information about sections of the trip, including departure
+            time, arrival time, departure address, arrival address, transportation
+            company name, carrier code and service type.
+
+
+            More information:
+
+
+            Maximum size: 10 elements'
+        passengers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Passenger'
+          description: 'Information about the passenger of the trip, including the
+            passenger names, passenger email and phone number.
+
+
+            More information:
+
+
+            Maximum size: 100 elements'
+        agentCode:
+          type: string
+          description: Added field for agent code
+        agentName:
+          type: string
+          description: Added field for agent name
+        ticketNumber:
+          type: string
+          description: Added field for ticket number
+        ticketIssuerCode:
+          type: string
+          description: Added field for ticket issuer code
+        restrictedTicketIndicator:
+          type: string
+          description: Added field for restricted ticket indicator
+        connectedTicketNumber:
+          type: string
+          description: Added field for connected ticket number
     TransitType:
       enum:
       - FLIGHT

@@ -79,6 +79,9 @@ components:
         guaranteed:
           type: boolean
           description: "Guaranteed exchange rate available for payment.  \n\n"
+        exchangeAmount:
+          $ref: '#/components/schemas/Amount'
+          description: Added field for exchange amount
       required:
       - quoteCurrencyPair
       - quotePrice
@@ -211,8 +214,8 @@ components:
           description: The region code that represents the country or region of the
             payment method
         threeDSResult:
-          description: The result of 3D Secure authentication
           $ref: '#/components/schemas/ThreeDSResult'
+          description: The result of 3D Secure authentication
         avsResultRaw:
           type: string
           description: The raw AVS result. See AVS result codes to check the valid
@@ -227,8 +230,8 @@ components:
             The value of this parameter is used by the same parameter of pay (Cashier
             Payment) request in subsequent payments
         creditPayPlan:
-          description: The installment plan information for an installment payment
           $ref: '#/components/schemas/CreditPayPlan'
+          description: The installment plan information for an installment payment
         cardholderName:
           type: string
           description: 'The cardholder''s name.
@@ -306,6 +309,18 @@ components:
 
 
             Maximum length: 2 characters'
+        cardCategory:
+          type: string
+          description: Added field for card category
+        accountNo:
+          type: string
+          description: Added field for account number
+        exemptionRequested:
+          type: string
+          description: Added field for exemption requested
+        credentialTypeUsed:
+          type: string
+          description: Added field for credential type used
     AcquirerInfo:
       type: object
       properties:
@@ -449,20 +464,13 @@ components:
     ThreeDSResult:
       type: object
       properties:
-        eci:
-          type: string
-          enum:
-          - '01'
-          - '02'
-          - '05'
-          - '06'
-          - '07'
-          - '04'
-          description: Electronic Commerce Indicator (ECI) that is returned by the
-            card scheme
         threeDSVersion:
           type: string
           description: The version of 3D Secure protocol
+        eci:
+          type: string
+          description: Electronic Commerce Indicator (ECI) that is returned by the
+            card scheme
         cavv:
           type: string
           description: The cardholder authentication value
@@ -473,6 +481,21 @@ components:
           type: string
           description: The unique transaction identifier assigned by the Directory
             Server (DS) for 3D Secure authentication
+        threeDStransactionStatusReason:
+          type: string
+          description: Added field for 3DS transaction status reason
+        challengeCancel:
+          type: string
+          description: Added field for challenge cancel
+        challenged:
+          type: boolean
+          description: Added field for challenged status
+        exemptionType:
+          type: string
+          description: Added field for exemption type
+        threeDSOffered:
+          type: boolean
+          description: Added field for 3DS offered
     CardInfo:
       type: object
       properties:
