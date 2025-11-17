@@ -287,6 +287,9 @@ components:
     AlipayRefundResponse:
       type: object
       properties:
+        actualRefundAmount:
+          $ref: '#/components/schemas/Amount'
+          description: The actual refund amount
         result:
           $ref: '#/components/schemas/Result'
           description: Indicates whether this API is called successfully. If this
@@ -326,7 +329,9 @@ components:
 
 
             Maximum length: 64 characters'
-        refundAmount: *id001
+        refundAmount:
+          description: The refund amount that is initiated by the merchant.
+          $ref: '#/components/schemas/Amount'
         refundTime:
           type: string
           description: 'The date and time when the refund reaches the state of success,
@@ -339,8 +344,12 @@ components:
             The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".
 
             '
-        refundNonGuaranteeCouponAmount: *id001
-        grossSettlementAmount: *id001
+        refundNonGuaranteeCouponAmount:
+          description: The refund amount that is initiated by the merchant.
+          $ref: '#/components/schemas/Amount'
+        grossSettlementAmount:
+          description: The refund amount that is initiated by the merchant.
+          $ref: '#/components/schemas/Amount'
         settlementQuote:
           $ref: '#/components/schemas/Quote'
           description: 'The exchange rate between the settlement currency and transaction

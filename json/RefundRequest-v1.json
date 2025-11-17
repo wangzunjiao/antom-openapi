@@ -234,6 +234,10 @@
       "AlipayRefundResponse": {
         "type": "object",
         "properties": {
+          "actualRefundAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "The actual refund amount"
+          },
           "result": {
             "$ref": "#/components/schemas/Result",
             "description": "Indicates whether this API is called successfully. If this API is successfully called, the refund succeeds."
