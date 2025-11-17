@@ -543,6 +543,14 @@
             "$ref": "#/components/schemas/Result",
             "description": "The result of the subsequent action against the transaction. "
           },
+          "customizedInfo": {
+            "$ref": "#/components/schemas/CustomizedInfo",
+            "description": "Customized information"
+          },
+          "processingAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "Processing amount"
+          },
           "paymentStatus": {
             "$ref": "#/components/schemas/TransactionStatusType",
             "description": "Transaction status. Valid values are:\n\nSUCCESS:Transaction is successful. \nFAIL: Transaction failed. \nPROCESSING: Transaction is being processed. \nCANCELLED:Transaction is canceled."
