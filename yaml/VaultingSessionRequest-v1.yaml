@@ -111,6 +111,9 @@ components:
     AlipayVaultingSessionResponse:
       type: object
       properties:
+        normalUrl:
+          type: string
+          description: The normal URL for the vaulting session
         result:
           $ref: '#/components/schemas/Result'
           description: 'The result of the API call. '
