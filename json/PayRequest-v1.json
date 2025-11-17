@@ -1656,6 +1656,19 @@
             "description": "Connected ticket number"
           }
         }
+      },
+      "Service": {
+        "type": "object",
+        "properties": {
+          "categoryCode": {
+            "type": "string",
+            "description": "Category code for the service"
+          },
+          "subCategoryCode": {
+            "type": "string",
+            "description": "Sub-category code for the service"
+          }
+        }
       }
     },
     "securitySchemes": {}
