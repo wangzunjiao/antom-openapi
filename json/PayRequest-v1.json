@@ -1513,6 +1513,10 @@
             "$ref": "#/components/schemas/Result",
             "description": "The result of the API call."
           },
+          "processingAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "Processing amount"
+          },
           "paymentRequestId": {
             "type": "string",
             "description": "The unique ID that is assigned by a merchant to identify a payment request.\n\nNote: This field is returned when resultCode is PAYMENT_IN_PROCESS.\n\nMore information:\n\nMaximum length: 64 characters"

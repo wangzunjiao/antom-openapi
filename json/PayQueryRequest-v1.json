@@ -543,6 +543,14 @@
             "$ref": "#/components/schemas/Result",
             "description": "The result of the subsequent action against the transaction. "
           },
+          "customizedInfo": {
+            "$ref": "#/components/schemas/CustomizedInfo",
+            "description": "Customized information"
+          },
+          "processingAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "Processing amount"
+          },
           "paymentStatus": {
             "$ref": "#/components/schemas/TransactionStatusType",
             "description": "Transaction status. Valid values are:\n\nSUCCESS:Transaction is successful. \nFAIL: Transaction failed. \nPROCESSING: Transaction is being processed. \nCANCELLED:Transaction is canceled."
@@ -657,6 +665,31 @@
         "required": [
           "result"
         ]
+      },
+      "CustomizedInfo": {
+        "type": "object",
+        "properties": {
+          "customizedField1": {
+            "type": "string",
+            "description": "Customized field 1"
+          },
+          "customizedField2": {
+            "type": "string",
+            "description": "Customized field 2"
+          },
+          "customizedField3": {
+            "type": "string",
+            "description": "Customized field 3"
+          },
+          "customizedField4": {
+            "type": "string",
+            "description": "Customized field 4"
+          },
+          "customizedField5": {
+            "type": "string",
+            "description": "Customized field 5"
+          }
+        }
       }
     },
     "securitySchemes": {}

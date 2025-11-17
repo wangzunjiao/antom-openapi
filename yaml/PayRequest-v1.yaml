@@ -2094,6 +2094,9 @@ components:
         result:
           $ref: '#/components/schemas/Result'
           description: The result of the API call.
+        processingAmount:
+          $ref: '#/components/schemas/Amount'
+          description: Processing amount
         paymentRequestId:
           type: string
           description: 'The unique ID that is assigned by a merchant to identify a
@@ -2119,7 +2122,8 @@ components:
 
 
             Maximum length: 64 characters'
-        paymentAmount: *id004
+        paymentAmount:
+          $ref: '#/components/schemas/Amount'
         paymentData:
           type: string
           description: 'Used by the Antom client SDK to render the checkout page.
@@ -2132,8 +2136,9 @@ components:
 
 
             Maximum length: 20000 characters'
-        actualPaymentAmount: *id004
-        paymentQuote: &id006
+        actualPaymentAmount:
+          $ref: '#/components/schemas/Amount'
+        paymentQuote:
           $ref: '#/components/schemas/Quote'
         paymentTime:
           type: string
@@ -2151,7 +2156,8 @@ components:
             The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
         authExpiryTime:
           type: string
-        nonGuaranteeCouponValue: *id004
+        nonGuaranteeCouponValue:
+          $ref: '#/components/schemas/Amount'
         paymentActionForm:
           type: string
         pspCustomerInfo:
@@ -2173,8 +2179,10 @@ components:
 
             Note: This parameter is returned when the payment method supports providing
             the related information.'
-        grossSettlementAmount: *id004
-        settlementQuote: *id006
+        grossSettlementAmount:
+          $ref: '#/components/schemas/Amount'
+        settlementQuote:
+          $ref: '#/components/schemas/Quote'
         extendInfo:
           type: string
         normalUrl:

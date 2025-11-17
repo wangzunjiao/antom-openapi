@@ -542,7 +542,7 @@ components:
     Transaction:
       type: object
       properties:
-        transactionResult: &id002
+        transactionResult:
           $ref: '#/components/schemas/Result'
           description: 'The result of the subsequent action against the transaction. '
         transactionId:
@@ -563,7 +563,7 @@ components:
 
             CAPTURE: Indicates that the transaction is in the capture process or has
             been captured. '
-        transactionStatus: &id003
+        transactionStatus:
           $ref: '#/components/schemas/TransactionStatusType'
           description: "Transaction status. Valid values are:\n\nSUCCESS:Transaction\
             \ is successful. \nFAIL: Transaction failed. \nPROCESSING: Transaction\
@@ -583,7 +583,7 @@ components:
             \ \nMore information:\n\nMaximum length: 64 characters"
         transactionTime:
           type: string
-        acquirerInfo: &id005
+        acquirerInfo:
           $ref: '#/components/schemas/AcquirerInfo'
       required:
       - transactionResult
@@ -650,8 +650,20 @@ components:
     AlipayPayQueryResponse:
       type: object
       properties:
-        result: *id002
-        paymentStatus: *id003
+        result:
+          $ref: '#/components/schemas/Result'
+          description: 'The result of the subsequent action against the transaction. '
+        customizedInfo:
+          $ref: '#/components/schemas/CustomizedInfo'
+          description: Customized information
+        processingAmount:
+          $ref: '#/components/schemas/Amount'
+          description: Processing amount
+        paymentStatus:
+          $ref: '#/components/schemas/TransactionStatusType'
+          description: "Transaction status. Valid values are:\n\nSUCCESS:Transaction\
+            \ is successful. \nFAIL: Transaction failed. \nPROCESSING: Transaction\
+            \ is being processed. \nCANCELLED:Transaction is canceled."
         paymentResultCode:
           type: string
           description: 'The result code for different payment statuses. Possible payment
@@ -712,9 +724,19 @@ components:
             Maximum length: 64 characters'
         authPaymentId:
           type: string
-        paymentAmount: *id001
-        actualPaymentAmount: *id001
-        paymentQuote: &id004
+        paymentAmount:
+          $ref: '#/components/schemas/Amount'
+          description: "The transaction amount. \n\nWhen the transaction type is REFUND,\
+            \ the value of this parameter is identical to refundAmount.\nWhen the\
+            \ transaction type is CAPTURE, the value of this parameter is identical\
+            \ to captureAmount.  "
+        actualPaymentAmount:
+          $ref: '#/components/schemas/Amount'
+          description: "The transaction amount. \n\nWhen the transaction type is REFUND,\
+            \ the value of this parameter is identical to refundAmount.\nWhen the\
+            \ transaction type is CAPTURE, the value of this parameter is identical\
+            \ to captureAmount.  "
+        paymentQuote:
           $ref: '#/components/schemas/Quote'
         authExpiryTime:
           type: string
@@ -746,7 +768,12 @@ components:
             \ a final state of success (the value of paymentStatus is SUCCESS). \n\
             \nMore information:\n\nThe value follows the ISO 8601 standard format.\
             \ For example, \"2019-11-27T12:01:01+08:00\".\n"
-        nonGuaranteeCouponAmount: *id001
+        nonGuaranteeCouponAmount:
+          $ref: '#/components/schemas/Amount'
+          description: "The transaction amount. \n\nWhen the transaction type is REFUND,\
+            \ the value of this parameter is identical to refundAmount.\nWhen the\
+            \ transaction type is CAPTURE, the value of this parameter is identical\
+            \ to captureAmount.  "
         pspCustomerInfo:
           $ref: '#/components/schemas/PspCustomerInfo'
           description: 'The customer information of Alipay+ payment methods.
@@ -783,9 +810,20 @@ components:
 
             Note: This parameter is returned when a refund or a capture against the
             transaction exists.'
-        customsDeclarationAmount: *id001
-        grossSettlementAmount: *id001
-        settlementQuote: *id004
+        customsDeclarationAmount:
+          $ref: '#/components/schemas/Amount'
+          description: "The transaction amount. \n\nWhen the transaction type is REFUND,\
+            \ the value of this parameter is identical to refundAmount.\nWhen the\
+            \ transaction type is CAPTURE, the value of this parameter is identical\
+            \ to captureAmount.  "
+        grossSettlementAmount:
+          $ref: '#/components/schemas/Amount'
+          description: "The transaction amount. \n\nWhen the transaction type is REFUND,\
+            \ the value of this parameter is identical to refundAmount.\nWhen the\
+            \ transaction type is CAPTURE, the value of this parameter is identical\
+            \ to captureAmount.  "
+        settlementQuote:
+          $ref: '#/components/schemas/Quote'
         paymentResultInfo:
           $ref: '#/components/schemas/PaymentResultInfo'
           description: 'The payment result information.
@@ -794,7 +832,8 @@ components:
             This parameter is returned when the value of paymentMethodType in the
             pay (Checkout Payment) API is CARD, GRABPAY_MY, or GRABPAY_SG and the
             value of paymentStatus is SUCCESS or FAIL.  '
-        acquirerInfo: *id005
+        acquirerInfo:
+          $ref: '#/components/schemas/AcquirerInfo'
         merchantAccountId:
           type: string
         promotionResults:
@@ -816,6 +855,24 @@ components:
             \nMore information:\n\nMaximum length: 64 characters"
       required:
       - result
+    CustomizedInfo:
+      type: object
+      properties:
+        customizedField1:
+          type: string
+          description: Customized field 1
+        customizedField2:
+          type: string
+          description: Customized field 2
+        customizedField3:
+          type: string
+          description: Customized field 3
+        customizedField4:
+          type: string
+          description: Customized field 4
+        customizedField5:
+          type: string
+          description: Customized field 5
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/inquiryPayment
