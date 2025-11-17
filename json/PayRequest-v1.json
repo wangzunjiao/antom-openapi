@@ -1669,6 +1669,27 @@
             "description": "Sub-category code for the service"
           }
         }
+      },
+      "CustomizedInfo": {
+        "type": "object",
+        "properties": {
+          "customizedField1": {
+            "type": "string"
+          },
+          "customizedField2": {
+            "type": "string"
+          },
+          "customizedField3": {
+            "type": "string"
+          },
+          "customizedField4": {
+            "type": "string"
+          },
+          "customizedField5": {
+            "type": "string"
+          }
+        },
+        "description": "\u65b0\u589e\u7684\u81ea\u5b9a\u4e49\u4fe1\u606f\u5b57\u6bb5"
       }
     },
     "securitySchemes": {}
