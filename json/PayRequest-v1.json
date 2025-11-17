@@ -1644,6 +1644,21 @@
           "DEFERRED_DEBIT"
         ],
         "description": "The funding source type for the payment method"
+      },
+      "Service": {
+        "Service": {
+          "type": "object",
+          "properties": {
+            "categoryCode": {
+              "type": "string",
+              "description": "Category code for the service"
+            },
+            "subCategoryCode": {
+              "type": "string",
+              "description": "Sub-category code for the service"
+            }
+          }
+        }
       }
     },
     "securitySchemes": {}
