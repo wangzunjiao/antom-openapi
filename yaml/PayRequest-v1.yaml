@@ -2253,6 +2253,9 @@ components:
           items:
             $ref: '#/components/schemas/PromotionResult'
           description: Promotion result.
+        returnAmount:
+          $ref: '#/components/schemas/Amount'
+          description: The amount to be returned.
       required:
       - result
     declaration:
