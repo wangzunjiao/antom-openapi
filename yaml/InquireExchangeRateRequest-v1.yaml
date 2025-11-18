@@ -1,0 +1,162 @@
+openapi: 3.1.0
+info:
+  title: InquireExchangeRate
+  description: ''
+  version: 1.0.0
+tags: []
+paths:
+  /ams/api/v1/payments/inquireExchangeRate:
+    get:
+      summary: inquireExchangeRate
+      deprecated: false
+      description: ''
+      tags: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlipayInquireExchangeRateRequest'
+            examples: {}
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlipayInquireExchangeRateResponse'
+          headers: {}
+      security: []
+webhooks: {}
+components:
+  schemas:
+    Result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The result code.
+        resultStatus:
+          description: |-
+            The result status. Valid values are:
+
+            S: indicates that the result status is successful.
+            F: indicates that the result status is failed. 
+            U: indicates that the result status is unknown. 
+          type: object
+          properties: {}
+        resultMessage:
+          type: string
+          description: The result message.
+      required:
+        - resultCode
+        - resultStatus
+    Quote:
+      type: object
+      properties:
+        quoteId:
+          type: string
+          description: >-
+            The unique ID that is assigned by Antom to identify an exchange
+            rate.
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+        quoteCurrencyPair:
+          type: string
+          description: >-
+            A currency pair of settlement currency and transaction currency. The
+            two currencies are separated with a slash and use the 3-letter
+            ISO-4217 currency code.
+
+
+            More information:
+
+
+            Maximum length: 16 characters
+        quotePrice:
+          type: number
+          description: >-
+            The exchange rate used when a currency conversion between settlement
+            currency and transaction currency occurs.
+
+
+            More information:
+
+
+            Value range: 0 - unlimited
+        quoteStartTime:
+          type: string
+          description: >-
+            The date and time when quotePrice is effective.
+
+
+            More information:
+
+
+            The value follows the ISO 8601 standard format. For example,
+            "2019-11-27T12:01:01+08:00".
+        quoteExpiryTime:
+          type: string
+          description: >-
+            The date and time when quotePrice expires.
+
+
+            More information:
+
+
+            The value follows the ISO 8601 standard format. For example,
+            "2019-11-27T12:01:01+08:00".
+        guaranteed:
+          type: boolean
+          description: Guaranteed exchange rate available for payment.
+      required:
+        - quoteCurrencyPair
+    ProductCodeType:
+      type: string
+      enum:
+        - CASHIER_PAYMENT
+        - AGREEMENT_PAYMENT
+        - IN_STORE_PAYMENT
+    CurrencyPair:
+      type: object
+      properties:
+        sellCurrency:
+          type: string
+        buyCurrency:
+          type: string
+    AlipayInquireExchangeRateResponse:
+      type: object
+      properties:
+        quotes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Quote'
+        result:
+          $ref: '#/components/schemas/Result'
+      required:
+        - quotes
+        - result
+    AlipayInquireExchangeRateRequest:
+      type: object
+      properties:
+        merchantAccountId:
+          type: string
+        paymentCurrency:
+          type: string
+        currencyPairs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrencyPair'
+        sellCurrency:
+          type: string
+        buyCurrency:
+          type: string
+        productCode:
+          $ref: '#/components/schemas/ProductCodeType'
+  securitySchemes: {}
+servers:
+  - url: https://open-sea-global.alipay.com/ams/api/v1/payments/inquireExchangeRate
