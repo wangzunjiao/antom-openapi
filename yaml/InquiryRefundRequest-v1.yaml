@@ -290,9 +290,18 @@ components:
     Result:
       type: object
       properties:
+        applinkUrl:
+          type: string
+          description: The URL for deep linking to mobile apps
+        normalUrl:
+          type: string
+          description: The standard web URL
+        schemeUrl:
+          type: string
+          description: The URL for custom URL schemes
         resultCode:
           type: string
-          description: 'Result code
+          description: 'The result code.
 
 
             More information:
@@ -300,26 +309,23 @@ components:
 
             Maximum length: 64 characters'
         resultStatus:
+          description: "The result status. Valid values are:  \n\nS: Indicates that\
+            \ the result status is successful. \nF: Indicates that the result status\
+            \ is failed. \nU: Indicates that the result status is unknown. "
           $ref: '#/components/schemas/ResultStatusType'
-          description: "Result status. Valid values are:  \n\nS: Indicates that the\
-            \ result status is successful. \nF: Indicates that the result status is\
-            \ failed. \nU: Indicates that the result status is unknown. \nMore information:\n\
-            \nMaximum length: 1 character"
         resultMessage:
           type: string
-          description: 'Result message
+          description: 'The result message.
 
 
             More information:
 
 
-            Maximum length: 256 characters
-
-            '
+            Maximum length: 256 characters'
+          maxLength: 256
       required:
       - resultCode
       - resultStatus
-      - resultMessage
     ResultStatusType:
       type: string
       enum:

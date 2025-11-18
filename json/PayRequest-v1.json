@@ -861,17 +861,30 @@
       "Result": {
         "type": "object",
         "properties": {
+          "applinkUrl": {
+            "type": "string",
+            "description": "The URL for deep linking to mobile apps"
+          },
+          "normalUrl": {
+            "type": "string",
+            "description": "The standard web URL"
+          },
+          "schemeUrl": {
+            "type": "string",
+            "description": "The URL for custom URL schemes"
+          },
           "resultCode": {
             "type": "string",
-            "description": "The result code."
+            "description": "The result code.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "resultStatus": {
-            "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
+            "description": "The result status. Valid values are:  \n\nS: Indicates that the result status is successful. \nF: Indicates that the result status is failed. \nU: Indicates that the result status is unknown. ",
             "$ref": "#/components/schemas/ResultStatusType"
           },
           "resultMessage": {
             "type": "string",
-            "description": "The result message."
+            "description": "The result message.\n\nMore information:\n\nMaximum length: 256 characters",
+            "maxLength": 256
           }
         },
         "required": [

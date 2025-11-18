@@ -72,21 +72,42 @@ components:
     Result:
       type: object
       properties:
+        applinkUrl:
+          type: string
+          description: The URL for deep linking to mobile apps
+        normalUrl:
+          type: string
+          description: The standard web URL
+        schemeUrl:
+          type: string
+          description: The URL for custom URL schemes
         resultCode:
           type: string
-          description: The result code.
+          description: 'The result code.
+
+
+            More information:
+
+
+            Maximum length: 64 characters'
         resultStatus:
-          description: "The result status. Valid values are:\n\nS: indicates that\
-            \ the result status is successful.\nF: indicates that the result status\
-            \ is failed. \nU: indicates that the result status is unknown. "
+          description: "The result status. Valid values are:  \n\nS: Indicates that\
+            \ the result status is successful. \nF: Indicates that the result status\
+            \ is failed. \nU: Indicates that the result status is unknown. "
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
-          description: The result message.
+          description: 'The result message.
+
+
+            More information:
+
+
+            Maximum length: 256 characters'
+          maxLength: 256
       required:
       - resultCode
       - resultStatus
-      - resultMessage
     TerminalType:
       type: string
       enum:
@@ -166,6 +187,28 @@ components:
     AlipayAuthConsultRequest:
       type: object
       properties:
+        terminalType:
+          type: 'null'
+          $ref: '#/components/schemas/TerminalType'
+          description: "Terminal type of which the merchant service applies to. Valid\
+            \ values are:\n\nWEB: The client-side terminal type is a website that\
+            \ is opened via a web browser.\nWAP: The client-side terminal type is\
+            \ an HTML page that is opened via a mobile browser.\nAPP: The client-side\
+            \ terminal type is a mobile application.\nMINI_APP: The terminal type\
+            \ of the merchant side is a mini program on the mobile phone. \n"
+        osType:
+          type: 'null'
+          $ref: '#/components/schemas/OsType'
+          description: "The OS type. Valid values are: \n\nIOS: indicates the operation\
+            \ system is Apple's iOS.\nANDROID indicates the operation system is Google's\
+            \ Android.\nNote: This field is required when terminalType is APP , WAP\
+            \ or MINI_APP."
+        osVersion:
+          type: 'null'
+          description: "The OS version. \n\nNote: Specify this parameter when the\
+            \ value of terminalType is APP or WAP and you have this information. Providing\
+            \ this information makes the user's payment experience better.\n\nMore\
+            \ information:\n\nMaximum length: 16 characters"
         customerBelongsTo:
           $ref: '#/components/schemas/CustomerBelongsTo'
           description: "The wallet that the user uses. See Payment methods to check\
@@ -213,26 +256,6 @@ components:
 
 
             Maximum length: 256 characters'
-        terminalType:
-          $ref: '#/components/schemas/TerminalType'
-          description: "Terminal type of which the merchant service applies to. Valid\
-            \ values are:\n\nWEB: The client-side terminal type is a website that\
-            \ is opened via a web browser.\nWAP: The client-side terminal type is\
-            \ an HTML page that is opened via a mobile browser.\nAPP: The client-side\
-            \ terminal type is a mobile application.\nMINI_APP: The terminal type\
-            \ of the merchant side is a mini program on the mobile phone. \n"
-        osType:
-          $ref: '#/components/schemas/OsType'
-          description: "The OS type. Valid values are: \n\nIOS: indicates the operation\
-            \ system is Apple's iOS.\nANDROID indicates the operation system is Google's\
-            \ Android.\nNote: This field is required when terminalType is APP , WAP\
-            \ or MINI_APP."
-        osVersion:
-          type: string
-          description: "The OS version. \n\nNote: Specify this parameter when the\
-            \ value of terminalType is APP or WAP and you have this information. Providing\
-            \ this information makes the user's payment experience better.\n\nMore\
-            \ information:\n\nMaximum length: 16 characters"
         extendInfo:
           type: string
         merchantRegion:
