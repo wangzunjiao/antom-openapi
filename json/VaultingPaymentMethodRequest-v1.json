@@ -131,17 +131,27 @@
             "$ref": "#/components/schemas/OsType",
             "description": "Type of the operation system. Valid values are:\n\nIOS: indicates the operation system is Apple's iOS.\nANDROID: indicates the operation system is Google's Android.\nNote: Specify this field when terminalType is not WEB.  "
           },
-          "userAgent": {
-            "type": "string"
-          },
-          "deviceTokenId": {
+          "osVersion": {
             "type": "string",
-            "description": "The token identifier of the device.\n\nNote: Specify this parameter if you integrate with the Antom Device Fingerprint client, which is an SDK or JavaScript library that is used to collect device-related information, such as osType, deviceLanguage, deviceId, websiteLanguage, and userAgent. The device-related information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates. For more information about the Antom Device Fingerprint client, contact Antom Technical Support.  \n\nMore information:\n\nMaximum length: 64 characters"
+            "description": "The OS version of the device.",
+            "example": "17.4"
+          },
+          "deviceId": {
+            "type": "string",
+            "description": "Device ID of the user.",
+            "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****"
           },
           "clientIp": {
             "type": "string",
             "description": "Client IP address of the device.",
             "example": "127.0.0.1"
+          },
+          "deviceTokenId": {
+            "type": "string",
+            "description": "The token identifier of the device.\n\nNote: Specify this parameter if you integrate with the Antom Device Fingerprint client, which is an SDK or JavaScript library that is used to collect device-related information, such as osType, deviceLanguage, deviceId, websiteLanguage, and userAgent. The device-related information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates. For more information about the Antom Device Fingerprint client, contact Antom Technical Support.  \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "userAgent": {
+            "type": "string"
           },
           "cookieId": {
             "type": "string"
@@ -188,11 +198,6 @@
             "type": "string",
             "description": "Device language of the user.",
             "example": "zh_CN"
-          },
-          "deviceId": {
-            "type": "string",
-            "description": "Device ID of the user.",
-            "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****"
           },
           "envType": {
             "type": "string",

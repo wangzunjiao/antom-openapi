@@ -451,6 +451,11 @@
             "type": "string",
             "description": "The payment method type that is included in payment method options. By specifying the value of this parameter, you can receive the cashier URL of the specified payment method returned by Alipay. See Payment methods to check the valid values.\n\nMore information:\n\nMaximum length: 64 characters"
           },
+          "recurringType": {
+            "type": "string",
+            "description": "Type of recurring payment. Valid values are SCHEDULED or UNSCHEDULED.",
+            "example": "SCHEDULED"
+          },
           "paymentMethodId": {
             "type": "string",
             "description": "The unique ID that is used to identify a payment method. The value of this parameter is that of cardToken obtained from the notifyPayment or inquiryPayment API. \n\nSpecify this parameter when the value of paymentMethodType is CARD.\n\nMore information:\n\nMaximum length: 128 characters"
@@ -1032,22 +1037,33 @@
         "properties": {
           "terminalType": {
             "$ref": "#/components/schemas/TerminalType",
-            "description": "Terminal type of which the merchant service applies to. Valid values are:\n\nWEB: The client-side terminal type is a website, which is opened via a PC browser.\nWAP: The client-side terminal type is an H5 page, which is opened via a mobile browser.\nAPP: The client-side terminal type is a mobile application.\nMINI_APP: The terminal type of the merchant side is a mini program on the mobile phone.  "
+            "description": "Terminal type used by the merchant. Valid values are:"
           },
           "osType": {
             "$ref": "#/components/schemas/OsType",
             "description": "Type of the operation system. Valid values are:\n\nIOS: indicates the operation system is Apple's iOS.\nANDROID: indicates the operation system is Google's Android.\nNote: Specify this field when terminalType is not WEB.  "
           },
-          "userAgent": {
-            "type": "string"
+          "osVersion": {
+            "type": "string",
+            "description": "The OS version of the device.",
+            "example": "17.4"
+          },
+          "deviceId": {
+            "type": "string",
+            "description": "Device ID of the user.",
+            "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****"
+          },
+          "clientIp": {
+            "type": "string",
+            "description": "Client IP address of the device.",
+            "example": "127.0.0.1"
           },
           "deviceTokenId": {
             "type": "string",
             "description": "The token identifier of the device.\n\nNote: Specify this parameter if you integrate with the Antom Device Fingerprint client, which is an SDK or JavaScript library that is used to collect device-related information, such as osType, deviceLanguage, deviceId, websiteLanguage, and userAgent. The device-related information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates. For more information about the Antom Device Fingerprint client, contact Antom Technical Support.  \n\nMore information:\n\nMaximum length: 64 characters"
           },
-          "clientIp": {
-            "type": "string",
-            "description": "The IP address of the client device.\n\nSpecify this parameter when one of the following conditions is met:\n\nYou require risk control.\nThe value of paymentMethodType is CARD.\nThe value of paymentMethodType is BLIK and you collect the information of blikCode.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 64 characters"
+          "userAgent": {
+            "type": "string"
           },
           "cookieId": {
             "type": "string"
@@ -1092,11 +1108,13 @@
           },
           "deviceLanguage": {
             "type": "string",
-            "description": "The language of the device where the user places an order.\n\nNote: Specify this parameter if you require risk control. Providing this information helps to identify black-market behavior.\n\nMore information:\n\nMaximum length: 32 characters"
+            "description": "Device language of the user.",
+            "example": "zh_CN"
           },
-          "deviceId": {
+          "envType": {
             "type": "string",
-            "description": "The unique ID of the device the user places an order with.\n\nNote: Specify this parameter if you require risk control. This parameter can be used to build a trusted relationship between users and commonly used devices, thereby reducing risk control interruptions and increasing the payment success rate.  \n\nMore information:\n\nMaximum length: 64 characters"
+            "description": "",
+            "example": "oootype"
           }
         },
         "required": [

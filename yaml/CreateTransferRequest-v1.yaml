@@ -48,6 +48,10 @@ components:
 
 
             Maximum length: 64 characters'
+        recurringType:
+          type: string
+          description: Type of recurring payment. Valid values are SCHEDULED or UNSCHEDULED.
+          example: SCHEDULED
         paymentMethodId:
           type: string
           description: "The unique ID that is used to identify a payment method. The\
