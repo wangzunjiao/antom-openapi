@@ -1,0 +1,151 @@
+openapi: 3.1.0
+info:
+  title: InquiryStatementListRequest
+  description: ''
+  version: 1.0.0
+tags: [ ]
+paths:
+  /ams/api/v1/aba/accounts/inquiryStatementList:
+    get:
+      summary: inquiryStatementList
+      deprecated: false
+      description: ''
+      tags: [ ]
+      parameters: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlipayInquiryStatementListRequest'
+            examples: { }
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlipayInquiryStatementListResponse'
+          headers: { }
+      security: [ ]
+webhooks: { }
+components:
+  schemas:
+    Result:
+      type: object
+      properties:
+        type:
+          type: string
+        properties:
+          type: object
+          properties:
+            resultCode:
+              type: object
+              properties:
+                type:
+                  type: string
+                description:
+                  type: string
+              required:
+                - type
+                - description
+            resultStatus:
+              type: object
+              properties:
+                description:
+                  type: string
+                $ref:
+                  type: string
+              required:
+                - description
+                - $ref
+            resultMessage:
+              type: object
+              properties:
+                type:
+                  type: string
+                description:
+                  type: string
+              required:
+                - type
+                - description
+          required:
+            - resultCode
+            - resultStatus
+            - resultMessage
+        required:
+          type: array
+          items:
+            type: string
+      required:
+        - type
+        - properties
+        - x-apifox-orders
+        - required
+    FundMoveDetail:
+      type: object
+      properties:
+        memo:
+          type: string
+        referenceTransactionId:
+          type: string
+      required:
+        - memo
+        - referenceTransactionId
+    Statement:
+      type: object
+      properties:
+        statementId:
+          type: string
+        fundMoveDetail:
+          $ref: '#/components/schemas/FundMoveDetail'
+      required:
+        - statementId
+        - fundMoveDetail
+    AlipayInquiryStatementListRequest:
+      type: object
+      properties:
+        customerId:
+          type: string
+        accessToken:
+          type: string
+        startTime:
+          type: string
+        endTime:
+          type: string
+        transactionTypeList:
+          type: array
+          items:
+            type: string
+        currencyList:
+          type: array
+          items:
+            type: string
+        pageSize:
+          type: string
+        pageNumber:
+          type: string
+      required:
+        - customerId
+        - accessToken
+        - startTime
+        - endTime
+        - transactionTypeList
+        - currencyList
+        - pageSize
+        - pageNumber
+    AlipayInquiryStatementListResponse:
+      type: object
+      properties:
+        statementList:
+          type: array
+          items:
+            $ref: '#/components/schemas/Statement'
+        result:
+          $ref: '#/components/schemas/Result'
+      required:
+        - statementList
+        - result
+  securitySchemes: { }
+servers:
+- url: https://open-sea-global.alipay.com/ams/api/v1/aba/accounts/inquiryStatementList
+  description: 正式环境
