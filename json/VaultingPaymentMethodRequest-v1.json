@@ -194,6 +194,10 @@
             "description": "Device ID of the user.",
             "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****"
           },
+          "osVersion": {
+            "type": "string",
+            "description": "Version of the operation system."
+          },
           "envType": {
             "type": "string",
             "description": "",

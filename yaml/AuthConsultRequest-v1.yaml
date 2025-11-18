@@ -264,6 +264,10 @@ components:
             Specify this parameter when the value of customerBelongsTo is PAYPAY.'
         authMetaData:
           $ref: '#/components/schemas/AuthMetaData'
+        env:
+          $ref: '#/components/schemas/Env'
+          description: Information about the environment where the authorization is
+            requested.
       required:
       - customerBelongsTo
       - authRedirectUrl
