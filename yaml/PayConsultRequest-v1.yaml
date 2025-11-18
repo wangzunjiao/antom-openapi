@@ -243,48 +243,14 @@ components:
           $ref: '#/components/schemas/Amount'
       type: object
     Env:
+      type: object
       properties:
-        browserInfo:
-          $ref: '#/components/schemas/BrowserInfo'
-          description: "The information about the browser environment where the order\
-            \ is placed. \n\nNote: Specify this parameter when you collect this information\
-            \ during the payment process.  "
         clientIp:
+          type: string
           description: Client IP address of the device.
           example: 127.0.0.1
-          type: string
-        colorDepth:
-          description: "The color depth of the user's browser in bits per pixel. The\
-            \ value is obtained by using the browser's screen.colorDepth property.\
-            \ Valid values are 1, 4, 8, 15, 16, 24, 30, 32, or 48. For example, 8\
-            \ means 8-bit color depth.  \n\nMore information:\n\nValue range: 0 -\
-            \ unlimited"
-          type: string
-        cookieId:
-          type: string
-        deviceBrand:
-          description: "The brand of the user's device. \n\nNote: Specify this parameter\
-            \ if you require risk control. Providing this information helps to increase\
-            \ the accuracy of anti-money laundering and fraud detection, and increase\
-            \ payment success rates.  \n\nMore information:\n\nMaximum length: 64\
-            \ characters"
-          type: string
-        deviceId:
-          description: Device ID of the user.
-          example: eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****
-          type: string
-        deviceLanguage:
-          description: Device language of the user.
-          example: zh_CN
-          type: string
-        deviceModel:
-          description: "The model of the user's device. \n\nNote: Specify this parameter\
-            \ if you require risk control. Providing this information helps to increase\
-            \ the accuracy of anti-money laundering and fraud detection, and increase\
-            \ payment success rates.  \n\nMore information:\n\nMaximum length: 128\
-            \ characters"
-          type: string
         deviceTokenId:
+          type: string
           description: "The token identifier of the device.\n\nNote: Specify this\
             \ parameter if you integrate with the Antom Device Fingerprint client,\
             \ which is an SDK or JavaScript library that is used to collect device-related\
@@ -294,16 +260,9 @@ components:
             \ payment success rates. For more information about the Antom Device Fingerprint\
             \ client, contact Antom Technical Support.  \n\nMore information:\n\n\
             Maximum length: 64 characters"
-          type: string
-        envType:
-          description: ''
-          example: oootype
-          type: string
-        extendInfo:
-          description: "Extended information.\n\nSpecify this field if you need to\
-            \ use the extended information.  \n\nMore information:\n\nMaximum length:\
-            \ 2048 characters"
-          type: string
+        terminalType:
+          $ref: '#/components/schemas/TerminalType'
+          description: 'Terminal type used by the merchant. Valid values are:'
         osType:
           $ref: '#/components/schemas/OsType'
           description: 'Type of the operation system. Valid values are:
@@ -314,28 +273,47 @@ components:
             ANDROID: indicates the operation system is Google''s Android.
 
             Note: Specify this field when terminalType is not WEB.  '
+        userAgent:
+          type: string
+        cookieId:
+          type: string
+        extendInfo:
+          type: string
+          description: "Extended information.\n\nSpecify this field if you need to\
+            \ use the extended information.  \n\nMore information:\n\nMaximum length:\
+            \ 2048 characters"
+        storeTerminalId:
+          type: string
+        storeTerminalRequestTime:
+          type: string
+        browserInfo:
+          $ref: '#/components/schemas/BrowserInfo'
+          description: "The information about the browser environment where the order\
+            \ is placed. \n\nNote: Specify this parameter when you collect this information\
+            \ during the payment process.  "
+        colorDepth:
+          type: string
+          description: "The color depth of the user's browser in bits per pixel. The\
+            \ value is obtained by using the browser's screen.colorDepth property.\
+            \ Valid values are 1, 4, 8, 15, 16, 24, 30, 32, or 48. For example, 8\
+            \ means 8-bit color depth.  \n\nMore information:\n\nValue range: 0 -\
+            \ unlimited"
         screenHeight:
+          type: string
           description: "The screen height of the user's device in pixels.  \n\nNote:\
             \ Specify this parameter if you require risk control. Providing this information\
             \ helps to increase the accuracy of anti-money laundering and fraud detection,\
             \ and increase payment success rates.  \n\nMore information:\n\nValue\
             \ range: 1 - unlimited"
-          type: string
         screenWidth:
+          type: string
           description: "The screen width of the user's device in pixels.  \n\nNote:\
             \ Specify this parameter if you require risk control. Providing this information\
             \ helps to increase the accuracy of anti-money laundering and fraud detection,\
             \ and increase payment success rates.  \n\nMore information:\n\nValue\
             \ range: 1 - unlimited"
-          type: string
-        storeTerminalId:
-          type: string
-        storeTerminalRequestTime:
-          type: string
-        terminalType:
-          $ref: '#/components/schemas/TerminalType'
-          description: 'Terminal type used by the merchant. Valid values are:'
         timeZoneOffset:
+          type: integer
           description: 'The time difference between UTC time and the local time of
             the user''s browser, in minutes. The value is obtained by using the getTimezoneOffset()
             property. For example, if the local time of the user''s browser is UTC+2,
@@ -351,12 +329,34 @@ components:
 
 
             Value range: -720 - 720'
-          type: integer
-        userAgent:
+        deviceBrand:
           type: string
+          description: "The brand of the user's device. \n\nNote: Specify this parameter\
+            \ if you require risk control. Providing this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates.  \n\nMore information:\n\nMaximum length: 64\
+            \ characters"
+        deviceModel:
+          type: string
+          description: "The model of the user's device. \n\nNote: Specify this parameter\
+            \ if you require risk control. Providing this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates.  \n\nMore information:\n\nMaximum length: 128\
+            \ characters"
+        deviceLanguage:
+          type: string
+          description: Device language of the user.
+          example: zh_CN
+        deviceId:
+          type: string
+          description: Device ID of the user.
+          example: eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****
+        envType:
+          type: string
+          description: ''
+          example: oootype
       required:
       - terminalType
-      type: object
     InStorePaymentScenario:
       enum:
       - PaymentCode

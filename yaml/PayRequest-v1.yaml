@@ -1322,34 +1322,10 @@ components:
     Env:
       type: object
       properties:
-        terminalType:
-          $ref: '#/components/schemas/TerminalType'
-          description: 'Terminal type of which the merchant service applies to. Valid
-            values are:
-
-
-            WEB: The client-side terminal type is a website, which is opened via a
-            PC browser.
-
-            WAP: The client-side terminal type is an H5 page, which is opened via
-            a mobile browser.
-
-            APP: The client-side terminal type is a mobile application.
-
-            MINI_APP: The terminal type of the merchant side is a mini program on
-            the mobile phone.'
-        osType:
-          $ref: '#/components/schemas/OsType'
-          description: 'Type of the operation system. Valid values are:
-
-
-            IOS: indicates the operation system is Apple''s iOS.
-
-            ANDROID: indicates the operation system is Google''s Android.
-
-            Note: Specify this field when terminalType is not WEB.'
-        userAgent:
+        clientIp:
           type: string
+          description: Client IP address of the device.
+          example: 127.0.0.1
         deviceTokenId:
           type: string
           description: "The token identifier of the device.\n\nNote: Specify this\
@@ -1361,15 +1337,21 @@ components:
             \ payment success rates. For more information about the Antom Device Fingerprint\
             \ client, contact Antom Technical Support.  \n\nMore information:\n\n\
             Maximum length: 64 characters"
-        clientIp:
+        terminalType:
+          $ref: '#/components/schemas/TerminalType'
+          description: 'Terminal type used by the merchant. Valid values are:'
+        osType:
+          $ref: '#/components/schemas/OsType'
+          description: 'Type of the operation system. Valid values are:
+
+
+            IOS: indicates the operation system is Apple''s iOS.
+
+            ANDROID: indicates the operation system is Google''s Android.
+
+            Note: Specify this field when terminalType is not WEB.  '
+        userAgent:
           type: string
-          description: "The IP address of the client device.\n\nSpecify this parameter\
-            \ when one of the following conditions is met:\n\nYou require risk control.\n\
-            The value of paymentMethodType is CARD.\nThe value of paymentMethodType\
-            \ is BLIK and you collect the information of blikCode.\nProviding this\
-            \ information helps to increase the accuracy of anti-money laundering\
-            \ and fraud detection, and increase payment success rates.  \n\nMore information:\n\
-            \nMaximum length: 64 characters"
         cookieId:
           type: string
         extendInfo:
@@ -1385,7 +1367,7 @@ components:
           $ref: '#/components/schemas/BrowserInfo'
           description: "The information about the browser environment where the order\
             \ is placed. \n\nNote: Specify this parameter when you collect this information\
-            \ during the payment process."
+            \ during the payment process.  "
         colorDepth:
           type: string
           description: "The color depth of the user's browser in bits per pixel. The\
@@ -1440,25 +1422,16 @@ components:
             \ characters"
         deviceLanguage:
           type: string
-          description: 'The language of the device where the user places an order.
-
-
-            Note: Specify this parameter if you require risk control. Providing this
-            information helps to identify black-market behavior.
-
-
-            More information:
-
-
-            Maximum length: 32 characters'
+          description: Device language of the user.
+          example: zh_CN
         deviceId:
           type: string
-          description: "The unique ID of the device the user places an order with.\n\
-            \nNote: Specify this parameter if you require risk control. This parameter\
-            \ can be used to build a trusted relationship between users and commonly\
-            \ used devices, thereby reducing risk control interruptions and increasing\
-            \ the payment success rate.  \n\nMore information:\n\nMaximum length:\
-            \ 64 characters"
+          description: Device ID of the user.
+          example: eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****
+        envType:
+          type: string
+          description: ''
+          example: oootype
       required:
       - terminalType
     ThreeDSResult:

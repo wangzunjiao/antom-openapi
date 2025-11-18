@@ -173,6 +173,15 @@
       "Env": {
         "type": "object",
         "properties": {
+          "clientIp": {
+            "type": "string",
+            "description": "Client IP address of the device.",
+            "example": "127.0.0.1"
+          },
+          "deviceTokenId": {
+            "type": "string",
+            "description": "The token identifier of the device.\n\nNote: Specify this parameter if you integrate with the Antom Device Fingerprint client, which is an SDK or JavaScript library that is used to collect device-related information, such as osType, deviceLanguage, deviceId, websiteLanguage, and userAgent. The device-related information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates. For more information about the Antom Device Fingerprint client, contact Antom Technical Support.  \n\nMore information:\n\nMaximum length: 64 characters"
+          },
           "terminalType": {
             "$ref": "#/components/schemas/TerminalType",
             "description": "Terminal type used by the merchant. Valid values are:"
@@ -183,15 +192,6 @@
           },
           "userAgent": {
             "type": "string"
-          },
-          "deviceTokenId": {
-            "type": "string",
-            "description": "The token identifier of the device.\n\nNote: Specify this parameter if you integrate with the Antom Device Fingerprint client, which is an SDK or JavaScript library that is used to collect device-related information, such as osType, deviceLanguage, deviceId, websiteLanguage, and userAgent. The device-related information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates. For more information about the Antom Device Fingerprint client, contact Antom Technical Support.  \n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "clientIp": {
-            "type": "string",
-            "description": "Client IP address of the device.",
-            "example": "127.0.0.1"
           },
           "cookieId": {
             "type": "string"
