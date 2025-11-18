@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "InquiryStatementListRequest",
-    "description": "",
+    "description": "InquiryStatementListRequest",
     "version": "1.0.0"
   },
   "tags": [],
