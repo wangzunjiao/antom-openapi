@@ -164,7 +164,6 @@
           "paymentExpiryTime": {
             "type": "string",
             "description": "The specific date and time after which the payment will expire.",
-            "format": "date-time"
           }
         },
         "required": [
