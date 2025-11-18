@@ -166,6 +166,9 @@ components:
     AlipayAuthConsultRequest:
       type: object
       properties:
+        env:
+          $ref: '#/components/schemas/Env'
+          description: Environment information
         customerBelongsTo:
           $ref: '#/components/schemas/CustomerBelongsTo'
           description: "The wallet that the user uses. See Payment methods to check\

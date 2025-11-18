@@ -76,6 +76,11 @@
       "AlipayPaymentSessionRequest": {
         "type": "object",
         "properties": {
+          "paymentExpiryTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Expiration time for the payment session"
+          },
           "productCode": {
             "$ref": "#/components/schemas/ProductCodeType",
             "description": "Represents the payment product that is being used, which is stipulated in the contract. For Checkout Payment, the value is fixed as CASHIER_PAYMENT."
@@ -423,6 +428,11 @@
       "Env": {
         "type": "object",
         "properties": {
+          "deviceId": {
+            "type": "string",
+            "description": "Device ID of the user.",
+            "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****"
+          },
           "terminalType": {
             "$ref": "#/components/schemas/TerminalType",
             "description": "Terminal type used by the merchant. Valid values are:"
@@ -488,11 +498,6 @@
             "type": "string",
             "description": "Device language of the user.",
             "example": "zh_CN"
-          },
-          "deviceId": {
-            "type": "string",
-            "description": "Device ID of the user.",
-            "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****"
           },
           "envType": {
             "type": "string",
