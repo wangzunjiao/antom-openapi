@@ -79,60 +79,22 @@ components:
           type: string
       type: object
     AlipayPaymentSessionRequest:
+      type: object
       properties:
-        agreementInfo:
-          $ref: '#/components/schemas/AgreementInfo'
-        availablePaymentMethod:
-          $ref: '#/components/schemas/AvailablePaymentMethod'
-          description: 'Information on payment methods available to the user.
-
-
-            '
-        creditPayPlan:
-          $ref: '#/components/schemas/CreditPayPlan'
-          description: 'The credit payment plan information for this payment.
-
-
-            Specify this parameter when the payment supports installments and you
-            specify the card-related information in paymentMethod.paymentMethodMetaData.'
-        enableInstallmentCollection:
-          description: 'Indicates whether Antom collects the installment information
-            for the payment. Specify this parameter if you need Antom to collect the
-            installment information. Valid values are:
-
-
-            true: indicates Antom collects installment information when the user''s
-            card supports installments. Installments are not available when the user''s
-            card does not support installments.
-
-            false: indicates you do not need Antom to collect the installment information.
-            The same applies when the value is empty or you do not specify this parameter.'
-          type: boolean
-        env:
-          $ref: '#/components/schemas/Env'
-          description: "Information about the environment where the order is placed.\n\
-            \nNote: Specify this parameter when you require risk control. Providing\
-            \ this information helps to increase the accuracy of anti-money laundering\
-            \ and fraud detection, and increase payment success rates.  \n\n"
-        locale:
-          description: 'Language tag specified for the Checkout Page. If this field
-            is empty or set to automatic, the default language setting of the browser
-            will be used, which is usually English.
-
-
-            More information:
-
-
-            Maximum length: 8 characters'
+        paymentExpiryTime:
           type: string
-        merchantRegion:
-          description: "The country or region where the merchant operates the business.\
-            \ The parameter is a 2-letter country or region code that follows ISO\
-            \ 3166 Country Codes standard.\n\nSome possible values are US, SG, HK,\
-            \ PK, JP, CN, BR, AU, and MY.  \n\nNote: This parameter is required when\
-            \ you use the Global Acquirer Gateway (GAGW) product.\n\nMore information:\n\
-            \nMaximum length: 2 characters"
+          format: date-time
+          description: The specific date and time when the payment will expire
+          example: '2025-11-27T12:01:01+08:00'
+        productCode:
+          $ref: '#/components/schemas/ProductCodeType'
+          description: Represents the payment product that is being used, which is
+            stipulated in the contract. For Checkout Payment, the value is fixed as
+            CASHIER_PAYMENT.
+        paymentRequestId:
           type: string
+          description: "The unique ID assigned by a merchant to identify a payment\
+            \ request. \n\nMore information:\n\nMaximum length: 64 characters"
         order:
           $ref: '#/components/schemas/Order'
           description: "The order information, such as buyer, merchant, goods, amount,\
@@ -145,16 +107,33 @@ components:
           $ref: '#/components/schemas/Amount'
           description: The payment amount that the merchant requests to receive in
             the order currency.
-        paymentFactor:
-          $ref: '#/components/schemas/PaymentFactor'
-          description: "Factors that impact the payment. This field is used to indicate\
-            \ the payment scenario.  \n\nSpecify this parameter when the value of\
-            \ paymentMethodType is CARD and you integrate the client-side SDK."
         paymentMethod:
           $ref: '#/components/schemas/PaymentMethod'
-          description: The payment method that is used to collect the payment by the
-            merchant or acquirer.
+          description: 'The payment method that is used to collect the payment by
+            the merchant or acquirer. '
+        paymentSessionExpiryTime:
+          type: string
+          description: "The specific date and time after which the payment session\
+            \ will expire. The default expiration time is 1 hour after the session\
+            \ creation. For example, if the session is created at 2023-7-27T12:00:01+08:30,\
+            \ the session expiration time is 2023-7-27T13:00:01+08:30.\n\nSpecify\
+            \ this parameter if you want to use a payment session expiration time\
+            \ that differs from the default time. The specified expiration time must\
+            \ be 0 to 1 hour after session creation.  \n\nMore information:\n\nThe\
+            \ value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"\
+            ."
+        paymentRedirectUrl:
+          type: string
+          description: 'The merchant page URL that the user is redirected to after
+            the payment is completed.
+
+
+            More information:
+
+
+            Maximum length: 2048 characters'
         paymentNotifyUrl:
+          type: string
           description: 'The URL that is used to receive the payment result notification.
 
 
@@ -168,38 +147,54 @@ components:
 
 
             Maximum length: 2048 characters'
-          type: string
-        paymentRedirectUrl:
-          description: 'The merchant page URL that the user is redirected to after
-            the payment is completed.
+        paymentFactor:
+          $ref: '#/components/schemas/PaymentFactor'
+          description: "Factors that impact the payment. This field is used to indicate\
+            \ the payment scenario.  \n\nSpecify this parameter when the value of\
+            \ paymentMethodType is CARD and you integrate the client-side SDK.  "
+        settlementStrategy:
+          $ref: '#/components/schemas/SettlementStrategy'
+          description: The settlement strategy for the payment request.
+        enableInstallmentCollection:
+          type: boolean
+          description: 'Indicates whether Antom collects the installment information
+            for the payment. Specify this parameter if you need Antom to collect the
+            installment information. Valid values are:
 
 
-            More information:
+            true: indicates Antom collects installment information when the user''s
+            card supports installments. Installments are not available when the user''s
+            card does not support installments.
+
+            false: indicates you do not need Antom to collect the installment information.
+            The same applies when the value is empty or you do not specify this parameter.   '
+        creditPayPlan:
+          $ref: '#/components/schemas/CreditPayPlan'
+          description: 'The credit payment plan information for this payment.
 
 
-            Maximum length: 2048 characters'
+            Specify this parameter when the payment supports installments and you
+            specify the card-related information in paymentMethod.paymentMethodMetaData.  '
+        merchantRegion:
           type: string
-        paymentRequestId:
-          description: "The unique ID assigned by a merchant to identify a payment\
-            \ request. \n\nMore information:\n\nMaximum length: 64 characters"
-          type: string
-        paymentSessionExpiryTime:
-          description: "The specific date and time after which the payment session\
-            \ will expire. The default expiration time is 1 hour after the session\
-            \ creation. For example, if the session is created at 2023-7-27T12:00:01+08:30,\
-            \ the session expiration time is 2023-7-27T13:00:01+08:30.\n\nSpecify\
-            \ this parameter if you want to use a payment session expiration time\
-            \ that differs from the default time. The specified expiration time must\
-            \ be 0 to 1 hour after session creation.  \n\nMore information:\n\nThe\
-            \ value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"\
-            ."
-          type: string
-        productCode:
-          $ref: '#/components/schemas/ProductCodeType'
-          description: Represents the payment product that is being used, which is
-            stipulated in the contract. For Checkout Payment, the value is fixed as
-            CASHIER_PAYMENT.
+          description: "The country or region where the merchant operates the business.\
+            \ The parameter is a 2-letter country or region code that follows ISO\
+            \ 3166 Country Codes standard.\n\nSome possible values are US, SG, HK,\
+            \ PK, JP, CN, BR, AU, and MY.  \n\nNote: This parameter is required when\
+            \ you use the Global Acquirer Gateway (GAGW) product.\n\nMore information:\n\
+            \nMaximum length: 2 characters"
+        env:
+          $ref: '#/components/schemas/Env'
+          description: "Information about the environment where the order is placed.\n\
+            \nNote: Specify this parameter when you require risk control. Providing\
+            \ this information helps to increase the accuracy of anti-money laundering\
+            \ and fraud detection, and increase payment success rates.  \n\n"
+        agreementInfo:
+          $ref: '#/components/schemas/AgreementInfo'
+        riskData:
+          $ref: '#/components/schemas/RiskData'
         productScene:
+          type: string
           description: 'Specified product scenarios include valid values:
 
 
@@ -212,19 +207,30 @@ components:
 
 
             Maximum length: 32 characters'
-          type: string
-        riskData:
-          $ref: '#/components/schemas/RiskData'
         savedPaymentMethods:
-          description: Payment information stored by the user in the merchant system.
+          type: array
           items:
             $ref: '#/components/schemas/PaymentMethod'
-            description: The payment method that is used to collect the payment by
-              the merchant or acquirer.
-          type: array
-        settlementStrategy:
-          $ref: '#/components/schemas/SettlementStrategy'
-          description: The settlement strategy for the payment request.
+            description: 'The payment method that is used to collect the payment by
+              the merchant or acquirer. '
+          description: Payment information stored by the user in the merchant system.
+        locale:
+          type: string
+          description: 'Language tag specified for the Checkout Page. If this field
+            is empty or set to automatic, the default language setting of the browser
+            will be used, which is usually English.
+
+
+            More information:
+
+
+            Maximum length: 8 characters'
+        availablePaymentMethod:
+          $ref: '#/components/schemas/AvailablePaymentMethod'
+          description: 'Information on payment methods available to the user.
+
+
+            '
         testFile:
           type: string
       required:
@@ -236,7 +242,6 @@ components:
       - paymentRedirectUrl
       - productCode
       - testFile
-      type: object
     AlipayPaymentSessionResponse:
       type: object
       properties:
