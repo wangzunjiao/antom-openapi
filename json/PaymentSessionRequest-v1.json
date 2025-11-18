@@ -76,6 +76,11 @@
       "AlipayPaymentSessionRequest": {
         "type": "object",
         "properties": {
+          "paymentExpiryTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The expiry time for the payment session"
+          },
           "productCode": {
             "$ref": "#/components/schemas/ProductCodeType",
             "description": "Represents the payment product that is being used, which is stipulated in the contract. For Checkout Payment, the value is fixed as CASHIER_PAYMENT."
