@@ -1,1698 +1,1503 @@
 {
-  "openapi": "3.1.0",
-  "info": {
-    "title": "payments_pay",
-    "description": "",
-    "version": "1.0.0"
+  "openapi" : "3.1.0",
+  "info" : {
+    "title" : "payments_pay",
+    "description" : "",
+    "version" : "1.0.0"
   },
-  "tags": [],
-  "paths": {
-    "/ams/api/v1/payments/pay": {
-      "post": {
-        "summary": "pay",
-        "deprecated": false,
-        "description": "Use this API to get the cashier page address. After getting the cashier page address, you can redirect the user to the cashier page to make a payment.\n",
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AlipayPayRequest"
+  "tags" : [ ],
+  "paths" : {
+    "/ams/api/v1/payments/pay" : {
+      "post" : {
+        "summary" : "pay",
+        "deprecated" : false,
+        "description" : "Use this API to get the cashier page address. After getting the cashier page address, you can redirect the user to the cashier page to make a payment.\n",
+        "tags" : [ ],
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AlipayPayRequest"
               },
-              "example": {
-                "env": {
-                  "osType": "ANDROID",
-                  "terminalType": "APP"
+              "example" : {
+                "env" : {
+                  "osType" : "ANDROID",
+                  "terminalType" : "APP"
                 },
-                "order": {
-                  "merchant": {
-                    "referenceMerchantId": "SM_001"
+                "order" : {
+                  "merchant" : {
+                    "referenceMerchantId" : "SM_001"
                   },
-                  "orderAmount": {
-                    "currency": "CNY",
-                    "value": "1314"
+                  "orderAmount" : {
+                    "currency" : "CNY",
+                    "value" : "1314"
                   },
-                  "orderDescription": "Cappuccino #grande (Mika's coffee shop)",
-                  "referenceOrderId": "ORDER_0656237919440****"
+                  "orderDescription" : "Cappuccino #grande (Mika's coffee shop)",
+                  "referenceOrderId" : "ORDER_0656237919440****"
                 },
-                "paymentAmount": {
-                  "currency": "CNY",
-                  "value": "1314"
+                "paymentAmount" : {
+                  "currency" : "CNY",
+                  "value" : "1314"
                 },
-                "paymentMethod": {
-                  "paymentMethodType": "ALIPAY_CN"
+                "paymentMethod" : {
+                  "paymentMethodType" : "ALIPAY_CN"
                 },
-                "paymentNotifyUrl": "https://www.yourNotify.com",
-                "paymentRequestId": "amsdmpay_20250513_012832_764",
-                "paymentRedirectUrl": "https://www.yourRedirect.com",
-                "productCode": "CASHIER_PAYMENT",
-                "settlementStrategy": {
-                  "settlementCurrency": "USD"
+                "paymentNotifyUrl" : "https://www.yourNotify.com",
+                "paymentRequestId" : "amsdmpay_20250513_012832_764",
+                "paymentRedirectUrl" : "https://www.yourRedirect.com",
+                "productCode" : "CASHIER_PAYMENT",
+                "settlementStrategy" : {
+                  "settlementCurrency" : "USD"
                 }
               }
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AlipayPayResponse"
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AlipayPayResponse"
                 }
               }
             },
-            "headers": {}
+            "headers" : { }
           }
         },
-        "security": []
+        "security" : [ ]
       }
     }
   },
-  "components": {
-    "schemas": {
-      "DeliveryEstimateInfo": {
-        "type": "object",
-        "properties": {
-          "unit": {
-            "type": "string"
+  "components" : {
+    "schemas" : {
+      "DeliveryEstimateInfo" : {
+        "type" : "object",
+        "properties" : {
+          "unit" : {
+            "type" : "string"
           },
-          "value": {
-            "type": "integer"
+          "value" : {
+            "type" : "integer"
           }
         },
-        "required": [
-          "unit",
-          "value"
-        ]
+        "required" : [ "unit", "value" ]
       },
-      "DeliveryEstimate": {
-        "type": "object",
-        "properties": {
-          "minimum": {
-            "$ref": "#/components/schemas/DeliveryEstimateInfo"
+      "DeliveryEstimate" : {
+        "type" : "object",
+        "properties" : {
+          "minimum" : {
+            "$ref" : "#/components/schemas/DeliveryEstimateInfo"
           },
-          "maximum": {
-            "$ref": "#/components/schemas/DeliveryEstimateInfo"
+          "maximum" : {
+            "$ref" : "#/components/schemas/DeliveryEstimateInfo"
           }
         },
-        "required": [
-          "minimum",
-          "maximum"
-        ]
+        "required" : [ "minimum", "maximum" ]
       },
-      "Shipping": {
-        "type": "object",
-        "properties": {
-          "shippingName": {
-            "$ref": "#/components/schemas/UserName",
-            "description": "The name of the recipient. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  "
+      "Shipping" : {
+        "type" : "object",
+        "properties" : {
+          "shippingName" : {
+            "$ref" : "#/components/schemas/UserName",
+            "description" : "The name of the recipient. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  "
           },
-          "shippingAddress": {
-            "$ref": "#/components/schemas/Address",
-            "description": "Hotel address."
+          "shippingAddress" : {
+            "$ref" : "#/components/schemas/Address",
+            "description" : "Hotel address."
           },
-          "shippingCarrier": {
-            "type": "string",
-            "description": "The delivery service provider for shipping a physical product, such as FedEx, UPS, or USPS. \n\nSpecify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 128 characters"
+          "shippingCarrier" : {
+            "type" : "string",
+            "description" : "The delivery service provider for shipping a physical product, such as FedEx, UPS, or USPS. \n\nSpecify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 128 characters"
           },
-          "shippingPhoneNo": {
-            "type": "string",
-            "description": "The phone number of a recipient (including extension).\n\nSpecify this parameter when you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 16 characters"
+          "shippingPhoneNo" : {
+            "type" : "string",
+            "description" : "The phone number of a recipient (including extension).\n\nSpecify this parameter when you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 16 characters"
           },
-          "shipToEmail": {
-            "type": "string",
-            "description": "The email address where virtual goods are sent.\n\nSpecify this parameter when one of the following conditions is met:\n\nif you require risk control.\nif you are a digital and entertainment merchant.\nProviding this information helps to increase fraud and identity theft detection.  \n\nMore information:\n\nMaximum length: 64 characters"
+          "shipToEmail" : {
+            "type" : "string",
+            "description" : "The email address where virtual goods are sent.\n\nSpecify this parameter when one of the following conditions is met:\n\nif you require risk control.\nif you are a digital and entertainment merchant.\nProviding this information helps to increase fraud and identity theft detection.  \n\nMore information:\n\nMaximum length: 64 characters"
           },
-          "shippingFeeId": {
-            "type": "string",
-            "description": "The ID of the shipping fee used for identifying the shipping option.\n\nMore information:\n\nMaximum length: 64 characters"
+          "shippingFeeId" : {
+            "type" : "string",
+            "description" : "The ID of the shipping fee used for identifying the shipping option.\n\nMore information:\n\nMaximum length: 64 characters"
           },
-          "shippingFee": {
-            "$ref": "#/components/schemas/Amount",
-            "description": "The payment amount that the merchant requests to receive in the order currency."
+          "shippingFee" : {
+            "$ref" : "#/components/schemas/Amount",
+            "description" : "The payment amount that the merchant requests to receive in the order currency."
           },
-          "shippingDescription": {
-            "type": "string",
-            "description": "Extended information about logistics-related services, including shipping time, logistics companies, etc.\n\nMore information:\n\nMaximum length: 64 characters"
+          "shippingDescription" : {
+            "type" : "string",
+            "description" : "Extended information about logistics-related services, including shipping time, logistics companies, etc.\n\nMore information:\n\nMaximum length: 64 characters"
           },
-          "deliveryEstimate": {
-            "$ref": "#/components/schemas/DeliveryEstimate",
-            "description": "Estimated shipping time range."
+          "deliveryEstimate" : {
+            "$ref" : "#/components/schemas/DeliveryEstimate",
+            "description" : "Estimated shipping time range."
           },
-          "shippingNumber": {
-            "type": "string",
-            "description": "Added field for shipping number"
+          "shippingNumber" : {
+            "type" : "string",
+            "description" : "Added field for shipping number"
           },
-          "notes": {
-            "type": "string",
-            "description": "Added field for shipping notes"
+          "notes" : {
+            "type" : "string",
+            "description" : "Added field for shipping notes"
           }
         }
       },
-      "Order": {
-        "type": "object",
-        "properties": {
-          "referenceOrderId": {
-            "type": "string",
-            "description": "The unique ID to identify the order on the merchant side, which is assigned by the merchant that provides services or goods directly to the customer. This field is used for user consumption records display and other further actions such as disputes track or handling of customer complaints.\n\nMore information:\n\nMaximum length: 64 characters"
+      "Order" : {
+        "type" : "object",
+        "properties" : {
+          "orderId" : {
+            "type" : "string"
+          }
+        }
+      },
+      "TransitType" : {
+        "type" : "string",
+        "enum" : [ "FLIGHT", "TRAIN", "CRUISE", "COACH" ]
+      },
+      "ClassType" : {
+        "type" : "string",
+        "enum" : [ "FIRSTLEVEL", "SECONDLEVEL", "THIRDLEVEL" ]
+      },
+      "Leg" : {
+        "type" : "object",
+        "properties" : {
+          "departureTime" : {
+            "type" : "string",
+            "description" : "Time of departure for this leg of the trip.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
           },
-          "orderDescription": {
-            "type": "string",
-            "description": "Summary description of the order, which is used for user consumption records display or other further actions.\n\nMore information:\n\nMaximum length: 256 characters"
+          "arrivalTime" : {
+            "type" : "string",
+            "description" : "Time of arrival for this leg of the trip.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
           },
-          "orderAmount": {
-            "$ref": "#/components/schemas/Amount",
-            "description": "The payment amount that the merchant requests to receive in the order currency."
+          "departureAddress" : {
+            "$ref" : "#/components/schemas/Address",
+            "description" : "Hotel address."
           },
-          "merchant": {
-            "$ref": "#/components/schemas/Merchant",
-            "description": "Information about the secondary merchant.\n\nNote: Specify this field if you are an acquirer that has secondary merchants."
+          "arrivalAddress" : {
+            "$ref" : "#/components/schemas/Address",
+            "description" : "Hotel address."
           },
-          "goods": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Goods"
+          "carrierName" : {
+            "type" : "string",
+            "description" : "Company name of the transportation service provider for this leg of the trip.\n\nMore information:\n\nMaximum length: 128 characters"
+          },
+          "carrierNo" : {
+            "type" : "string",
+            "description" : "Code for the carrier for this leg of the trip.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "classType" : {
+            "$ref" : "#/components/schemas/ClassType",
+            "description" : "Service level for this leg of the trip. Valid values are:\n\nFIRSTLEVEL: indicates that the service is the first class. For example, flight first class, cruise luxury seat, train business class seat/1st class sleeper, coach first-level seat.\nSECONDLEVEL: indicates that the service is the second class. For example, fight business class, cruise business seat, train 1st class seat/2nd class sleeper, coach second-level seat.\nTHIRDLEVEL: indicates that the service is the third class. For example, fight economic class or premium economic, cruise normal seat, train 2nd class seat/standing, coach normal seat.\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "departureAirportCode" : {
+            "type" : "string",
+            "description" : "IATA code for the originating airport for this leg of the trip.\n\nMore information:\n\nMaximum length: 8 characters\n"
+          },
+          "arrivalAirportCode" : {
+            "type" : "string",
+            "description" : "IATA code for the destination airport for this leg of the trip.\n\nMore information:\n\nMaximum length: 8 characters\n"
+          },
+          "fareBasis" : {
+            "type" : "string",
+            "description" : "Fare basis code for this leg of the trip."
+          },
+          "couponNumber" : {
+            "type" : "string",
+            "description" : "Coupon number associated with this leg of the trip."
+          },
+          "flightNumber" : {
+            "type" : "string",
+            "description" : "Flight number for this leg of the trip."
+          }
+        }
+      },
+      "Passenger" : {
+        "type" : "object",
+        "properties" : {
+          "passengerName" : {
+            "$ref" : "#/components/schemas/UserName",
+            "description" : "The name of the recipient. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  "
+          },
+          "passengerEmail" : {
+            "type" : "string",
+            "description" : "The email of the passenger.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "passengerPhoneNo" : {
+            "type" : "string",
+            "description" : "The mobile phone number of the passenger.\n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "passengerId" : {
+            "type" : "string",
+            "description" : "Passenger identification number"
+          },
+          "passengerIdType" : {
+            "$ref" : "#/components/schemas/PassengerIdType"
+          },
+          "passengerCode" : {
+            "type" : "string",
+            "description" : "Passenger code or reference number"
+          }
+        }
+      },
+      "PassengerIdType" : {
+        "type" : "string",
+        "enum" : [ "PASSPORT", "NATIONAL_ID_CARD", "DRIVER_LICENSE", "MILITARY_ID", "GREEN_CARD", "TRAVEL_DOCUMENT", "ALIEN_REGISTRATION_CARD", "BIRTH_CERTIFICATE", "OTHERS" ],
+        "description" : "Type of passenger identification"
+      },
+      "Transit" : {
+        "type" : "object",
+        "properties" : {
+          "transitType" : {
+            "$ref" : "#/components/schemas/TransitType",
+            "description" : "Trip modes, valid values are:\n\nFLIGHT: indicates that the trip mode is by plane.\nTRAIN: indicates that the trip mode is by train.\nCRUISE: indicates that the trip mode is by cruise.\nCOACH: indicates that the trip mode is by coach.\n"
+          },
+          "legs" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Leg"
             },
-            "description": "Goods information, including the ID, name, price, and quantity of the goods in the order. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum size: 100 elements"
+            "description" : "Information about sections of the trip, including departure time, arrival time, departure address, arrival address, transportation company name, carrier code and service type.\n\nMore information:\n\nMaximum size: 10 elements"
           },
-          "shipping": {
-            "$ref": "#/components/schemas/Shipping",
-            "description": "Shipping information, including information about the recipient (name, phone number, email, and shipping address), and shipping service provider. \n\nSpecify this parameter when you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
-          },
-          "buyer": {
-            "$ref": "#/components/schemas/Buyer",
-            "description": "Buyer information, including the ID, name, phone number, and email of the buyer.\n\nSpecify this parameter when one of the following conditions is met:\n\nYou require risk control.\nThe value of paymentMethodType is CARD. \nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
-          },
-          "env": {
-            "$ref": "#/components/schemas/Env",
-            "description": "Information about the environment where the order is placed.\n\nNote: Specify this parameter when you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\n"
-          },
-          "extendInfo": {
-            "type": "string",
-            "description": "Extended information data, including information for special use cases.\n\nNote: Specify this field when you need to use the extended information.\n\n"
-          },
-          "transit": {
-            "$ref": "#/components/schemas/Transit",
-            "description": "Trip information, including trip modes, legs of trips and passenger information.\n\nSpecify this field if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\n"
-          },
-          "lodging": {
-            "$ref": "#/components/schemas/Lodging",
-            "description": "Information about lodging service that was purchased, including hotel name, hotel address, check-in date, check-out date, number of booked rooms, number of booked nights and guest names.\n\nSpecify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
-          },
-          "gaming": {
-            "$ref": "#/components/schemas/Gaming",
-            "description": "Information about gaming top-up, including game name, the topped up user name or ID, user email and user phone number.\n\nSpecify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
-          },
-          "needDeclaration": {
-            "type": "boolean"
-          },
-          "orderTest": {
-            "type": "string"
-          },
-          "declaration": {
-            "$ref": "#/components/schemas/Declaration"
-          },
-          "orderType": {
-            "type": "string",
-            "description": "test "
-          }
-        },
-        "required": [
-          "orderAmount",
-          "referenceOrderId",
-          "orderType"
-        ]
-      },
-      "TransitType": {
-        "type": "string",
-        "enum": [
-          "FLIGHT",
-          "TRAIN",
-          "CRUISE",
-          "COACH"
-        ]
-      },
-      "ClassType": {
-        "type": "string",
-        "enum": [
-          "FIRSTLEVEL",
-          "SECONDLEVEL",
-          "THIRDLEVEL"
-        ]
-      },
-      "Leg": {
-        "type": "object",
-        "properties": {
-          "departureTime": {
-            "type": "string",
-            "description": "Time of departure for this leg of the trip.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
-          },
-          "arrivalTime": {
-            "type": "string",
-            "description": "Time of arrival for this leg of the trip.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
-          },
-          "departureAddress": {
-            "$ref": "#/components/schemas/Address",
-            "description": "Hotel address."
-          },
-          "arrivalAddress": {
-            "$ref": "#/components/schemas/Address",
-            "description": "Hotel address."
-          },
-          "carrierName": {
-            "type": "string",
-            "description": "Company name of the transportation service provider for this leg of the trip.\n\nMore information:\n\nMaximum length: 128 characters"
-          },
-          "carrierNo": {
-            "type": "string",
-            "description": "Code for the carrier for this leg of the trip.\n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "classType": {
-            "$ref": "#/components/schemas/ClassType",
-            "description": "Service level for this leg of the trip. Valid values are:\n\nFIRSTLEVEL: indicates that the service is the first class. For example, flight first class, cruise luxury seat, train business class seat/1st class sleeper, coach first-level seat.\nSECONDLEVEL: indicates that the service is the second class. For example, fight business class, cruise business seat, train 1st class seat/2nd class sleeper, coach second-level seat.\nTHIRDLEVEL: indicates that the service is the third class. For example, fight economic class or premium economic, cruise normal seat, train 2nd class seat/standing, coach normal seat.\nMore information:\n\nMaximum length: 32 characters"
-          },
-          "departureAirportCode": {
-            "type": "string",
-            "description": "IATA code for the originating airport for this leg of the trip.\n\nMore information:\n\nMaximum length: 8 characters\n"
-          },
-          "arrivalAirportCode": {
-            "type": "string",
-            "description": "IATA code for the destination airport for this leg of the trip.\n\nMore information:\n\nMaximum length: 8 characters\n"
-          },
-          "fareBasis": {
-            "type": "string",
-            "description": "Fare basis code for this leg of the trip."
-          },
-          "couponNumber": {
-            "type": "string",
-            "description": "Coupon number associated with this leg of the trip."
-          },
-          "flightNumber": {
-            "type": "string",
-            "description": "Flight number for this leg of the trip."
-          }
-        }
-      },
-      "Passenger": {
-        "type": "object",
-        "properties": {
-          "passengerName": {
-            "$ref": "#/components/schemas/UserName",
-            "description": "The name of the recipient. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  "
-          },
-          "passengerEmail": {
-            "type": "string",
-            "description": "The email of the passenger.\n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "passengerPhoneNo": {
-            "type": "string",
-            "description": "The mobile phone number of the passenger.\n\nMore information:\n\nMaximum length: 32 characters"
-          },
-          "passengerId": {
-            "type": "string",
-            "description": "Passenger identification number"
-          },
-          "passengerIdType": {
-            "$ref": "#/components/schemas/PassengerIdType"
-          },
-          "passengerCode": {
-            "type": "string",
-            "description": "Passenger code or reference number"
-          }
-        }
-      },
-      "PassengerIdType": {
-        "type": "string",
-        "enum": [
-          "PASSPORT",
-          "NATIONAL_ID_CARD",
-          "DRIVER_LICENSE",
-          "MILITARY_ID",
-          "GREEN_CARD",
-          "TRAVEL_DOCUMENT",
-          "ALIEN_REGISTRATION_CARD",
-          "BIRTH_CERTIFICATE",
-          "OTHERS"
-        ],
-        "description": "Type of passenger identification"
-      },
-      "Transit": {
-        "type": "object",
-        "properties": {
-          "transitType": {
-            "$ref": "#/components/schemas/TransitType",
-            "description": "Trip modes, valid values are:\n\nFLIGHT: indicates that the trip mode is by plane.\nTRAIN: indicates that the trip mode is by train.\nCRUISE: indicates that the trip mode is by cruise.\nCOACH: indicates that the trip mode is by coach.\n"
-          },
-          "legs": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Leg"
+          "passengers" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Passenger"
             },
-            "description": "Information about sections of the trip, including departure time, arrival time, departure address, arrival address, transportation company name, carrier code and service type.\n\nMore information:\n\nMaximum size: 10 elements"
+            "description" : "Information about the passenger of the trip, including the passenger names, passenger email and phone number.\n\nMore information:\n\nMaximum size: 100 elements"
           },
-          "passengers": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Passenger"
+          "agentCode" : {
+            "type" : "string",
+            "description" : "Added field for agent code"
+          },
+          "agentName" : {
+            "type" : "string",
+            "description" : "Added field for agent name"
+          },
+          "ticketNumber" : {
+            "type" : "string",
+            "description" : "Added field for ticket number"
+          },
+          "ticketIssuerCode" : {
+            "type" : "string",
+            "description" : "Added field for ticket issuer code"
+          },
+          "restrictedTicketIndicator" : {
+            "type" : "string",
+            "description" : "Added field for restricted ticket indicator"
+          },
+          "ancillaryData" : {
+            "$ref" : "#/components/schemas/AncillaryData",
+            "description" : "Ancillary data for the transit"
+          }
+        }
+      },
+      "Lodging" : {
+        "type" : "object",
+        "properties" : {
+          "hotelName" : {
+            "type" : "string",
+            "description" : "Hotel name.\n\nMore information:\n\nMaximum length: 128 characters"
+          },
+          "hotelAddress" : {
+            "$ref" : "#/components/schemas/Address",
+            "description" : "Shipping address. \n\nSpecify this parameter when one of the following conditions is met:\n\nThe value of paymentMethodType is PAGALEVE.\nYou require risk control.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
+          },
+          "checkInDate" : {
+            "type" : "string",
+            "description" : "Date on which the guest checked in. In the case of a no-show or a reservation, the scheduled arrival date.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
+          },
+          "checkOutDate" : {
+            "type" : "string",
+            "description" : "Date on which the guest checked out.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
+          },
+          "numberOfNights" : {
+            "type" : "integer",
+            "description" : "Number of nights booked by the payer.\n\nMore information:\n\nValue range: 1 - unlimited"
+          },
+          "numberOfRooms" : {
+            "type" : "integer",
+            "description" : "Number of rooms booked by the payer.\n\nMore information:\n\nValue range: 1 - unlimited\n"
+          },
+          "guestNames" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/UserName",
+              "description" : "The name of the recipient. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  "
             },
-            "description": "Information about the passenger of the trip, including the passenger names, passenger email and phone number.\n\nMore information:\n\nMaximum size: 100 elements"
-          },
-          "agentCode": {
-            "type": "string",
-            "description": "Added field for agent code"
-          },
-          "agentName": {
-            "type": "string",
-            "description": "Added field for agent name"
-          },
-          "ticketNumber": {
-            "type": "string",
-            "description": "Added field for ticket number"
-          },
-          "ticketIssuerCode": {
-            "type": "string",
-            "description": "Added field for ticket issuer code"
-          },
-          "restrictedTicketIndicator": {
-            "type": "string",
-            "description": "Added field for restricted ticket indicator"
-          },
-          "ancillaryData": {
-            "$ref": "#/components/schemas/AncillaryData",
-            "description": "Ancillary data for the transit"
+            "description" : "Name of the guest under which the room is reserved.\n\nMore information:\n\nMaximum size: 100 elements"
           }
         }
       },
-      "Lodging": {
-        "type": "object",
-        "properties": {
-          "hotelName": {
-            "type": "string",
-            "description": "Hotel name.\n\nMore information:\n\nMaximum length: 128 characters"
+      "Gaming" : {
+        "type" : "object",
+        "properties" : {
+          "gameName" : {
+            "type" : "string",
+            "description" : "Game name.\n\nMore information:\n\nMaximum length: 128 characters\n"
           },
-          "hotelAddress": {
-            "$ref": "#/components/schemas/Address",
-            "description": "Shipping address. \n\nSpecify this parameter when one of the following conditions is met:\n\nThe value of paymentMethodType is PAGALEVE.\nYou require risk control.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
+          "toppedUpUser" : {
+            "type" : "string",
+            "description" : "Name or ID of the user whose gaming account is topped up.\n\nMore information:\n\nMaximum length: 128 characters"
           },
-          "checkInDate": {
-            "type": "string",
-            "description": "Date on which the guest checked in. In the case of a no-show or a reservation, the scheduled arrival date.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
+          "toppedUpEmail" : {
+            "type" : "string",
+            "description" : "Email of the user.\n\nMore information:\n\nMaximum length: 64 characters"
           },
-          "checkOutDate": {
-            "type": "string",
-            "description": "Date on which the guest checked out.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
+          "toppedUpPhoneNo" : {
+            "type" : "string",
+            "description" : "Phone number of the user.\n\nMore information:\n\nMaximum length: 32 characters"
+          }
+        }
+      },
+      "PaymentMethod" : {
+        "type" : "object",
+        "properties" : {
+          "paymentMethodType" : {
+            "type" : "string",
+            "description" : "The payment method type that is included in payment method options. By specifying the value of this parameter, you can receive the cashier URL of the specified payment method returned by Alipay. See Payment methods to check the valid values.\n\nMore information:\n\nMaximum length: 64 characters"
           },
-          "numberOfNights": {
-            "type": "integer",
-            "description": "Number of nights booked by the payer.\n\nMore information:\n\nValue range: 1 - unlimited"
+          "paymentMethodId" : {
+            "type" : "string",
+            "description" : "The unique ID that is used to identify a payment method. The value of this parameter is that of cardToken obtained from the notifyPayment or inquiryPayment API. \n\nSpecify this parameter when the value of paymentMethodType is CARD.\n\nMore information:\n\nMaximum length: 128 characters"
           },
-          "numberOfRooms": {
-            "type": "integer",
-            "description": "Number of rooms booked by the payer.\n\nMore information:\n\nValue range: 1 - unlimited\n"
+          "funding" : {
+            "$ref" : "#/components/schemas/FundingType"
           },
-          "guestNames": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/UserName",
-              "description": "The name of the recipient. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  "
+          "customerId" : {
+            "type" : "string",
+            "description" : "The unique ID to identify a buyer.\n\nNote: Specify this field if you have the information. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
+          },
+          "extendInfo" : {
+            "type" : "string",
+            "description" : "Extended information.\n\nNote: Specify this field if you need to use the extended information.\n\nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "requireIssuerAuthentication" : {
+            "type" : "boolean",
+            "description" : "Indicates whether Korean card transactions require authentication from the issuing bank. Valid values are:\n\ntrue: indicates that Korean card transactions require authentication from the issuing bank.\nfalse: indicates that Korean card transactions do not require authentication from the issuing bank. The same applies when you do not specify this parameter or the value is empty.\nSpecify this parameter when all the following conditions are met:\n\nThe value of paymentMethodType is CARD.\nThe value of paymentMethodRegion is KR.\nThe Korean card transactions require issuer authentication."
+          },
+          "paymentMethodMetaData" : {
+            "type" : "object",
+            "properties" : { },
+            "additionalProperties" : {
+              "type" : "object"
             },
-            "description": "Name of the guest under which the room is reserved.\n\nMore information:\n\nMaximum size: 100 elements"
+            "description" : "Additional information required for some specific payment methods.  "
+          }
+        },
+        "required" : [ "paymentMethodType" ]
+      },
+      "CreditPayFeeType" : {
+        "type" : "string",
+        "enum" : [ "PERCENTAGE" ]
+      },
+      "CreditPayPlan" : {
+        "type" : "object",
+        "properties" : {
+          "installmentNum" : {
+            "type" : "integer",
+            "description" : "The number of installments. The valid value is from 2 to 12.\n\nMore information:\n\nMaximum length: 8 characters"
+          },
+          "interval" : {
+            "type" : "string"
+          },
+          "creditPayFeeType" : {
+            "$ref" : "#/components/schemas/CreditPayFeeType",
+            "description" : "The value of this field is PERCENTAGE, which indicates that the fee is described in percentage with 1 - 3 digits. For example, 5 means 5%, 100 means 100%.\n\nNote: Specify this field when you want the fee information to be expressed in percentage."
+          },
+          "feePercentage" : {
+            "type" : "integer",
+            "description" : "This field is determined by the sellers' liability. For example, 0 indicates the seller is not liable for any fee. 100 indicates the seller pays 100% of the fee.\n\nNote: Specify this field when the value of creditPayFeeType is PERCENTAGE.\n\nMore information:\n\nValue range: 0 - 100"
+          }
+        },
+        "required" : [ "installmentNum" ]
+      },
+      "PaymentVerificationData" : {
+        "type" : "object",
+        "properties" : {
+          "verifyRequestId" : {
+            "type" : "string"
+          },
+          "authenticationCode" : {
+            "type" : "string"
           }
         }
       },
-      "Gaming": {
-        "type": "object",
-        "properties": {
-          "gameName": {
-            "type": "string",
-            "description": "Game name.\n\nMore information:\n\nMaximum length: 128 characters\n"
+      "Quote" : {
+        "type" : "object",
+        "properties" : {
+          "quoteId" : {
+            "type" : "string",
+            "description" : "The unique ID that is assigned by Antom to identify an exchange rate. \n\nMore information:\n\nMaximum length: 64 characters"
           },
-          "toppedUpUser": {
-            "type": "string",
-            "description": "Name or ID of the user whose gaming account is topped up.\n\nMore information:\n\nMaximum length: 128 characters"
+          "quoteCurrencyPair" : {
+            "type" : "string",
+            "description" : "The exchange rate between settlement currency and transaction currency. Two currencies are separated with a slash and use the three-letter ISO-4217 currency code.  \n\nMore information:\n\nMaximum length: 16 characters"
           },
-          "toppedUpEmail": {
-            "type": "string",
-            "description": "Email of the user.\n\nMore information:\n\nMaximum length: 64 characters"
+          "quotePrice" : {
+            "type" : "number",
+            "description" : "The exchange rate used when a currency conversion between settlement currency and transaction currency occurs.  \n\nMore information:\n\nValue range: 1 - unlimited"
           },
-          "toppedUpPhoneNo": {
-            "type": "string",
-            "description": "Phone number of the user.\n\nMore information:\n\nMaximum length: 32 characters"
+          "quoteStartTime" : {
+            "type" : "string",
+            "description" : "Effective time of the exchange rate. \n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
+          },
+          "quoteExpiryTime" : {
+            "type" : "string",
+            "description" : "Expiration time of the exchange rate.  \n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
+          },
+          "guaranteed" : {
+            "type" : "boolean",
+            "description" : "Guaranteed exchange rate available for payment.  \n\n"
+          },
+          "exchangeAmount" : {
+            "$ref" : "#/components/schemas/Amount",
+            "description" : "Added field for exchange amount"
+          }
+        },
+        "required" : [ "quoteCurrencyPair", "quotePrice" ]
+      },
+      "PspCustomerInfo" : {
+        "type" : "object",
+        "properties" : {
+          "pspName" : {
+            "type" : "string",
+            "description" : "The name of Alipay+ payment methods.\n\nNote: This field is returned when Alipay+ payment methods supports providing the related information. \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "pspCustomerId" : {
+            "type" : "string",
+            "description" : "The customer ID of Alipay+ payment methods.\n\nNote: This field is returned when Alipay+ payment methods supports providing the related information. \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "displayCustomerId" : {
+            "type" : "string",
+            "description" : "The customer ID used for display. For example, loginId.\n\nNote: This field is returned when Alipay+ payment methods supports providing the related information. \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "displayCustomerName" : {
+            "type" : "string"
+          },
+          "customer2088Id" : {
+            "type" : "string"
+          },
+          "extendInfo" : {
+            "type" : "string"
           }
         }
       },
-      "PaymentMethod": {
-        "type": "object",
-        "properties": {
-          "paymentMethodType": {
-            "type": "string",
-            "description": "The payment method type that is included in payment method options. By specifying the value of this parameter, you can receive the cashier URL of the specified payment method returned by Alipay. See Payment methods to check the valid values.\n\nMore information:\n\nMaximum length: 64 characters"
+      "ChallengeType" : {
+        "type" : "string",
+        "enum" : [ "SMS_OTP", "PLAINTEXT_CARD_NO", "CARD_EXPIRE_DATE" ]
+      },
+      "ChallengeTriggerSourceType" : {
+        "type" : "string",
+        "enum" : [ "AMS", "CHANNEL" ]
+      },
+      "ChallengeActionForm" : {
+        "type" : "object",
+        "properties" : {
+          "challengeType" : {
+            "$ref" : "#/components/schemas/ChallengeType"
           },
-          "paymentMethodId": {
-            "type": "string",
-            "description": "The unique ID that is used to identify a payment method. The value of this parameter is that of cardToken obtained from the notifyPayment or inquiryPayment API. \n\nSpecify this parameter when the value of paymentMethodType is CARD.\n\nMore information:\n\nMaximum length: 128 characters"
+          "challengeRenderValue" : {
+            "type" : "string"
           },
-          "funding": {
-            "$ref": "#/components/schemas/FundingType"
+          "triggerSource" : {
+            "$ref" : "#/components/schemas/ChallengeTriggerSourceType"
           },
-          "customerId": {
-            "type": "string",
-            "description": "The unique ID to identify a buyer.\n\nNote: Specify this field if you have the information. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
+          "extendInfo" : {
+            "type" : "string"
+          }
+        }
+      },
+      "RedirectActionForm" : {
+        "type" : "object",
+        "properties" : {
+          "method" : {
+            "type" : "string"
           },
-          "extendInfo": {
-            "type": "string",
-            "description": "Extended information.\n\nNote: Specify this field if you need to use the extended information.\n\nMore information:\n\nMaximum length: 2048 characters"
+          "parameters" : {
+            "type" : "string"
           },
-          "requireIssuerAuthentication": {
-            "type": "boolean",
-            "description": "Indicates whether Korean card transactions require authentication from the issuing bank. Valid values are:\n\ntrue: indicates that Korean card transactions require authentication from the issuing bank.\nfalse: indicates that Korean card transactions do not require authentication from the issuing bank. The same applies when you do not specify this parameter or the value is empty.\nSpecify this parameter when all the following conditions are met:\n\nThe value of paymentMethodType is CARD.\nThe value of paymentMethodRegion is KR.\nThe Korean card transactions require issuer authentication."
+          "redirectUrl" : {
+            "type" : "string"
           },
-          "paymentMethodMetaData": {
-            "type": "object",
-            "properties": {},
-            "additionalProperties": {
-              "type": "object"
+          "actionFormType" : {
+            "type" : "string"
+          }
+        }
+      },
+      "CodeValueType" : {
+        "type" : "string",
+        "enum" : [ "BARCODE", "QRCODE" ]
+      },
+      "DisplayType" : {
+        "type" : "string",
+        "enum" : [ "TEXT", "MIDDLEIMAGE", "SMALLIMAGE", "BIGIMAGE", "IMAGE" ]
+      },
+      "CodeDetail" : {
+        "type" : "object",
+        "properties" : {
+          "codeValueType" : {
+            "$ref" : "#/components/schemas/CodeValueType"
+          },
+          "codeValue" : {
+            "type" : "string",
+            "description" : "The value of the code.  \n\nIf the value of displayType is set toSMALLIMAGE, MIDDLEIMAGE, or BIGIMAGE, this parameter indicates a plain or Base64-encoded image URL.\nIf the value of displayType is set to TEXT, this parameter indicates a text string.  \nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "displayType" : {
+            "$ref" : "#/components/schemas/DisplayType",
+            "description" : "Indicates the way to display the code on the UI. Valid values are:\n\nTEXT: Indicates that the code is directly displayed on the UI as text or a label.\nMIDDLEIMAGE: Indicates that the code is directly displayed on the UI as a small-sized image.\nSMALLIMAGE: Indicates that the code is directly displayed on the UI as a middle-sized image.\nBIGIMAGE: Indicates that the code is directly displayed on the UI as a big-sized image. \n"
+          }
+        },
+        "required" : [ "codeValueType", "codeValue", "displayType" ]
+      },
+      "OrderCodeForm" : {
+        "type" : "object",
+        "properties" : {
+          "paymentMethodType" : {
+            "type" : "string"
+          },
+          "expireTime" : {
+            "type" : "string",
+            "description" : "Expiry time of the order code information.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
+          },
+          "codeDetails" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/CodeDetail"
             },
-            "description": "Additional information required for some specific payment methods.  "
+            "description" : "Details about the code.\n\nMore information:\n\nMaximum size: 4 elements"
+          },
+          "extendInfo" : {
+            "type" : "string",
+            "description" : "Extended information.\n\nNote: This field is returned when extended information exists.\n\nMore information:\n\nMaximum length: 2048 characters"
           }
         },
-        "required": [
-          "paymentMethodType"
-        ]
+        "required" : [ "expireTime", "codeDetails" ]
       },
-      "CreditPayFeeType": {
-        "type": "string",
-        "enum": [
-          "PERCENTAGE"
-        ]
-      },
-      "CreditPayPlan": {
-        "type": "object",
-        "properties": {
-          "installmentNum": {
-            "type": "integer",
-            "description": "The number of installments. The valid value is from 2 to 12.\n\nMore information:\n\nMaximum length: 8 characters"
+      "PaymentResultInfo" : {
+        "type" : "object",
+        "properties" : {
+          "refusalCodeRaw" : {
+            "type" : "string",
+            "example" : "51",
+            "description" : "卡支付失败且渠道返回时的原始错误码"
           },
-          "interval": {
-            "type": "string"
+          "refusalReasonRaw" : {
+            "type" : "string",
+            "example" : "Not sufficient funds",
+            "description" : "卡支付失败且渠道返回时的原始拒付原因"
           },
-          "creditPayFeeType": {
-            "$ref": "#/components/schemas/CreditPayFeeType",
-            "description": "The value of this field is PERCENTAGE, which indicates that the fee is described in percentage with 1 - 3 digits. For example, 5 means 5%, 100 means 100%.\n\nNote: Specify this field when you want the fee information to be expressed in percentage."
+          "merchantAdviceCode" : {
+            "type" : "string",
+            "example" : "00",
+            "description" : "支付结果的商户建议码"
           },
-          "feePercentage": {
-            "type": "integer",
-            "description": "This field is determined by the sellers' liability. For example, 0 indicates the seller is not liable for any fee. 100 indicates the seller pays 100% of the fee.\n\nNote: Specify this field when the value of creditPayFeeType is PERCENTAGE.\n\nMore information:\n\nValue range: 0 - 100"
-          }
-        },
-        "required": [
-          "installmentNum"
-        ]
-      },
-      "PaymentVerificationData": {
-        "type": "object",
-        "properties": {
-          "verifyRequestId": {
-            "type": "string"
+          "acquirerInfo" : {
+            "$ref" : "#/components/schemas/AcquirerInfo"
           },
-          "authenticationCode": {
-            "type": "string"
+          "cardNo" : {
+            "type" : "string",
+            "description" : "The masked card number, which just shows part of the card number and can be used to display to the user"
+          },
+          "cardBrand" : {
+            "type" : "string",
+            "description" : "The card brand, which can be used to display to the user"
+          },
+          "cardToken" : {
+            "type" : "string",
+            "description" : "The token of the card, the value of this parameter is used by paymentMethodId in the pay"
+          },
+          "issuingCountry" : {
+            "type" : "string",
+            "description" : "The issuing country of the card"
+          },
+          "funding" : {
+            "type" : "string",
+            "description" : "The funding type of the card."
+          },
+          "paymentMethodRegion" : {
+            "type" : "string",
+            "description" : "The region code that represents the country or region of the payment method"
+          },
+          "threeDSResult" : {
+            "$ref" : "#/components/schemas/ThreeDSResult",
+            "description" : "The result of 3D Secure authentication"
+          },
+          "avsResultRaw" : {
+            "type" : "string",
+            "description" : "The raw AVS result. See AVS result codes to check the valid values"
+          },
+          "cvvResultRaw" : {
+            "type" : "string",
+            "description" : "The raw Card Verification Value (CVV), Card Security Code (CSC), or Card Verification Code (CVC) result"
+          },
+          "networkTransactionId" : {
+            "type" : "string",
+            "description" : "The unique ID assigned by the card scheme to identify a transaction. The value of this parameter is used by the same parameter of pay (Cashier Payment) request in subsequent payments"
+          },
+          "creditPayPlan" : {
+            "$ref" : "#/components/schemas/CreditPayPlan",
+            "description" : "The installment plan information for an installment payment"
+          },
+          "cardholderName" : {
+            "type" : "string",
+            "description" : "The cardholder's name.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "cardBin" : {
+            "type" : "string",
+            "description" : "The first six digits of the bank card number, used to identify the issuing bank and card type of the bank card.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 8 characters"
+          },
+          "lastFour" : {
+            "type" : "string",
+            "description" : "Last 4 digits of the card number.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 4 characters\n"
+          },
+          "expiryMonth" : {
+            "type" : "string",
+            "description" : "The month the card expires. Pass in two digits representing the month. For example, if the expiry month is February, the value of this parameter is 02.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 2 characters"
+          },
+          "expiryYear" : {
+            "type" : "string",
+            "description" : "The year the card expires. Pass in the last two digits of the year number. For example, if the expiry year is 2025, the value of this parameter is 25.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 2 characters"
+          },
+          "cardCategory" : {
+            "type" : "string",
+            "description" : "Added field for card category"
+          },
+          "accountNo" : {
+            "type" : "string",
+            "description" : "Added field for account number"
+          },
+          "exemptionRequested" : {
+            "type" : "string",
+            "description" : "Added field for exemption requested"
+          },
+          "credentialTypeUsed" : {
+            "type" : "string",
+            "description" : "Added field for credential type used"
           }
         }
       },
-      "Quote": {
-        "type": "object",
-        "properties": {
-          "quoteId": {
-            "type": "string",
-            "description": "The unique ID that is assigned by Antom to identify an exchange rate. \n\nMore information:\n\nMaximum length: 64 characters"
+      "AcquirerInfo" : {
+        "type" : "object",
+        "properties" : {
+          "acquirerName" : {
+            "type" : "string",
+            "description" : "The name of the acquirer. \n\nNote: This parameter is returned if you integrate the APO product.  \n\nMore information:\n\nMaximum length: 64 characters"
           },
-          "quoteCurrencyPair": {
-            "type": "string",
-            "description": "The exchange rate between settlement currency and transaction currency. Two currencies are separated with a slash and use the three-letter ISO-4217 currency code.  \n\nMore information:\n\nMaximum length: 16 characters"
+          "referenceRequestId" : {
+            "type" : "string",
+            "description" : "The unique ID that is assigned by APO to identify a payment request sent to the acquirer.\n\nNote: This parameter is returned if you integrate the APO product.  \n\nMore information:\n\nMaximum length: 64 characters"
           },
-          "quotePrice": {
-            "type": "number",
-            "description": "The exchange rate used when a currency conversion between settlement currency and transaction currency occurs.  \n\nMore information:\n\nValue range: 1 - unlimited"
+          "acquirerTransactionId" : {
+            "type" : "string",
+            "description" : "The unique ID that is assigned by the acquirer to identify a transaction. \n\nNote: This parameter is returned if you integrate the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
           },
-          "quoteStartTime": {
-            "type": "string",
-            "description": "Effective time of the exchange rate. \n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
+          "acquirerMerchantId" : {
+            "type" : "string",
+            "description" : "The unique ID that is assigned by the acquirer to identify a merchant. \n\nNote: This parameter is returned if you integrate the APO product.  \n\nMore information:\n\nMaximum length: 64 characters\n"
           },
-          "quoteExpiryTime": {
-            "type": "string",
-            "description": "Expiration time of the exchange rate.  \n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
+          "acquirerResultCode" : {
+            "type" : "string",
+            "description" : "The acquirer's result code that indicates the transaction process result.  \n\nNote: This parameter is returned if you integrate the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
           },
-          "guaranteed": {
-            "type": "boolean",
-            "description": "Guaranteed exchange rate available for payment.  \n\n"
+          "acquirerResultMessage" : {
+            "type" : "string",
+            "description" : "The result message that describes acquirerResultCode in detail.  \n\nNote: This parameter is returned if you integrate the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
           },
-          "exchangeAmount": {
-            "$ref": "#/components/schemas/Amount",
-            "description": "Added field for exchange amount"
+          "acquirerMerchantName" : {
+            "type" : "string"
+          }
+        }
+      },
+      "PromotionType" : {
+        "type" : "string",
+        "enum" : [ "DISCOUNT", "INTEREST_FREE" ]
+      },
+      "PromotionResult" : {
+        "type" : "object",
+        "properties" : {
+          "promotionType" : {
+            "$ref" : "#/components/schemas/PromotionType",
+            "description" : "Promotion type. Valid values are:\n\nDISCOUNT: a deduction from the regular price.\n\nINTEREST_FREE: payment in interest-free installments.\n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "discount" : {
+            "$ref" : "#/components/schemas/Discount",
+            "description" : "Discount information.\n\nNote: This parameter is generated when the buyer applies a promotion during the process of placing an order."
           }
         },
-        "required": [
-          "quoteCurrencyPair",
-          "quotePrice"
-        ]
+        "required" : [ "promotionType" ]
       },
-      "PspCustomerInfo": {
-        "type": "object",
-        "properties": {
-          "pspName": {
-            "type": "string",
-            "description": "The name of Alipay+ payment methods.\n\nNote: This field is returned when Alipay+ payment methods supports providing the related information. \n\nMore information:\n\nMaximum length: 64 characters"
+      "Result" : {
+        "type" : "object",
+        "properties" : {
+          "resultCode" : {
+            "type" : "string",
+            "description" : "The result code."
           },
-          "pspCustomerId": {
-            "type": "string",
-            "description": "The customer ID of Alipay+ payment methods.\n\nNote: This field is returned when Alipay+ payment methods supports providing the related information. \n\nMore information:\n\nMaximum length: 64 characters"
+          "resultStatus" : {
+            "description" : "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
+            "$ref" : "#/components/schemas/ResultStatusType"
           },
-          "displayCustomerId": {
-            "type": "string",
-            "description": "The customer ID used for display. For example, loginId.\n\nNote: This field is returned when Alipay+ payment methods supports providing the related information. \n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "displayCustomerName": {
-            "type": "string"
-          },
-          "customer2088Id": {
-            "type": "string"
-          },
-          "extendInfo": {
-            "type": "string"
-          }
-        }
-      },
-      "ChallengeType": {
-        "type": "string",
-        "enum": [
-          "SMS_OTP",
-          "PLAINTEXT_CARD_NO",
-          "CARD_EXPIRE_DATE"
-        ]
-      },
-      "ChallengeTriggerSourceType": {
-        "type": "string",
-        "enum": [
-          "AMS",
-          "CHANNEL"
-        ]
-      },
-      "ChallengeActionForm": {
-        "type": "object",
-        "properties": {
-          "challengeType": {
-            "$ref": "#/components/schemas/ChallengeType"
-          },
-          "challengeRenderValue": {
-            "type": "string"
-          },
-          "triggerSource": {
-            "$ref": "#/components/schemas/ChallengeTriggerSourceType"
-          },
-          "extendInfo": {
-            "type": "string"
-          }
-        }
-      },
-      "RedirectActionForm": {
-        "type": "object",
-        "properties": {
-          "method": {
-            "type": "string"
-          },
-          "parameters": {
-            "type": "string"
-          },
-          "redirectUrl": {
-            "type": "string"
-          },
-          "actionFormType": {
-            "type": "string"
-          }
-        }
-      },
-      "CodeValueType": {
-        "type": "string",
-        "enum": [
-          "BARCODE",
-          "QRCODE"
-        ]
-      },
-      "DisplayType": {
-        "type": "string",
-        "enum": [
-          "TEXT",
-          "MIDDLEIMAGE",
-          "SMALLIMAGE",
-          "BIGIMAGE",
-          "IMAGE"
-        ]
-      },
-      "CodeDetail": {
-        "type": "object",
-        "properties": {
-          "codeValueType": {
-            "$ref": "#/components/schemas/CodeValueType"
-          },
-          "codeValue": {
-            "type": "string",
-            "description": "The value of the code.  \n\nIf the value of displayType is set toSMALLIMAGE, MIDDLEIMAGE, or BIGIMAGE, this parameter indicates a plain or Base64-encoded image URL.\nIf the value of displayType is set to TEXT, this parameter indicates a text string.  \nMore information:\n\nMaximum length: 2048 characters"
-          },
-          "displayType": {
-            "$ref": "#/components/schemas/DisplayType",
-            "description": "Indicates the way to display the code on the UI. Valid values are:\n\nTEXT: Indicates that the code is directly displayed on the UI as text or a label.\nMIDDLEIMAGE: Indicates that the code is directly displayed on the UI as a small-sized image.\nSMALLIMAGE: Indicates that the code is directly displayed on the UI as a middle-sized image.\nBIGIMAGE: Indicates that the code is directly displayed on the UI as a big-sized image. \n"
+          "resultMessage" : {
+            "type" : "string",
+            "description" : "The result message."
           }
         },
-        "required": [
-          "codeValueType",
-          "codeValue",
-          "displayType"
-        ]
+        "required" : [ "resultCode", "resultStatus" ]
       },
-      "OrderCodeForm": {
-        "type": "object",
-        "properties": {
-          "paymentMethodType": {
-            "type": "string"
+      "ProductCodeType" : {
+        "type" : "string",
+        "enum" : [ "CASHIER_PAYMENT", "AGREEMENT_PAYMENT", "IN_STORE_PAYMENT" ],
+        "x-apifox" : {
+          "enumDescriptions" : {
+            "CASHIER_PAYMENT" : "",
+            "AGREEMENT_PAYMENT" : "",
+            "IN_STORE_PAYMENT" : ""
+          }
+        }
+      },
+      "Amount" : {
+        "type" : "object",
+        "properties" : {
+          "currency" : {
+            "type" : "string",
+            "description" : "The transaction currency that is specified in the contract. A 3-letter currency code that follows the ISO 4217 standard.\n\nMore information:\n\nMaximum length: 3 characters"
           },
-          "expireTime": {
-            "type": "string",
-            "description": "Expiry time of the order code information.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
+          "value" : {
+            "type" : "string",
+            "description" : "The amount to charge as a positive integer in the smallest currency unit. (That is, 100 cents to charge $1.00, or 100 to charge JPY 100, a 0-decimal currency).\n\nNote: For details about the smallest currency unit, see Smallest unit of the currency. \n\nMore information:\n\nValue range: 1 - unlimited"
+          }
+        },
+        "required" : [ "currency", "value" ]
+      },
+      "InStorePaymentScenario" : {
+        "type" : "string",
+        "enum" : [ "PaymentCode", "OrderCode", "EntryCode" ],
+        "x-apifox" : {
+          "enumDescriptions" : {
+            "PaymentCode" : "User can use paymentcode to pay",
+            "OrderCode" : "User can use orderCode to finish pay",
+            "EntryCode" : "The third party code"
+          }
+        }
+      },
+      "PresentmentMode" : {
+        "type" : "string",
+        "enum" : [ "BUNDLE", "TILE", "UNIFIED" ],
+        "x-apifox" : {
+          "enumDescriptions" : {
+            "BUNDLE" : "",
+            "TILE" : "",
+            "UNIFIED" : ""
+          }
+        }
+      },
+      "PaymentFactor" : {
+        "type" : "object",
+        "properties" : {
+          "isPaymentEvaluation" : {
+            "type" : "boolean",
+            "description" : "Indicates whether the payment scenario is authorization. Specify this parameter when the value of paymentMethodType is CARD. Valid values of this parameter are:\n\ntrue: indicates that the payment scenario is authorization.\nfalse: indicates that the payment scenario is a regular payment without authorization.  \nUnder the authorization scenario, the payment funds are guaranteed and held on the payment method side. You can use the capture (Checkout Payment) API to deduct the payment funds. "
           },
-          "codeDetails": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CodeDetail"
+          "inStorePaymentScenario" : {
+            "$ref" : "#/components/schemas/InStorePaymentScenario"
+          },
+          "presentmentMode" : {
+            "$ref" : "#/components/schemas/PresentmentMode"
+          },
+          "captureMode" : {
+            "type" : "string",
+            "description" : "Indicates the method for capturing funds after the user authorizes the payment. Valid values are:\n\nAUTOMATIC: indicates that Alipay+ automatically captures the funds after the authorization. The same applies when the value is empty or you do not pass in this parameter.\nMANUAL: indicates that you manually capture the funds by calling the capture (Checkout Payment) API.\nNote: Specify this parameter if you want to designate the capture mode of the payment.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "isAuthorization" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "SettlementStrategy" : {
+        "type" : "object",
+        "properties" : {
+          "settlementCurrency" : {
+            "type" : "string",
+            "description" : "The ISO currency code of the currency that the merchant wants to be settled against. The field is required if the merchant signed up for multiple currencies to settle.\n\nMore information:\n\nMaximum length: 3 characters"
+          }
+        }
+      },
+      "TerminalType" : {
+        "type" : "string",
+        "enum" : [ "WEB", "WAP", "APP", "MINI_APP" ],
+        "x-apifox" : {
+          "enumDescriptions" : {
+            "WEB" : "",
+            "WAP" : "",
+            "APP" : "",
+            "MINI_APP" : ""
+          }
+        }
+      },
+      "BrowserInfo" : {
+        "type" : "object",
+        "properties" : {
+          "acceptHeader" : {
+            "type" : "string",
+            "description" : "The accept header of the user's browser.  \n\nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "javaEnabled" : {
+            "type" : "boolean",
+            "description" : "Indicates whether the user's browser is able to run Java. Valid values are:\n\ntrue: indicates that the user's browser is able to run Java.\nfalse: indicates that the user's browser is unable to run Java. The same applies when the value is empty or you do not specify this parameter.  "
+          },
+          "javaScriptEnabled" : {
+            "type" : "boolean",
+            "description" : "Indicates whether the user's browser is able to run Java. Valid values are:\n\ntrue: indicates that the user's browser is able to run JavaScript.\nfalse: indicates that the user's browser is unable to run JavaScript. The same applies when the value is empty or you do not specify this parameter.  "
+          },
+          "language" : {
+            "type" : "string",
+            "description" : "The language of the user's browser. The value is obtained by using the browser's navigator.language property (as defined in IETF BCP 47).  \n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "userAgent" : {
+            "type" : "string",
+            "description" : "The user agent of the user's browser.\n\nSpecify this parameter when one of the following conditions is met:\n\nYou require risk control.\nThe value of paymentMethodType is BLIK and you collect the information of blikCode.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 2048 characters"
+          }
+        }
+      },
+      "OsType" : {
+        "type" : "string",
+        "enum" : [ "IOS", "ANDROID" ],
+        "x-apifox" : {
+          "enumDescriptions" : {
+            "IOS" : "",
+            "ANDROID" : ""
+          }
+        }
+      },
+      "Env" : {
+        "type" : "object",
+        "properties" : {
+          "terminalType" : {
+            "$ref" : "#/components/schemas/TerminalType",
+            "description" : "Terminal type used by the merchant. Valid values are:"
+          },
+          "osType" : {
+            "$ref" : "#/components/schemas/OsType",
+            "description" : "Type of the operation system. Valid values are:\n\nIOS: indicates the operation system is Apple's iOS.\nANDROID: indicates the operation system is Google's Android.\nNote: Specify this field when terminalType is not WEB.  "
+          },
+          "userAgent" : {
+            "type" : "string"
+          },
+          "deviceTokenId" : {
+            "type" : "string",
+            "description" : "The token identifier of the device.\n\nNote: Specify this parameter if you integrate with the Antom Device Fingerprint client, which is an SDK or JavaScript library that is used to collect device-related information, such as osType, deviceLanguage, deviceId, websiteLanguage, and userAgent. The device-related information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates. For more information about the Antom Device Fingerprint client, contact Antom Technical Support.  \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "clientIp" : {
+            "type" : "string",
+            "description" : "Client IP address of the device.",
+            "example" : "127.0.0.1"
+          },
+          "cookieId" : {
+            "type" : "string"
+          },
+          "extendInfo" : {
+            "type" : "string",
+            "description" : "Extended information.\n\nSpecify this field if you need to use the extended information.  \n\nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "storeTerminalId" : {
+            "type" : "string"
+          },
+          "storeTerminalRequestTime" : {
+            "type" : "string"
+          },
+          "browserInfo" : {
+            "$ref" : "#/components/schemas/BrowserInfo",
+            "description" : "The information about the browser environment where the order is placed. \n\nNote: Specify this parameter when you collect this information during the payment process.  "
+          },
+          "colorDepth" : {
+            "type" : "string",
+            "description" : "The color depth of the user's browser in bits per pixel. The value is obtained by using the browser's screen.colorDepth property. Valid values are 1, 4, 8, 15, 16, 24, 30, 32, or 48. For example, 8 means 8-bit color depth.  \n\nMore information:\n\nValue range: 0 - unlimited"
+          },
+          "screenHeight" : {
+            "type" : "string",
+            "description" : "The screen height of the user's device in pixels.  \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nValue range: 1 - unlimited"
+          },
+          "screenWidth" : {
+            "type" : "string",
+            "description" : "The screen width of the user's device in pixels.  \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nValue range: 1 - unlimited"
+          },
+          "timeZoneOffset" : {
+            "type" : "integer",
+            "description" : "The time difference between UTC time and the local time of the user's browser, in minutes. The value is obtained by using the getTimezoneOffset() property. For example, if the local time of the user's browser is UTC+2, the value of this parameter is -120.\n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nValue range: -720 - 720"
+          },
+          "deviceBrand" : {
+            "type" : "string",
+            "description" : "The brand of the user's device. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "deviceModel" : {
+            "type" : "string",
+            "description" : "The model of the user's device. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 128 characters"
+          },
+          "deviceLanguage" : {
+            "type" : "string",
+            "description" : "Device language of the user.",
+            "example" : "zh_CN"
+          },
+          "deviceId" : {
+            "type" : "string",
+            "description" : "Device ID of the user.",
+            "example" : "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****"
+          },
+          "osVersion" : {
+            "type" : "string",
+            "description" : "Version of the operation system."
+          },
+          "envType" : {
+            "type" : "string",
+            "description" : "",
+            "example" : "oootype"
+          }
+        },
+        "required" : [ "terminalType" ]
+      },
+      "ThreeDSResult" : {
+        "type" : "object",
+        "properties" : {
+          "threeDSVersion" : {
+            "type" : "string",
+            "description" : "The version of 3D Secure protocol"
+          },
+          "eci" : {
+            "type" : "string",
+            "description" : "Electronic Commerce Indicator (ECI) that is returned by the card scheme"
+          },
+          "cavv" : {
+            "type" : "string",
+            "description" : "The cardholder authentication value"
+          },
+          "dsTransactionId" : {
+            "type" : "string",
+            "description" : "dsTransactionId"
+          },
+          "xid" : {
+            "type" : "string",
+            "description" : "The unique transaction identifier assigned by the Directory Server (DS) for 3D Secure authentication"
+          },
+          "threeDStransactionStatusReason" : {
+            "type" : "string",
+            "description" : "Added field for 3DS transaction status reason"
+          },
+          "challengeCancel" : {
+            "type" : "string",
+            "description" : "Added field for challenge cancel"
+          },
+          "challenged" : {
+            "type" : "boolean",
+            "description" : "Added field for challenged status"
+          },
+          "exemptionType" : {
+            "type" : "string",
+            "description" : "Added field for exemption type"
+          },
+          "threeDSOffered" : {
+            "type" : "boolean",
+            "description" : "Added field for 3DS offered"
+          }
+        }
+      },
+      "ResultStatusType" : {
+        "type" : "string",
+        "enum" : [ "S", "F", "U" ],
+        "x-apifox" : {
+          "enumDescriptions" : {
+            "S" : "",
+            "F" : "",
+            "U" : ""
+          }
+        }
+      },
+      "UserName" : {
+        "type" : "object",
+        "properties" : {
+          "firstName" : {
+            "type" : "string",
+            "description" : "First name.\n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "middleName" : {
+            "type" : "string",
+            "description" : "Middle name\n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "lastName" : {
+            "type" : "string",
+            "description" : "Last name\n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "fullName" : {
+            "type" : "string",
+            "description" : "Full name\n\nMore information:\n\nMaximum length: 128 characters"
+          }
+        }
+      },
+      "Address" : {
+        "type" : "object",
+        "properties" : {
+          "region" : {
+            "type" : "string",
+            "description" : "The 2-letter country or region code. For more information, see ISO 3166 Country Codes standard.\n\nMore information:\n\nMaximum length: 2 characters"
+          },
+          "state" : {
+            "type" : "string",
+            "description" : "The state, country, or province name.\n\nFor card payments, if your business entity is in the United States, and the card issuing country is in Canada, the United States, or the United Kingdom, set the value to a region code that consists of two to three characters and follows the ISO 3166-2 standard.\n\nMore information:\n\nMaximum length: 8 characters"
+          },
+          "city" : {
+            "type" : "string",
+            "description" : "The city, district, suburb, town, or village name.\n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "address1" : {
+            "type" : "string",
+            "description" : "Address line 1, for example, the street address, PO box, and company name.\n\nMore information:\n\nMaximum length: 256 characters"
+          },
+          "address2" : {
+            "type" : "string",
+            "description" : "Address line 2, for example, the apartment, suite, unit, and building information.\n\nMore information:\n\nMaximum length: 256 characters"
+          },
+          "zipCode" : {
+            "type" : "string",
+            "description" : "ZIP or postal code.\n\nFor card payments, if your business entity is in the United States, specify this parameter according to the following parameter value requirements:\n\nOnly contains numbers, letters, hyphens, and spaces.\nMust be within ten characters.\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "label" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Store" : {
+        "type" : "object",
+        "properties" : {
+          "referenceStoreId" : {
+            "type" : "string"
+          },
+          "storeName" : {
+            "type" : "string"
+          },
+          "storeMCC" : {
+            "type" : "string"
+          },
+          "storeDisplayName" : {
+            "type" : "string"
+          },
+          "storeTerminalId" : {
+            "type" : "string"
+          },
+          "storeOperatorId" : {
+            "type" : "string"
+          },
+          "storeAddress" : {
+            "$ref" : "#/components/schemas/Address",
+            "description" : "Shipping address. \n\nSpecify this parameter when one of the following conditions is met:\n\nThe value of paymentMethodType is PAGALEVE.\nYou require risk control.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
+          },
+          "storePhoneNo" : {
+            "type" : "string"
+          }
+        }
+      },
+      "MerchantType" : {
+        "type" : "string",
+        "enum" : [ "INDIVIDUAL", "ENTERPRISE" ],
+        "x-apifox" : {
+          "enumDescriptions" : {
+            "INDIVIDUAL" : "",
+            "ENTERPRISE" : ""
+          }
+        }
+      },
+      "Merchant" : {
+        "type" : "object",
+        "properties" : {
+          "referenceMerchantId" : {
+            "type" : "string",
+            "description" : "The ID to identify the merchant that directly provides services or goods to the customer.\n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "merchantMCC" : {
+            "type" : "string",
+            "description" : "The secondary merchant category code, which is a 4-digit number listed in MCC codes.\n\nNote: Specify this field if you have the information. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "merchantName" : {
+            "type" : "string",
+            "description" : "The merchant name.\n\nNote: Specify this field if you have the information. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 256 characters\n"
+          },
+          "merchantDisplayName" : {
+            "type" : "string",
+            "description" : "The merchant name to be displayed.\n\nNote: Specify this field if you have the information. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "merchantAddress" : {
+            "$ref" : "#/components/schemas/Address",
+            "description" : "Shipping address. \n\nSpecify this parameter when one of the following conditions is met:\n\nThe value of paymentMethodType is PAGALEVE.\nYou require risk control.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
+          },
+          "merchantRegisterDate" : {
+            "type" : "string",
+            "description" : "Merchant registration date.\n\nNote: Specify this field if you have the information. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
+          },
+          "store" : {
+            "$ref" : "#/components/schemas/Store"
+          },
+          "merchantType" : {
+            "$ref" : "#/components/schemas/MerchantType"
+          }
+        },
+        "required" : [ "referenceMerchantId" ]
+      },
+      "Goods" : {
+        "type" : "object",
+        "properties" : {
+          "referenceGoodsId" : {
+            "type" : "string",
+            "description" : "The unique ID to identify the goods.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "goodsName" : {
+            "type" : "string",
+            "description" : "Goods name.\n\nMore information:\n\nMaximum length: 256 characters\n"
+          },
+          "goodsCategory" : {
+            "type" : "string",
+            "description" : "The category of the goods. If the goods have multiple layers for categorization, use slashes between different categories and write the parent category before the subcategory, such as Digital Goods/Digital Vouchers/Food and Beverages.  \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "goodsBrand" : {
+            "type" : "string"
+          },
+          "goodsUnitAmount" : {
+            "$ref" : "#/components/schemas/Amount",
+            "description" : "The payment amount that the merchant requests to receive in the order currency."
+          },
+          "goodsQuantity" : {
+            "type" : "string",
+            "description" : "Quantity of goods. \n\nSpecify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nValue range: 1 - unlimited"
+          },
+          "goodsSkuName" : {
+            "type" : "string"
+          },
+          "goodsUrl" : {
+            "type" : "string",
+            "description" : "The URL of the website where the user places an order.\n\nSpecify this parameter if you require risk control. Providing this information helps to identify black-market behavior. \n\nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "deliveryMethodType" : {
+            "type" : "string",
+            "description" : "The delivery method of the goods. Valid values are:\n\nPHYSICAL: indicates that the delivery method is physical delivery.\nDIGITAL: indicates that the delivery method is digital delivery.\nSpecify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 32 characters\n"
+          },
+          "goodsImageUrl" : {
+            "type" : "string"
+          },
+          "priceId" : {
+            "type" : "string",
+            "description" : "The ID of the Price object. One of ​priceId​ or ​referenceGoodsId​ is required.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "goodsDiscountAmount" : {
+            "$ref" : "#/components/schemas/Amount",
+            "description" : "The discount amount of the goods."
+          },
+          "crossSell" : {
+            "$ref" : "#/components/schemas/Goods",
+            "description" : "Cross-selling goods information."
+          }
+        },
+        "required" : [ "referenceGoodsId", "goodsName" ]
+      },
+      "Buyer" : {
+        "type" : "object",
+        "properties" : {
+          "referenceBuyerId" : {
+            "type" : "string",
+            "description" : "The unique ID to identify the buyer.\n\nSpecify this parameter when one of the following conditions is met:\n\nWhen you require risk control.\nWhen the value of paymentMethodType is CARD.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "buyerName" : {
+            "$ref" : "#/components/schemas/UserName",
+            "description" : "The name of the recipient. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  "
+          },
+          "buyerPhoneNo" : {
+            "type" : "string",
+            "description" : "The mobile phone number of the buyer.\n\nSpecify this parameter when one of the following conditions is met:\n\nWhen you require risk control.\nWhen the value of paymentMethodType is CARD.\nWhen the value of paymentMethodType is KONBINI, BANKTRANSFER_PAYEASY, or ONLINEBANKING_PAYEASY and you need to collect the phone number during the payment process.\nWhen the value of paymentMethodType is BANCOMATPAY and you need to collect the phone number bound to the Bancomat Pay account during the payment process.\nWhen the value of paymentMethodType is OVO and you need to collect the phone number bound to the OVO account during the payment process. Here are the guidelines for the phone number format:\nBegin with the number 08 or 8, such as 085775716613 or 85775716613.\nInclude the area code without a plus sign and the length should be between 9 and 12 digits, such as 62085775716613 or 6285775716613.\nOmit the area code, such as 085775716613 or 85775716613.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 24 characters"
+          },
+          "buyerEmail" : {
+            "type" : "string",
+            "description" : "The email of the buyer.\n\nSpecify this parameter when one of the following conditions is met:\n\nWhen you require risk control.\nWhen the value of paymentMethodType is CARD.\nThe value of paymentMethodType is KONBINI, BANKTRANSFER_PAYEASY, or ONLINEBANKING_PAYEASY and you collect this information during the payment process.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "buyerRegistrationTime" : {
+            "type" : "string",
+            "description" : "The time when the buyer registered your account. Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 64 characters\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
+          },
+          "isAccountVerified" : {
+            "type" : "boolean"
+          },
+          "successfulOrderCount" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "Discount" : {
+        "type" : "object",
+        "properties" : {
+          "discountTag" : {
+            "type" : "string"
+          },
+          "discountName" : {
+            "type" : "string"
+          },
+          "savingsAmount" : {
+            "$ref" : "#/components/schemas/Amount"
+          },
+          "estimateSavingsAmount" : {
+            "$ref" : "#/components/schemas/Amount"
+          }
+        },
+        "required" : [ "discountName", "savingsAmount", "estimateSavingsAmount", "discountTag" ]
+      },
+      "AlipayPayRequest" : {
+        "type" : "object",
+        "properties" : {
+          "productCode" : {
+            "$ref" : "#/components/schemas/ProductCodeType",
+            "description" : "Represents the payment product that is being used, which is stipulated in the contract. For Checkout Payment, the value is fixed as CASHIER_PAYMENT."
+          },
+          "paymentRequestId" : {
+            "type" : "string",
+            "description" : "The unique ID assigned by a merchant to identify a payment request. Antom uses this field for idempotence control.\n\nMore information:\n\nThis field is an API idempotency field.For payment requests that are initiated with the same value of paymentRequestId and reach a final status of S or F, the same result is to be returned for the request.\nMaximum length: 64 characters"
+          },
+          "order" : {
+            "$ref" : "#/components/schemas/Order",
+            "description" : "The order information, such as buyer, merchant, goods, amount, shipping information, and purchase environment. This field is used for different purposes:\n\nDuring the payment process, this field is mainly used by Antom for risk control or anti-money laundering.\nAfter the payment is completed, this field is used for recording and reporting purposes such as purchase tracking and regulatory reporting."
+          },
+          "paymentAmount" : {
+            "$ref" : "#/components/schemas/Amount"
+          },
+          "paymentMethod" : {
+            "$ref" : "#/components/schemas/PaymentMethod",
+            "description" : "The payment method that is used to collect the payment by the merchant or acquirer."
+          },
+          "paymentExpiryTime" : {
+            "type" : "string",
+            "description" : "The payment expiration time is a specific time after which the payment will expire and the acquirer or merchant must terminate the order processing. \n\nNotes:\n\nFor bank transfer payments, the default payment expiration time is 48 hours after the payment request is sent. For other payment categories, the default payment expiration time is usually 14 minutes after the payment request is sent. For example, if the request is sent on 2019-11-27T12:00:01+08:30, the payment expiration time is 2019-11-27T12:14:01+08:30.\nSpecify this field if you want to use a payment expiration time that differs from the default time. For bank transfer payments, the specified payment expiration time must be less than 48 hours after the payment request is sent. For other payment categories, the specified payment expiration time must be less than 10 minutes after the payment request is sent.\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
+          },
+          "paymentRedirectUrl" : {
+            "type" : "string",
+            "description" : "The merchant page URL that the user is redirected to after the payment is completed.\n\nMore information:\n\nMaximum length: 2048 characters\n"
+          },
+          "paymentNotifyUrl" : {
+            "type" : "string",
+            "description" : "The URL that is used to receive the payment result notification.\n\nNote: Specify this parameter if you want to receive an asynchronous notification of the payment result. You can also set the URL to receive the result notification in Antom Dashboard. If the URL is specified in both the request and Antom Dashboard, the value specified in the request takes precedence.\n\nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "paymentFactor" : {
+            "$ref" : "#/components/schemas/PaymentFactor",
+            "description" : "Factors that impact the payment. This field is used to indicate the payment scenario.\n\nNote: Specify this parameter when the value of paymentMethodType is CARD."
+          },
+          "settlementStrategy" : {
+            "$ref" : "#/components/schemas/SettlementStrategy",
+            "description" : "The settlement strategy for the payment request."
+          },
+          "creditPayPlan" : {
+            "description" : "The installment plan information for an installment payment",
+            "$ref" : "#/components/schemas/CreditPayPlan"
+          },
+          "appId" : {
+            "type" : "string",
+            "description" : "The unique ID that is assigned by Antom to identify the mini program.\n\nNote: This field is required when terminalType is MINI_APP.\n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "merchantRegion" : {
+            "type" : "string",
+            "description" : "The country or region where the merchant operates the business. The parameter is a 2-letter country or region code that follows ISO 3166 Country Codes standard.\n\nSome possible values are US, SG, HK, PK, JP, CN, BR, AU, and MY.  \n\nNote: This parameter is required when you use the Global Acquirer Gateway (GAGW) product.\n\nMore information:\n\nMaximum length: 2 characters\n"
+          },
+          "userRegion" : {
+            "type" : "string",
+            "description" : "A 2-letter country or region code based on the standard of ISO 3166 Country Codes. This parameter is used to sort Alipay+ payment methods according to the user's region. For example, if ALIPAY_CN and KAKAOPAYare both on your payment method list and the user is from South Korea, KAKAOPAY will be listed first on the Alipay+ cashier page.\n\nNote: This parameter is only for the merchant that has integrated the Alipay+ cashier page.  \n\nMore information:\n\nMaximum length: 2 characters"
+          },
+          "env" : {
+            "$ref" : "#/components/schemas/Env"
+          },
+          "payToMethod" : {
+            "$ref" : "#/components/schemas/PaymentMethod",
+            "description" : "The payment method that is used to collect the payment by the merchant or acquirer."
+          },
+          "isAuthorization" : {
+            "type" : "boolean"
+          },
+          "merchant" : {
+            "$ref" : "#/components/schemas/Merchant",
+            "description" : "Information about the secondary merchant.\n\nNote: Specify this field if you are an acquirer that has secondary merchants."
+          },
+          "paymentVerificationData" : {
+            "$ref" : "#/components/schemas/PaymentVerificationData"
+          },
+          "extendInfo" : {
+            "type" : "string"
+          },
+          "merchantAccountId" : {
+            "type" : "string",
+            "description" : "The unique ID to identify a merchant account.\n\nNote: Specify this parameter when you use a single client ID across multiple locations.\n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "dualOfflinePayment" : {
+            "type" : "boolean"
+          }
+        },
+        "required" : [ "productCode", "order", "paymentAmount", "paymentMethod", "paymentRedirectUrl", "settlementStrategy", "env", "paymentRequestId" ]
+      },
+      "AlipayPayResponse" : {
+        "type" : "object",
+        "properties" : {
+          "result" : {
+            "$ref" : "#/components/schemas/Result",
+            "description" : "The result of the API call."
+          },
+          "processingAmount" : {
+            "$ref" : "#/components/schemas/Amount",
+            "description" : "Processing amount"
+          },
+          "paymentRequestId" : {
+            "type" : "string",
+            "description" : "The unique ID that is assigned by a merchant to identify a payment request.\n\nNote: This field is returned when resultCode is PAYMENT_IN_PROCESS.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "paymentId" : {
+            "type" : "string",
+            "description" : "The unique ID that is assigned by Antom to identify a payment.\n\nNote: This field is returned when resultCode is PAYMENT_IN_PROCESS.\n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "paymentAmount" : {
+            "$ref" : "#/components/schemas/Amount"
+          },
+          "paymentData" : {
+            "type" : "string",
+            "description" : "Used by the Antom client SDK to render the checkout page. This parameter is returned if the merchant app has integrated Antom client SDK. After receiving the parameter, you can call the showPaymentSheet API of the Antom client SDK.\n\nMore information:\n\nMaximum length: 20000 characters"
+          },
+          "actualPaymentAmount" : {
+            "$ref" : "#/components/schemas/Amount"
+          },
+          "paymentQuote" : {
+            "$ref" : "#/components/schemas/Quote"
+          },
+          "paymentTime" : {
+            "type" : "string"
+          },
+          "paymentCreateTime" : {
+            "type" : "string",
+            "description" : "The date and time when the payment is created.\n\nNote: This field is returned when resultCode is PAYMENT_IN_PROCESS.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
+          },
+          "authExpiryTime" : {
+            "type" : "string"
+          },
+          "nonGuaranteeCouponValue" : {
+            "$ref" : "#/components/schemas/Amount"
+          },
+          "paymentActionForm" : {
+            "type" : "string"
+          },
+          "pspCustomerInfo" : {
+            "$ref" : "#/components/schemas/PspCustomerInfo",
+            "description" : "The customer information of Alipay+ Mobile Payment Provider (Alipay+ payment methods).\n\nNote: This field is returned when the Alipay+ payment methods can provide the related information."
+          },
+          "challengeActionForm" : {
+            "$ref" : "#/components/schemas/ChallengeActionForm"
+          },
+          "redirectActionForm" : {
+            "$ref" : "#/components/schemas/RedirectActionForm"
+          },
+          "orderCodeForm" : {
+            "$ref" : "#/components/schemas/OrderCodeForm",
+            "description" : "Information about the order code.\n\nNote: This parameter is returned when the payment method supports providing the related information."
+          },
+          "grossSettlementAmount" : {
+            "$ref" : "#/components/schemas/Amount"
+          },
+          "settlementQuote" : {
+            "$ref" : "#/components/schemas/Quote"
+          },
+          "extendInfo" : {
+            "type" : "string"
+          },
+          "normalUrl" : {
+            "type" : "string",
+            "description" : "The URL that redirects users to a WAP or WEB page in the default browser or the embedded WebView.\n\nNote: When the value of resultCode is ​PAYMENT_IN_PROCESS​, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters\n"
+          },
+          "schemeUrl" : {
+            "type" : "string",
+            "description" : "The URL scheme that redirects users to open an app in an Android or iOS system when the target app is installed.\n\nNote: When the value of resultCode is ​PAYMENT_IN_PROCESS​, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "applinkUrl" : {
+            "type" : "string",
+            "description" : "The URL that redirects users to open an app when the target app is installed, or to open a WAP page when the target app is not installed. For Android, the URL is a Native App Link. For iOS, the URL is a Universal Link.\n\nNote: When the value of resultCode is ​PAYMENT_IN_PROCESS​, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters"
+          },
+          "appIdentifier" : {
+            "type" : "string",
+            "description" : "Android package name, which is used by Android apps to open a cashier page.\n\nNote: This field is returned when resultCode is ​PAYMENT_IN_PROCESS​ and terminalType is APP or WAP."
+          },
+          "paymentResultInfo" : {
+            "$ref" : "#/components/schemas/PaymentResultInfo",
+            "description" : "The payment result information.\n\nNote: This parameter may be returned when the value of paymentMethodType is CARD."
+          },
+          "acquirerInfo" : {
+            "$ref" : "#/components/schemas/AcquirerInfo"
+          },
+          "promotionResult" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/PromotionResult"
             },
-            "description": "Details about the code.\n\nMore information:\n\nMaximum size: 4 elements"
-          },
-          "extendInfo": {
-            "type": "string",
-            "description": "Extended information.\n\nNote: This field is returned when extended information exists.\n\nMore information:\n\nMaximum length: 2048 characters"
+            "description" : "Promotion result."
           }
         },
-        "required": [
-          "expireTime",
-          "codeDetails"
-        ]
+        "required" : [ "result" ]
       },
-      "PaymentResultInfo": {
-        "type": "object",
-        "properties": {
-          "refusalCodeRaw": {
-            "type": "string",
-            "example": "51",
-            "description": "\u5361\u652f\u4ed8\u5931\u8d25\u4e14\u6e20\u9053\u8fd4\u56de\u65f6\u7684\u539f\u59cb\u9519\u8bef\u7801"
+      "Declaration" : {
+        "type" : "object",
+        "properties" : {
+          "declarationBizScene" : {
+            "$ref" : "#/components/schemas/DeclarationBizSceneType",
+            "description" : "申报时对应的行业分类。非OTA结汇场景不传，OTA场景必传，且与declarationBeneficiaryId需同时存在。"
           },
-          "refusalReasonRaw": {
-            "type": "string",
-            "example": "Not sufficient funds",
-            "description": "\u5361\u652f\u4ed8\u5931\u8d25\u4e14\u6e20\u9053\u8fd4\u56de\u65f6\u7684\u539f\u59cb\u62d2\u4ed8\u539f\u56e0"
-          },
-          "merchantAdviceCode": {
-            "type": "string",
-            "example": "00",
-            "description": "\u652f\u4ed8\u7ed3\u679c\u7684\u5546\u6237\u5efa\u8bae\u7801"
-          },
-          "acquirerInfo": {
-            "$ref": "#/components/schemas/AcquirerInfo"
-          },
-          "cardNo": {
-            "type": "string",
-            "description": "The masked card number, which just shows part of the card number and can be used to display to the user"
-          },
-          "cardBrand": {
-            "type": "string",
-            "description": "The card brand, which can be used to display to the user"
-          },
-          "cardToken": {
-            "type": "string",
-            "description": "The token of the card, the value of this parameter is used by paymentMethodId in the pay"
-          },
-          "issuingCountry": {
-            "type": "string",
-            "description": "The issuing country of the card"
-          },
-          "funding": {
-            "type": "string",
-            "description": "The funding type of the card."
-          },
-          "paymentMethodRegion": {
-            "type": "string",
-            "description": "The region code that represents the country or region of the payment method"
-          },
-          "threeDSResult": {
-            "$ref": "#/components/schemas/ThreeDSResult",
-            "description": "The result of 3D Secure authentication"
-          },
-          "avsResultRaw": {
-            "type": "string",
-            "description": "The raw AVS result. See AVS result codes to check the valid values"
-          },
-          "cvvResultRaw": {
-            "type": "string",
-            "description": "The raw Card Verification Value (CVV), Card Security Code (CSC), or Card Verification Code (CVC) result"
-          },
-          "networkTransactionId": {
-            "type": "string",
-            "description": "The unique ID assigned by the card scheme to identify a transaction. The value of this parameter is used by the same parameter of pay (Cashier Payment) request in subsequent payments"
-          },
-          "creditPayPlan": {
-            "$ref": "#/components/schemas/CreditPayPlan",
-            "description": "The installment plan information for an installment payment"
-          },
-          "cardholderName": {
-            "type": "string",
-            "description": "The cardholder's name.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "cardBin": {
-            "type": "string",
-            "description": "The first six digits of the bank card number, used to identify the issuing bank and card type of the bank card.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 8 characters"
-          },
-          "lastFour": {
-            "type": "string",
-            "description": "Last 4 digits of the card number.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 4 characters\n"
-          },
-          "expiryMonth": {
-            "type": "string",
-            "description": "The month the card expires. Pass in two digits representing the month. For example, if the expiry month is February, the value of this parameter is 02.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 2 characters"
-          },
-          "expiryYear": {
-            "type": "string",
-            "description": "The year the card expires. Pass in the last two digits of the year number. For example, if the expiry year is 2025, the value of this parameter is 25.\n\nNote: This parameter is returned when the value of paymentMethodType in the pay (Checkout Payment) API is CARD for specific merchants in specific regions.\n\nMore information:\n\nMaximum length: 2 characters"
-          },
-          "cardCategory": {
-            "type": "string",
-            "description": "Added field for card category"
-          },
-          "accountNo": {
-            "type": "string",
-            "description": "Added field for account number"
-          },
-          "exemptionRequested": {
-            "type": "string",
-            "description": "Added field for exemption requested"
-          },
-          "credentialTypeUsed": {
-            "type": "string",
-            "description": "Added field for credential type used"
+          "declarationBeneficiaryId" : {
+            "type" : "string",
+            "description" : "用于唯一标识用于申报额度累计的三方收款人Id。非OTA结汇场景不传，OTA场景必传，且与declarationBizScene需同时存在。",
+            "example" : "SJSOXUSO23211XJSP4IS"
           }
         }
       },
-      "AcquirerInfo": {
-        "type": "object",
-        "properties": {
-          "acquirerName": {
-            "type": "string",
-            "description": "The name of the acquirer. \n\nNote: This parameter is returned if you integrate the APO product.  \n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "referenceRequestId": {
-            "type": "string",
-            "description": "The unique ID that is assigned by APO to identify a payment request sent to the acquirer.\n\nNote: This parameter is returned if you integrate the APO product.  \n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "acquirerTransactionId": {
-            "type": "string",
-            "description": "The unique ID that is assigned by the acquirer to identify a transaction. \n\nNote: This parameter is returned if you integrate the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "acquirerMerchantId": {
-            "type": "string",
-            "description": "The unique ID that is assigned by the acquirer to identify a merchant. \n\nNote: This parameter is returned if you integrate the APO product.  \n\nMore information:\n\nMaximum length: 64 characters\n"
-          },
-          "acquirerResultCode": {
-            "type": "string",
-            "description": "The acquirer's result code that indicates the transaction process result.  \n\nNote: This parameter is returned if you integrate the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "acquirerResultMessage": {
-            "type": "string",
-            "description": "The result message that describes acquirerResultCode in detail.  \n\nNote: This parameter is returned if you integrate the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "acquirerMerchantName": {
-            "type": "string"
-          }
-        }
+      "DeclarationBizSceneType" : {
+        "type" : "string",
+        "enum" : [ "AIRLINE", "HOTEL" ],
+        "description" : "申报时对应的行业分类。非OTA结汇场景不传，OTA场景必传，且与declarationBeneficiaryId需同时存在。"
       },
-      "PromotionType": {
-        "type": "string",
-        "enum": [
-          "DISCOUNT",
-          "INTEREST_FREE"
-        ]
+      "FundingType" : {
+        "type" : "string",
+        "enum" : [ "CREDIT", "DEBIT", "PREPAID", "CHARGE", "DEFERRED_DEBIT" ],
+        "description" : "The funding source type for the payment method"
       },
-      "PromotionResult": {
-        "type": "object",
-        "properties": {
-          "promotionType": {
-            "$ref": "#/components/schemas/PromotionType",
-            "description": "Promotion type. Valid values are:\n\nDISCOUNT: a deduction from the regular price.\n\nINTEREST_FREE: payment in interest-free installments.\n\nMore information:\n\nMaximum length: 32 characters"
-          },
-          "discount": {
-            "$ref": "#/components/schemas/Discount",
-            "description": "Discount information.\n\nNote: This parameter is generated when the buyer applies a promotion during the process of placing an order."
-          }
-        },
-        "required": [
-          "promotionType"
-        ]
-      },
-      "Result": {
-        "type": "object",
-        "properties": {
-          "resultCode": {
-            "type": "string",
-            "description": "The result code."
-          },
-          "resultStatus": {
-            "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
-            "$ref": "#/components/schemas/ResultStatusType"
-          },
-          "resultMessage": {
-            "type": "string",
-            "description": "The result message."
-          }
-        },
-        "required": [
-          "resultCode",
-          "resultStatus"
-        ]
-      },
-      "ProductCodeType": {
-        "type": "string",
-        "enum": [
-          "CASHIER_PAYMENT",
-          "AGREEMENT_PAYMENT",
-          "IN_STORE_PAYMENT"
-        ],
-        "x-apifox": {
-          "enumDescriptions": {
-            "CASHIER_PAYMENT": "",
-            "AGREEMENT_PAYMENT": "",
-            "IN_STORE_PAYMENT": ""
-          }
-        }
-      },
-      "Amount": {
-        "type": "object",
-        "properties": {
-          "currency": {
-            "type": "string",
-            "description": "The transaction currency that is specified in the contract. A 3-letter currency code that follows the ISO 4217 standard.\n\nMore information:\n\nMaximum length: 3 characters"
-          },
-          "value": {
-            "type": "string",
-            "description": "The amount to charge as a positive integer in the smallest currency unit. (That is, 100 cents to charge $1.00, or 100 to charge JPY 100, a 0-decimal currency).\n\nNote: For details about the smallest currency unit, see Smallest unit of the currency. \n\nMore information:\n\nValue range: 1 - unlimited"
-          }
-        },
-        "required": [
-          "currency",
-          "value"
-        ]
-      },
-      "InStorePaymentScenario": {
-        "type": "string",
-        "enum": [
-          "PaymentCode",
-          "OrderCode",
-          "EntryCode"
-        ],
-        "x-apifox": {
-          "enumDescriptions": {
-            "PaymentCode": "User can use paymentcode to pay",
-            "OrderCode": "User can use orderCode to finish pay",
-            "EntryCode": "The third party code"
-          }
-        }
-      },
-      "PresentmentMode": {
-        "type": "string",
-        "enum": [
-          "BUNDLE",
-          "TILE",
-          "UNIFIED"
-        ],
-        "x-apifox": {
-          "enumDescriptions": {
-            "BUNDLE": "",
-            "TILE": "",
-            "UNIFIED": ""
-          }
-        }
-      },
-      "PaymentFactor": {
-        "type": "object",
-        "properties": {
-          "isPaymentEvaluation": {
-            "type": "boolean",
-            "description": "Indicates whether the payment scenario is authorization. Specify this parameter when the value of paymentMethodType is CARD. Valid values of this parameter are:\n\ntrue: indicates that the payment scenario is authorization.\nfalse: indicates that the payment scenario is a regular payment without authorization.  \nUnder the authorization scenario, the payment funds are guaranteed and held on the payment method side. You can use the capture (Checkout Payment) API to deduct the payment funds. "
-          },
-          "inStorePaymentScenario": {
-            "$ref": "#/components/schemas/InStorePaymentScenario"
-          },
-          "presentmentMode": {
-            "$ref": "#/components/schemas/PresentmentMode"
-          },
-          "captureMode": {
-            "type": "string",
-            "description": "Indicates the method for capturing funds after the user authorizes the payment. Valid values are:\n\nAUTOMATIC: indicates that Alipay+ automatically captures the funds after the authorization. The same applies when the value is empty or you do not pass in this parameter.\nMANUAL: indicates that you manually capture the funds by calling the capture (Checkout Payment) API.\nNote: Specify this parameter if you want to designate the capture mode of the payment.\n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "isAuthorization": {
-            "type": "boolean"
-          }
-        }
-      },
-      "SettlementStrategy": {
-        "type": "object",
-        "properties": {
-          "settlementCurrency": {
-            "type": "string",
-            "description": "The ISO currency code of the currency that the merchant wants to be settled against. The field is required if the merchant signed up for multiple currencies to settle.\n\nMore information:\n\nMaximum length: 3 characters"
-          }
-        }
-      },
-      "TerminalType": {
-        "type": "string",
-        "enum": [
-          "WEB",
-          "WAP",
-          "APP",
-          "MINI_APP"
-        ],
-        "x-apifox": {
-          "enumDescriptions": {
-            "WEB": "",
-            "WAP": "",
-            "APP": "",
-            "MINI_APP": ""
-          }
-        }
-      },
-      "BrowserInfo": {
-        "type": "object",
-        "properties": {
-          "acceptHeader": {
-            "type": "string",
-            "description": "The accept header of the user's browser.  \n\nMore information:\n\nMaximum length: 2048 characters"
-          },
-          "javaEnabled": {
-            "type": "boolean",
-            "description": "Indicates whether the user's browser is able to run Java. Valid values are:\n\ntrue: indicates that the user's browser is able to run Java.\nfalse: indicates that the user's browser is unable to run Java. The same applies when the value is empty or you do not specify this parameter.  "
-          },
-          "javaScriptEnabled": {
-            "type": "boolean",
-            "description": "Indicates whether the user's browser is able to run Java. Valid values are:\n\ntrue: indicates that the user's browser is able to run JavaScript.\nfalse: indicates that the user's browser is unable to run JavaScript. The same applies when the value is empty or you do not specify this parameter.  "
-          },
-          "language": {
-            "type": "string",
-            "description": "The language of the user's browser. The value is obtained by using the browser's navigator.language property (as defined in IETF BCP 47).  \n\nMore information:\n\nMaximum length: 32 characters"
-          },
-          "userAgent": {
-            "type": "string",
-            "description": "The user agent of the user's browser.\n\nSpecify this parameter when one of the following conditions is met:\n\nYou require risk control.\nThe value of paymentMethodType is BLIK and you collect the information of blikCode.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 2048 characters"
-          }
-        }
-      },
-      "OsType": {
-        "type": "string",
-        "enum": [
-          "IOS",
-          "ANDROID"
-        ],
-        "x-apifox": {
-          "enumDescriptions": {
-            "IOS": "",
-            "ANDROID": ""
-          }
-        }
-      },
-      "Env": {
-        "type": "object",
-        "properties": {
-          "terminalType": {
-            "$ref": "#/components/schemas/TerminalType",
-            "description": "Terminal type used by the merchant. Valid values are:"
-          },
-          "osType": {
-            "$ref": "#/components/schemas/OsType",
-            "description": "Type of the operation system. Valid values are:\n\nIOS: indicates the operation system is Apple's iOS.\nANDROID: indicates the operation system is Google's Android.\nNote: Specify this field when terminalType is not WEB.  "
-          },
-          "userAgent": {
-            "type": "string"
-          },
-          "deviceTokenId": {
-            "type": "string",
-            "description": "The token identifier of the device.\n\nNote: Specify this parameter if you integrate with the Antom Device Fingerprint client, which is an SDK or JavaScript library that is used to collect device-related information, such as osType, deviceLanguage, deviceId, websiteLanguage, and userAgent. The device-related information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates. For more information about the Antom Device Fingerprint client, contact Antom Technical Support.  \n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "clientIp": {
-            "type": "string",
-            "description": "Client IP address of the device.",
-            "example": "127.0.0.1"
-          },
-          "cookieId": {
-            "type": "string"
-          },
-          "extendInfo": {
-            "type": "string",
-            "description": "Extended information.\n\nSpecify this field if you need to use the extended information.  \n\nMore information:\n\nMaximum length: 2048 characters"
-          },
-          "storeTerminalId": {
-            "type": "string"
-          },
-          "storeTerminalRequestTime": {
-            "type": "string"
-          },
-          "browserInfo": {
-            "$ref": "#/components/schemas/BrowserInfo",
-            "description": "The information about the browser environment where the order is placed. \n\nNote: Specify this parameter when you collect this information during the payment process.  "
-          },
-          "colorDepth": {
-            "type": "string",
-            "description": "The color depth of the user's browser in bits per pixel. The value is obtained by using the browser's screen.colorDepth property. Valid values are 1, 4, 8, 15, 16, 24, 30, 32, or 48. For example, 8 means 8-bit color depth.  \n\nMore information:\n\nValue range: 0 - unlimited"
-          },
-          "screenHeight": {
-            "type": "string",
-            "description": "The screen height of the user's device in pixels.  \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nValue range: 1 - unlimited"
-          },
-          "screenWidth": {
-            "type": "string",
-            "description": "The screen width of the user's device in pixels.  \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nValue range: 1 - unlimited"
-          },
-          "timeZoneOffset": {
-            "type": "integer",
-            "description": "The time difference between UTC time and the local time of the user's browser, in minutes. The value is obtained by using the getTimezoneOffset() property. For example, if the local time of the user's browser is UTC+2, the value of this parameter is -120.\n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nValue range: -720 - 720"
-          },
-          "deviceBrand": {
-            "type": "string",
-            "description": "The brand of the user's device. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "deviceModel": {
-            "type": "string",
-            "description": "The model of the user's device. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 128 characters"
-          },
-          "deviceLanguage": {
-            "type": "string",
-            "description": "Device language of the user.",
-            "example": "zh_CN"
-          },
-          "deviceId": {
-            "type": "string",
-            "description": "Device ID of the user.",
-            "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****"
-          },
-          "osVersion": {
-            "type": "string",
-            "description": "Version of the operation system."
-          },
-          "envType": {
-            "type": "string",
-            "description": "",
-            "example": "oootype"
-          }
-        },
-        "required": [
-          "terminalType"
-        ]
-      },
-      "ThreeDSResult": {
-        "type": "object",
-        "properties": {
-          "threeDSVersion": {
-            "type": "string",
-            "description": "The version of 3D Secure protocol"
-          },
-          "eci": {
-            "type": "string",
-            "description": "Electronic Commerce Indicator (ECI) that is returned by the card scheme"
-          },
-          "cavv": {
-            "type": "string",
-            "description": "The cardholder authentication value"
-          },
-          "dsTransactionId": {
-            "type": "string",
-            "description": "dsTransactionId"
-          },
-          "xid": {
-            "type": "string",
-            "description": "The unique transaction identifier assigned by the Directory Server (DS) for 3D Secure authentication"
-          },
-          "threeDStransactionStatusReason": {
-            "type": "string",
-            "description": "Added field for 3DS transaction status reason"
-          },
-          "challengeCancel": {
-            "type": "string",
-            "description": "Added field for challenge cancel"
-          },
-          "challenged": {
-            "type": "boolean",
-            "description": "Added field for challenged status"
-          },
-          "exemptionType": {
-            "type": "string",
-            "description": "Added field for exemption type"
-          },
-          "threeDSOffered": {
-            "type": "boolean",
-            "description": "Added field for 3DS offered"
-          }
-        }
-      },
-      "ResultStatusType": {
-        "type": "string",
-        "enum": [
-          "S",
-          "F",
-          "U"
-        ],
-        "x-apifox": {
-          "enumDescriptions": {
-            "S": "",
-            "F": "",
-            "U": ""
-          }
-        }
-      },
-      "UserName": {
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "type": "string",
-            "description": "First name.\n\nMore information:\n\nMaximum length: 32 characters"
-          },
-          "middleName": {
-            "type": "string",
-            "description": "Middle name\n\nMore information:\n\nMaximum length: 32 characters"
-          },
-          "lastName": {
-            "type": "string",
-            "description": "Last name\n\nMore information:\n\nMaximum length: 32 characters"
-          },
-          "fullName": {
-            "type": "string",
-            "description": "Full name\n\nMore information:\n\nMaximum length: 128 characters"
-          }
-        }
-      },
-      "Address": {
-        "type": "object",
-        "properties": {
-          "region": {
-            "type": "string",
-            "description": "The 2-letter country or region code. For more information, see ISO 3166 Country Codes standard.\n\nMore information:\n\nMaximum length: 2 characters"
-          },
-          "state": {
-            "type": "string",
-            "description": "The state, country, or province name.\n\nFor card payments, if your business entity is in the United States, and the card issuing country is in Canada, the United States, or the United Kingdom, set the value to a region code that consists of two to three characters and follows the ISO 3166-2 standard.\n\nMore information:\n\nMaximum length: 8 characters"
-          },
-          "city": {
-            "type": "string",
-            "description": "The city, district, suburb, town, or village name.\n\nMore information:\n\nMaximum length: 32 characters"
-          },
-          "address1": {
-            "type": "string",
-            "description": "Address line 1, for example, the street address, PO box, and company name.\n\nMore information:\n\nMaximum length: 256 characters"
-          },
-          "address2": {
-            "type": "string",
-            "description": "Address line 2, for example, the apartment, suite, unit, and building information.\n\nMore information:\n\nMaximum length: 256 characters"
-          },
-          "zipCode": {
-            "type": "string",
-            "description": "ZIP or postal code.\n\nFor card payments, if your business entity is in the United States, specify this parameter according to the following parameter value requirements:\n\nOnly contains numbers, letters, hyphens, and spaces.\nMust be within ten characters.\nMore information:\n\nMaximum length: 32 characters"
-          },
-          "label": {
-            "type": "string"
-          }
-        }
-      },
-      "Store": {
-        "type": "object",
-        "properties": {
-          "referenceStoreId": {
-            "type": "string"
-          },
-          "storeName": {
-            "type": "string"
-          },
-          "storeMCC": {
-            "type": "string"
-          },
-          "storeDisplayName": {
-            "type": "string"
-          },
-          "storeTerminalId": {
-            "type": "string"
-          },
-          "storeOperatorId": {
-            "type": "string"
-          },
-          "storeAddress": {
-            "$ref": "#/components/schemas/Address",
-            "description": "Shipping address. \n\nSpecify this parameter when one of the following conditions is met:\n\nThe value of paymentMethodType is PAGALEVE.\nYou require risk control.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
-          },
-          "storePhoneNo": {
-            "type": "string"
-          }
-        }
-      },
-      "MerchantType": {
-        "type": "string",
-        "enum": [
-          "INDIVIDUAL",
-          "ENTERPRISE"
-        ],
-        "x-apifox": {
-          "enumDescriptions": {
-            "INDIVIDUAL": "",
-            "ENTERPRISE": ""
-          }
-        }
-      },
-      "Merchant": {
-        "type": "object",
-        "properties": {
-          "referenceMerchantId": {
-            "type": "string",
-            "description": "The ID to identify the merchant that directly provides services or goods to the customer.\n\nMore information:\n\nMaximum length: 32 characters"
-          },
-          "merchantMCC": {
-            "type": "string",
-            "description": "The secondary merchant category code, which is a 4-digit number listed in MCC codes.\n\nNote: Specify this field if you have the information. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 32 characters"
-          },
-          "merchantName": {
-            "type": "string",
-            "description": "The merchant name.\n\nNote: Specify this field if you have the information. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 256 characters\n"
-          },
-          "merchantDisplayName": {
-            "type": "string",
-            "description": "The merchant name to be displayed.\n\nNote: Specify this field if you have the information. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "merchantAddress": {
-            "$ref": "#/components/schemas/Address",
-            "description": "Shipping address. \n\nSpecify this parameter when one of the following conditions is met:\n\nThe value of paymentMethodType is PAGALEVE.\nYou require risk control.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates."
-          },
-          "merchantRegisterDate": {
-            "type": "string",
-            "description": "Merchant registration date.\n\nNote: Specify this field if you have the information. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
-          },
-          "store": {
-            "$ref": "#/components/schemas/Store"
-          },
-          "merchantType": {
-            "$ref": "#/components/schemas/MerchantType"
-          }
-        },
-        "required": [
-          "referenceMerchantId"
-        ]
-      },
-      "Goods": {
-        "type": "object",
-        "properties": {
-          "referenceGoodsId": {
-            "type": "string",
-            "description": "The unique ID to identify the goods.\n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "goodsName": {
-            "type": "string",
-            "description": "Goods name.\n\nMore information:\n\nMaximum length: 256 characters\n"
-          },
-          "goodsCategory": {
-            "type": "string",
-            "description": "The category of the goods. If the goods have multiple layers for categorization, use slashes between different categories and write the parent category before the subcategory, such as Digital Goods/Digital Vouchers/Food and Beverages.  \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "goodsBrand": {
-            "type": "string"
-          },
-          "goodsUnitAmount": {
-            "$ref": "#/components/schemas/Amount",
-            "description": "The payment amount that the merchant requests to receive in the order currency."
-          },
-          "goodsQuantity": {
-            "type": "string",
-            "description": "Quantity of goods. \n\nSpecify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nValue range: 1 - unlimited"
-          },
-          "goodsSkuName": {
-            "type": "string"
-          },
-          "goodsUrl": {
-            "type": "string",
-            "description": "The URL of the website where the user places an order.\n\nSpecify this parameter if you require risk control. Providing this information helps to identify black-market behavior. \n\nMore information:\n\nMaximum length: 2048 characters"
-          },
-          "deliveryMethodType": {
-            "type": "string",
-            "description": "The delivery method of the goods. Valid values are:\n\nPHYSICAL: indicates that the delivery method is physical delivery.\nDIGITAL: indicates that the delivery method is digital delivery.\nSpecify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 32 characters\n"
-          },
-          "goodsImageUrl": {
-            "type": "string"
-          },
-          "priceId": {
-            "type": "string",
-            "description": "The ID of the Price object. One of \u200bpriceId\u200b or \u200breferenceGoodsId\u200b is required.\n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "goodsDiscountAmount": {
-            "$ref": "#/components/schemas/Amount",
-            "description": "The discount amount of the goods."
-          },
-          "crossSell": {
-            "$ref": "#/components/schemas/Goods",
-            "description": "Cross-selling goods information."
-          }
-        },
-        "required": [
-          "referenceGoodsId",
-          "goodsName"
-        ]
-      },
-      "Buyer": {
-        "type": "object",
-        "properties": {
-          "referenceBuyerId": {
-            "type": "string",
-            "description": "The unique ID to identify the buyer.\n\nSpecify this parameter when one of the following conditions is met:\n\nWhen you require risk control.\nWhen the value of paymentMethodType is CARD.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "buyerName": {
-            "$ref": "#/components/schemas/UserName",
-            "description": "The name of the recipient. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  "
-          },
-          "buyerPhoneNo": {
-            "type": "string",
-            "description": "The mobile phone number of the buyer.\n\nSpecify this parameter when one of the following conditions is met:\n\nWhen you require risk control.\nWhen the value of paymentMethodType is CARD.\nWhen the value of paymentMethodType is KONBINI, BANKTRANSFER_PAYEASY, or ONLINEBANKING_PAYEASY and you need to collect the phone number during the payment process.\nWhen the value of paymentMethodType is BANCOMATPAY and you need to collect the phone number bound to the Bancomat Pay account during the payment process.\nWhen the value of paymentMethodType is OVO and you need to collect the phone number bound to the OVO account during the payment process. Here are the guidelines for the phone number format:\nBegin with the number 08 or 8, such as 085775716613 or 85775716613.\nInclude the area code without a plus sign and the length should be between 9 and 12 digits, such as 62085775716613 or 6285775716613.\nOmit the area code, such as 085775716613 or 85775716613.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 24 characters"
-          },
-          "buyerEmail": {
-            "type": "string",
-            "description": "The email of the buyer.\n\nSpecify this parameter when one of the following conditions is met:\n\nWhen you require risk control.\nWhen the value of paymentMethodType is CARD.\nThe value of paymentMethodType is KONBINI, BANKTRANSFER_PAYEASY, or ONLINEBANKING_PAYEASY and you collect this information during the payment process.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "buyerRegistrationTime": {
-            "type": "string",
-            "description": "The time when the buyer registered your account. Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 64 characters\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
-          },
-          "isAccountVerified": {
-            "type": "boolean"
-          },
-          "successfulOrderCount": {
-            "type": "integer"
-          }
-        }
-      },
-      "Discount": {
-        "type": "object",
-        "properties": {
-          "discountTag": {
-            "type": "string"
-          },
-          "discountName": {
-            "type": "string"
-          },
-          "savingsAmount": {
-            "$ref": "#/components/schemas/Amount"
-          },
-          "estimateSavingsAmount": {
-            "$ref": "#/components/schemas/Amount"
-          }
-        },
-        "required": [
-          "discountName",
-          "savingsAmount",
-          "estimateSavingsAmount",
-          "discountTag"
-        ]
-      },
-      "AlipayPayRequest": {
-        "type": "object",
-        "properties": {
-          "productCode": {
-            "$ref": "#/components/schemas/ProductCodeType",
-            "description": "Represents the payment product that is being used, which is stipulated in the contract. For Checkout Payment, the value is fixed as CASHIER_PAYMENT."
-          },
-          "paymentRequestId": {
-            "type": "string",
-            "description": "The unique ID assigned by a merchant to identify a payment request. Antom uses this field for idempotence control.\n\nMore information:\n\nThis field is an API idempotency field.For payment requests that are initiated with the same value of paymentRequestId and reach a final status of S or F, the same result is to be returned for the request.\nMaximum length: 64 characters"
-          },
-          "order": {
-            "$ref": "#/components/schemas/Order",
-            "description": "The order information, such as buyer, merchant, goods, amount, shipping information, and purchase environment. This field is used for different purposes:\n\nDuring the payment process, this field is mainly used by Antom for risk control or anti-money laundering.\nAfter the payment is completed, this field is used for recording and reporting purposes such as purchase tracking and regulatory reporting."
-          },
-          "paymentAmount": {
-            "$ref": "#/components/schemas/Amount"
-          },
-          "paymentMethod": {
-            "$ref": "#/components/schemas/PaymentMethod",
-            "description": "The payment method that is used to collect the payment by the merchant or acquirer."
-          },
-          "paymentExpiryTime": {
-            "type": "string",
-            "description": "The payment expiration time is a specific time after which the payment will expire and the acquirer or merchant must terminate the order processing. \n\nNotes:\n\nFor bank transfer payments, the default payment expiration time is 48 hours after the payment request is sent. For other payment categories, the default payment expiration time is usually 14 minutes after the payment request is sent. For example, if the request is sent on 2019-11-27T12:00:01+08:30, the payment expiration time is 2019-11-27T12:14:01+08:30.\nSpecify this field if you want to use a payment expiration time that differs from the default time. For bank transfer payments, the specified payment expiration time must be less than 48 hours after the payment request is sent. For other payment categories, the specified payment expiration time must be less than 10 minutes after the payment request is sent.\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
-          },
-          "paymentRedirectUrl": {
-            "type": "string",
-            "description": "The merchant page URL that the user is redirected to after the payment is completed.\n\nMore information:\n\nMaximum length: 2048 characters\n"
-          },
-          "paymentNotifyUrl": {
-            "type": "string",
-            "description": "The URL that is used to receive the payment result notification.\n\nNote: Specify this parameter if you want to receive an asynchronous notification of the payment result. You can also set the URL to receive the result notification in Antom Dashboard. If the URL is specified in both the request and Antom Dashboard, the value specified in the request takes precedence.\n\nMore information:\n\nMaximum length: 2048 characters"
-          },
-          "paymentFactor": {
-            "$ref": "#/components/schemas/PaymentFactor",
-            "description": "Factors that impact the payment. This field is used to indicate the payment scenario.\n\nNote: Specify this parameter when the value of paymentMethodType is CARD."
-          },
-          "settlementStrategy": {
-            "$ref": "#/components/schemas/SettlementStrategy",
-            "description": "The settlement strategy for the payment request."
-          },
-          "creditPayPlan": {
-            "description": "The installment plan information for an installment payment",
-            "$ref": "#/components/schemas/CreditPayPlan"
-          },
-          "appId": {
-            "type": "string",
-            "description": "The unique ID that is assigned by Antom to identify the mini program.\n\nNote: This field is required when terminalType is MINI_APP.\n\nMore information:\n\nMaximum length: 32 characters"
-          },
-          "merchantRegion": {
-            "type": "string",
-            "description": "The country or region where the merchant operates the business. The parameter is a 2-letter country or region code that follows ISO 3166 Country Codes standard.\n\nSome possible values are US, SG, HK, PK, JP, CN, BR, AU, and MY.  \n\nNote: This parameter is required when you use the Global Acquirer Gateway (GAGW) product.\n\nMore information:\n\nMaximum length: 2 characters\n"
-          },
-          "userRegion": {
-            "type": "string",
-            "description": "A 2-letter country or region code based on the standard of ISO 3166 Country Codes. This parameter is used to sort Alipay+ payment methods according to the user's region. For example, if ALIPAY_CN and KAKAOPAYare both on your payment method list and the user is from South Korea, KAKAOPAY will be listed first on the Alipay+ cashier page.\n\nNote: This parameter is only for the merchant that has integrated the Alipay+ cashier page.  \n\nMore information:\n\nMaximum length: 2 characters"
-          },
-          "env": {
-            "$ref": "#/components/schemas/Env"
-          },
-          "payToMethod": {
-            "$ref": "#/components/schemas/PaymentMethod",
-            "description": "The payment method that is used to collect the payment by the merchant or acquirer."
-          },
-          "isAuthorization": {
-            "type": "boolean"
-          },
-          "merchant": {
-            "$ref": "#/components/schemas/Merchant",
-            "description": "Information about the secondary merchant.\n\nNote: Specify this field if you are an acquirer that has secondary merchants."
-          },
-          "paymentVerificationData": {
-            "$ref": "#/components/schemas/PaymentVerificationData"
-          },
-          "extendInfo": {
-            "type": "string"
-          },
-          "merchantAccountId": {
-            "type": "string",
-            "description": "The unique ID to identify a merchant account.\n\nNote: Specify this parameter when you use a single client ID across multiple locations.\n\nMore information:\n\nMaximum length: 32 characters"
-          },
-          "dualOfflinePayment": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "productCode",
-          "order",
-          "paymentAmount",
-          "paymentMethod",
-          "paymentRedirectUrl",
-          "settlementStrategy",
-          "env",
-          "paymentRequestId"
-        ]
-      },
-      "AlipayPayResponse": {
-        "type": "object",
-        "properties": {
-          "result": {
-            "$ref": "#/components/schemas/Result",
-            "description": "The result of the API call."
-          },
-          "processingAmount": {
-            "$ref": "#/components/schemas/Amount",
-            "description": "Processing amount"
-          },
-          "paymentRequestId": {
-            "type": "string",
-            "description": "The unique ID that is assigned by a merchant to identify a payment request.\n\nNote: This field is returned when resultCode is PAYMENT_IN_PROCESS.\n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "paymentId": {
-            "type": "string",
-            "description": "The unique ID that is assigned by Antom to identify a payment.\n\nNote: This field is returned when resultCode is PAYMENT_IN_PROCESS.\n\nMore information:\n\nMaximum length: 64 characters"
-          },
-          "paymentAmount": {
-            "$ref": "#/components/schemas/Amount"
-          },
-          "paymentData": {
-            "type": "string",
-            "description": "Used by the Antom client SDK to render the checkout page. This parameter is returned if the merchant app has integrated Antom client SDK. After receiving the parameter, you can call the showPaymentSheet API of the Antom client SDK.\n\nMore information:\n\nMaximum length: 20000 characters"
-          },
-          "actualPaymentAmount": {
-            "$ref": "#/components/schemas/Amount"
-          },
-          "paymentQuote": {
-            "$ref": "#/components/schemas/Quote"
-          },
-          "paymentTime": {
-            "type": "string"
-          },
-          "paymentCreateTime": {
-            "type": "string",
-            "description": "The date and time when the payment is created.\n\nNote: This field is returned when resultCode is PAYMENT_IN_PROCESS.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
-          },
-          "authExpiryTime": {
-            "type": "string"
-          },
-          "nonGuaranteeCouponValue": {
-            "$ref": "#/components/schemas/Amount"
-          },
-          "paymentActionForm": {
-            "type": "string"
-          },
-          "pspCustomerInfo": {
-            "$ref": "#/components/schemas/PspCustomerInfo",
-            "description": "The customer information of Alipay+ Mobile Payment Provider (Alipay+ payment methods).\n\nNote: This field is returned when the Alipay+ payment methods can provide the related information."
-          },
-          "challengeActionForm": {
-            "$ref": "#/components/schemas/ChallengeActionForm"
-          },
-          "redirectActionForm": {
-            "$ref": "#/components/schemas/RedirectActionForm"
-          },
-          "orderCodeForm": {
-            "$ref": "#/components/schemas/OrderCodeForm",
-            "description": "Information about the order code.\n\nNote: This parameter is returned when the payment method supports providing the related information."
-          },
-          "grossSettlementAmount": {
-            "$ref": "#/components/schemas/Amount"
-          },
-          "settlementQuote": {
-            "$ref": "#/components/schemas/Quote"
-          },
-          "extendInfo": {
-            "type": "string"
-          },
-          "normalUrl": {
-            "type": "string",
-            "description": "The URL that redirects users to a WAP or WEB page in the default browser or the embedded WebView.\n\nNote: When the value of resultCode is \u200bPAYMENT_IN_PROCESS\u200b, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters\n"
-          },
-          "schemeUrl": {
-            "type": "string",
-            "description": "The URL scheme that redirects users to open an app in an Android or iOS system when the target app is installed.\n\nNote: When the value of resultCode is \u200bPAYMENT_IN_PROCESS\u200b, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters"
-          },
-          "applinkUrl": {
-            "type": "string",
-            "description": "The URL that redirects users to open an app when the target app is installed, or to open a WAP page when the target app is not installed. For Android, the URL is a Native App Link. For iOS, the URL is a Universal Link.\n\nNote: When the value of resultCode is \u200bPAYMENT_IN_PROCESS\u200b, at least one of schemeUrl, applinkUrl, and normalUrl is to be returned.\n\nMore information:\n\nMaximum length: 2048 characters"
-          },
-          "appIdentifier": {
-            "type": "string",
-            "description": "Android package name, which is used by Android apps to open a cashier page.\n\nNote: This field is returned when resultCode is \u200bPAYMENT_IN_PROCESS\u200b and terminalType is APP or WAP."
-          },
-          "paymentResultInfo": {
-            "$ref": "#/components/schemas/PaymentResultInfo",
-            "description": "The payment result information.\n\nNote: This parameter may be returned when the value of paymentMethodType is CARD."
-          },
-          "acquirerInfo": {
-            "$ref": "#/components/schemas/AcquirerInfo"
-          },
-          "promotionResult": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PromotionResult"
+      "AncillaryData" : {
+        "type" : "object",
+        "properties" : {
+          "services" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Service"
             },
-            "description": "Promotion result."
-          }
-        },
-        "required": [
-          "result"
-        ]
-      },
-      "Declaration": {
-        "type": "object",
-        "properties": {
-          "declarationBizScene": {
-            "$ref": "#/components/schemas/DeclarationBizSceneType",
-            "description": "\u7533\u62a5\u65f6\u5bf9\u5e94\u7684\u884c\u4e1a\u5206\u7c7b\u3002\u975eOTA\u7ed3\u6c47\u573a\u666f\u4e0d\u4f20\uff0cOTA\u573a\u666f\u5fc5\u4f20\uff0c\u4e14\u4e0edeclarationBeneficiaryId\u9700\u540c\u65f6\u5b58\u5728\u3002"
+            "description" : "List of services for ancillary data"
           },
-          "declarationBeneficiaryId": {
-            "type": "string",
-            "description": "\u7528\u4e8e\u552f\u4e00\u6807\u8bc6\u7528\u4e8e\u7533\u62a5\u989d\u5ea6\u7d2f\u8ba1\u7684\u4e09\u65b9\u6536\u6b3e\u4ebaId\u3002\u975eOTA\u7ed3\u6c47\u573a\u666f\u4e0d\u4f20\uff0cOTA\u573a\u666f\u5fc5\u4f20\uff0c\u4e14\u4e0edeclarationBizScene\u9700\u540c\u65f6\u5b58\u5728\u3002",
-            "example": "SJSOXUSO23211XJSP4IS"
+          "connectedTicketNumber" : {
+            "type" : "string",
+            "description" : "Connected ticket number"
           }
         }
       },
-      "DeclarationBizSceneType": {
-        "type": "string",
-        "enum": [
-          "AIRLINE",
-          "HOTEL"
-        ],
-        "description": "\u7533\u62a5\u65f6\u5bf9\u5e94\u7684\u884c\u4e1a\u5206\u7c7b\u3002\u975eOTA\u7ed3\u6c47\u573a\u666f\u4e0d\u4f20\uff0cOTA\u573a\u666f\u5fc5\u4f20\uff0c\u4e14\u4e0edeclarationBeneficiaryId\u9700\u540c\u65f6\u5b58\u5728\u3002"
-      },
-      "FundingType": {
-        "type": "string",
-        "enum": [
-          "CREDIT",
-          "DEBIT",
-          "PREPAID",
-          "CHARGE",
-          "DEFERRED_DEBIT"
-        ],
-        "description": "The funding source type for the payment method"
-      },
-      "AncillaryData": {
-        "type": "object",
-        "properties": {
-          "services": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Service"
-            },
-            "description": "List of services for ancillary data"
+      "Service" : {
+        "type" : "object",
+        "properties" : {
+          "categoryCode" : {
+            "type" : "string",
+            "description" : "Category code for the service"
           },
-          "connectedTicketNumber": {
-            "type": "string",
-            "description": "Connected ticket number"
-          }
-        }
-      },
-      "Service": {
-        "type": "object",
-        "properties": {
-          "categoryCode": {
-            "type": "string",
-            "description": "Category code for the service"
-          },
-          "subCategoryCode": {
-            "type": "string",
-            "description": "Sub-category code for the service"
+          "subCategoryCode" : {
+            "type" : "string",
+            "description" : "Sub-category code for the service"
           }
         }
       }
     },
-    "securitySchemes": {}
+    "securitySchemes" : { }
   },
-  "servers": [
-    {
-      "url": "https://open-sea-global.alipay.com/ams/api/v1/payments/pay",
-      "description": "\u6b63\u5f0f\u73af\u5883"
-    }
-  ]
+  "servers" : [ {
+    "url" : "https://open-sea-global.alipay.com/ams/api/v1/payments/pay",
+    "description" : "正式环境"
+  } ]
 }
