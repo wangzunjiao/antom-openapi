@@ -1421,6 +1421,14 @@
             "type": "string",
             "description": "The subscription period type. Valid values are:\n\nYEAR: indicates that the subscription period is measured in years. \nMONTH: indicates that the subscription period is measured in months. \nWEEK: indicates that the subscription period is measured in weeks. \nDAY: indicates that the subscription period is measured in days.  \nMore information:\n\nMaximum length: 20 characters"
           },
+          "period": {
+            "type": "integer",
+            "description": "Number of periods"
+          },
+          "price": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "Amount for each period"
+          },
           "periodCount": {
             "type": "integer",
             "description": "The number of period types within one subscription period. For example, if the value of periodType is MONTH and the value of periodCount is 2, it means that the subscription period is two months.  \n\nMore information:\n\nValue range: 1 - unlimited"

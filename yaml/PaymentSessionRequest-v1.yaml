@@ -1669,6 +1669,12 @@ components:
             \ that the subscription period is measured in weeks. \nDAY: indicates\
             \ that the subscription period is measured in days.  \nMore information:\n\
             \nMaximum length: 20 characters"
+        period:
+          type: integer
+          description: Number of periods
+        price:
+          $ref: '#/components/schemas/Amount'
+          description: Amount for each period
         periodCount:
           type: integer
           description: "The number of period types within one subscription period.\
