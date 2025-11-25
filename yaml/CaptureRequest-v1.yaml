@@ -262,6 +262,69 @@ components:
       - S
       - F
       - U
+    Transit:
+      type: object
+      properties:
+        transitType:
+          $ref: '#/components/schemas/TransitType'
+          description: 'Trip modes, valid values are:
+
+
+            FLIGHT: indicates that the trip mode is by plane.
+
+            TRAIN: indicates that the trip mode is by train.
+
+            CRUISE: indicates that the trip mode is by cruise.
+
+            COACH: indicates that the trip mode is by coach.
+
+            '
+        legs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Leg'
+          description: 'Information about sections of the trip, including departure
+            time, arrival time, departure address, arrival address, transportation
+            company name, carrier code and service type.
+
+
+            More information:
+
+
+            Maximum size: 10 elements'
+        passengers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Passenger'
+          description: 'Information about the passenger of the trip, including the
+            passenger names, passenger email and phone number.
+
+
+            More information:
+
+
+            Maximum size: 100 elements'
+        agentCode:
+          type: string
+          description: Added field for agent code
+        agentName:
+          type: string
+          description: Added field for agent name
+        ticketNumber:
+          type: string
+          description: Added field for ticket number
+        ticketIssuerCode:
+          type: string
+          description: Added field for ticket issuer code
+        restrictedTicketIndicator:
+          type: string
+          description: Added field for restricted ticket indicator
+        ancillaryData:
+          $ref: '#/components/schemas/AncillaryData'
+          description: Ancillary data for the transit
+      required:
+      - transitType
+      - legs
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/capture

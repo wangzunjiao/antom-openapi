@@ -491,6 +491,9 @@ components:
         ancillaryData:
           $ref: '#/components/schemas/AncillaryData'
           description: Ancillary data for the transit
+      required:
+      - transitType
+      - legs
     Lodging:
       type: object
       properties:
