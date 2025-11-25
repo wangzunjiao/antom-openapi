@@ -1442,6 +1442,7 @@
           "trials": {
             "type": "array",
             "items": {
+              "$ref": "#/components/schemas/Trial",
               "type": "object"
             },
             "description": "List of trials"
@@ -1455,6 +1456,27 @@
             "description": "Subscription expiry time"
           }
         }
+      },
+      "Trial": {
+        "type": "object",
+        "properties": {
+          "trialStartPeriod": {
+            "type": "integer",
+            "description": "The start subscription period of the trial. For example, if the trial starts from the first subscription period, specify this parameter as 1.  \n\nMore information:\n\nValue range: 1 - unlimited"
+          },
+          "trialAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "The payment amount charged to the user per subscription period.  "
+          },
+          "trialEndPeriod": {
+            "type": "integer",
+            "description": "The end subscription period of the trial. For example, if the trial ends at the third subscription period, specify this parameter as 3.\n\nNote: Specify this parameter if the end subscription period is different from the start subscription period. If you leave this parameter empty, the default value of this parameter is the same as the value of trialStartPeriod.\n\nMore information:\n\nValue range: 1 - unlimited\n"
+          }
+        },
+        "required": [
+          "trialStartPeriod",
+          "trialAmount"
+        ]
       }
     },
     "securitySchemes": {}
