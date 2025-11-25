@@ -133,6 +133,10 @@
           "captureType": {
             "type": "string",
             "description": "The type of capture operation"
+          },
+          "transit": {
+            "$ref": "#/components/schemas/Transit",
+            "description": "Transit related information"
           }
         },
         "required": [
