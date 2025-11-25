@@ -1443,6 +1443,10 @@
       "SubscriptionPlan": {
         "type": "object",
         "properties": {}
+      },
+      "SubscriptionInfo": {
+        "type": "object",
+        "properties": {}
       }
     },
     "securitySchemes": {}
