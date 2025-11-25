@@ -275,6 +275,7 @@ components:
       - TRAIN
       - CRUISE
       - COACH
+      description: Type of transit
     ClassType:
       type: string
       enum:
@@ -452,6 +453,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Leg'
+          maxItems: 10
           description: 'Information about sections of the trip, including departure
             time, arrival time, departure address, arrival address, transportation
             company name, carrier code and service type.
