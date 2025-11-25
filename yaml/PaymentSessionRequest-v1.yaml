@@ -1710,6 +1710,24 @@ components:
       required:
       - trialStartPeriod
       - trialAmount
+    SubscriptionPlan:
+      type: object
+      properties:
+        allowAccumulate:
+          type: boolean
+          description: Whether to allow accumulated payments
+        maxAccumulateAmount:
+          $ref: '#/components/schemas/Amount'
+          description: Maximum accumulated amount
+        periodRule:
+          $ref: '#/components/schemas/PeriodRule'
+          description: Subscription period rule
+        subscriptionStartTime:
+          type: string
+          description: Start time of the subscription
+        subscriptionNotificationUrl:
+          type: string
+          description: URL for subscription notifications
   securitySchemes: {}
 info:
   description: ''
