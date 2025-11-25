@@ -493,11 +493,20 @@ components:
       - MINI_APP
       type: string
     Trial:
+      type: object
       properties:
+        trialPeriod:
+          type: integer
         trialAmount:
           $ref: '#/components/schemas/Amount'
           description: 'The payment amount charged to the user per subscription period.  '
+        trialStartPeriod:
+          type: integer
+          description: "The start subscription period of the trial. For example, if\
+            \ the trial starts from the first subscription period, specify this parameter\
+            \ as 1.  \n\nMore information:\n\nValue range: 1 - unlimited"
         trialEndPeriod:
+          type: integer
           description: 'The end subscription period of the trial. For example, if
             the trial ends at the third subscription period, specify this parameter
             as 3.
@@ -514,16 +523,9 @@ components:
             Value range: 1 - unlimited
 
             '
-          type: integer
-        trialStartPeriod:
-          description: "The start subscription period of the trial. For example, if\
-            \ the trial starts from the first subscription period, specify this parameter\
-            \ as 1.  \n\nMore information:\n\nValue range: 1 - unlimited"
-          type: integer
       required:
       - trialStartPeriod
       - trialAmount
-      type: object
     FundingType:
       type: string
       enum:

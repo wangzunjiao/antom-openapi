@@ -1695,14 +1695,16 @@ components:
     Trial:
       type: object
       properties:
+        trialPeriod:
+          type: integer
+        trialAmount:
+          $ref: '#/components/schemas/Amount'
+          description: 'The payment amount charged to the user per subscription period.  '
         trialStartPeriod:
           type: integer
           description: "The start subscription period of the trial. For example, if\
             \ the trial starts from the first subscription period, specify this parameter\
             \ as 1.  \n\nMore information:\n\nValue range: 1 - unlimited"
-        trialAmount:
-          $ref: '#/components/schemas/Amount'
-          description: 'The payment amount charged to the user per subscription period.  '
         trialEndPeriod:
           type: integer
           description: 'The end subscription period of the trial. For example, if
