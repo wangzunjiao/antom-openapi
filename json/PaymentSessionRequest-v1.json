@@ -881,7 +881,8 @@
             "items": {
               "$ref": "#/components/schemas/Leg"
             },
-            "description": "Information about sections of the trip, including departure time, arrival time, departure address, arrival address, transportation company name, carrier code and service type.\n\nMore information:\n\nMaximum size: 10 elements"
+            "description": "Information about sections of the trip, including departure time, arrival time, departure address, arrival address, transportation company name, carrier code and service type.\n\nMore information:\n\nMaximum size: 10 elements",
+            "maxItems": 10
           },
           "passengers": {
             "type": "array",

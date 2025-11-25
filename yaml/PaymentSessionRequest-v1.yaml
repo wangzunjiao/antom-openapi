@@ -1569,6 +1569,7 @@ components:
 
 
             Maximum size: 10 elements'
+          maxItems: 10
         passengers:
           type: array
           items:
