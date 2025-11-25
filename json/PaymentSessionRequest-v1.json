@@ -1400,6 +1400,7 @@
           "trials": {
             "type": "array",
             "items": {
+              "$ref": "#/components/schemas/Trial",
               "type": "object",
               "properties": {
                 "trialPeriod": {
@@ -1410,8 +1411,7 @@
                   "$ref": "#/components/schemas/Amount",
                   "description": "The amount for the trial period"
                 }
-              },
-              "$ref": "#/components/schemas/Trial"
+              }
             },
             "description": "List of trial periods for the subscription"
           },
