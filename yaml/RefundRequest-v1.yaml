@@ -41,6 +41,12 @@ components:
           type: string
           description: "The unique ID that is assigned by Antom to identify an exchange\
             \ rate. \n\nMore information:\n\nMaximum length: 64 characters"
+        expiryTime:
+          type: string
+          description: Expiry time of the quote in ISO 8601 format
+        amount:
+          $ref: '#/components/schemas/Amount'
+          description: Quote amount
         quoteCurrencyPair:
           type: string
           description: "The exchange rate between settlement currency and transaction\
@@ -155,14 +161,8 @@ components:
       properties:
         currency:
           type: string
-          description: 'The currency used for the corresponding payment of the refund.
-            The value is a 3-letter currency code that follows the ISO 4217 standard.
-
-
-            More information:
-
-
-            Maximum length: 3 characters'
+          description: "The 3-letter currency code that follows the ISO 4217 standard.\
+            \ \n\nMore information:\n\nMaximum length: 3 characters"
         value:
           type: string
           description: "The value of the amount as a positive integer in the smallest\
@@ -174,7 +174,7 @@ components:
             \ each payment method, see Minimum amount rules. \n\nNote: Due to the\
             \ currency practices in Indonesia, when the currency is IDR, round the\
             \ amount with banker's rounding and fix the last two digits of this parameter\
-            \ as 00.  \n\nMore information:\n\nValue range: 1 - unlimited"
+            \ as 00.  \n\nMore information:\n\nValue range: 0 - unlimited\n"
       required:
       - currency
       - value

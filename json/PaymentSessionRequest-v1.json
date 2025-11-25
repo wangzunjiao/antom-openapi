@@ -1517,6 +1517,51 @@
             "description": "Customized field 5"
           }
         }
+      },
+      "Quote": {
+        "type": "object",
+        "properties": {
+          "quoteId": {
+            "type": "string",
+            "description": "The unique ID that is assigned by Antom to identify an exchange rate. \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "expiryTime": {
+            "type": "string",
+            "description": "Expiry time of the quote in ISO 8601 format"
+          },
+          "amount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "Quote amount"
+          },
+          "quoteCurrencyPair": {
+            "type": "string",
+            "description": "The exchange rate between settlement currency and transaction currency. Two currencies are separated with a slash and use the three-letter ISO-4217 currency code.  \n\nMore information:\n\nMaximum length: 16 characters"
+          },
+          "quotePrice": {
+            "type": "number",
+            "description": "The exchange rate used when a currency conversion between settlement currency and transaction currency occurs.  \n\nMore information:\n\nValue range: 1 - unlimited"
+          },
+          "quoteStartTime": {
+            "type": "string",
+            "description": "Effective time of the exchange rate. \n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
+          },
+          "quoteExpiryTime": {
+            "type": "string",
+            "description": "Expiration time of the exchange rate.  \n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
+          },
+          "guaranteed": {
+            "type": "boolean",
+            "description": "Guaranteed exchange rate available for payment.  \n\n"
+          },
+          "exchangeAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "Added field for exchange amount"
+          }
+        },
+        "required": [
+          "quoteCurrencyPair",
+          "quotePrice"
+        ]
       }
     },
     "securitySchemes": {}
