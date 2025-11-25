@@ -1027,7 +1027,8 @@
           "TRAIN",
           "CRUISE",
           "COACH"
-        ]
+        ],
+        "description": "Trip modes"
       },
       "Buyer": {
         "type": "object",

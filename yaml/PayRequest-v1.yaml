@@ -275,6 +275,7 @@ components:
       - TRAIN
       - CRUISE
       - COACH
+      description: Trip modes
     ClassType:
       type: string
       enum:
