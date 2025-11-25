@@ -1,3 +1,4 @@
+---
 openapi: 3.1.0
 info:
   title: InquireExchangeRate
@@ -37,90 +38,60 @@ components:
           type: string
           description: The result code.
         resultStatus:
-          description: |-
-            The result status. Valid values are:
-
-            S: indicates that the result status is successful.
-            F: indicates that the result status is failed. 
-            U: indicates that the result status is unknown. 
+          description: "The result status. Valid values are:\n\nS: indicates that\
+            \ the result status is successful.\nF: indicates that the result status\
+            \ is failed. \nU: indicates that the result status is unknown. "
           type: object
           properties: {}
         resultMessage:
           type: string
           description: The result message.
       required:
-        - resultCode
-        - resultStatus
+      - resultCode
+      - resultStatus
     Quote:
       type: object
       properties:
         quoteId:
           type: string
-          description: >-
-            The unique ID that is assigned by Antom to identify an exchange
-            rate.
-
-
-            More information:
-
-
-            Maximum length: 64 characters
+          description: "The unique ID that is assigned by Antom to identify an exchange\
+            \ rate. \n\nMore information:\n\nMaximum length: 64 characters"
         quoteCurrencyPair:
           type: string
-          description: >-
-            A currency pair of settlement currency and transaction currency. The
-            two currencies are separated with a slash and use the 3-letter
-            ISO-4217 currency code.
-
-
-            More information:
-
-
-            Maximum length: 16 characters
+          description: "The exchange rate between settlement currency and transaction\
+            \ currency. Two currencies are separated with a slash and use the three-letter\
+            \ ISO-4217 currency code.  \n\nMore information:\n\nMaximum length: 16\
+            \ characters"
         quotePrice:
           type: number
-          description: >-
-            The exchange rate used when a currency conversion between settlement
-            currency and transaction currency occurs.
-
-
-            More information:
-
-
-            Value range: 0 - unlimited
+          description: "The exchange rate used when a currency conversion between\
+            \ settlement currency and transaction currency occurs.  \n\nMore information:\n\
+            \nValue range: 1 - unlimited"
         quoteStartTime:
           type: string
-          description: >-
-            The date and time when quotePrice is effective.
-
-
-            More information:
-
-
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+          description: "Effective time of the exchange rate. \n\nMore information:\n\
+            \nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"\
+            .\n"
         quoteExpiryTime:
           type: string
-          description: >-
-            The date and time when quotePrice expires.
-
-
-            More information:
-
-
-            The value follows the ISO 8601 standard format. For example,
-            "2019-11-27T12:01:01+08:00".
+          description: "Expiration time of the exchange rate.  \n\nMore information:\n\
+            \nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"\
+            .\n"
         guaranteed:
           type: boolean
-          description: Guaranteed exchange rate available for payment.
+          description: "Guaranteed exchange rate available for payment.  \n\n"
+        exchangeAmount:
+          $ref: '#/components/schemas/Amount'
+          description: Added field for exchange amount
       required:
-        - quoteCurrencyPair
+      - quoteCurrencyPair
+      - quotePrice
     ProductCodeType:
       type: string
       enum:
-        - CASHIER_PAYMENT
-        - AGREEMENT_PAYMENT
-        - IN_STORE_PAYMENT
+      - CASHIER_PAYMENT
+      - AGREEMENT_PAYMENT
+      - IN_STORE_PAYMENT
     CurrencyPair:
       type: object
       properties:
@@ -138,8 +109,8 @@ components:
         result:
           $ref: '#/components/schemas/Result'
       required:
-        - quotes
-        - result
+      - quotes
+      - result
     AlipayInquireExchangeRateRequest:
       type: object
       properties:
@@ -157,6 +128,28 @@ components:
           type: string
         productCode:
           $ref: '#/components/schemas/ProductCodeType'
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: "The 3-letter currency code that follows the ISO 4217 standard.\
+            \ \n\nMore information:\n\nMaximum length: 3 characters"
+        value:
+          type: string
+          description: "The value of the amount as a positive integer in the smallest\
+            \ currency unit. For example, if the currency is USD and the amount is\
+            \ $1.00, set the value of this parameter to 100; or if the currency is\
+            \ JPY and the amount is ￥1, set the value of this parameter to 1.  \n\n\
+            For details about the smallest currency unit, see Smallest unit of the\
+            \ currency .\n\nFor details about the minimum payment amount allowed for\
+            \ each payment method, see Minimum amount rules. \n\nNote: Due to the\
+            \ currency practices in Indonesia, when the currency is IDR, round the\
+            \ amount with banker's rounding and fix the last two digits of this parameter\
+            \ as 00.  \n\nMore information:\n\nValue range: 0 - unlimited\n"
+      required:
+      - currency
+      - value
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/payments/inquireExchangeRate
+- url: https://open-sea-global.alipay.com/ams/api/v1/payments/inquireExchangeRate
