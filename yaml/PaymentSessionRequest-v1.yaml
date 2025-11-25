@@ -187,6 +187,27 @@ components:
         paymentExpiryTime:
           type: string
           description: The specific date and time after which the payment will expire.
+        allowedPaymentMethodRegions:
+          type: string
+          description: Regions where the payment methods are allowed to be used.
+        customizedInfo:
+          $ref: '#/components/schemas/CustomizedInfo'
+        paymentQuote:
+          $ref: '#/components/schemas/Quote'
+        processingAmount:
+          $ref: '#/components/schemas/Amount'
+        subscriptionPlan:
+          $ref: '#/components/schemas/SubscriptionPlan'
+        subscriptionInfo:
+          $ref: '#/components/schemas/SubscriptionInfo'
+        userRegion:
+          type: string
+          description: The user's region code.
+        scopes:
+          type: array
+          items:
+            type: string
+          description: List of payment scopes.
       required:
       - order
       - paymentRequestId
