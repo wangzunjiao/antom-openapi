@@ -858,6 +858,12 @@ components:
     CustomizedInfo:
       type: object
       properties:
+        key:
+          type: string
+          description: Custom key
+        value:
+          type: string
+          description: Custom value
         customizedField1:
           type: string
           description: Customized field 1
