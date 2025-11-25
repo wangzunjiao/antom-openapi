@@ -275,6 +275,7 @@ components:
       - TRAIN
       - CRUISE
       - COACH
+      description: Type of transit
     ClassType:
       type: string
       enum:

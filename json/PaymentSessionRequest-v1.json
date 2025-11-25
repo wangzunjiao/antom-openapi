@@ -1028,7 +1028,8 @@
           "TRAIN",
           "CRUISE",
           "COACH"
-        ]
+        ],
+        "description": "Type of transit"
       },
       "Buyer": {
         "type": "object",
