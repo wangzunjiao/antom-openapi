@@ -271,6 +271,116 @@ components:
       - CRUISE
       - COACH
       description: Trip modes
+    Leg:
+      type: object
+      properties:
+        departureTime:
+          type: string
+          format: date-time
+          description: 'Time of departure for this leg of the trip.
+
+
+            More information:
+
+
+            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
+        arrivalTime:
+          type: string
+          format: date-time
+          description: 'Time of arrival for this leg of the trip.
+
+
+            More information:
+
+
+            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".
+
+            '
+        departureAddress:
+          type: string
+          $ref: '#/components/schemas/Address'
+          description: Hotel address.
+        arrivalAddress:
+          type: string
+          $ref: '#/components/schemas/Address'
+          description: Hotel address.
+        carrierName:
+          type: string
+          description: 'Company name of the transportation service provider for this
+            leg of the trip.
+
+
+            More information:
+
+
+            Maximum length: 128 characters'
+        carrierCode:
+          type: string
+        serviceType:
+          type: string
+        carrierNo:
+          type: string
+          description: 'Code for the carrier for this leg of the trip.
+
+
+            More information:
+
+
+            Maximum length: 64 characters'
+        classType:
+          $ref: '#/components/schemas/ClassType'
+          description: 'Service level for this leg of the trip. Valid values are:
+
+
+            FIRSTLEVEL: indicates that the service is the first class. For example,
+            flight first class, cruise luxury seat, train business class seat/1st
+            class sleeper, coach first-level seat.
+
+            SECONDLEVEL: indicates that the service is the second class. For example,
+            fight business class, cruise business seat, train 1st class seat/2nd class
+            sleeper, coach second-level seat.
+
+            THIRDLEVEL: indicates that the service is the third class. For example,
+            fight economic class or premium economic, cruise normal seat, train 2nd
+            class seat/standing, coach normal seat.
+
+            More information:
+
+
+            Maximum length: 32 characters'
+        departureAirportCode:
+          type: string
+          description: 'IATA code for the originating airport for this leg of the
+            trip.
+
+
+            More information:
+
+
+            Maximum length: 8 characters
+
+            '
+        arrivalAirportCode:
+          type: string
+          description: 'IATA code for the destination airport for this leg of the
+            trip.
+
+
+            More information:
+
+
+            Maximum length: 8 characters
+
+            '
+        fareBasis:
+          type: string
+          description: Fare basis code for this leg of the trip.
+        couponNumber:
+          type: string
+          description: Coupon number associated with this leg of the trip.
+        flightNumber:
+          type: string
+          description: Flight number for this leg of the trip.
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/capture

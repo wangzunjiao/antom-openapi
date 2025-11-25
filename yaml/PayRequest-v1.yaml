@@ -287,6 +287,7 @@ components:
       properties:
         departureTime:
           type: string
+          format: date-time
           description: 'Time of departure for this leg of the trip.
 
 
@@ -296,6 +297,7 @@ components:
             The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
         arrivalTime:
           type: string
+          format: date-time
           description: 'Time of arrival for this leg of the trip.
 
 
@@ -306,9 +308,11 @@ components:
 
             '
         departureAddress:
+          type: string
           $ref: '#/components/schemas/Address'
           description: Hotel address.
         arrivalAddress:
+          type: string
           $ref: '#/components/schemas/Address'
           description: Hotel address.
         carrierName:
@@ -321,6 +325,10 @@ components:
 
 
             Maximum length: 128 characters'
+        carrierCode:
+          type: string
+        serviceType:
+          type: string
         carrierNo:
           type: string
           description: 'Code for the carrier for this leg of the trip.

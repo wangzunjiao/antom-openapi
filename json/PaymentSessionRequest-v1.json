@@ -964,23 +964,33 @@
         "properties": {
           "departureTime": {
             "type": "string",
+            "format": "date-time",
             "description": "Time of departure for this leg of the trip.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"."
           },
           "arrivalTime": {
             "type": "string",
+            "format": "date-time",
             "description": "Time of arrival for this leg of the trip.\n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
           },
           "departureAddress": {
+            "type": "string",
             "$ref": "#/components/schemas/Address",
             "description": "Hotel address."
           },
           "arrivalAddress": {
+            "type": "string",
             "$ref": "#/components/schemas/Address",
             "description": "Hotel address."
           },
           "carrierName": {
             "type": "string",
             "description": "Company name of the transportation service provider for this leg of the trip.\n\nMore information:\n\nMaximum length: 128 characters"
+          },
+          "carrierCode": {
+            "type": "string"
+          },
+          "serviceType": {
+            "type": "string"
           },
           "carrierNo": {
             "type": "string",
