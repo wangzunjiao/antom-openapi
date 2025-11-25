@@ -284,7 +284,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Leg'
-          maxItems: 10
           description: 'Information about sections of the trip, including departure
             time, arrival time, departure address, arrival address, transportation
             company name, carrier code and service type.
@@ -294,6 +293,7 @@ components:
 
 
             Maximum size: 10 elements'
+          maxItems: 10
         passengers:
           type: array
           items:
@@ -434,6 +434,113 @@ components:
         flightNumber:
           type: string
           description: Flight number for this leg of the trip.
+    Address:
+      type: object
+      properties:
+        region:
+          type: string
+        state:
+          type: string
+        city:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        zipCode:
+          type: string
+        label:
+          type: string
+    ClassType:
+      type: string
+      enum:
+      - FIRSTLEVEL
+      - SECONDLEVEL
+      - THIRDLEVEL
+    Passenger:
+      type: object
+      properties:
+        passengerName:
+          $ref: '#/components/schemas/UserName'
+          description: "The name of the recipient. \n\nNote: Specify this parameter\
+            \ if you require risk control. Providing this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates.  "
+        passengerEmail:
+          type: string
+          description: 'The email of the passenger.
+
+
+            More information:
+
+
+            Maximum length: 64 characters'
+        passengerPhoneNo:
+          type: string
+          description: 'The mobile phone number of the passenger.
+
+
+            More information:
+
+
+            Maximum length: 32 characters'
+        passengerId:
+          type: string
+          description: Passenger identification number
+        passengerIdType:
+          $ref: '#/components/schemas/PassengerIdType'
+        passengerCode:
+          type: string
+          description: Passenger code or reference number
+    UserName:
+      type: object
+      properties:
+        firstName:
+          type: string
+        middleName:
+          type: string
+        lastName:
+          type: string
+        fullName:
+          type: string
+      required:
+      - firstName
+      - middleName
+      - lastName
+      - fullName
+    PassengerIdType:
+      type: string
+      enum:
+      - PASSPORT
+      - NATIONAL_ID_CARD
+      - DRIVER_LICENSE
+      - MILITARY_ID
+      - GREEN_CARD
+      - TRAVEL_DOCUMENT
+      - ALIEN_REGISTRATION_CARD
+      - BIRTH_CERTIFICATE
+      - OTHERS
+      description: Type of passenger identification
+    AncillaryData:
+      type: object
+      properties:
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/Service'
+          description: List of services for ancillary data
+        connectedTicketNumber:
+          type: string
+          description: Connected ticket number
+    Service:
+      type: object
+      properties:
+        categoryCode:
+          type: string
+          description: Category code for the service
+        subCategoryCode:
+          type: string
+          description: Sub-category code for the service
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/capture
