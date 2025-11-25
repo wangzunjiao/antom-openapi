@@ -1687,6 +1687,9 @@ components:
       required:
       - quoteCurrencyPair
       - quotePrice
+    SubscriptionPlan:
+      type: object
+      properties: {}
   securitySchemes: {}
 info:
   description: ''

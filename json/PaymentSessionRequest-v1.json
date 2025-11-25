@@ -1439,6 +1439,10 @@
           "quoteCurrencyPair",
           "quotePrice"
         ]
+      },
+      "SubscriptionPlan": {
+        "type": "object",
+        "properties": {}
       }
     },
     "securitySchemes": {}
