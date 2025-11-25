@@ -129,6 +129,13 @@
           },
           "isLastCapture": {
             "type": "boolean"
+          },
+          "captureType": {
+            "type": "string",
+            "description": "Type of capture operation"
+          },
+          "transit": {
+            "$ref": "#/components/schemas/Transit"
           }
         },
         "required": [
