@@ -323,6 +323,14 @@ components:
         ancillaryData:
           $ref: '#/components/schemas/AncillaryData'
           description: Ancillary data for the transit
+    TransitType:
+      type: string
+      enum:
+      - FLIGHT
+      - TRAIN
+      - CRUISE
+      - COACH
+      description: Type of transit service
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/capture
