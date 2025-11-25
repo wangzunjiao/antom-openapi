@@ -96,7 +96,7 @@ components:
           description: "The number of period types within one subscription period.\
             \ For example, if the value of periodType is MONTH and the value of periodCount\
             \ is 2, it means that the subscription period is two months.  \n\nMore\
-            \ information:\n\nValue range: [1, +∞)"
+            \ information:\n\nValue range: 1 - unlimited"
       required:
       - periodType
       - periodCount
