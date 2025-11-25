@@ -140,9 +140,18 @@ components:
           type: string
           description: "The unique ID that is assigned by Antom to identify a payment.\
             \  \n\nMore information:\n\nMaximum length: 64 characters"
-        captureAmount: *id001
+        captureAmount:
+          $ref: '#/components/schemas/Amount'
+          description: The capture amount that the merchant requests to receive in
+            the transaction currency.
         isLastCapture:
           type: boolean
+        captureType:
+          type: string
+          description: Capture type identifier
+        transit:
+          $ref: '#/components/schemas/Transit'
+          description: Transit information for the capture
       required:
       - captureRequestId
       - paymentId
