@@ -816,53 +816,45 @@
         "type": "object",
         "properties": {
           "firstName": {
-            "type": "string",
-            "description": "First name. \n\nMore information:\n\nMaximum length: 32 characters"
+            "type": "string"
           },
           "middleName": {
-            "type": "string",
-            "description": "Middle name\n\nMore information:\n\nMaximum length: 32 characters"
+            "type": "string"
           },
           "lastName": {
-            "type": "string",
-            "description": "Last name\n\nMore information:\n\nMaximum length: 32 characters"
+            "type": "string"
           },
           "fullName": {
-            "type": "string",
-            "description": "Full name\n\nMore information:\n\nMaximum length: 128 characters"
+            "type": "string"
           }
         },
         "required": [
           "firstName",
-          "lastName"
+          "middleName",
+          "lastName",
+          "fullName"
         ]
       },
       "Address": {
         "type": "object",
         "properties": {
           "region": {
-            "type": "string",
-            "description": "The 2-letter country or region code. For more information, see ISO 3166 Country Codes standard.\n\nMore information:\n\nMaximum length: 2 characters\n"
+            "type": "string"
           },
           "state": {
-            "type": "string",
-            "description": "The state, country, or province name. \n\nNote: For card payments, if your business entity is in the United States, and the card issuing country is in Canada, the United States, or the United Kingdom, set the value to a region code that consists of two to three characters and follows the ISO 3166-2 standard.\n\nMore information:\n\nMaximum length: 8 characters"
+            "type": "string"
           },
           "city": {
-            "type": "string",
-            "description": "The city, district, suburb, town, or village name.\n\nMore information:\n\nMaximum length: 32 characters"
+            "type": "string"
           },
           "address1": {
-            "type": "string",
-            "description": "Address line 1, for example, the street address, PO box, and company name.\n\nMore information:\n\nMaximum length: 256 characters"
+            "type": "string"
           },
           "address2": {
-            "type": "string",
-            "description": "Address line 2, for example, the apartment, suite, unit, and building information.\n\nMore information:\n\nMaximum length: 256 characters"
+            "type": "string"
           },
           "zipCode": {
-            "type": "string",
-            "description": "ZIP or postal code. \n\nFor card payments, if your business entity is in the United States, specify this parameter according to the following parameter value requirements:\n\nOnly contains numbers, letters, hyphens, and spaces.\nMust be within ten characters.\nMore information:\n\nMaximum length: 32 characters"
+            "type": "string"
           },
           "label": {
             "type": "string"
@@ -881,7 +873,8 @@
             "items": {
               "$ref": "#/components/schemas/Leg"
             },
-            "description": "Information about sections of the trip, including departure time, arrival time, departure address, arrival address, transportation company name, carrier code and service type.\n\nMore information:\n\nMaximum size: 10 elements"
+            "description": "Information about sections of the trip, including departure time, arrival time, departure address, arrival address, transportation company name, carrier code and service type.\n\nMore information:\n\nMaximum size: 10 elements",
+            "maxItems": 10
           },
           "passengers": {
             "type": "array",
@@ -1027,7 +1020,8 @@
           "TRAIN",
           "CRUISE",
           "COACH"
-        ]
+        ],
+        "description": "Type of transit"
       },
       "Buyer": {
         "type": "object",
