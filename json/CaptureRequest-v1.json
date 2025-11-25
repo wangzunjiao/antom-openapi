@@ -115,6 +115,14 @@
       "AlipayCaptureRequest": {
         "type": "object",
         "properties": {
+          "captureType": {
+            "type": "string",
+            "description": "Capture type"
+          },
+          "transit": {
+            "$ref": "#/components/schemas/Transit",
+            "description": "Transit information"
+          },
           "captureRequestId": {
             "type": "string",
             "description": "The unique ID that is assigned by the merchant to identify a capture request. Antom uses this field for idempotence control.  \n\nMore information:\n\nThis field is an API idempotency field.For capture requests that are initiated with the same value of captureRequestId and reach a final status (S or F), the same result is to be returned for the request.\nMaximum length: 64 characters"

@@ -128,6 +128,12 @@ components:
     AlipayCaptureRequest:
       type: object
       properties:
+        captureType:
+          type: string
+          description: Capture type
+        transit:
+          $ref: '#/components/schemas/Transit'
+          description: Transit information
         captureRequestId:
           type: string
           description: "The unique ID that is assigned by the merchant to identify\
@@ -140,7 +146,10 @@ components:
           type: string
           description: "The unique ID that is assigned by Antom to identify a payment.\
             \  \n\nMore information:\n\nMaximum length: 64 characters"
-        captureAmount: *id001
+        captureAmount:
+          description: The capture amount that the merchant requests to receive in
+            the transaction currency.
+          $ref: '#/components/schemas/Amount'
         isLastCapture:
           type: boolean
       required:
