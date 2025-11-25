@@ -4,7 +4,7 @@ info:
   title: authorizations_consult
   description: ''
   version: 1.0.0
-tags: [ ]
+tags: []
 paths:
   /ams/api/v1/authorizations/consult:
     post:
@@ -15,8 +15,8 @@ paths:
         a payment.
 
         '
-      tags: [ ]
-      parameters: [ ]
+      tags: []
+      parameters: []
       requestBody:
         content:
           application/json:
@@ -29,23 +29,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AlipayAuthConsultResponse'
-          headers: { }
-      security: [ ]
+          headers: {}
+      security: []
 components:
   schemas:
     CodeValueType:
       type: string
       enum:
-        - BARCODE
-        - QRCODE
+      - BARCODE
+      - QRCODE
     DisplayType:
       type: string
       enum:
-        - TEXT
-        - MIDDLEIMAGE
-        - SMALLIMAGE
-        - BIGIMAGE
-        - IMAGE
+      - TEXT
+      - MIDDLEIMAGE
+      - SMALLIMAGE
+      - BIGIMAGE
+      - IMAGE
     CodeDetail:
       type: object
       properties:
@@ -67,8 +67,8 @@ components:
             \ of the QR code. You can directly display the image for buyers.  \nMore\
             \ information:\n\nMaximum length: 24 characters"
       required:
-        - displayType
-        - codeValue
+      - displayType
+      - codeValue
     Result:
       type: object
       properties:
@@ -84,68 +84,68 @@ components:
           type: string
           description: The result message.
       required:
-        - resultCode
-        - resultStatus
-        - resultMessage
+      - resultCode
+      - resultStatus
+      - resultMessage
     TerminalType:
       type: string
       enum:
-        - WEB
-        - WAP
-        - APP
-        - MINI_APP
+      - WEB
+      - WAP
+      - APP
+      - MINI_APP
     OsType:
       type: string
       enum:
-        - IOS
-        - ANDROID
+      - IOS
+      - ANDROID
     ResultStatusType:
       type:
-        - string
-        - 'null'
+      - string
+      - 'null'
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
     CustomerBelongsTo:
       type: string
       enum:
-        - RABBIT_LINE_PAY
-        - TRUEMONEY
-        - ALIPAY_HK
-        - TNG
-        - ALIPAY_CN
-        - GCASH
-        - DANA
-        - KAKAOPAY
-        - BKASH
-        - EASYPAISA
-        - PAYPAY
-        - BOOST
-        - GRABPAY_MY
-        - MAYA
-        - GRABPAY_PH
-        - GRABPAY_SG
-        - NAVERPAY
-        - JKOPAY
-        - KPLUS
-        - DIRECT_DEBIT_SIAMCOMMERCIALBANK
-        - DIRECT_DEBIT_KRUNGTHAIBANK
-        - ZALOPAY
-        - DIRECTDEBIT_YAPILY
-        - TOSSPAY
-        - MOMO
-        - ANTOM_BIZ_ACCOUNT
+      - RABBIT_LINE_PAY
+      - TRUEMONEY
+      - ALIPAY_HK
+      - TNG
+      - ALIPAY_CN
+      - GCASH
+      - DANA
+      - KAKAOPAY
+      - BKASH
+      - EASYPAISA
+      - PAYPAY
+      - BOOST
+      - GRABPAY_MY
+      - MAYA
+      - GRABPAY_PH
+      - GRABPAY_SG
+      - NAVERPAY
+      - JKOPAY
+      - KPLUS
+      - DIRECT_DEBIT_SIAMCOMMERCIALBANK
+      - DIRECT_DEBIT_KRUNGTHAIBANK
+      - ZALOPAY
+      - DIRECTDEBIT_YAPILY
+      - TOSSPAY
+      - MOMO
+      - ANTOM_BIZ_ACCOUNT
     ScopeType:
       type: string
       enum:
-        - BASE_USER_INFO
-        - AGREEMENT_PAY
-        - USER_INFO
-        - USER_LOGIN_ID
-        - HASH_LOGIN_ID
-        - SEND_OTP
-        - TAOBAO_REBIND
+      - BASE_USER_INFO
+      - AGREEMENT_PAY
+      - USER_INFO
+      - USER_LOGIN_ID
+      - HASH_LOGIN_ID
+      - SEND_OTP
+      - TAOBAO_REBIND
     AuthMetaData:
       type: object
       properties:
@@ -162,10 +162,13 @@ components:
             $ref: '#/components/schemas/CodeDetail'
           description: 'A list of QR code information.  '
       required:
-        - codeDetails
+      - codeDetails
     AlipayAuthConsultRequest:
       type: object
       properties:
+        authNotifyUrl:
+          type: string
+          description: The notification URL for authorization result.
         customerBelongsTo:
           $ref: '#/components/schemas/CustomerBelongsTo'
           description: "The wallet that the user uses. See Payment methods to check\
@@ -269,11 +272,11 @@ components:
           description: Information about the environment where the authorization is
             requested.
       required:
-        - customerBelongsTo
-        - authRedirectUrl
-        - scopes
-        - authState
-        - terminalType
+      - customerBelongsTo
+      - authRedirectUrl
+      - scopes
+      - authState
+      - terminalType
     BrowserInfo:
       type: object
       properties:
@@ -427,7 +430,7 @@ components:
           type: string
           description: Version of the operation system.
       required:
-        - terminalType
+      - terminalType
     AlipayAuthConsultResponse:
       type: object
       properties:
@@ -499,9 +502,9 @@ components:
             Note: This parameter is returned when the payment method supports authorization
             through QR code scanning.'
       required:
-        - result
-  securitySchemes: { }
+      - result
+  securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/authorizations/consult
-    description: 正式环境
-security: [ ]
+- url: https://open-sea-global.alipay.com/ams/api/v1/authorizations/consult
+  description: 正式环境
+security: []

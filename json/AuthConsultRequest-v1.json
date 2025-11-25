@@ -197,6 +197,10 @@
       "AlipayAuthConsultRequest": {
         "type": "object",
         "properties": {
+          "authNotifyUrl": {
+            "type": "string",
+            "description": "The notification URL for authorization result."
+          },
           "customerBelongsTo": {
             "$ref": "#/components/schemas/CustomerBelongsTo",
             "description": "The wallet that the user uses. See Payment methods to check the valid values.  \n\nMore information:\n\nMaximum length: 64 characters"
