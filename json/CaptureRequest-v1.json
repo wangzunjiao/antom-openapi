@@ -226,6 +226,16 @@
           "F",
           "U"
         ]
+      },
+      "TransitType": {
+        "type": "string",
+        "enum": [
+          "FLIGHT",
+          "TRAIN",
+          "CRUISE",
+          "COACH"
+        ],
+        "description": "Type of transit service."
       }
     },
     "securitySchemes": {}

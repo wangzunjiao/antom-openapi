@@ -1601,12 +1601,13 @@ components:
           $ref: '#/components/schemas/AncillaryData'
           description: Ancillary data for the transit
     TransitType:
+      type: string
       enum:
       - FLIGHT
       - TRAIN
       - CRUISE
       - COACH
-      type: string
+      description: Type of transit service.
     UserName:
       properties:
         firstName:
