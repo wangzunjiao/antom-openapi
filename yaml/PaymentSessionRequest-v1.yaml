@@ -1682,6 +1682,39 @@ components:
       required:
       - periodType
       - periodCount
+    SubscriptionInfo:
+      type: object
+      properties:
+        subscriptionDescription:
+          type: string
+          description: Description of the subscription
+        subscriptionStartTime:
+          type: string
+          description: Start time of the subscription
+        subscriptionEndTime:
+          type: string
+          description: End time of the subscription
+        periodRule:
+          $ref: '#/components/schemas/PeriodRule'
+          description: Subscription period rule
+        trials:
+          type: array
+          items:
+            type: object
+            properties:
+              trialPeriod:
+                type: integer
+                description: Trial period length
+              trialAmount:
+                $ref: '#/components/schemas/Amount'
+                description: Trial amount
+          description: List of trial periods
+        subscriptionNotifyUrl:
+          type: string
+          description: URL for subscription notifications
+        subscriptionExpiryTime:
+          type: string
+          description: Expiry time of the subscription
   securitySchemes: {}
 info:
   description: ''
