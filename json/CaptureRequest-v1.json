@@ -129,6 +129,10 @@
           },
           "isLastCapture": {
             "type": "boolean"
+          },
+          "captureType": {
+            "type": "string",
+            "description": "The type of capture operation"
           }
         },
         "required": [
