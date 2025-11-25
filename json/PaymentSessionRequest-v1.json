@@ -76,6 +76,21 @@
       "AlipayPaymentSessionRequest": {
         "type": "object",
         "properties": {
+          "allowedPaymentMethodRegions": {
+            "type": "string",
+            "description": "Allowed payment method regions for this payment"
+          },
+          "userRegion": {
+            "type": "string",
+            "description": "User's region/country code"
+          },
+          "scopes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of payment scopes"
+          },
           "productCode": {
             "$ref": "#/components/schemas/ProductCodeType",
             "description": "Represents the payment product that is being used, which is stipulated in the contract. For Checkout Payment, the value is fixed as CASHIER_PAYMENT."
