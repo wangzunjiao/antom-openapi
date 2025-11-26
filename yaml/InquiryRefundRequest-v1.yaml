@@ -54,7 +54,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  result: &id002
+                  result:
                     $ref: '#/components/schemas/Result'
                     description: 'The request result contains information such as
                       status and error codes.
@@ -85,7 +85,7 @@ paths:
 
                       Note: This field is null when the refund record cannot be found,
                       or result.resultStatus is F or U. '
-                  refundStatus: &id003
+                  refundStatus:
                     $ref: '#/components/schemas/TransactionStatusType'
                     description: "Indicates the final status of the Antom refund,\
                       \ not the Alipay+ Mobile Payment Provider (Alipay+ payment methods)\
@@ -104,14 +104,14 @@ paths:
                       \nMore information:\n\nThe value follows the ISO 8601 standard\
                       \ format. For example, \"2019-11-27T12:01:01+08:00\"."
                   grossSettlementAmount: *id001
-                  settlementQuote: &id004
+                  settlementQuote:
                     $ref: '#/components/schemas/Quote'
                     description: 'The exchange rate between the settlement currency
                       and payment currency.
 
 
                       Note: This field is returned when grossSettlementAmount is returned.'
-                  acquirerInfo: &id005
+                  acquirerInfo:
                     $ref: '#/components/schemas/AcquirerInfo'
                 required:
                 - result
@@ -151,7 +151,23 @@ components:
     AlipayInquiryRefundResponse:
       type: object
       properties:
-        result: *id002
+        customizedInfo:
+          $ref: '#/components/schemas/CustomizedInfo'
+          description: Customized information field
+        arn:
+          type: string
+          description: Acquirer Reference Number
+        actualRefundAmount:
+          $ref: '#/components/schemas/Amount'
+          description: The actual refund amount processed
+        result:
+          $ref: '#/components/schemas/Result'
+          description: 'The request result contains information such as status and
+            error codes.
+
+
+            Note: This field does not indicate the refund result. This field only
+            indicates whether the inquiryRefund interface is called successfully. '
         refundId:
           type: string
           description: 'The unique ID assigned by Antom to identify a refund. A one-to-one
@@ -166,8 +182,22 @@ components:
             \ request.\n\nNote: This field is null when the refund record cannot be\
             \ found, or result.resultStatus is F or U. \n\nMore information:\n\nMaximum\
             \ length: 64 characters"
-        refundAmount: *id001
-        refundStatus: *id003
+        refundAmount:
+          $ref: '#/components/schemas/Amount'
+          description: 'The refund amount that is initiated by the merchant.
+
+
+            Note: This field is null when the refund record cannot be found, or result.resultStatus
+            is F or U. '
+        refundStatus:
+          $ref: '#/components/schemas/TransactionStatusType'
+          description: "Indicates the final status of the Antom refund, not the Alipay+\
+            \ Mobile Payment Provider (Alipay+ payment methods) side. Valid values\
+            \ are:  \n\nSUCCESS: Indicates the refund is successful. \nPROCESSING:\
+            \ Indicates the refund is still under process. \nFAIL: Indicates the refund\
+            \ failed.\nNote: This field is null when the refund record cannot be found,\
+            \ or result.resultStatus is F or U. \n\nMore information:\n\nMaximum length:\
+            \ 16 characters\n"
         refundTime:
           type: string
           description: "The date and time when the refund reaches a final state of\
@@ -176,9 +206,22 @@ components:
             \ of refundStatus is SUCCESS.\n\nMore information:\n\nThe value follows\
             \ the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\"\
             ."
-        grossSettlementAmount: *id001
-        settlementQuote: *id004
-        acquirerInfo: *id005
+        grossSettlementAmount:
+          $ref: '#/components/schemas/Amount'
+          description: 'The refund amount that is initiated by the merchant.
+
+
+            Note: This field is null when the refund record cannot be found, or result.resultStatus
+            is F or U. '
+        settlementQuote:
+          $ref: '#/components/schemas/Quote'
+          description: 'The exchange rate between the settlement currency and payment
+            currency.
+
+
+            Note: This field is returned when grossSettlementAmount is returned.'
+        acquirerInfo:
+          $ref: '#/components/schemas/AcquirerInfo'
       required:
       - result
     Amount:
