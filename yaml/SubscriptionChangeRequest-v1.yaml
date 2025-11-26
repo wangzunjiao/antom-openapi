@@ -110,7 +110,7 @@ components:
     OrderInfo:
       type: object
       properties:
-        orderAmount: &id001
+        orderAmount:
           $ref: '#/components/schemas/Amount'
           description: The order amount of the merchant that directly provides services
             or goods to the customer. The value of this parameter is displayed on
@@ -120,6 +120,12 @@ components:
     AlipaySubscriptionChangeRequest:
       type: object
       properties:
+        allowAccumulate:
+          type: boolean
+          description: Whether to allow accumulate payment amount
+        maxAccumulateAmount:
+          $ref: '#/components/schemas/Amount'
+          description: The maximum accumulate amount
         subscriptionChangeRequestId:
           type: string
           description: "The unique ID assigned by a merchant to identify a subscription\
@@ -199,8 +205,16 @@ components:
             purposes such as purchase tracking and regulatory reporting.
 
             Note: Specify this parameter if you want to change this information.'
-        paymentAmount: *id001
-        paymentAmountDifference: *id001
+        paymentAmount:
+          $ref: '#/components/schemas/Amount'
+          description: The order amount of the merchant that directly provides services
+            or goods to the customer. The value of this parameter is displayed on
+            user consumption records or the payment result page.
+        paymentAmountDifference:
+          $ref: '#/components/schemas/Amount'
+          description: The order amount of the merchant that directly provides services
+            or goods to the customer. The value of this parameter is displayed on
+            user consumption records or the payment result page.
       required:
       - subscriptionChangeRequestId
       - subscriptionId
