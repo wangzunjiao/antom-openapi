@@ -218,12 +218,6 @@ components:
           type: string
           description: "The unique ID that is assigned by Antom to identify an exchange\
             \ rate. \n\nMore information:\n\nMaximum length: 64 characters"
-        expiryTime:
-          type: string
-          description: Expiry time of the quote in ISO 8601 format
-        amount:
-          $ref: '#/components/schemas/Amount'
-          description: Quote amount
         quoteCurrencyPair:
           type: string
           description: "The exchange rate between settlement currency and transaction\
