@@ -311,6 +311,10 @@
             "description": "Customized field 5"
           }
         }
+      },
+      "RefundToBankInfo": {
+        "type": "object",
+        "properties": {}
       }
     },
     "securitySchemes": {}

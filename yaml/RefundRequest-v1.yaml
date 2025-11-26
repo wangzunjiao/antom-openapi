@@ -384,6 +384,9 @@ components:
         customizedField5:
           type: string
           description: Customized field 5
+    RefundToBankInfo:
+      type: object
+      properties: {}
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/refund
