@@ -208,8 +208,6 @@ components:
 
 
             '
-        testFile:
-          type: string
         paymentExpiryTime:
           type: string
           description: The specific date and time after which the payment will expire.
@@ -221,7 +219,6 @@ components:
       - paymentMethod
       - paymentRedirectUrl
       - productCode
-      - testFile
     AlipayPaymentSessionResponse:
       type: object
       properties:
@@ -593,10 +590,6 @@ components:
         osVersion:
           type: string
           description: Version of the operation system.
-        envType:
-          type: string
-          description: ''
-          example: oootype
       required:
       - terminalType
     Gaming:

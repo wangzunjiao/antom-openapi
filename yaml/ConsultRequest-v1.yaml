@@ -358,10 +358,6 @@ components:
         osVersion:
           type: string
           description: Version of the operation system.
-        envType:
-          type: string
-          description: ''
-          example: oootype
       required:
       - terminalType
     InStorePaymentScenario:

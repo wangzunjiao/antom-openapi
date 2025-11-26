@@ -193,9 +193,6 @@
             "$ref": "#/components/schemas/AvailablePaymentMethod",
             "description": "Information on payment methods available to the user.\n\n"
           },
-          "testFile": {
-            "type": "string"
-          },
           "paymentExpiryTime": {
             "type": "string",
             "description": "The specific date and time after which the payment will expire."
@@ -208,8 +205,7 @@
           "settlementStrategy",
           "paymentMethod",
           "paymentRedirectUrl",
-          "productCode",
-          "testFile"
+          "productCode"
         ]
       },
       "AvailablePaymentMethod": {
@@ -536,11 +532,6 @@
           "osVersion": {
             "type": "string",
             "description": "Version of the operation system."
-          },
-          "envType": {
-            "type": "string",
-            "description": "",
-            "example": "oootype"
           }
         },
         "required": [
