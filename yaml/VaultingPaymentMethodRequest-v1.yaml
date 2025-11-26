@@ -528,16 +528,18 @@ components:
           type: string
       type: object
     MpiData:
+      type: object
       properties:
+        threeDSVersion:
+          type: string
+        eci:
+          type: string
         cavv:
           type: string
         dsTransactionId:
           type: string
-        eci:
+        credentialType:
           type: string
-        threeDSVersion:
-          type: string
-      type: object
     OsType:
       enum:
       - IOS

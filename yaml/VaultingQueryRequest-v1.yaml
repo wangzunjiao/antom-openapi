@@ -130,6 +130,8 @@ components:
           type: string
         dsTransactionId:
           type: string
+        credentialType:
+          type: string
     CardPaymentMethodDetail:
       type: object
       properties:

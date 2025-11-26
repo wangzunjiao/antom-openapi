@@ -167,6 +167,12 @@
             "$ref": "#/components/schemas/Amount",
             "description": "The payment amount that the merchant requests to receive in the order currency."
           },
+          "orderDiscountAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "subTotalOrderAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
           "merchant": {
             "$ref": "#/components/schemas/Merchant",
             "description": "Information about the secondary merchant.\n\nNote: Specify this field if you are an acquirer that has secondary merchants."
