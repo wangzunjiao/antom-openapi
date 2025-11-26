@@ -1417,6 +1417,21 @@
       "AlipayPayRequest": {
         "type": "object",
         "properties": {
+          "customizedInfo": {
+            "$ref": "#/components/schemas/CustomizedInfo"
+          },
+          "paymentQuote": {
+            "$ref": "#/components/schemas/Quote"
+          },
+          "processingAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "agreementInfo": {
+            "$ref": "#/components/schemas/AgreementInfo"
+          },
+          "subscriptionInfo": {
+            "$ref": "#/components/schemas/SubscriptionInfo"
+          },
           "productCode": {
             "$ref": "#/components/schemas/ProductCodeType",
             "description": "Represents the payment product that is being used, which is stipulated in the contract. For Checkout Payment, the value is fixed as CASHIER_PAYMENT."
