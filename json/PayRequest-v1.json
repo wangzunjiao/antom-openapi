@@ -209,9 +209,6 @@
           "needDeclaration": {
             "type": "boolean"
           },
-          "orderTest": {
-            "type": "string"
-          },
           "declaration": {
             "$ref": "#/components/schemas/Declaration"
           },

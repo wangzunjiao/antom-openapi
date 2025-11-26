@@ -290,6 +290,13 @@ components:
             $ref: '#/components/schemas/PaymentMethodTypeItem'
           type: array
       type: object
+    paymentMethodMetaData:
+      type: object
+      properties: { }
+      additionalProperties:
+        type: object
+      description: 'Additional information required for some specific payment
+        methods.  '
     BrowserInfo:
       properties:
         acceptHeader:
@@ -1023,8 +1030,6 @@ components:
             and increase payment success rates.'
         needDeclaration:
           type: boolean
-        orderTest:
-          type: string
         declaration:
           $ref: '#/components/schemas/Declaration'
         orderType:

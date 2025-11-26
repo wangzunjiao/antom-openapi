@@ -257,8 +257,6 @@ components:
             and increase payment success rates.'
         needDeclaration:
           type: boolean
-        orderTest:
-          type: string
         declaration:
           $ref: '#/components/schemas/Declaration'
         orderType:
