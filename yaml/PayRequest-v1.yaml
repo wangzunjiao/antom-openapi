@@ -1101,6 +1101,9 @@ components:
         acquirerMerchantName:
           type: string
           description: The merchant name registered with the acquirer
+        acquirerReasonDescription:
+          type: string
+          description: The reason description provided by the acquirer
     PromotionType:
       type: string
       enum:
