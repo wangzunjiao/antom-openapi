@@ -284,7 +284,8 @@
             "description": "The result message that describes acquirerResultCode in detail.  \n\nNote: This parameter is returned if you integrate the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "acquirerMerchantName": {
-            "type": "string"
+            "type": "string",
+            "description": "The merchant name registered with the acquirer"
           }
         }
       },

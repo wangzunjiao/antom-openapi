@@ -327,6 +327,7 @@ components:
             \nMore information:\n\nMaximum length: 64 characters"
         acquirerMerchantName:
           type: string
+          description: The merchant name registered with the acquirer
     Result:
       type: object
       properties:
