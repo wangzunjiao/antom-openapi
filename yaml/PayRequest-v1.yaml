@@ -1817,6 +1817,16 @@ components:
     AlipayPayRequest:
       type: object
       properties:
+        customizedInfo:
+          $ref: '#/components/schemas/CustomizedInfo'
+        paymentQuote:
+          $ref: '#/components/schemas/Quote'
+        processingAmount:
+          $ref: '#/components/schemas/Amount'
+        agreementInfo:
+          $ref: '#/components/schemas/AgreementInfo'
+        subscriptionInfo:
+          $ref: '#/components/schemas/SubscriptionInfo'
         productCode:
           $ref: '#/components/schemas/ProductCodeType'
           description: Represents the payment product that is being used, which is
@@ -1848,8 +1858,9 @@ components:
 
             After the payment is completed, this field is used for recording and reporting
             purposes such as purchase tracking and regulatory reporting.'
-        paymentAmount: *id004
-        paymentMethod: &id005
+        paymentAmount:
+          $ref: '#/components/schemas/Amount'
+        paymentMethod:
           $ref: '#/components/schemas/PaymentMethod'
           description: The payment method that is used to collect the payment by the
             merchant or acquirer.
@@ -1942,7 +1953,10 @@ components:
             \ Alipay+ cashier page.  \n\nMore information:\n\nMaximum length: 2 characters"
         env:
           $ref: '#/components/schemas/Env'
-        payToMethod: *id005
+        payToMethod:
+          $ref: '#/components/schemas/PaymentMethod'
+          description: The payment method that is used to collect the payment by the
+            merchant or acquirer.
         isAuthorization:
           type: boolean
         merchant:
