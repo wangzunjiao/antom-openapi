@@ -858,6 +858,12 @@ components:
     CustomizedInfo:
       type: object
       properties:
+        categoryCode:
+          type: string
+          description: Category code for the service
+        subCategoryCode:
+          type: string
+          description: Sub-category code for the service
         customizedField1:
           type: string
           description: Customized field 1
