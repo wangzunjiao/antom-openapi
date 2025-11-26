@@ -182,31 +182,27 @@ components:
       - result
       type: object
     Amount:
+      type: object
       properties:
         currency:
-          description: "The transaction currency that is specified in the contract.\
-            \ A 3-letter currency code that follows the ISO 4217 standard. \n\nMore\
-            \ information:\n\nMaximum length: 3 characters"
           type: string
+          description: "The 3-letter currency code that follows the ISO 4217 standard.\
+            \ \n\nMore information:\n\nMaximum length: 3 characters"
         value:
-          description: 'The amount to charge as a positive integer in the smallest
-            currency unit. (That is, 100 cents to charge $1.00, or 100 to charge JPY
-            100, a 0-decimal currency).
-
-
-            Note: For details about the smallest currency unit, see Smallest unit
-            of the currency.
-
-
-            More information:
-
-
-            Value range: 1 - unlimited'
           type: string
+          description: "The value of the amount as a positive integer in the smallest\
+            \ currency unit. For example, if the currency is USD and the amount is\
+            \ $1.00, set the value of this parameter to 100; or if the currency is\
+            \ JPY and the amount is ￥1, set the value of this parameter to 1.  \n\n\
+            For details about the smallest currency unit, see Smallest unit of the\
+            \ currency .\n\nFor details about the minimum payment amount allowed for\
+            \ each payment method, see Minimum amount rules. \n\nNote: Due to the\
+            \ currency practices in Indonesia, when the currency is IDR, round the\
+            \ amount with banker's rounding and fix the last two digits of this parameter\
+            \ as 00.  \n\nMore information:\n\nValue range: 0 - unlimited\n"
       required:
       - currency
       - value
-      type: object
     BrowserInfo:
       properties:
         acceptHeader:
@@ -337,10 +333,6 @@ components:
         osVersion:
           type: string
           description: Version of the operation system.
-        envType:
-          type: string
-          description: ''
-          example: oootype
       required:
       - terminalType
     OrderInfo:
@@ -429,25 +421,31 @@ components:
       required:
       - paymentMethodType
     PeriodRule:
+      type: object
       properties:
-        periodCount:
-          description: "The number of period types within one subscription period.\
-            \ For example, if the value of periodType is MONTH and the value of periodCount\
-            \ is 2, it means that the subscription period is two months.  \n\nMore\
-            \ information:\n\nValue range: 1 - unlimited"
-          type: integer
         periodType:
+          type: string
           description: "The subscription period type. Valid values are:\n\nYEAR: indicates\
             \ that the subscription period is measured in years. \nMONTH: indicates\
             \ that the subscription period is measured in months. \nWEEK: indicates\
             \ that the subscription period is measured in weeks. \nDAY: indicates\
             \ that the subscription period is measured in days.  \nMore information:\n\
             \nMaximum length: 20 characters"
-          type: string
+        period:
+          type: integer
+          description: Number of periods
+        price:
+          $ref: '#/components/schemas/Amount'
+          description: Amount for each period
+        periodCount:
+          type: integer
+          description: "The number of period types within one subscription period.\
+            \ For example, if the value of periodType is MONTH and the value of periodCount\
+            \ is 2, it means that the subscription period is two months.  \n\nMore\
+            \ information:\n\nValue range: 1 - unlimited"
       required:
       - periodType
       - periodCount
-      type: object
     Result:
       properties:
         resultCode:
@@ -491,11 +489,20 @@ components:
       - MINI_APP
       type: string
     Trial:
+      type: object
       properties:
+        trialPeriod:
+          type: integer
         trialAmount:
           $ref: '#/components/schemas/Amount'
           description: 'The payment amount charged to the user per subscription period.  '
+        trialStartPeriod:
+          type: integer
+          description: "The start subscription period of the trial. For example, if\
+            \ the trial starts from the first subscription period, specify this parameter\
+            \ as 1.  \n\nMore information:\n\nValue range: 1 - unlimited"
         trialEndPeriod:
+          type: integer
           description: 'The end subscription period of the trial. For example, if
             the trial ends at the third subscription period, specify this parameter
             as 3.
@@ -512,16 +519,9 @@ components:
             Value range: 1 - unlimited
 
             '
-          type: integer
-        trialStartPeriod:
-          description: "The start subscription period of the trial. For example, if\
-            \ the trial starts from the first subscription period, specify this parameter\
-            \ as 1.  \n\nMore information:\n\nValue range: 1 - unlimited"
-          type: integer
       required:
       - trialStartPeriod
       - trialAmount
-      type: object
     FundingType:
       type: string
       enum:

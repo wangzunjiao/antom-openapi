@@ -76,6 +76,41 @@
       "AlipayPaymentSessionRequest": {
         "type": "object",
         "properties": {
+          "allowedPaymentMethodRegions": {
+            "type": "string",
+            "description": "Allowed payment method regions"
+          },
+          "customizedInfo": {
+            "$ref": "#/components/schemas/CustomizedInfo",
+            "description": "Customized information for the payment"
+          },
+          "paymentQuote": {
+            "$ref": "#/components/schemas/Quote",
+            "description": "Payment quote information"
+          },
+          "processingAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "Processing amount for the payment"
+          },
+          "subscriptionPlan": {
+            "$ref": "#/components/schemas/SubscriptionPlan",
+            "description": "Subscription plan information"
+          },
+          "subscriptionInfo": {
+            "$ref": "#/components/schemas/SubscriptionInfo",
+            "description": "Subscription information"
+          },
+          "userRegion": {
+            "type": "string",
+            "description": "User's region information"
+          },
+          "scopes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of payment scopes"
+          },
           "productCode": {
             "$ref": "#/components/schemas/ProductCodeType",
             "description": "Represents the payment product that is being used, which is stipulated in the contract. For Checkout Payment, the value is fixed as CASHIER_PAYMENT."
@@ -158,9 +193,6 @@
             "$ref": "#/components/schemas/AvailablePaymentMethod",
             "description": "Information on payment methods available to the user.\n\n"
           },
-          "testFile": {
-            "type": "string"
-          },
           "paymentExpiryTime": {
             "type": "string",
             "description": "The specific date and time after which the payment will expire."
@@ -173,8 +205,7 @@
           "settlementStrategy",
           "paymentMethod",
           "paymentRedirectUrl",
-          "productCode",
-          "testFile"
+          "productCode"
         ]
       },
       "AvailablePaymentMethod": {
@@ -501,11 +532,6 @@
           "osVersion": {
             "type": "string",
             "description": "Version of the operation system."
-          },
-          "envType": {
-            "type": "string",
-            "description": "",
-            "example": "oootype"
           }
         },
         "required": [
@@ -669,11 +695,11 @@
         "properties": {
           "currency": {
             "type": "string",
-            "description": "The transaction currency that is specified in the contract. A 3-letter currency code that follows the ISO 4217 standard.\n\nMore information:\n\nMaximum length: 3 characters"
+            "description": "The 3-letter currency code that follows the ISO 4217 standard. \n\nMore information:\n\nMaximum length: 3 characters"
           },
           "value": {
             "type": "string",
-            "description": "The amount to charge as a positive integer in the smallest currency unit. (That is, 100 cents to charge $1.00, or 100 to charge JPY 100, a 0-decimal currency).\n\nNote: For details about the smallest currency unit, see Smallest unit of the currency. \n\nMore information:\n\nValue range: 1 - unlimited\n"
+            "description": "The value of the amount as a positive integer in the smallest currency unit. For example, if the currency is USD and the amount is $1.00, set the value of this parameter to 100; or if the currency is JPY and the amount is \uffe51, set the value of this parameter to 1.  \n\nFor details about the smallest currency unit, see Smallest unit of the currency .\n\nFor details about the minimum payment amount allowed for each payment method, see Minimum amount rules. \n\nNote: Due to the currency practices in Indonesia, when the currency is IDR, round the amount with banker's rounding and fix the last two digits of this parameter as 00.  \n\nMore information:\n\nValue range: 0 - unlimited\n"
           }
         },
         "required": [
@@ -1377,6 +1403,189 @@
             "description": "Sub-category code for the service"
           }
         }
+      },
+      "SubscriptionInfo": {
+        "type": "object",
+        "properties": {
+          "subscriptionDescription": {
+            "type": "string",
+            "description": "Description of the subscription plan"
+          },
+          "subscriptionStartTime": {
+            "type": "string",
+            "description": "Start time of the subscription in ISO 8601 format"
+          },
+          "subscriptionEndTime": {
+            "type": "string",
+            "description": "End time of the subscription in ISO 8601 format"
+          },
+          "periodRule": {
+            "$ref": "#/components/schemas/PeriodRule",
+            "description": "Billing period rules for the subscription"
+          },
+          "trials": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Trial",
+              "type": "object",
+              "properties": {
+                "trialPeriod": {
+                  "type": "string",
+                  "description": "The trial period"
+                },
+                "trialAmount": {
+                  "$ref": "#/components/schemas/Amount",
+                  "description": "The amount for the trial period"
+                }
+              }
+            },
+            "description": "List of trial periods for the subscription"
+          },
+          "subscriptionNotifyUrl": {
+            "type": "string",
+            "description": "URL for subscription notifications"
+          },
+          "subscriptionExpiryTime": {
+            "type": "string",
+            "description": "Expiry time of the subscription in ISO 8601 format"
+          }
+        }
+      },
+      "PeriodRule": {
+        "type": "object",
+        "properties": {
+          "periodType": {
+            "type": "string",
+            "description": "The subscription period type. Valid values are:\n\nYEAR: indicates that the subscription period is measured in years. \nMONTH: indicates that the subscription period is measured in months. \nWEEK: indicates that the subscription period is measured in weeks. \nDAY: indicates that the subscription period is measured in days.  \nMore information:\n\nMaximum length: 20 characters"
+          },
+          "period": {
+            "type": "integer",
+            "description": "Number of periods"
+          },
+          "price": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "Amount for each period"
+          },
+          "periodCount": {
+            "type": "integer",
+            "description": "The number of period types within one subscription period. For example, if the value of periodType is MONTH and the value of periodCount is 2, it means that the subscription period is two months.  \n\nMore information:\n\nValue range: 1 - unlimited"
+          }
+        },
+        "required": [
+          "periodType",
+          "periodCount"
+        ]
+      },
+      "Trial": {
+        "type": "object",
+        "properties": {
+          "trialPeriod": {
+            "type": "integer"
+          },
+          "trialAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "The payment amount charged to the user per subscription period.  "
+          },
+          "trialStartPeriod": {
+            "type": "integer",
+            "description": "The start subscription period of the trial. For example, if the trial starts from the first subscription period, specify this parameter as 1.  \n\nMore information:\n\nValue range: 1 - unlimited"
+          },
+          "trialEndPeriod": {
+            "type": "integer",
+            "description": "The end subscription period of the trial. For example, if the trial ends at the third subscription period, specify this parameter as 3.\n\nNote: Specify this parameter if the end subscription period is different from the start subscription period. If you leave this parameter empty, the default value of this parameter is the same as the value of trialStartPeriod.\n\nMore information:\n\nValue range: 1 - unlimited\n"
+          }
+        },
+        "required": [
+          "trialStartPeriod",
+          "trialAmount"
+        ]
+      },
+      "SubscriptionPlan": {
+        "type": "object",
+        "properties": {
+          "allowAccumulate": {
+            "type": "boolean",
+            "description": "Whether to allow accumulation of unused amounts"
+          },
+          "maxAccumulateAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "Maximum amount that can be accumulated"
+          },
+          "periodRule": {
+            "$ref": "#/components/schemas/PeriodRule",
+            "description": "Billing period rules"
+          },
+          "subscriptionStartTime": {
+            "type": "string",
+            "description": "Start time of the subscription plan in ISO 8601 format"
+          },
+          "subscriptionNotificationUrl": {
+            "type": "string",
+            "description": "URL for subscription notifications"
+          }
+        }
+      },
+      "CustomizedInfo": {
+        "type": "object",
+        "properties": {
+          "customizedField1": {
+            "type": "string",
+            "description": "Customized field 1"
+          },
+          "customizedField2": {
+            "type": "string",
+            "description": "Customized field 2"
+          },
+          "customizedField3": {
+            "type": "string",
+            "description": "Customized field 3"
+          },
+          "customizedField4": {
+            "type": "string",
+            "description": "Customized field 4"
+          },
+          "customizedField5": {
+            "type": "string",
+            "description": "Customized field 5"
+          }
+        }
+      },
+      "Quote": {
+        "type": "object",
+        "properties": {
+          "quoteId": {
+            "type": "string",
+            "description": "The unique ID that is assigned by Antom to identify an exchange rate. \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "quoteCurrencyPair": {
+            "type": "string",
+            "description": "The exchange rate between settlement currency and transaction currency. Two currencies are separated with a slash and use the three-letter ISO-4217 currency code.  \n\nMore information:\n\nMaximum length: 16 characters"
+          },
+          "quotePrice": {
+            "type": "number",
+            "description": "The exchange rate used when a currency conversion between settlement currency and transaction currency occurs.  \n\nMore information:\n\nValue range: 1 - unlimited"
+          },
+          "quoteStartTime": {
+            "type": "string",
+            "description": "Effective time of the exchange rate. \n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
+          },
+          "quoteExpiryTime": {
+            "type": "string",
+            "description": "Expiration time of the exchange rate.  \n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
+          },
+          "guaranteed": {
+            "type": "boolean",
+            "description": "Guaranteed exchange rate available for payment.  \n\n"
+          },
+          "exchangeAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "Added field for exchange amount"
+          }
+        },
+        "required": [
+          "quoteCurrencyPair",
+          "quotePrice"
+        ]
       }
     },
     "securitySchemes": {}
