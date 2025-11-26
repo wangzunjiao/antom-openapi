@@ -401,6 +401,22 @@ components:
           $ref: '#/components/schemas/UserName'
         accountNo:
           type: string
+    UserName:
+      type: object
+      properties:
+        firstName:
+          type: string
+        middleName:
+          type: string
+        lastName:
+          type: string
+        fullName:
+          type: string
+      required:
+      - firstName
+      - middleName
+      - lastName
+      - fullName
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/refund

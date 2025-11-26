@@ -334,6 +334,29 @@
             "type": "string"
           }
         }
+      },
+      "UserName": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "firstName",
+          "middleName",
+          "lastName",
+          "fullName"
+        ]
       }
     },
     "securitySchemes": {}
