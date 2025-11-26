@@ -114,6 +114,18 @@
       "AlipayInquiryRefundResponse": {
         "type": "object",
         "properties": {
+          "customizedInfo": {
+            "$ref": "#/components/schemas/CustomizedInfo",
+            "description": "Customized information field"
+          },
+          "arn": {
+            "type": "string",
+            "description": "Acquirer Reference Number"
+          },
+          "actualRefundAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "The actual refund amount processed"
+          },
           "result": {
             "$ref": "#/components/schemas/Result",
             "description": "The request result contains information such as status and error codes.\n\nNote: This field does not indicate the refund result. This field only indicates whether the inquiryRefund interface is called successfully. "
