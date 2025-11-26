@@ -1729,6 +1729,7 @@ components:
         trials:
           type: array
           items:
+            $ref: '#/components/schemas/Trial'
             type: object
           description: Trial period information
         subscriptionNotifyUrl:
