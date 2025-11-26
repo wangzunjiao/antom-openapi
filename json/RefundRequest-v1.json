@@ -314,7 +314,17 @@
       },
       "RefundToBankInfo": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "bankCode": {
+            "type": "string"
+          },
+          "accountHolderName": {
+            "$ref": "#/components/schemas/UserName"
+          },
+          "accountNo": {
+            "type": "string"
+          }
+        }
       }
     },
     "securitySchemes": {}
