@@ -161,6 +161,15 @@
       "AlipayRefundRequest": {
         "type": "object",
         "properties": {
+          "customizedInfo": {
+            "$ref": "#/components/schemas/CustomizedInfo"
+          },
+          "captureId": {
+            "type": "string"
+          },
+          "refundToBankInfo": {
+            "$ref": "#/components/schemas/RefundToBankInfo"
+          },
           "refundRequestId": {
             "type": "string",
             "description": "The unique ID assigned by the merchant to identify a refund request.\n\nMore information:\n\nThis field is an API idempotency field.The merchant uses the refundRequestId field for idempotency control. For payment requests that are initiated with the same value of refundRequestId and reach a final status (S or F), the same result is to be returned for the request.\nMaximum length: 64 characters"

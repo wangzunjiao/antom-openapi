@@ -175,6 +175,12 @@ components:
     AlipayRefundRequest:
       type: object
       properties:
+        customizedInfo:
+          $ref: '#/components/schemas/CustomizedInfo'
+        captureId:
+          type: string
+        refundToBankInfo:
+          $ref: '#/components/schemas/RefundToBankInfo'
         refundRequestId:
           type: string
           description: 'The unique ID assigned by the merchant to identify a refund
@@ -215,7 +221,7 @@ components:
             Maximum length: 64 characters
 
             '
-        refundAmount: &id001
+        refundAmount:
           description: The refund amount that is initiated by the merchant.
           $ref: '#/components/schemas/Amount'
         refundReason:
@@ -266,7 +272,9 @@ components:
     RefundDetail:
       type: object
       properties:
-        refundAmount: *id001
+        refundAmount:
+          description: The refund amount that is initiated by the merchant.
+          $ref: '#/components/schemas/Amount'
         refundFrom:
           $ref: '#/components/schemas/RefundFromType'
       required:
