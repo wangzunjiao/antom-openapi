@@ -1699,6 +1699,18 @@ components:
       required:
       - quoteCurrencyPair
       - quotePrice
+    SubscriptionPlan:
+      type: object
+      properties:
+        planId:
+          type: string
+          description: Unique identifier for the subscription plan
+        planName:
+          type: string
+          description: Name of the subscription plan
+        planDescription:
+          type: string
+          description: Description of the subscription plan
   securitySchemes: {}
 info:
   description: ''
