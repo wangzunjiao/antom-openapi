@@ -2251,6 +2251,100 @@ components:
         displayUserLoginId:
           type: string
           description: The login ID that use to display
+    SubscriptionInfo:
+      type: object
+      properties:
+        subscriptionDescription:
+          type: string
+          description: Description of the subscription plan
+        subscriptionStartTime:
+          type: string
+          description: Start time of the subscription in ISO 8601 format
+        subscriptionEndTime:
+          type: string
+          description: End time of the subscription in ISO 8601 format
+        periodRule:
+          $ref: '#/components/schemas/PeriodRule'
+          description: Billing period rules for the subscription
+        trials:
+          type: array
+          items:
+            $ref: '#/components/schemas/Trial'
+            type: object
+            properties:
+              trialPeriod:
+                type: string
+                description: The trial period
+              trialAmount:
+                $ref: '#/components/schemas/Amount'
+                description: The amount for the trial period
+          description: List of trial periods for the subscription
+        subscriptionNotifyUrl:
+          type: string
+          description: URL for subscription notifications
+        subscriptionExpiryTime:
+          type: string
+          description: Expiry time of the subscription in ISO 8601 format
+    PeriodRule:
+      type: object
+      properties:
+        periodType:
+          type: string
+          description: "The subscription period type. Valid values are:\n\nYEAR: indicates\
+            \ that the subscription period is measured in years. \nMONTH: indicates\
+            \ that the subscription period is measured in months. \nWEEK: indicates\
+            \ that the subscription period is measured in weeks. \nDAY: indicates\
+            \ that the subscription period is measured in days.  \nMore information:\n\
+            \nMaximum length: 20 characters"
+        period:
+          type: integer
+          description: Number of periods
+        price:
+          $ref: '#/components/schemas/Amount'
+          description: Amount for each period
+        periodCount:
+          type: integer
+          description: "The number of period types within one subscription period.\
+            \ For example, if the value of periodType is MONTH and the value of periodCount\
+            \ is 2, it means that the subscription period is two months.  \n\nMore\
+            \ information:\n\nValue range: 1 - unlimited"
+      required:
+      - periodType
+      - periodCount
+    Trial:
+      type: object
+      properties:
+        trialPeriod:
+          type: integer
+        trialAmount:
+          $ref: '#/components/schemas/Amount'
+          description: 'The payment amount charged to the user per subscription period.  '
+        trialStartPeriod:
+          type: integer
+          description: "The start subscription period of the trial. For example, if\
+            \ the trial starts from the first subscription period, specify this parameter\
+            \ as 1.  \n\nMore information:\n\nValue range: 1 - unlimited"
+        trialEndPeriod:
+          type: integer
+          description: 'The end subscription period of the trial. For example, if
+            the trial ends at the third subscription period, specify this parameter
+            as 3.
+
+
+            Note: Specify this parameter if the end subscription period is different
+            from the start subscription period. If you leave this parameter empty,
+            the default value of this parameter is the same as the value of trialStartPeriod.
+
+
+            More information:
+
+
+            Value range: 1 - unlimited
+
+            '
+      required:
+      - trialStartPeriod
+      - trialAmount
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/pay
