@@ -37,6 +37,32 @@ components:
     AlipayPaymentSessionRequest:
       type: object
       properties:
+        allowedPaymentMethodRegions:
+          type: string
+          description: Allowed payment method regions
+        customizedInfo:
+          $ref: '#/components/schemas/CustomizedInfo'
+          description: Customized information
+        paymentQuote:
+          $ref: '#/components/schemas/Quote'
+          description: Payment quote information
+        processingAmount:
+          $ref: '#/components/schemas/Amount'
+          description: Processing amount
+        subscriptionPlan:
+          $ref: '#/components/schemas/SubscriptionPlan'
+          description: Subscription plan information
+        subscriptionInfo:
+          $ref: '#/components/schemas/SubscriptionInfo'
+          description: Subscription information
+        userRegion:
+          type: string
+          description: User region
+        scopes:
+          type: array
+          items:
+            type: string
+          description: Scopes for the payment
         productCode:
           $ref: '#/components/schemas/ProductCodeType'
           description: Represents the payment product that is being used, which is
