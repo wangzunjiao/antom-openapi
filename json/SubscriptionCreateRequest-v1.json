@@ -264,6 +264,10 @@
       "AlipaySubscriptionCreateRequest": {
         "type": "object",
         "properties": {
+          "customizedInfo": {
+            "$ref": "#/components/schemas/CustomizedInfo",
+            "description": "Customized information"
+          },
           "merchantAccountId": {
             "type": "string",
             "description": "The merchant account ID"
@@ -275,10 +279,6 @@
           "maxAccumulateAmount": {
             "$ref": "#/components/schemas/Amount",
             "description": "The maximum accumulate amount"
-          },
-          "customizedInfo": {
-            "$ref": "#/components/schemas/CustomizedInfo",
-            "description": "Customized information"
           },
           "subscriptionRequestId": {
             "type": "string",
