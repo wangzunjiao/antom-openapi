@@ -311,6 +311,9 @@
           },
           "dsTransactionId": {
             "type": "string"
+          },
+          "credentialType": {
+            "type": "string"
           }
         }
       },
