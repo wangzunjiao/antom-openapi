@@ -2,56 +2,55 @@
 components:
   schemas:
     AlipaySubscriptionCreateRequest:
+      type: object
       properties:
-        env:
-          $ref: '#/components/schemas/Env'
-          description: 'Information about the environment where the order is placed,
-            such as the device information.  '
-        orderInfo:
-          $ref: '#/components/schemas/OrderInfo'
-          description: 'The order information for the subscription. This field is
-            used for different purposes:
-
-
-            During the payment process, this field is mainly used by Antom for risk
-            control or anti-money laundering.
-
-            After the payment is completed, this field is used for recording and reporting
-            purposes such as purchase tracking and regulatory reporting. '
-        paymentAmount:
-          $ref: '#/components/schemas/Amount'
-          description: 'The payment amount charged to the user per subscription period.  '
-        paymentMethod:
-          $ref: '#/components/schemas/PaymentMethod'
-          description: The payment method that is used to collect the payment by the
-            merchant or acquirer.
-        paymentNotificationUrl:
-          description: "The URL that is used to receive the payment result notification\
-            \ for each subscription period.\n\nYou can also configure the subscription\
-            \ notification URL in Antom Dashboard. If you specify this URL in both\
-            \ this API and Antom Dashboard, the URL configured in the API takes precedence.\
-            \  \n\nYou can only configure one subscription notification URL in Antom\
-            \ Dashboard.\n\nMore information:\n\nMaximum length: 2048 characters\n"
+        merchantAccountId:
           type: string
-        periodRule:
-          $ref: '#/components/schemas/PeriodRule'
-          description: "The subscription period rule, used to define a subscription's\
-            \ billing period. \n\n"
-        settlementStrategy:
-          $ref: '#/components/schemas/SettlementStrategy'
-          description: 'The settlement strategy for the payment request. '
+          description: The merchant account ID
+        allowAccumulate:
+          type: boolean
+          description: Whether to allow accumulate payment amount
+        maxAccumulateAmount:
+          $ref: '#/components/schemas/Amount'
+          description: The maximum accumulate amount
+        customizedInfo:
+          $ref: '#/components/schemas/CustomizedInfo'
+          description: Customized information
+        subscriptionRequestId:
+          type: string
+          description: "The unique ID assigned by a merchant to identify a subscription\
+            \ request. Antom uses this field for idempotency control.  \n\nMore information:\n\
+            \nThis field is an API idempotency field.For subscription requests that\
+            \ are initiated with the same value of subscriptionRequestId and reach\
+            \ a final status of S or F, the same result is to be returned for the\
+            \ request.\nMaximum length: 64 characters"
         subscriptionDescription:
+          type: string
           description: "The description of the subscription, used for displaying user\
             \ consumption records and other actions. \n\nMore information:\n\nMaximum\
             \ length: 256 characters"
+        subscriptionRedirectUrl:
           type: string
+          description: "The merchant page URL that the user is redirected to after\
+            \ authorizing the subscription. \n\nMore information:\n\nMaximum length:\
+            \ 2048 characters\n"
+        subscriptionStartTime:
+          type: string
+          description: "The date and time when the subscription becomes active.  \n\
+            \nMore information:\n\nThe value follows the ISO 8601 standard format.\
+            \ For example, \"2019-11-27T12:01:01+08:00\".\n"
         subscriptionEndTime:
+          type: string
           description: "The date and time when the subscription ends.\n\nNote: Specify\
             \ this parameter when you want to designate the subscription end time.\
             \  \n\nMore information:\n\nThe value follows the ISO 8601 standard format.\
             \ For example, \"2019-11-27T12:01:01+08:00\".\n"
-          type: string
+        periodRule:
+          $ref: '#/components/schemas/PeriodRule'
+          description: "The subscription period rule, used to define a subscription's\
+            \ billing period. \n\n"
         subscriptionExpiryTime:
+          type: string
           description: 'A specific date and time after which the created subscription
             expires. When the subscription expires, the order must be terminated.
             The default value of this parameter is 30 minutes after the subscription
@@ -67,39 +66,53 @@ components:
 
 
             The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
-          type: string
+        paymentMethod:
+          $ref: '#/components/schemas/PaymentMethod'
+          description: The payment method that is used to collect the payment by the
+            merchant or acquirer.
         subscriptionNotificationUrl:
+          type: string
           description: "The URL that is used to receive the subscription result notification.\
             \ \n\nYou can also configure the subscription notification URL in Antom\
             \ Dashboard. If you specify this URL in both this API and Antom Dashboard,\
             \ the URL configured in the API takes precedence.  \n\nOnly one subscription\
             \ notification URL can be configured in Antom Dashboard.\n\nMore information:\n\
             \nMaximum length: 2048 characters"
+        paymentNotificationUrl:
           type: string
-        subscriptionRedirectUrl:
-          description: "The merchant page URL that the user is redirected to after\
-            \ authorizing the subscription. \n\nMore information:\n\nMaximum length:\
-            \ 2048 characters\n"
-          type: string
-        subscriptionRequestId:
-          description: "The unique ID assigned by a merchant to identify a subscription\
-            \ request. Antom uses this field for idempotency control.  \n\nMore information:\n\
-            \nThis field is an API idempotency field.For subscription requests that\
-            \ are initiated with the same value of subscriptionRequestId and reach\
-            \ a final status of S or F, the same result is to be returned for the\
-            \ request.\nMaximum length: 64 characters"
-          type: string
-        subscriptionStartTime:
-          description: "The date and time when the subscription becomes active.  \n\
-            \nMore information:\n\nThe value follows the ISO 8601 standard format.\
-            \ For example, \"2019-11-27T12:01:01+08:00\".\n"
-          type: string
+          description: "The URL that is used to receive the payment result notification\
+            \ for each subscription period.\n\nYou can also configure the subscription\
+            \ notification URL in Antom Dashboard. If you specify this URL in both\
+            \ this API and Antom Dashboard, the URL configured in the API takes precedence.\
+            \  \n\nYou can only configure one subscription notification URL in Antom\
+            \ Dashboard.\n\nMore information:\n\nMaximum length: 2048 characters\n"
+        orderInfo:
+          $ref: '#/components/schemas/OrderInfo'
+          description: 'The order information for the subscription. This field is
+            used for different purposes:
+
+
+            During the payment process, this field is mainly used by Antom for risk
+            control or anti-money laundering.
+
+            After the payment is completed, this field is used for recording and reporting
+            purposes such as purchase tracking and regulatory reporting. '
+        paymentAmount:
+          $ref: '#/components/schemas/Amount'
+          description: 'The payment amount charged to the user per subscription period.  '
+        settlementStrategy:
+          $ref: '#/components/schemas/SettlementStrategy'
+          description: 'The settlement strategy for the payment request. '
+        env:
+          $ref: '#/components/schemas/Env'
+          description: 'Information about the environment where the order is placed,
+            such as the device information.  '
         trials:
-          description: "The list of trial information of a subscription.  \n\nNote:\
-            \ Specify this parameter if the subscription includes any trial periods."
+          type: array
           items:
             $ref: '#/components/schemas/Trial'
-          type: array
+          description: "The list of trial information of a subscription.  \n\nNote:\
+            \ Specify this parameter if the subscription includes any trial periods."
       required:
       - subscriptionRequestId
       - subscriptionDescription
@@ -113,7 +126,6 @@ components:
       - paymentAmount
       - settlementStrategy
       - env
-      type: object
     AlipaySubscriptionCreateResponse:
       properties:
         appIdentifier:

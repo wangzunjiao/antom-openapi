@@ -264,6 +264,22 @@
       "AlipaySubscriptionCreateRequest": {
         "type": "object",
         "properties": {
+          "merchantAccountId": {
+            "type": "string",
+            "description": "The merchant account ID"
+          },
+          "allowAccumulate": {
+            "type": "boolean",
+            "description": "Whether to allow accumulate payment amount"
+          },
+          "maxAccumulateAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "The maximum accumulate amount"
+          },
+          "customizedInfo": {
+            "$ref": "#/components/schemas/CustomizedInfo",
+            "description": "Customized information"
+          },
           "subscriptionRequestId": {
             "type": "string",
             "description": "The unique ID assigned by a merchant to identify a subscription request. Antom uses this field for idempotency control.  \n\nMore information:\n\nThis field is an API idempotency field.For subscription requests that are initiated with the same value of subscriptionRequestId and reach a final status of S or F, the same result is to be returned for the request.\nMaximum length: 64 characters"
