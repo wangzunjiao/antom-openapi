@@ -1819,14 +1819,18 @@ components:
       properties:
         customizedInfo:
           $ref: '#/components/schemas/CustomizedInfo'
+          description: Customized information for the payment
         paymentQuote:
           $ref: '#/components/schemas/Quote'
-        processingAmount:
-          $ref: '#/components/schemas/Amount'
+          description: Payment quote information
         agreementInfo:
           $ref: '#/components/schemas/AgreementInfo'
+          description: Agreement information for the payment
         subscriptionInfo:
           $ref: '#/components/schemas/SubscriptionInfo'
+          description: Subscription information for recurring payments
+        processingAmount:
+          $ref: '#/components/schemas/Amount'
         productCode:
           $ref: '#/components/schemas/ProductCodeType'
           description: Represents the payment product that is being used, which is
