@@ -175,6 +175,12 @@ components:
     AlipayRefundRequest:
       type: object
       properties:
+        customizedInfo:
+          $ref: '#/components/schemas/CustomizedInfo'
+        captureId:
+          type: string
+        refundToBankInfo:
+          $ref: '#/components/schemas/RefundToBankInfo'
         refundRequestId:
           type: string
           description: 'The unique ID assigned by the merchant to identify a refund
@@ -215,7 +221,7 @@ components:
             Maximum length: 64 characters
 
             '
-        refundAmount: &id001
+        refundAmount:
           description: The refund amount that is initiated by the merchant.
           $ref: '#/components/schemas/Amount'
         refundReason:
@@ -266,7 +272,9 @@ components:
     RefundDetail:
       type: object
       properties:
-        refundAmount: *id001
+        refundAmount:
+          description: The refund amount that is initiated by the merchant.
+          $ref: '#/components/schemas/Amount'
         refundFrom:
           $ref: '#/components/schemas/RefundFromType'
       required:
@@ -366,6 +374,49 @@ components:
             Maximum length: 64 characters'
       required:
       - result
+    CustomizedInfo:
+      type: object
+      properties:
+        customizedField1:
+          type: string
+          description: Customized field 1
+        customizedField2:
+          type: string
+          description: Customized field 2
+        customizedField3:
+          type: string
+          description: Customized field 3
+        customizedField4:
+          type: string
+          description: Customized field 4
+        customizedField5:
+          type: string
+          description: Customized field 5
+    RefundToBankInfo:
+      type: object
+      properties:
+        bankCode:
+          type: string
+        accountHolderName:
+          $ref: '#/components/schemas/UserName'
+        accountNo:
+          type: string
+    UserName:
+      type: object
+      properties:
+        firstName:
+          type: string
+        middleName:
+          type: string
+        lastName:
+          type: string
+        fullName:
+          type: string
+      required:
+      - firstName
+      - middleName
+      - lastName
+      - fullName
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/refund

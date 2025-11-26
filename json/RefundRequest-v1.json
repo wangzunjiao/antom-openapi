@@ -161,6 +161,15 @@
       "AlipayRefundRequest": {
         "type": "object",
         "properties": {
+          "customizedInfo": {
+            "$ref": "#/components/schemas/CustomizedInfo"
+          },
+          "captureId": {
+            "type": "string"
+          },
+          "refundToBankInfo": {
+            "$ref": "#/components/schemas/RefundToBankInfo"
+          },
           "refundRequestId": {
             "type": "string",
             "description": "The unique ID assigned by the merchant to identify a refund request.\n\nMore information:\n\nThis field is an API idempotency field.The merchant uses the refundRequestId field for idempotency control. For payment requests that are initiated with the same value of refundRequestId and reach a final status (S or F), the same result is to be returned for the request.\nMaximum length: 64 characters"
@@ -285,6 +294,68 @@
         },
         "required": [
           "result"
+        ]
+      },
+      "CustomizedInfo": {
+        "type": "object",
+        "properties": {
+          "customizedField1": {
+            "type": "string",
+            "description": "Customized field 1"
+          },
+          "customizedField2": {
+            "type": "string",
+            "description": "Customized field 2"
+          },
+          "customizedField3": {
+            "type": "string",
+            "description": "Customized field 3"
+          },
+          "customizedField4": {
+            "type": "string",
+            "description": "Customized field 4"
+          },
+          "customizedField5": {
+            "type": "string",
+            "description": "Customized field 5"
+          }
+        }
+      },
+      "RefundToBankInfo": {
+        "type": "object",
+        "properties": {
+          "bankCode": {
+            "type": "string"
+          },
+          "accountHolderName": {
+            "$ref": "#/components/schemas/UserName"
+          },
+          "accountNo": {
+            "type": "string"
+          }
+        }
+      },
+      "UserName": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "firstName",
+          "middleName",
+          "lastName",
+          "fullName"
         ]
       }
     },
