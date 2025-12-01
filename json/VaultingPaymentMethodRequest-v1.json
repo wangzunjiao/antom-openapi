@@ -320,6 +320,10 @@
       "CardPaymentMethodDetail": {
         "type": "object",
         "properties": {
+          "supportedBrands": {
+            "type": "string",
+            "description": "Supported card brands for this payment method"
+          },
           "cardToken": {
             "type": "string",
             "description": "The token of the card. The value of this parameter is used by paymentMethodId in the pay (Checkout Payment) API when initiating payments. \n\nMore information:\n\nMaximum length: 2048 characters"
@@ -425,7 +429,8 @@
             "description": "The email address of the payer. \n\nNote: Specify this parameter when the card issuing bank is in Brazil, Chile, Mexico, or Peru.\n\nMore information:\n\nMaximum length: 64 characters\n"
           },
           "networkTransactionId": {
-            "type": "string"
+            "type": "string",
+            "description": "The unique ID assigned by the card scheme to identify a transaction.\n\nMore information:\n\nMaximum length: 256 characters"
           },
           "is3DSAuthentication": {
             "type": "boolean",
