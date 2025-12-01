@@ -1066,6 +1066,10 @@ components:
         credentialTypeUsed:
           type: string
           description: Added field for credential type used
+        rrn:
+          type: string
+          maxLength: 32
+          description: 检索参考号，可提供给用户用于跟踪支付/退款/争议的详细信息
     AcquirerInfo:
       type: object
       properties:
