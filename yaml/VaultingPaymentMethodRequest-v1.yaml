@@ -186,23 +186,108 @@ components:
       - TROY
       type: string
     CardPaymentMethodDetail:
+      type: object
       properties:
-        authenticationFlow:
+        supportedBrands:
           type: string
-        avsResultRaw:
+          description: Supported card brands for this payment method
+        cardToken:
           type: string
+          description: "The token of the card. The value of this parameter is used\
+            \ by paymentMethodId in the pay (Checkout Payment) API when initiating\
+            \ payments. \n\nMore information:\n\nMaximum length: 2048 characters"
+        cardNo:
+          type: string
+          description: "The card number. \n\nMore information:\n\nMaximum length:\
+            \ 32 characters"
+        brand:
+          $ref: '#/components/schemas/CardBrand'
+          description: Deprecated. Use selectedCardBrand instead.
+        selectedCardBrand:
+          $ref: '#/components/schemas/CardBrand'
+          description: Deprecated. Use selectedCardBrand instead.
+        cardIssuer:
+          type: string
+        countryIssue:
+          type: string
+        instUserName:
+          $ref: '#/components/schemas/UserName'
+        expiryYear:
+          type: string
+          description: "The year the card expires. Pass in the last two digits of\
+            \ the year number. For example, if the expiration year is 2025, the value\
+            \ of this parameter is 25. \n\nMore information:\n\nMaximum length: 2\
+            \ characters"
+        expiryMonth:
+          type: string
+          description: "The month the card expires. Pass in two digits representing\
+            \ the month. For example, if the expiration month is February, the value\
+            \ of this parameter is 02. \n\nMore information:\n\nMaximum length: 2\
+            \ characters"
         billingAddress:
           $ref: '#/components/schemas/Address'
           description: "The billing address that is associated with the cardholder's\
             \ card account. \n\nNote: Specify this parameter if you require risk control.\
             \ Providing this information helps to increase the accuracy of anti-money\
             \ laundering and fraud detection, and increase payment success rates."
+        mask:
+          type: string
+        last4:
+          type: string
+        paymentMethodDetailMetadata:
+          type: string
+        maskedCardNo:
+          type: string
+          description: "The masked card number, showing only a few digits and hiding\
+            \ the rest. \n\nMore information:\n\nMaximum length: 64 characters"
+        fingerprint:
+          type: string
+        authenticationFlow:
+          type: string
+        funding:
+          type: string
+        avsResultRaw:
+          type: string
+        cvvResultRaw:
+          type: string
         bin:
           type: string
-        brand:
-          $ref: '#/components/schemas/CardBrand'
-          description: Deprecated. Use selectedCardBrand instead.
+        issuerName:
+          type: string
+        issuingCountry:
+          type: string
+        lastFour:
+          type: string
+        cardholderName:
+          $ref: '#/components/schemas/UserName'
+        cvv:
+          type: string
+          description: "The card verification value (CVV), which is also known as\
+            \ a card security code (CSC) or a card verification code (CVC). \n\nNote:\
+            \ Specify this parameter when the card issuing bank is in Brazil, Chile,\
+            \ Mexico, or Peru, or the card is a global card.\n\nMore information:\n\
+            \nMaximum length: 3 characters"
+        dateOfBirth:
+          type: string
+          description: 'The date of birth of the cardholder. The value of this parameter
+            is an 8-digit date of birth in the format of YYYY-MM-DD that follows the
+            ISO 8601 standard. For example, 1971-06-07 means the cardholder''s birthday
+            is June 7, 1971.
+
+
+            Specify this parameter when all the following conditions are met:
+
+
+            The card issuing bank is in Korea.
+
+            The card is a personal card.
+
+            More information:
+
+
+            Maximum length: 10 characters'
         businessNo:
+          type: string
           description: 'The business number of the company that holds the corporate
             card. The value of this parameter is a 10-digit business number, such
             as 97XXXXXX11.
@@ -221,14 +306,8 @@ components:
             Maximum length: 10 characters
 
             '
-          type: string
-        cardIssuer:
-          type: string
-        cardNo:
-          description: "The card number. \n\nMore information:\n\nMaximum length:\
-            \ 32 characters"
-          type: string
         cardPasswordDigest:
+          type: string
           description: 'The first two digits of the card payment password.
 
 
@@ -241,17 +320,8 @@ components:
             Maximum length: 2 characters
 
             '
-          type: string
-        cardToken:
-          description: "The token of the card. The value of this parameter is used\
-            \ by paymentMethodId in the pay (Checkout Payment) API when initiating\
-            \ payments. \n\nMore information:\n\nMaximum length: 2048 characters"
-          type: string
-        cardholderName:
-          $ref: '#/components/schemas/UserName'
-        countryIssue:
-          type: string
         cpf:
+          type: string
           description: 'The Cadastro Pessoal de Pessoa Física (CPF) is the tax ID
             of the Brazilian individual taxpayer.
 
@@ -263,99 +333,39 @@ components:
 
 
             Maximum length: 11 characters'
+        payerEmail:
           type: string
-        cvv:
-          description: "The card verification value (CVV), which is also known as\
-            \ a card security code (CSC) or a card verification code (CVC). \n\nNote:\
-            \ Specify this parameter when the card issuing bank is in Brazil, Chile,\
-            \ Mexico, or Peru, or the card is a global card.\n\nMore information:\n\
-            \nMaximum length: 3 characters"
+          description: "The email address of the payer. \n\nNote: Specify this parameter\
+            \ when the card issuing bank is in Brazil, Chile, Mexico, or Peru.\n\n\
+            More information:\n\nMaximum length: 64 characters\n"
+        networkTransactionId:
           type: string
-        cvvResultRaw:
-          type: string
-        dateOfBirth:
-          description: 'The date of birth of the cardholder. The value of this parameter
-            is an 8-digit date of birth in the format of YYYY-MM-DD that follows the
-            ISO 8601 standard. For example, 1971-06-07 means the cardholder''s birthday
-            is June 7, 1971.
+          description: 'The unique ID assigned by the card scheme to identify a transaction.
 
-
-            Specify this parameter when all the following conditions are met:
-
-
-            The card issuing bank is in Korea.
-
-            The card is a personal card.
 
             More information:
 
 
-            Maximum length: 10 characters'
-          type: string
-        enableAuthenticationUpgrade:
-          type: string
-        expiryMonth:
-          description: "The month the card expires. Pass in two digits representing\
-            \ the month. For example, if the expiration month is February, the value\
-            \ of this parameter is 02. \n\nMore information:\n\nMaximum length: 2\
-            \ characters"
-          type: string
-        expiryYear:
-          description: "The year the card expires. Pass in the last two digits of\
-            \ the year number. For example, if the expiration year is 2025, the value\
-            \ of this parameter is 25. \n\nMore information:\n\nMaximum length: 2\
-            \ characters"
-          type: string
-        fingerprint:
-          type: string
-        funding:
-          type: string
-        instUserName:
-          $ref: '#/components/schemas/UserName'
+            Maximum length: 256 characters'
         is3DSAuthentication:
+          type: boolean
           description: 'Indicates whether the transaction authentication type is 3D
             secure. Specify this parameter when the value of paymentMethodType is
             CARD.
 
 
             '
-          type: boolean
-        issuerName:
-          type: string
-        issuingCountry:
-          type: string
-        last4:
-          type: string
-        lastFour:
-          type: string
-        mask:
-          type: string
-        maskedCardNo:
-          description: "The masked card number, showing only a few digits and hiding\
-            \ the rest. \n\nMore information:\n\nMaximum length: 64 characters"
-          type: string
-        mpiData:
-          $ref: '#/components/schemas/MpiData'
-        networkTransactionId:
-          type: string
-        payerEmail:
-          description: "The email address of the payer. \n\nNote: Specify this parameter\
-            \ when the card issuing bank is in Brazil, Chile, Mexico, or Peru.\n\n\
-            More information:\n\nMaximum length: 64 characters\n"
-          type: string
-        paymentMethodDetailMetadata:
-          type: string
         request3DS:
           type: string
         scaExemptionIndicator:
           type: string
-        selectedCardBrand:
-          $ref: '#/components/schemas/CardBrand'
-          description: Deprecated. Use selectedCardBrand instead.
+        enableAuthenticationUpgrade:
+          type: string
+        mpiData:
+          $ref: '#/components/schemas/MpiData'
       required:
       - expiryYear
       - expiryMonth
-      type: object
     CouponPaymentMethodDetail:
       properties:
         availableAmount:
