@@ -2355,6 +2355,19 @@ components:
       required:
       - trialStartPeriod
       - trialAmount
+    response:
+      type: object
+      properties:
+        rrn:
+          type: string
+          maxLength: 32
+          description: 检索参考号，可提供给用户用于与发卡行跟踪付款/退款/争议的详细信息
+        arn:
+          type: string
+          description: 收单行参考号，收单行提供的交易号，也可提供给用户用于跟踪资金流动
+        acquirerTransactionId:
+          type: string
+          description: 收单行交易ID
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/pay

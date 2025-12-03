@@ -682,6 +682,24 @@
           "result",
           "vaultingRequestId"
         ]
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "rrn": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "\u68c0\u7d22\u53c2\u8003\u53f7\uff0c\u53ef\u63d0\u4f9b\u7ed9\u7528\u6237\u7528\u4e8e\u4e0e\u53d1\u5361\u884c\u8ddf\u8e2a\u4ed8\u6b3e/\u9000\u6b3e/\u4e89\u8bae\u7684\u8be6\u7ec6\u4fe1\u606f"
+          },
+          "arn": {
+            "type": "string",
+            "description": "\u6536\u5355\u884c\u53c2\u8003\u53f7\uff0c\u6536\u5355\u884c\u63d0\u4f9b\u7684\u4ea4\u6613\u53f7\uff0c\u4e5f\u53ef\u63d0\u4f9b\u7ed9\u7528\u6237\u7528\u4e8e\u8ddf\u8e2a\u8d44\u91d1\u6d41\u52a8"
+          },
+          "acquirerTransactionId": {
+            "type": "string",
+            "description": "\u6536\u5355\u884c\u4ea4\u6613ID"
+          }
+        }
       }
     },
     "securitySchemes": {}
