@@ -445,6 +445,12 @@
           "vaultingRequestId": {
             "type": "string",
             "description": "The unique ID that is assigned by a merchant to identify a card vaulting request.\n\nMore information about this field\n\nThis field is an API idempotency field. For vaulting requests that are initiated with the same value of vaultingRequestId and reach a final status of S or F, the same result is to be returned for the request.\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "merchantAccountId": {
+            "type": "string",
+            "description": "Merchant account ID for 2C2P integration scenario",
+            "maxLength": 64,
+            "example": "21******"
           }
         },
         "required": [
@@ -481,6 +487,12 @@
           "paymentMethodDetail": {
             "$ref": "#/components/schemas/PaymentMethodDetail",
             "description": "The details about the payment method that needs to be vaulted. \n\nNote: This parameter is returned when the value of vaultingStatus is SUCCESS."
+          },
+          "metadata": {
+            "type": "string",
+            "description": "Metadata for custom data transmission",
+            "maxLength": 2048,
+            "example": "{\"key1\": \"userId_0600b010170677765134282395519\", \"key2\": \"orderId_74d3787898d092116836668cc5d4cec1\"}"
           }
         },
         "required": [
