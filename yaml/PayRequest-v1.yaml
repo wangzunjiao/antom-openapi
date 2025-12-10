@@ -1827,6 +1827,9 @@ components:
     AlipayPayRequest:
       type: object
       properties:
+        metadata:
+          type: object
+          description: Additional metadata about the payment
         customizedInfo:
           $ref: '#/components/schemas/CustomizedInfo'
           description: Customized information for the payment
