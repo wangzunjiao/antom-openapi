@@ -41,28 +41,30 @@ components:
       - region
       type: object
     AlipayVaultingPaymentMethodRequest:
+      type: object
       properties:
-        customizedInfo:
-          $ref: '#/components/schemas/CustomizedInfo'
-        env:
-          $ref: '#/components/schemas/Env'
-          description: 'Information about the environment where the order is placed,
-            such as the device information.  '
         merchantAccountId:
           type: string
-        merchantRegion:
-          description: "The country or region where the merchant operates the business.\
-            \ The value of this parameter is a 2-letter country or region code based\
-            \ on the ISO 3166 Country Codes standard. \n\nSome possible values are\
-            \ US, SG, HK, PK, JP, CN, BR, AU, and MY.\n\nNote: Specify this parameter\
-            \ when you use the Global Acquirer Gateway (GAGW) product.\n\nMore information:\n\
-            \nMaximum length: 2 characters"
+          maxLength: 64
+          description: 一点集成场景使用
+        metadata:
           type: string
-        paymentMethodDetail:
-          $ref: '#/components/schemas/PaymentMethodDetail'
-          description: "The details about the payment method that needs to be vaulted.\
-            \ \n\n"
+          maxLength: 2048
+          description: 商户使用，Json Format，用于提交元数据信息
+        vaultingRequestId:
+          type: string
+          description: "The unique ID that is assigned by a merchant to identify a\
+            \ card vaulting request. \n\nMore information:\n\nThis field is an API\
+            \ idempotency field.For vaulting requests that are initiated with the\
+            \ same value of vaultingRequestId and reach a final status of S or F,\
+            \ the same result is to be returned for the request.\nMaximum length:\
+            \ 64 characters"
+        vaultingNotificationUrl:
+          type: string
+          description: "The URL that is used to receive the vaulting result notification.\
+            \ \n\nMore information:\n\nMaximum length: 2048 characters"
         redirectUrl:
+          type: string
           description: 'The merchant page URL that the buyer is redirected to after
             the vaulting process is completed.
 
@@ -73,28 +75,32 @@ components:
             Maximum length: 2048 characters
 
             '
+        merchantRegion:
           type: string
+          description: "The country or region where the merchant operates the business.\
+            \ The value of this parameter is a 2-letter country or region code based\
+            \ on the ISO 3166 Country Codes standard. \n\nSome possible values are\
+            \ US, SG, HK, PK, JP, CN, BR, AU, and MY.\n\nNote: Specify this parameter\
+            \ when you use the Global Acquirer Gateway (GAGW) product.\n\nMore information:\n\
+            \nMaximum length: 2 characters"
+        paymentMethodDetail:
+          $ref: '#/components/schemas/PaymentMethodDetail'
+          description: "The details about the payment method that needs to be vaulted.\
+            \ \n\n"
+        env:
+          $ref: '#/components/schemas/Env'
+          description: 'Information about the environment where the order is placed,
+            such as the device information.  '
         vaultingCurrency:
           type: string
-        vaultingNotificationUrl:
-          description: "The URL that is used to receive the vaulting result notification.\
-            \ \n\nMore information:\n\nMaximum length: 2048 characters"
-          type: string
-        vaultingRequestId:
-          description: "The unique ID that is assigned by a merchant to identify a\
-            \ card vaulting request. \n\nMore information:\n\nThis field is an API\
-            \ idempotency field.For vaulting requests that are initiated with the\
-            \ same value of vaultingRequestId and reach a final status of S or F,\
-            \ the same result is to be returned for the request.\nMaximum length:\
-            \ 64 characters"
-          type: string
+        customizedInfo:
+          $ref: '#/components/schemas/CustomizedInfo'
       required:
       - vaultingRequestId
       - vaultingNotificationUrl
       - redirectUrl
       - paymentMethodDetail
       - env
-      type: object
     AlipayVaultingPaymentMethodResponse:
       properties:
         applinkUrl:
