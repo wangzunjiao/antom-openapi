@@ -35,8 +35,13 @@ components:
           type: string
           description: The login ID that use to display
     AlipayPaymentSessionRequest:
-      type: object
       properties:
+        merchantAccountId:
+          type: string
+          description: The merchant account ID
+        metadata:
+          type: string
+          description: Additional metadata for the payment session
         allowedPaymentMethodRegions:
           type: string
           description: Allowed payment method regions
@@ -211,6 +216,7 @@ components:
         paymentExpiryTime:
           type: string
           description: The specific date and time after which the payment will expire.
+      type: object
       required:
       - order
       - paymentRequestId
@@ -285,10 +291,16 @@ components:
       - value
     AvailablePaymentMethod:
       properties:
+        paymentMethodMetaData:
+          type: object
+          additionalProperties:
+            type: object
+          description: 'Additional information required for some specific payment
+            methods.  '
         paymentMethodTypeList:
+          type: array
           items:
             $ref: '#/components/schemas/PaymentMethodTypeItem'
-          type: array
       type: object
     paymentMethodMetaData:
       type: object
