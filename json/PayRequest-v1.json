@@ -1430,6 +1430,11 @@
       "AlipayPayRequest": {
         "type": "object",
         "properties": {
+          "metadata": {
+            "type": "string",
+            "description": "\u7528\u4e8e\u5546\u6237\u81ea\u5b9a\u4e49\u5143\u6570\u636e\u4fe1\u606f\uff0c\u652f\u6301JSON\u683c\u5f0f",
+            "maxLength": 2048
+          },
           "customizedInfo": {
             "$ref": "#/components/schemas/CustomizedInfo",
             "description": "Customized information for the payment"
