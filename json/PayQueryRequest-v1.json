@@ -700,6 +700,21 @@
             "description": "Customized field 5"
           }
         }
+      },
+      "AlipayFetchNonceResponse": {
+        "type": "object",
+        "properties": {
+          "nonce": {
+            "type": "string"
+          },
+          "expiryTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "metadata": {
+            "type": "object"
+          }
+        }
       }
     },
     "securitySchemes": {}

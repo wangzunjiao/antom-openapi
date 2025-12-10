@@ -466,6 +466,21 @@
             "description": "Sub-category code for the service"
           }
         }
+      },
+      "AlipayFetchNonceResponse": {
+        "type": "object",
+        "properties": {
+          "nonce": {
+            "type": "string"
+          },
+          "expiryTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "metadata": {
+            "type": "object"
+          }
+        }
       }
     },
     "securitySchemes": {}

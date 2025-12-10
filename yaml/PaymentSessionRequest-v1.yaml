@@ -1826,6 +1826,16 @@ components:
       required:
       - quoteCurrencyPair
       - quotePrice
+    AlipayFetchNonceResponse:
+      type: object
+      properties:
+        nonce:
+          type: string
+        expiryTime:
+          type: string
+          format: date-time
+        metadata:
+          type: object
   securitySchemes: {}
 info:
   description: ''

@@ -193,6 +193,16 @@ components:
             Maximum length: 256 characters'
       required:
       - result
+    AlipayFetchNonceResponse:
+      type: object
+      properties:
+        nonce:
+          type: string
+        expiryTime:
+          type: string
+          format: date-time
+        metadata:
+          type: object
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/open/openapiv2_file/v1/business/attachment/submitAttachment

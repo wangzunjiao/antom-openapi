@@ -242,6 +242,21 @@
           "DEFERRED_DEBIT"
         ],
         "description": "The funding source type for the payment method"
+      },
+      "AlipayFetchNonceResponse": {
+        "type": "object",
+        "properties": {
+          "nonce": {
+            "type": "string"
+          },
+          "expiryTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "metadata": {
+            "type": "object"
+          }
+        }
       }
     },
     "securitySchemes": {}

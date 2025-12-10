@@ -148,6 +148,16 @@ components:
             The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
       required:
       - result
+    AlipayFetchNonceResponse:
+      type: object
+      properties:
+        nonce:
+          type: string
+        expiryTime:
+          type: string
+          format: date-time
+        metadata:
+          type: object
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/cancel
