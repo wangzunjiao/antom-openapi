@@ -111,6 +111,13 @@ components:
             API is successfully called, the subscription is canceled successfully. '
       required:
       - result
+    AlipayFetchNonceRequest:
+      type: object
+      properties:
+        merchantAccountId:
+          type: string
+        metadata:
+          type: object
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/subscriptions/cancel

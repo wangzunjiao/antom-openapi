@@ -503,6 +503,13 @@ components:
             through QR code scanning.'
       required:
       - result
+    AlipayFetchNonceRequest:
+      type: object
+      properties:
+        merchantAccountId:
+          type: string
+        metadata:
+          type: object
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/authorizations/consult

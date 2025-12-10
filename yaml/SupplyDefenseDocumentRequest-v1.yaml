@@ -116,6 +116,13 @@ components:
             Maximum length: 64 characters'
       required:
       - result
+    AlipayFetchNonceRequest:
+      type: object
+      properties:
+        merchantAccountId:
+          type: string
+        metadata:
+          type: object
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/supplyDefenseDocument

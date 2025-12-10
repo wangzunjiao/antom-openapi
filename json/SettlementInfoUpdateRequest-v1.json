@@ -219,6 +219,17 @@
             "description": "The update status of the settlement information. The value of this parameter is fixed to PROCESSING. \n\nGet the settlement information update result from the notifyUpdate and inquireUpdate interfaces. \n\nThis parameter is returned when the value of result.resultStatus is S.  \n\nMore information:\n\nMaximum length: 64 characters"
           }
         }
+      },
+      "AlipayFetchNonceRequest": {
+        "type": "object",
+        "properties": {
+          "merchantAccountId": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "object"
+          }
+        }
       }
     },
     "securitySchemes": {}

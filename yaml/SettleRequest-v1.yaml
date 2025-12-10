@@ -145,6 +145,13 @@ components:
       required:
       - settlementRequestId
       - settlementId
+    AlipayFetchNonceRequest:
+      type: object
+      properties:
+        merchantAccountId:
+          type: string
+        metadata:
+          type: object
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/settle

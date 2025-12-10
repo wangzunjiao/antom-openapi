@@ -541,6 +541,13 @@ components:
         subCategoryCode:
           type: string
           description: Sub-category code for the service
+    AlipayFetchNonceRequest:
+      type: object
+      properties:
+        merchantAccountId:
+          type: string
+        metadata:
+          type: object
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/capture

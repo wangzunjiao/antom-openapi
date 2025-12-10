@@ -253,6 +253,13 @@ components:
             \ update result from the notifyUpdate and inquireUpdate interfaces. \n\
             \nThis parameter is returned when the value of result.resultStatus is\
             \ S.  \n\nMore information:\n\nMaximum length: 64 characters"
+    AlipayFetchNonceRequest:
+      type: object
+      properties:
+        merchantAccountId:
+          type: string
+        metadata:
+          type: object
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/merchants/settlementInfo/update

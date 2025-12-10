@@ -135,6 +135,13 @@ components:
       - vaultingSessionData
       - vaultingSessionId
       - vaultingSessionExpiryTime
+    AlipayFetchNonceRequest:
+      type: object
+      properties:
+        merchantAccountId:
+          type: string
+        metadata:
+          type: object
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/vaults/createVaultingSession

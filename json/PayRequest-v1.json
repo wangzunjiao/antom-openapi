@@ -1852,6 +1852,17 @@
           "trialStartPeriod",
           "trialAmount"
         ]
+      },
+      "AlipayFetchNonceRequest": {
+        "type": "object",
+        "properties": {
+          "merchantAccountId": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "object"
+          }
+        }
       }
     },
     "securitySchemes": {}

@@ -833,6 +833,13 @@ components:
       - BANKCOUNTER
       - OTC
       description: The interaction type for the payment method.
+    AlipayFetchNonceRequest:
+      type: object
+      properties:
+        merchantAccountId:
+          type: string
+        metadata:
+          type: object
   securitySchemes: {}
 info:
   contact:

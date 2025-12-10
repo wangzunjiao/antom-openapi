@@ -256,6 +256,13 @@ components:
       - CHARGE
       - DEFERRED_DEBIT
       description: The funding source type for the payment method
+    AlipayFetchNonceRequest:
+      type: object
+      properties:
+        merchantAccountId:
+          type: string
+        metadata:
+          type: object
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/funds/createPayout
