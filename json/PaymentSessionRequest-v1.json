@@ -219,12 +219,6 @@
       "AvailablePaymentMethod": {
         "properties": {
           "paymentMethodMetaData": {
-            "properties": {
-              "interactionType": {
-                "type": "string",
-                "description": "The interaction type for the payment method"
-              }
-            },
             "type": "object",
             "additionalProperties": {
               "type": "object"
