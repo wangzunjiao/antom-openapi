@@ -179,6 +179,10 @@ components:
     AlipayRefundRequest:
       type: object
       properties:
+        metadata:
+          type: string
+          maxLength: 2048
+          description: Additional metadata about the refund request
         customizedInfo:
           $ref: '#/components/schemas/CustomizedInfo'
         captureId:
