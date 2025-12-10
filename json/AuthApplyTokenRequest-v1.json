@@ -136,6 +136,12 @@
       "AlipayAuthApplyTokenRequest": {
         "type": "object",
         "properties": {
+          "merchantAccountId": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "The merchant account ID",
+            "example": "123234"
+          },
           "grantType": {
             "$ref": "#/components/schemas/GrantType",
             "description": "The task to complete by using this API. Valid values are:  \n\nAUTHORIZATION_CODE: When you want to get the access token, use this value. You can get an access token after calling this API successfully.\nREFRESH_TOKEN: Each access token has an expiry time that is specified by accessTokenExpiryTime. When your access token is about to expire and you want to get a new access token, use this value. You can get a new access token after calling this API successfully. "
