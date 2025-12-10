@@ -76,6 +76,10 @@
       "AlipayPaymentSessionRequest": {
         "type": "object",
         "properties": {
+          "merchantAccountId": {
+            "type": "string",
+            "description": "The merchant account ID"
+          },
           "allowedPaymentMethodRegions": {
             "type": "string",
             "description": "Allowed payment method regions"
