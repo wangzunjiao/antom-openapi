@@ -1,0 +1,151 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "fetchNonce",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/ams/api/v1/vaults/fetchNonce": {
+      "post": {
+        "summary": "fetchNonce",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlipayVaultsFetchNonceRequest"
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlipayVaultsFetchNonceResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "webhooks": {},
+  "components": {
+    "schemas": {
+      "Result": {
+        "type": "object",
+        "properties": {
+          "resultCode": {
+            "type": "string",
+            "description": "The result code."
+          },
+          "resultStatus": {
+            "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
+            "type": "object",
+            "properties": {}
+          },
+          "resultMessage": {
+            "type": "string",
+            "description": "The result message."
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus"
+        ]
+      },
+      "UserName": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "First name.\n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "middleName": {
+            "type": "string",
+            "description": "Middle name\n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name\n\nMore information:\n\nMaximum length: 32 characters"
+          },
+          "fullName": {
+            "type": "string",
+            "description": "Full name\n\nMore information:\n\nMaximum length: 128 characters"
+          }
+        }
+      },
+      "Card": {
+        "type": "object",
+        "properties": {
+          "cardNo": {
+            "type": "string"
+          },
+          "cvv": {
+            "type": "string"
+          },
+          "expiryYear": {
+            "type": "string"
+          },
+          "expiryMonth": {
+            "type": "string"
+          },
+          "cardholderName": {
+            "$ref": "#/components/schemas/UserName"
+          }
+        },
+        "required": [
+          "cardNo",
+          "cvv",
+          "expiryYear",
+          "expiryMonth",
+          "cardholderName"
+        ]
+      },
+      "AlipayVaultsFetchNonceRequest": {
+        "type": "object",
+        "properties": {
+          "card": {
+            "$ref": "#/components/schemas/Card"
+          }
+        },
+        "required": [
+          "card"
+        ]
+      },
+      "AlipayVaultsFetchNonceResponse": {
+        "type": "object",
+        "properties": {
+          "cardToken": {
+            "type": "string"
+          },
+          "result": {
+            "$ref": "#/components/schemas/Result"
+          }
+        },
+        "required": [
+          "cardToken",
+          "result"
+        ]
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/vaults/fetchNonce"
+    }
+  ]
+}
