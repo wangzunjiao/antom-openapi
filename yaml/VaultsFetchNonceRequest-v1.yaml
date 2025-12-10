@@ -37,20 +37,24 @@ components:
           type: string
           description: The result code.
         resultStatus:
-          description: |-
-            The result status. Valid values are:
-
-            S: indicates that the result status is successful.
-            F: indicates that the result status is failed. 
-            U: indicates that the result status is unknown. 
-          type: object
-          properties: {}
+          description: "The result status. Valid values are:\n\nS: indicates that\
+            \ the result status is successful.\nF: indicates that the result status\
+            \ is failed. \nU: indicates that the result status is unknown. "
+          $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
           description: The result message.
       required:
         - resultCode
         - resultStatus
+    ResultStatusType:
+      type:
+        - string
+        - 'null'
+      enum:
+        - S
+        - F
+        - U
     UserName:
       type: object
       properties:

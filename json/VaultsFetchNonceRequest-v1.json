@@ -53,8 +53,7 @@
           },
           "resultStatus": {
             "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
-            "type": "object",
-            "properties": {}
+            "$ref": "#/components/schemas/ResultStatusType"
           },
           "resultMessage": {
             "type": "string",
@@ -64,6 +63,14 @@
         "required": [
           "resultCode",
           "resultStatus"
+        ]
+      },
+      "ResultStatusType": {
+        "type": "string",
+        "enum": [
+          "S",
+          "F",
+          "U"
         ]
       },
       "UserName": {
