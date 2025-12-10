@@ -549,6 +549,10 @@
       "AlipayPayQueryResponse": {
         "type": "object",
         "properties": {
+          "metadata": {
+            "type": "object",
+            "description": "Additional metadata about the payment inquiry"
+          },
           "result": {
             "$ref": "#/components/schemas/Result",
             "description": "The result of the subsequent action against the transaction. "
