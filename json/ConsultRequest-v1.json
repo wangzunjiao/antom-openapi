@@ -635,6 +635,17 @@
               "$ref": "#/components/schemas/SupportBank"
             },
             "description": "The list of supported banks. \n\nThis parameter is returned when the value of paymentMethodType is \u200bP24\u200b or ONLINEBANKING_FPX.\n\n"
+          },
+          "interactionTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "\u8868\u793a\u652f\u4ed8\u65b9\u5f0f\u652f\u6301\u7684\u4ea4\u4e92\u7c7b\u578b\uff0c\u6709\u6548\u53d6\u503c\u5305\u62ecQR(\u626b\u7801\u652f\u4ed8)\u548cREDIRECT(\u91cd\u5b9a\u5411\u652f\u4ed8)",
+            "example": [
+              "REDIRECT",
+              "QR"
+            ]
           }
         },
         "required": [
