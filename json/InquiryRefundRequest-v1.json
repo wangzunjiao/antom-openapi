@@ -114,6 +114,11 @@
       "AlipayInquiryRefundResponse": {
         "type": "object",
         "properties": {
+          "metadata": {
+            "type": "string",
+            "maxLength": 2048,
+            "description": "Your metadata provided during the refund process. This parameter is returned when you provided value to the parameter in the refund API. Json format"
+          },
           "customizedInfo": {
             "$ref": "#/components/schemas/CustomizedInfo",
             "description": "Customized information field"
