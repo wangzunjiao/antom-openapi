@@ -178,6 +178,10 @@ components:
     PaymentResultInfo:
       type: object
       properties:
+        issuerName:
+          type: string
+          description: The name of the card issuer bank
+          example: xxxBank
         refusalCodeRaw:
           type: string
           example: '51'
@@ -648,6 +652,10 @@ components:
     AlipayPayQueryResponse:
       type: object
       properties:
+        metadata:
+          type: string
+          description: Additional metadata about the payment
+          example: '{"key1": "userId_0600b010170677765134282395519", "key2": "orderId_74d3787898d092116836668cc5d4cec1"}'
         result:
           $ref: '#/components/schemas/Result'
           description: 'The result of the subsequent action against the transaction. '
