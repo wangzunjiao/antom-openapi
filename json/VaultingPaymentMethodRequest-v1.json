@@ -608,6 +608,16 @@
       "AlipayVaultingPaymentMethodRequest": {
         "type": "object",
         "properties": {
+          "merchantAccountId": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "\u4e00\u70b9\u96c6\u6210\u573a\u666f\u4f7f\u7528"
+          },
+          "metadata": {
+            "type": "string",
+            "maxLength": 2048,
+            "description": "\u5546\u6237\u4f7f\u7528\uff0cJson Format\uff0c\u7528\u4e8e\u63d0\u4ea4\u5143\u6570\u636e\u4fe1\u606f"
+          },
           "vaultingRequestId": {
             "type": "string",
             "description": "The unique ID that is assigned by a merchant to identify a card vaulting request. \n\nMore information:\n\nThis field is an API idempotency field.For vaulting requests that are initiated with the same value of vaultingRequestId and reach a final status of S or F, the same result is to be returned for the request.\nMaximum length: 64 characters"
@@ -631,9 +641,6 @@
           "env": {
             "$ref": "#/components/schemas/Env",
             "description": "Information about the environment where the order is placed, such as the device information.  "
-          },
-          "merchantAccountId": {
-            "type": "string"
           },
           "vaultingCurrency": {
             "type": "string"
