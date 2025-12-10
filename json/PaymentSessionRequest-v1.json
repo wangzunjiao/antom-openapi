@@ -76,6 +76,10 @@
       "AlipayPaymentSessionRequest": {
         "type": "object",
         "properties": {
+          "metadata": {
+            "type": "object",
+            "description": "Additional metadata about the payment session"
+          },
           "allowedPaymentMethodRegions": {
             "type": "string",
             "description": "Allowed payment method regions"
