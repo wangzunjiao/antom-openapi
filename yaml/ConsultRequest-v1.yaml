@@ -606,8 +606,18 @@ components:
       - paymentMethodType
       - enabled
     PaymentOptionDetail:
+      type: object
       properties:
+        supportCardBrands:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupportCardBrand'
+          description: "The list of supported card brands.  \n\nNote: This parameter\
+            \ is returned when the value of paymentMethodType is ​CARD​."
         funding:
+          type: array
+          items:
+            type: string
           description: "The funding type of the card. Valid values are: \n\nCREDIT:\
             \ indicates a credit card. \nDEBIT: indicates a debit card. \nPREPAID:\
             \ indicates a prepaid card\nCHARGE: indicates a charge card\nDEFERRED_DEBIT:\
@@ -615,26 +625,24 @@ components:
             \ the following conditions are met:\n\nThe value of paymentMethodType\
             \ is CARD.\nThe value of cardNo is valid.\nThe information is available\
             \ in the Antom card database."
-          items:
-            type: string
-          type: array
         supportBanks:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupportBank'
           description: "The list of supported banks. \n\nThis parameter is returned\
             \ when the value of paymentMethodType is ​P24​ or ONLINEBANKING_FPX.\n\
             \n"
-          items:
-            $ref: '#/components/schemas/SupportBank'
+        interactionTypes:
           type: array
-        supportCardBrands:
-          description: "The list of supported card brands.  \n\nNote: This parameter\
-            \ is returned when the value of paymentMethodType is ​CARD​."
           items:
-            $ref: '#/components/schemas/SupportCardBrand'
-          type: array
+            type: string
+          description: 表示支付方式支持的交互类型，有效取值包括QR(扫码支付)和REDIRECT(重定向支付)
+          example:
+          - REDIRECT
+          - QR
       required:
       - supportCardBrands
       - supportBanks
-      type: object
     Plan:
       properties:
         enabled:
