@@ -74,8 +74,15 @@
         }
       },
       "AlipayPaymentSessionRequest": {
-        "type": "object",
         "properties": {
+          "merchantAccountId": {
+            "type": "string",
+            "description": "The merchant account ID"
+          },
+          "metadata": {
+            "type": "string",
+            "description": "Additional metadata for the payment session"
+          },
           "allowedPaymentMethodRegions": {
             "type": "string",
             "description": "Allowed payment method regions"
@@ -198,6 +205,7 @@
             "description": "The specific date and time after which the payment will expire."
           }
         },
+        "type": "object",
         "required": [
           "order",
           "paymentRequestId",
@@ -209,23 +217,28 @@
         ]
       },
       "AvailablePaymentMethod": {
-        "type": "object",
         "properties": {
+          "paymentMethodMetaData": {
+            "properties": {
+              "interactionType": {
+                "type": "string",
+                "description": "The interaction type for the payment method"
+              }
+            },
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Additional information required for some specific payment methods.  "
+          },
           "paymentMethodTypeList": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/PaymentMethodTypeItem"
             }
-          },
-          "paymentMethodMetaData": {
-            "type": "object",
-            "properties": {},
-            "additionalProperties": {
-              "type": "object"
-            },
-            "description": "Additional information required for some specific payment methods.  "
           }
-        }
+        },
+        "type": "object"
       },
       "PaymentMethodTypeItem": {
         "type": "object",
