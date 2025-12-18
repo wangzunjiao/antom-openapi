@@ -478,7 +478,9 @@
           "paymentMethodMetaData": {
             "type": "object",
             "properties": {},
-            "additionalProperties": true,
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Additional information required for some specific payment methods.  "
           }
         },
