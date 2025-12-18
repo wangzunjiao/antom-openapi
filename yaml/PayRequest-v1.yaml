@@ -681,7 +681,7 @@ components:
         paymentMethodMetaData:
           type: object
           properties: {}
-          additionalProperties: true
+          additionalProperties: {}
           description: 'Additional information required for some specific payment
             methods.  '
       required:
