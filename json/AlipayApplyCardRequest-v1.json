@@ -183,6 +183,7 @@
   },
   "servers": [
     {
+
       "url": "https://open-sea-global.alipay.com/ams/api/v1/aba/cards/applyCard"
     }
   ]
