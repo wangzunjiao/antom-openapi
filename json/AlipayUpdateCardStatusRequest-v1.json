@@ -1,0 +1,136 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "aba-updateCardStatus",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/ams/api/v1/aba/cards/updateCardStatus": {
+      "post": {
+        "summary": "updateCardStatus",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlipayUpdateCardStatusRequest"
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlipayUpdateCardStatusResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "webhooks": {},
+  "components": {
+    "schemas": {
+      "AlipayUpdateCardStatusRequest": {
+        "type": "object",
+        "properties": {
+          "assetId": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "卡资产ID。\nCard asset Id"
+          },
+          "requestId": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "针对本次申卡请求，由集成商指定的唯一请求号\nThe unique request number specified by the integrator for this card application request."
+          },
+          "operateType": {
+            "type": "string",
+            "maxLength": 16,
+            "enum": [
+              "FREEZE",
+              "UNFREEZE",
+              "CANCEL"
+            ],
+            "description": "操作类型。可取值范围：\nFREEZE：冻结卡\nUNFREEZE：解冻卡\nCANCEL：删除卡\n\nEnumeration of Operation Type. Possible values:  \nFREEZE: Freeze the card  \nUNFREEZE: Unfreeze the card  \nCANCEL: Delete the card"
+          },
+          "notifyUrl": {
+            "type": "string",
+            "description": "Notification priority -> request.notifyUrl. If not provided, the notify URL configured by the user in the portal will be used.",
+            "maxLength": 256
+          }
+        },
+        "required": [
+          "assetId",
+          "requestId",
+          "operateType"
+        ]
+      },
+      "AlipayUpdateCardStatusResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string"
+          },
+          "result": {
+            "$ref": "#/components/schemas/Result"
+          }
+        },
+        "required": [
+          "status",
+          "requestId",
+          "result"
+        ]
+      },
+      "ResultStatusType": {
+        "type": "string",
+        "enum": [
+          "S",
+          "F",
+          "U"
+        ]
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "resultCode": {
+            "type": "string",
+            "description": "The result code."
+          },
+          "resultStatus": {
+            "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
+            "$ref": "#/components/schemas/ResultStatusType"
+          },
+          "resultMessage": {
+            "type": "string",
+            "description": "The result message."
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus"
+        ]
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers": [{
+    "url": "https://open-sea-global.alipay.com/ams/api/v1/aba/cards/updateCardStatus"
+  }]
+}

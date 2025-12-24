@@ -1,0 +1,186 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "aba-applyCard",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/ams/api/v1/aba/cards/applyCard": {
+      "get": {
+        "summary": "applyCard",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlipayApplyCardRequest"
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlipayApplyCardResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "webhooks": {},
+  "components": {
+    "schemas": {
+      "ResultStatusType": {
+        "type": "string",
+        "enum": [
+          "S",
+          "F",
+          "U"
+        ]
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "resultCode": {
+            "type": "string",
+            "description": "The result code."
+          },
+          "resultStatus": {
+            "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
+            "$ref": "#/components/schemas/ResultStatusType"
+          },
+          "resultMessage": {
+            "type": "string",
+            "description": "The result message."
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus"
+        ]
+      },
+      "AlipayApplyCardRequest": {
+        "type": "object",
+        "properties": {
+          "requestId": {
+            "type": "string"
+          },
+          "cardNickName": {
+            "type": "string"
+          },
+          "cardBinRule": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "authorizationControl": {
+            "$ref": "#/components/schemas/AuthorizationControl"
+          }
+        }
+      },
+      "AuthorizationControl": {
+        "type": "object",
+        "properties": {
+          "cardActiveTime": {
+            "type": "string"
+          },
+          "cardCancelTime": {
+            "type": "string"
+          },
+          "allowedMerchantCategoryList": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "allowedAuthTimes": {
+            "type": "string"
+          },
+          "allowedCurrencies": {
+            "type": "string"
+          },
+          "cardLimitInfo": {
+            "$ref": "#/components/schemas/CardLimitInfo"
+          }
+        }
+      },
+      "CardLimitInfo": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string"
+          },
+          "dailyLimitMax": {
+            "type": "string"
+          },
+          "monthlyLimitMax": {
+            "type": "string"
+          },
+          "perTransactionLimitMax": {
+            "type": "string"
+          },
+          "perCardLimitMax": {
+            "type": "string"
+          }
+        }
+      },
+      "AlipayApplyCardResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/Result"
+          },
+          "requestId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "assetId": {
+            "type": "string"
+          },
+          "cvv": {
+            "type": "string"
+          },
+          "cardNo": {
+            "type": "string"
+          },
+          "expiredMonth": {
+            "type": "string"
+          },
+          "expiredYear": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers":
+    - url: https://open-sea-global.alipay.com/ams/api/v1/aba/cards/applyCard
+}

@@ -1,0 +1,268 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "aba-updateCard",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/ams/api/v1/aba/cards/updateCard": {
+      "post": {
+        "summary": "updateCard",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlipayUpdateCardRequest"
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlipayUpdateCardResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "webhooks": {},
+  "components": {
+    "schemas": {
+      "CardLimitDetail": {
+        "type": "object",
+        "properties": {
+          "perTransactionLimit": {
+            "description": "单笔交易最大限额。\nSingle transaction maximum limit.",
+            "$ref": "#/components/schemas/Amount"
+          },
+          "dailyLimit": {
+            "description": "日最大限额。\nDaily spending maximum limit.",
+            "$ref": "#/components/schemas/Limit"
+          },
+          "monthlyLimit": {
+            "description": "日最大限额。\nDaily spending maximum limit.",
+            "$ref": "#/components/schemas/Limit"
+          },
+          "perCardLimit": {
+            "description": "日最大限额。\nDaily spending maximum limit.",
+            "$ref": "#/components/schemas/Limit"
+          },
+          "dailyLimitMax": {
+            "type": "string"
+          },
+          "monthlyLimitMax": {
+            "type": "string"
+          },
+          "perTransactionLimitMax": {
+            "type": "string"
+          },
+          "perCardLimitMax": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "perTransactionLimit",
+          "dailyLimit",
+          "monthlyLimit"
+        ]
+      },
+      "AuthorizationControl": {
+        "type": "object",
+        "properties": {
+          "cardActiveTime": {
+            "type": "string",
+            "description": "If not present, It will be activated when the card is created. Datetime UTC time: 2018-10-31T00:00:00+0800 ISO 8601"
+          },
+          "cardCancelTime": {
+            "type": "string",
+            "description": "Datetime UTC time: 2018-10-31T00:00:00+0800 ISO 8601"
+          },
+          "allowedMerchantCategoryList": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 570,
+            "description": "Allowed MCC (Merchant Category Code) list. If not set or left empty, all transactions are allowed."
+          },
+          "allowedAuthTimes": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Indicates the number of allowed authorization times. If not set or left empty, all transactions are allowed."
+          },
+          "allowedCurrencies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Z]{3}$"
+            },
+            "maxItems": 200,
+            "description": "Allowed transaction currencies (ISO 4217 three-letter codes). If not set, no currency restriction applies."
+          },
+          "cardLimitDetail": {
+            "$ref": "#/components/schemas/CardLimitDetail"
+          }
+        }
+      },
+      "Amount": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string",
+            "description": "The transaction currency that is specified in the contract. A 3-letter currency code that follows the ISO 4217 standard.\n\nMore information:\n\nMaximum length: 3 characters"
+          },
+          "value": {
+            "type": "string",
+            "description": "The amount to charge as a positive integer in the smallest currency unit. (That is, 100 cents to charge $1.00, or 100 to charge JPY 100, a 0-decimal currency).\n\nNote: For details about the smallest currency unit, see Smallest unit of the currency. \n\nMore information:\n\nValue range: 1 - unlimited"
+          }
+        },
+        "required": [
+          "currency",
+          "value"
+        ]
+      },
+      "Limit": {
+        "type": "object",
+        "properties": {
+          "remainingLimit": {
+            "description": "单笔交易最大限额。\nSingle transaction maximum limit.",
+            "$ref": "#/components/schemas/Amount"
+          },
+          "rangeLimit": {
+            "description": "单笔交易最大限额。\nSingle transaction maximum limit.",
+            "$ref": "#/components/schemas/Amount"
+          },
+          "usedLimit": {
+            "description": "单笔交易最大限额。\nSingle transaction maximum limit.",
+            "$ref": "#/components/schemas/Amount"
+          }
+        },
+        "required": [
+          "remainingLimit",
+          "rangeLimit",
+          "usedLimit"
+        ]
+      },
+      "AlipayUpdateCardRequest": {
+        "type": "object",
+        "properties": {
+          "assetId": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "卡资产ID。\nCard asset Id"
+          },
+          "requestId": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "针对本次申卡请求，由集成商指定的唯一请求号\nThe unique request number specified by the integrator for this card application request."
+          },
+          "cardNickName": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "The nickname of the Card. This parameter is useful for managing multiple cards."
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "Note information of card application"
+          },
+          "purpose": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "Purpose of the card."
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "maxLength": 128
+            },
+            "propertyNames": {
+              "maxLength": 32
+            },
+            "maxProperties": 30,
+            "description": "Customer metadata in key-value format.\n- Key max length: 32\n- Value max length: 128\n- Max number of keys: 30\n- Total JSON string max length: 3096 (application-layer validation required)",
+            "properties": {}
+          },
+          "authorizationControl": {
+            "$ref": "#/components/schemas/AuthorizationControl"
+          }
+        },
+        "required": [
+          "assetId",
+          "requestId"
+        ]
+      },
+      "AlipayUpdateCardResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string"
+          },
+          "result": {
+            "$ref": "#/components/schemas/Result"
+          }
+        },
+        "required": [
+          "status",
+          "requestId",
+          "result"
+        ]
+      },
+      "ResultStatusType": {
+        "type": "string",
+        "enum": [
+          "S",
+          "F",
+          "U"
+        ]
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "resultCode": {
+            "type": "string",
+            "description": "The result code."
+          },
+          "resultStatus": {
+            "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
+            "$ref": "#/components/schemas/ResultStatusType"
+          },
+          "resultMessage": {
+            "type": "string",
+            "description": "The result message."
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus"
+        ]
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/aba/cards/updateCard"
+    }
+  ]
+}

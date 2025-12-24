@@ -88,9 +88,10 @@ components:
           type: string
         referenceTransactionId:
           type: string
-      required:
-        - memo
-        - referenceTransactionId
+        payerAssetId:
+          type: string
+        beneficiaryAssetId:
+          type: string
     Statement:
       type: object
       properties:
@@ -98,6 +99,10 @@ components:
           type: string
         fundMoveDetail:
           $ref: '#/components/schemas/FundMoveDetail'
+        transactionType:
+          type: string
+        beneficiaryAssetId:
+          type: string
       required:
         - statementId
         - fundMoveDetail

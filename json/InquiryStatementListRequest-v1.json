@@ -127,12 +127,14 @@
           },
           "referenceTransactionId": {
             "type": "string"
+          },
+          "payerAssetId": {
+            "type": "string"
+          },
+          "beneficiaryAssetId": {
+            "type": "string"
           }
-        },
-        "required": [
-          "memo",
-          "referenceTransactionId"
-        ]
+        }
       },
       "Statement": {
         "type": "object",
@@ -142,6 +144,12 @@
           },
           "fundMoveDetail": {
             "$ref": "#/components/schemas/FundMoveDetail"
+          },
+          "transactionType": {
+            "type": "string"
+          },
+          "beneficiaryAssetId": {
+            "type": "string"
           }
         },
         "required": [

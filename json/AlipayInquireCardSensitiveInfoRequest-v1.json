@@ -1,0 +1,154 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "aba-inquireCardSensitiveInfo",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/ams/api/v1/aba/cards/inquireCardSensitiveInfo": {
+      "post": {
+        "summary": "inquireCardSensitiveInfo",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlipayInquireCardSensitiveInfoRequest"
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlipayInquireCardSensitiveInfoResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "webhooks": {},
+  "components": {
+    "schemas": {
+      "AlipayInquireCardSensitiveInfoRequest": {
+        "type": "object",
+        "properties": {
+          "assetId": {
+            "type": "string",
+            "description": "卡资产ID。"
+          }
+        },
+        "required": [
+          "assetId"
+        ]
+      },
+      "ResultStatusType": {
+        "type": "string",
+        "enum": [
+          "S",
+          "F",
+          "U"
+        ]
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "resultCode": {
+            "type": "string",
+            "description": "The result code."
+          },
+          "resultStatus": {
+            "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
+            "$ref": "#/components/schemas/ResultStatusType"
+          },
+          "resultMessage": {
+            "type": "string",
+            "description": "The result message."
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus"
+        ]
+      },
+      "AlipayInquireCardSensitiveInfoResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "description": "Represents the result of the interface call",
+            "$ref": "#/components/schemas/Result"
+          },
+          "assetId": {
+            "type": "string",
+            "description": "卡资产ID。\n此字段只有当 result.resultStatus = S 时才会按需返回。\nCard Asset ID.\nThis field will only be returned on demand when result.resultStatus = S."
+          },
+          "cvv": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "加密cvv号。\n此字段只有当 result.resultStatus = S 时才会按需返回。\nCVV number.\nThis field will only be returned on demand when result.resultStatus = S."
+          },
+          "cardNo": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "加密卡号。\n此字段只有当 result.resultStatus = S 时才会按需返回。\ncard number.\nThis field will only be returned on demand when result.resultStatus = S."
+          },
+          "expiredMonth": {
+            "type": "string",
+            "maxLength": 128,
+            "pattern": "^(0[1-9]|1[0-2])$",
+            "description": "卡片过期月份，格式为“MM“，如：”07“。\n此字段只有当 result.resultStatus = S 时才会按需返回。\nCard expiration month, formatted as \"MM,\" e.g., \"07.\"\nThis field will only be returned on demand when result.resultStatus = S."
+          },
+          "expiredYear": {
+            "type": "string",
+            "maxLength": 3,
+            "pattern": "^[0-9]{2}$",
+            "description": "卡片过期年份，格式为“YY“，取年份后两位数字，如：”29“。\n此字段只有当 result.resultStatus = S 时才会按需返回。\nCard expiration year, formatted as \"YY,\" using the last two digits of the year, e.g., \"29.\"\nThis field will only be returned on demand when result.resultStatus = S."
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "$defs": {
+          "Result": {
+            "type": "object",
+            "properties": {
+              "resultStatus": {
+                "type": "string",
+                "description": "Status code, e.g., 'S' for success"
+              },
+              "resultCode": {
+                "type": "string"
+              },
+              "resultMessage": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "resultStatus"
+            ]
+          }
+        }
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/aba/cards/inquireCardSensitiveInfo"
+    }
+  ]
+}

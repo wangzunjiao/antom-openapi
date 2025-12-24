@@ -1,0 +1,160 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "aba-inquiryStatementDetail",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/ams/api/v1/aba/accounts/inquiryStatementDetail": {
+      "post": {
+        "summary": "inquiryStatementDetail",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlipayInquiryStatementDetailRequest"
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlipayInquiryStatementDetailResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "webhooks": {},
+  "components": {
+    "schemas": {
+      "AlipayInquiryStatementDetailResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/Result"
+          },
+          "statement": {
+            "description": "List of statements.",
+            "$ref": "#/components/schemas/Statement"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "maxLength": 128
+            },
+            "maxProperties": 30,
+            "propertyNames": {
+              "maxLength": 32
+            },
+            "description": "Customer metadata in key-value format.\n- Key max length: 32\n- Value max length: 128\n- Max number of keys: 30\n- Total JSON string max length: 3096",
+            "properties": {}
+          }
+        },
+        "required": [
+          "result",
+          "metadata"
+        ]
+      },
+      "FundMoveDetail": {
+        "type": "object",
+        "properties": {
+          "memo": {
+            "type": "string"
+          },
+          "referenceTransactionId": {
+            "type": "string"
+          },
+          "payerAssetId": {
+            "type": "string"
+          },
+          "beneficiaryAssetId": {
+            "type": "string"
+          }
+        }
+      },
+      "Statement": {
+        "type": "object",
+        "properties": {
+          "statementId": {
+            "type": "string"
+          },
+          "fundMoveDetail": {
+            "$ref": "#/components/schemas/FundMoveDetail"
+          },
+          "transactionType": {
+            "type": "string"
+          },
+          "beneficiaryAssetId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "statementId",
+          "fundMoveDetail"
+        ]
+      },
+      "AlipayInquiryStatementDetailRequest": {
+        "type": "object",
+        "properties": {
+          "statementId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "statementId"
+        ]
+      },
+      "ResultStatusType": {
+        "type": "string",
+        "enum": [
+          "S",
+          "F",
+          "U"
+        ]
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "resultCode": {
+            "type": "string",
+            "description": "The result code."
+          },
+          "resultStatus": {
+            "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
+            "$ref": "#/components/schemas/ResultStatusType"
+          },
+          "resultMessage": {
+            "type": "string",
+            "description": "The result message."
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus"
+        ]
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers": [{
+    "url": "https://open-sea-global.alipay.com/ams/api/v1/aba/accounts/inquiryStatementDetail"
+  }]
+}

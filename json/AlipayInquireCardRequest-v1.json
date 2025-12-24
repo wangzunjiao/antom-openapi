@@ -1,0 +1,307 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "aba-inquireCard",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/ams/api/v1/aba/cards/inquireCard": {
+      "post": {
+        "summary": "inquireCard",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlipayInquireCardRequest"
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlipayInquireCardResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "webhooks": {},
+  "components": {
+    "schemas": {
+      "Card": {
+        "type": "object",
+        "properties": {
+          "assetId": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "卡资产ID。\nCard asset Id."
+          },
+          "cardNickName": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "由用户定义的卡昵称，可以帮助用户更方便地管理多张卡。\nUser-defined card nickname, designed to help users manage multiple cards more conveniently."
+          },
+          "maskedCardNo": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "脱敏卡号。\nMasked card number."
+          },
+          "cardStatus": {
+            "type": "string",
+            "maxLength": 32,
+            "enum": [
+              "ACTIVE",
+              "FROZEN",
+              "CANCEL"
+            ],
+            "description": "卡状态。可取值范围：\nACTIVE：可正常使用\nFROZEN：已冻结\nCANCEL：已注销\n\nCard Status: Represents the current state of the card. Possible values include:  \nACTIVE: The card is active and can be used normally.  \nFROZEN: The card has been frozen and cannot be used temporarily.  \nCANCEL: The card has been canceled and is no longer valid."
+          },
+          "cardBrand": {
+            "type": "string",
+            "maxLength": 32,
+            "enum": [
+              "MASTERCARD"
+            ],
+            "description": "卡品牌。\n可取值范围：\nMASTERCARD\n\nCard Brand: Indicates the brand or network of the card. Possible value:  \nMASTERCARD: The card is part of the Mastercard network."
+          },
+          "createdTime": {
+            "type": "string",
+            "description": "Card creation time\nISO 8601",
+            "maxLength": 32
+          },
+          "updatedTime": {
+            "type": "string",
+            "description": "Card update time\nISO 8601",
+            "maxLength": 32
+          }
+        },
+        "required": [
+          "assetId",
+          "maskedCardNo",
+          "cardStatus",
+          "cardBrand",
+          "createdTime",
+          "updatedTime"
+        ]
+      },
+      "ResultStatusType": {
+        "type": "string",
+        "enum": [
+          "S",
+          "F",
+          "U"
+        ]
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "resultCode": {
+            "type": "string",
+            "description": "The result code."
+          },
+          "resultStatus": {
+            "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
+            "$ref": "#/components/schemas/ResultStatusType"
+          },
+          "resultMessage": {
+            "type": "string",
+            "description": "The result message."
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus"
+        ]
+      },
+      "AlipayInquireCardRequest": {
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "description": "页码 (Page number)",
+            "usage": "System Usage"
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "每页包含的条目数 (Number of entries per page). Max pageSize is 50.",
+            "maximum": 50,
+            "usage": "System Usage"
+          },
+          "lastFourDigits": {
+            "type": "string",
+            "maxLength": 4,
+            "description": "卡号后四位数字。(The last four digits of the card number.)",
+            "usage": "System Usage"
+          },
+          "cardStatus": {
+            "type": "string",
+            "maxLength": 32,
+            "enum": [
+              "ACTIVE",
+              "FROZEN",
+              "CANCEL"
+            ],
+            "description": "卡状态。可取值范围：\nACTIVE：可正常使用\nFROZEN：已冻结\nCANCEL：已注销\n(Card Status. Possible values:\nACTIVE: The card is active and can be used normally.\nFROZEN: The card is frozen and temporarily unavailable for use.\nCANCEL: The card has been canceled and is no longer valid.)",
+            "usage": "System Usage"
+          },
+          "cardNickName": {
+            "type": "string",
+            "maxLength": 512,
+            "description": "由用户定义的卡昵称，可以帮助用户更方便地管理多张卡。(User-defined card nickname, designed to help users manage multiple cards more conveniently.)",
+            "usage": "System Usage"
+          }
+        },
+        "required": [
+          "pageNumber",
+          "pageSize"
+        ]
+      },
+      "AlipayInquireCardResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "description": "Represents the result of the interface call",
+            "$ref": "#/components/schemas/Result"
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "Total card elements.",
+            "usage": "Antom Data"
+          },
+          "totalPageNumber": {
+            "type": "integer",
+            "description": "Total number of pages.",
+            "usage": "Antom Data"
+          },
+          "currentPageNumber": {
+            "type": "integer",
+            "description": "当前页码。\n此字段只有当 result.resultStatus = S 时才会按需返回。\n\nCurrent page number\nThis field will only be returned as needed when `result.resultStatus = S`.",
+            "usage": "Antom Data"
+          },
+          "cardList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Card"
+            },
+            "maxItems": 50,
+            "description": "卡列表\n此字段只有当 result.resultStatus = S 时才会按需返回。\n\nCard list\nThis field will only be returned as needed when `result.resultStatus = S`.",
+            "usage": "Antom Data"
+          }
+        },
+        "required": [
+          "result",
+          "totalCount",
+          "totalPageNumber",
+          "cardList"
+        ],
+        "$defs": {
+          "Result": {
+            "type": "object",
+            "properties": {
+              "resultStatus": {
+                "type": "string",
+                "description": "Status code of the result (e.g., 'S' for success)"
+              },
+              "resultCode": {
+                "type": "string"
+              },
+              "resultMessage": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "resultStatus"
+            ]
+          },
+          "Card": {
+            "type": "object",
+            "properties": {
+              "assetId": {
+                "type": "string",
+                "maxLength": 32,
+                "description": "卡资产ID。\nCard asset Id.",
+                "usage": "Antom Data"
+              },
+              "cardNickName": {
+                "type": "string",
+                "maxLength": 120,
+                "description": "由用户定义的卡昵称，可以帮助用户更方便地管理多张卡。\nUser-defined card nickname, designed to help users manage multiple cards more conveniently.",
+                "usage": "Antom Data"
+              },
+              "maskedCardNo": {
+                "type": "string",
+                "maxLength": 32,
+                "description": "脱敏卡号。\nMasked card number.",
+                "usage": "Antom Data"
+              },
+              "cardStatus": {
+                "type": "string",
+                "maxLength": 32,
+                "enum": [
+                  "ACTIVE",
+                  "FROZEN",
+                  "CANCEL"
+                ],
+                "description": "卡状态。可取值范围：\nACTIVE：可正常使用\nFROZEN：已冻结\nCANCEL：已注销\n\nCard Status: Represents the current state of the card. Possible values include:  \nACTIVE: The card is active and can be used normally.  \nFROZEN: The card has been frozen and cannot be used temporarily.  \nCANCEL: The card has been canceled and is no longer valid.",
+                "usage": "Antom Data"
+              },
+              "cardBrand": {
+                "type": "string",
+                "maxLength": 32,
+                "enum": [
+                  "MASTERCARD"
+                ],
+                "description": "卡品牌。\n可取值范围：\nMASTERCARD\n\nCard Brand: Indicates the brand or network of the card. Possible value:  \nMASTERCARD: The card is part of the Mastercard network.",
+                "usage": "Antom Data"
+              },
+              "createdTime": {
+                "type": "string",
+                "maxLength": 32,
+                "format": "date-time",
+                "description": "Card creation time\nISO 8601",
+                "usage": "Antom Data"
+              },
+              "updatedTime": {
+                "type": "string",
+                "maxLength": 32,
+                "format": "date-time",
+                "description": "Card update time\nISO 8601",
+                "usage": "Antom Data"
+              }
+            },
+            "required": [
+              "assetId",
+              "maskedCardNo",
+              "cardStatus",
+              "cardBrand",
+              "createdTime",
+              "updatedTime"
+            ]
+          }
+        }
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/aba/cards/inquireCard"
+    }
+  ]
+}

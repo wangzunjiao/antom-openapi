@@ -1,0 +1,220 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "baa-inquiryStatement",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/ams/api/v1/aba/accounts/inquiryStatement": {
+      "get": {
+        "summary": "inquiryStatement",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlipayInquiryStatementRequest"
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlipayInquiryStatementResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "webhooks": {},
+  "components": {
+    "schemas": {
+      "AlipayInquiryStatementRequest": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "string",
+            "maxLength": 16,
+            "description": "antom ABA merchant id"
+          },
+          "accessToken": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "access token for the relevant antom ABA merchant"
+          },
+          "startTime": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "start time of statement query. The value follows the ISO 8601 standard format. The time interval between startTime and endTime cannot be more than 3 months (equivalent to 100 days)."
+          },
+          "endTime": {
+            "type": "string",
+            "description": "end time of statement query. The value follows the ISO 8601 standard format. The time interval between startTime and endTime cannot be more than 3 months (equivalent to 100 days)."
+          },
+          "transactionTypeList": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "PAYMENT",
+                "PAYMENT_REFUND",
+                "TOPUP",
+                "SETTLEMENT",
+                "WITHDRAW",
+                "WITHDRAW_RETURN",
+                "TRANSFER",
+                "TRANSFER_RETURN",
+                "TRANSFER_TO_CHINA",
+                "TRANSFER_RECIPIENT",
+                "EXCHANGE",
+                "CREDIT_LOAN",
+                "CREDIT_REPAY",
+                "CARD_PAYMENT",
+                "CARD_REFUND"
+              ]
+            },
+            "maxItems": 1,
+            "description": "If no value passed, the API shall return all transactions. Antom only supports [0-1] single type for the current time."
+          },
+          "currencyList": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Z]{3}$"
+            },
+            "description": "If no value passed, the API shall return the defined transaction type with all currencies. The value shall follow the ISO currency standard (e.g., USD, EUR)."
+          },
+          "pageSize": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Indicates the number of items on each page."
+          },
+          "pageNumber": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Indicates the current page index that contains statement information."
+          }
+        },
+        "required": [
+          "customerId",
+          "accessToken",
+          "startTime",
+          "endTime",
+          "pageSize",
+          "pageNumber"
+        ]
+      },
+      "FundMoveDetail": {
+        "type": "object",
+        "properties": {
+          "memo": {
+            "type": "string"
+          },
+          "referenceTransactionId": {
+            "type": "string"
+          },
+          "payerAssetId": {
+            "type": "string"
+          },
+          "beneficiaryAssetId": {
+            "type": "string"
+          }
+        }
+      },
+      "Statement": {
+        "type": "object",
+        "properties": {
+          "statementId": {
+            "type": "string"
+          },
+          "fundMoveDetail": {
+            "$ref": "#/components/schemas/FundMoveDetail"
+          },
+          "transactionType": {
+            "type": "string"
+          },
+          "beneficiaryAssetId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "statementId",
+          "fundMoveDetail"
+        ]
+      },
+      "ResultResult": {
+        "type": "object",
+        "properties": {
+          "resultCode": {
+            "type": "string",
+            "description": "The result code."
+          },
+          "resultStatus": {
+            "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
+            "$ref": "#/components/schemas/ResultStatusType"
+          },
+          "resultMessage": {
+            "type": "string",
+            "description": "The result message."
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus"
+        ]
+      },
+      "ResultStatusType": {
+        "type": "string",
+        "enum": [
+          "S",
+          "F",
+          "U"
+        ]
+      },
+      "AlipayInquiryStatementResponse": {
+        "type": "object",
+        "properties": {
+          "statementList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Statement"
+            }
+          },
+          "result": {
+            "$ref": "#/components/schemas/ResultResult"
+          },
+          "totalCount": {
+            "type": "integer"
+          },
+          "totalPageNumber": {
+            "type": "integer"
+          },
+          "currentPageNumber": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers": [{
+    "url": "https://open-sea-global.alipay.com/ams/api/v1/aba/accounts/inquiryStatement"
+  }]
+}
