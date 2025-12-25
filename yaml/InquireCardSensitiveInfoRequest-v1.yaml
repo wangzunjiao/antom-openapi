@@ -144,6 +144,24 @@ components:
               type: string
           required:
           - resultStatus
+    authorizationControl:
+      type: object
+      properties:
+        CardLimitInfo:
+          $ref: '#/components/schemas/CardLimitInfo'
+    CardLimitInfo:
+      type: object
+      properties:
+        currency:
+          type: string
+        dailyLimitMax:
+          type: string
+        monthlyLimitMax:
+          type: string
+        perTransactionLimitMax:
+          type: string
+        perCardLimitMax:
+          type: string
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/aba/cards/inquireCardSensitiveInfo
