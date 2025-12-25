@@ -42,9 +42,7 @@ components:
           maxLength: 64
           description: access token for the relevant antom ABA merchant
         startTime:
-          type:
-            - string
-            - 'null'
+          type: string
           description: >-
             start time of statement query. The value follows the ISO 8601
             standard format. The time interval between startTime and endTime
