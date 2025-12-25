@@ -945,6 +945,18 @@
           "OTC"
         ],
         "description": "The interaction type for the payment method."
+      },
+      "PaymentMethods": {
+        "type": "object",
+        "properties": {
+          "paymentMethodId": {
+            "type": "string"
+          },
+          "paymentMethodMetadata": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
       }
     },
     "securitySchemes": {}
