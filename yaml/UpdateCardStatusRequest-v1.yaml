@@ -115,4 +115,4 @@ components:
         - resultStatus
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/aba/cards/updateCardStatus
+- url: https://open-sea-global.alipay.com/ams/api/v1/aba/cards/updateCardStatus

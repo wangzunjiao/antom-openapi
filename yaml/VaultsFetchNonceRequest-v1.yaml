@@ -128,4 +128,4 @@ components:
         - result
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/vaults/fetchNonce
+- url: https://open-sea-global.alipay.com/ams/api/v1/vaults/fetchNonce

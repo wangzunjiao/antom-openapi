@@ -116,4 +116,4 @@ components:
         - resultStatus
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/aba/accounts/inquiryStatementDetail
+- url: https://open-sea-global.alipay.com/ams/api/v1/aba/accounts/inquiryStatementDetail

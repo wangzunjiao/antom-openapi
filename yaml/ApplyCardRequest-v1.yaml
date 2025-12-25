@@ -3,21 +3,21 @@ info:
   title: aba-applyCard
   description: ''
   version: 1.0.0
-tags: []
+tags: [ ]
 paths:
   /ams/api/v1/aba/cards/applyCard:
     get:
       summary: applyCard
       deprecated: false
       description: ''
-      tags: []
-      parameters: []
+      tags: [ ]
+      parameters: [ ]
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AlipayApplyCardRequest'
-            examples: {}
+            examples: { }
       responses:
         '200':
           description: ''
@@ -25,9 +25,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AlipayApplyCardResponse'
-          headers: {}
-      security: []
-webhooks: {}
+          headers: { }
+      security: [ ]
+webhooks: { }
 components:
   schemas:
     CardLimitInfo:
@@ -73,7 +73,7 @@ components:
           type: string
         metadata:
           type: object
-          properties: {}
+          properties: { }
           additionalProperties:
             type: string
         authorizationControl:
@@ -127,6 +127,6 @@ components:
           type: string
       required:
         - result
-  securitySchemes: {}
+  securitySchemes: { }
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/aba/cards/applyCard
+- url: https://open-sea-global.alipay.com/ams/api/v1/aba/cards/applyCard

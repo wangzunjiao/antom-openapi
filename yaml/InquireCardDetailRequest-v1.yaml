@@ -469,4 +469,4 @@ components:
         - cardholderinfo
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/aba/cards/inquireCardDetail
+- url: https://open-sea-global.alipay.com/ams/api/v1/aba/cards/inquireCardDetail
