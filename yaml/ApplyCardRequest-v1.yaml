@@ -93,7 +93,7 @@ components:
           type: string
           description: The result code.
         resultStatus:
-          description: |-
+          description: |
             The result status. Valid values are:
 
             S: indicates that the result status is successful.
@@ -129,4 +129,4 @@ components:
         - result
   securitySchemes: { }
 servers:
-- url: https://open-sea-global.alipay.com/ams/api/v1/aba/cards/applyCard
+  - url: https://open-sea-global.alipay.com/ams/api/v1/aba/cards/applyCard
