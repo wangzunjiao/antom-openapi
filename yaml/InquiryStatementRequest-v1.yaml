@@ -173,4 +173,4 @@ components:
           type: integer
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/aba/accounts/inquiryStatement
+- url: https://open-sea-global.alipay.com/ams/api/v1/aba/accounts/inquiryStatement

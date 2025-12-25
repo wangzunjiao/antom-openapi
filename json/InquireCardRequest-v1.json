@@ -44,7 +44,7 @@
   "webhooks": {},
   "components": {
     "schemas": {
-      "Card": {
+      "AbaCard": {
         "type": "object",
         "properties": {
           "assetId": {
@@ -197,7 +197,7 @@
           "cardList": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Card"
+              "$ref": "#/components/schemas/AbaCard"
             },
             "maxItems": 50,
             "description": "\u5361\u5217\u8868\n\u6b64\u5b57\u6bb5\u53ea\u6709\u5f53 result.resultStatus = S \u65f6\u624d\u4f1a\u6309\u9700\u8fd4\u56de\u3002\n\nCard list\nThis field will only be returned as needed when `result.resultStatus = S`.",
