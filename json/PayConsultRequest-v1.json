@@ -902,6 +902,10 @@
           },
           "extendInfo": {
             "type": "string"
+          },
+          "paymentMethodId": {
+            "type": "string",
+            "description": "The unique identifier of the payment method. Required in AGREEMENT_PAYMENT scenario, optional in CASHIER_PAYMENT scenario."
           }
         }
       },

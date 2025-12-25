@@ -499,18 +499,22 @@ components:
       - OTC
       type: string
     PaymentMethodInfo:
+      type: object
       properties:
-        enabled:
-          type: boolean
-        extendInfo:
+        paymentMethodType:
           type: string
         paymentMethodDetail:
           type: string
-        paymentMethodType:
-          type: string
+        enabled:
+          type: boolean
         preferred:
           type: boolean
-      type: object
+        extendInfo:
+          type: string
+        paymentMethodId:
+          type: string
+          description: The unique identifier of the payment method. Required in AGREEMENT_PAYMENT
+            scenario, optional in CASHIER_PAYMENT scenario.
     PaymentOption:
       type: object
       properties:
