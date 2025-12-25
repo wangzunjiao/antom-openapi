@@ -19,72 +19,10 @@ components:
           type: string
       type: object
     AlipayPayConsultRequest:
+      type: object
       properties:
-        allowedPaymentMethodRegions:
-          description: "A list of region codes that represent the countries or regions\
-            \ of payment methods. The value of this parameter is a 2-letter ISO country\
-            \ code or GLOBAL. \n\nNote: Specify this parameter if you want available\
-            \ payment methods from specific regions to be returned. For example, if\
-            \ you pass in GLOBAL, global cards Visa and Mastercard are returned. \
-            \ \n\nMore information:\n\nMaximum length: 6 characters"
-          items:
-            type: string
-          type: array
-        allowedPaymentMethods:
-          items:
-            type: string
-          type: array
-        allowedPspRegions:
-          items:
-            type: string
-          type: array
-        blockedPaymentMethods:
-          items:
-            type: string
-          type: array
-        buyer:
-          $ref: '#/components/schemas/Buyer'
-          description: Buyer information.
-        customerId:
-          type: string
-        env:
-          $ref: '#/components/schemas/Env'
-          description: Information about the environment where the order is placed,
-            such as the device information.
-        extendInfo:
-          type: string
-        merchant:
-          $ref: '#/components/schemas/Merchant'
-        merchantAccountId:
-          description: 'The unique ID to identify a merchant account.
-
-
-            Note: Specify this parameter when you use a single client ID across multiple
-            locations.
-
-
-            More information:
-
-
-            Maximum length: 32 characters'
-          type: string
-        merchantRegion:
-          description: "The country or region where the merchant operates the business.\
-            \ The parameter is a 2-letter country or region code that follows ISO\
-            \ 3166 Country Codes standard.\n\nSome possible values are US, SG, HK,\
-            \ PK, JP, CN, BR, AU, and MY.  \n\nNote: This parameter is required when\
-            \ you use the Global Acquirer Gateway (GAGW) product.\n\nMore information:\n\
-            \nMaximum length: 2 characters"
-          type: string
-        paymentAmount:
-          $ref: '#/components/schemas/Amount'
-        paymentFactor:
-          $ref: '#/components/schemas/PaymentFactor'
-          description: 'Factors that impact the payment. This field is used to indicate
-            the payment scenario.
-
-
-            Note: Specify this parameter when the value of paymentMethodType is CARD.'
+        paymentEvaluation:
+          $ref: '#/components/schemas/PaymentEvaluation'
         productCode:
           $ref: '#/components/schemas/ProductCodeType'
           description: 'Represents the payment product that is being used. The payment
@@ -99,24 +37,88 @@ components:
 
 
             Maximum length: 32 characters'
-        referenceUserId:
+        paymentAmount:
+          $ref: '#/components/schemas/Amount'
+        merchantRegion:
           type: string
+          description: "The country or region where the merchant operates the business.\
+            \ The parameter is a 2-letter country or region code that follows ISO\
+            \ 3166 Country Codes standard.\n\nSome possible values are US, SG, HK,\
+            \ PK, JP, CN, BR, AU, and MY.  \n\nNote: This parameter is required when\
+            \ you use the Global Acquirer Gateway (GAGW) product.\n\nMore information:\n\
+            \nMaximum length: 2 characters"
+        allowedPaymentMethodRegions:
+          type: array
+          items:
+            type: string
+          description: "A list of region codes that represent the countries or regions\
+            \ of payment methods. The value of this parameter is a 2-letter ISO country\
+            \ code or GLOBAL. \n\nNote: Specify this parameter if you want available\
+            \ payment methods from specific regions to be returned. For example, if\
+            \ you pass in GLOBAL, global cards Visa and Mastercard are returned. \
+            \ \n\nMore information:\n\nMaximum length: 6 characters"
+        allowedPaymentMethods:
+          type: array
+          items:
+            type: string
+        blockedPaymentMethods:
+          type: array
+          items:
+            type: string
         region:
           type: string
-        settlementStrategy:
-          $ref: '#/components/schemas/SettlementStrategy'
-          description: The settlement strategy.
+        customerId:
+          type: string
+        referenceUserId:
+          type: string
+        env:
+          $ref: '#/components/schemas/Env'
+          description: Information about the environment where the order is placed,
+            such as the device information.
+        extendInfo:
+          type: string
         userRegion:
+          type: string
           description: "The 2-letter country or region code. For more information,\
             \ see ISO 3166 Country Codes standard. The payment methods will be sorted\
             \ based on payment method relevance for the given user's region. \n\n\
             More information:\n\nMaximum length: 2 characters"
+        paymentFactor:
+          $ref: '#/components/schemas/PaymentFactor'
+          description: 'Factors that impact the payment. This field is used to indicate
+            the payment scenario.
+
+
+            Note: Specify this parameter when the value of paymentMethodType is CARD.'
+        settlementStrategy:
+          $ref: '#/components/schemas/SettlementStrategy'
+          description: The settlement strategy.
+        merchant:
+          $ref: '#/components/schemas/Merchant'
+        allowedPspRegions:
+          type: array
+          items:
+            type: string
+        buyer:
+          $ref: '#/components/schemas/Buyer'
+          description: Buyer information.
+        merchantAccountId:
           type: string
+          description: 'The unique ID to identify a merchant account.
+
+
+            Note: Specify this parameter when you use a single client ID across multiple
+            locations.
+
+
+            More information:
+
+
+            Maximum length: 32 characters'
       required:
       - productCode
       - paymentAmount
       - env
-      type: object
     AlipayPayConsultResponse:
       properties:
         extendInfo:
