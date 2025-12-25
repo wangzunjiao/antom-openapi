@@ -30,7 +30,7 @@ paths:
 webhooks: {}
 components:
   schemas:
-    Card:
+    AbaCard:
       type: object
       properties:
         assetId:
@@ -214,7 +214,7 @@ components:
         cardList:
           type: array
           items:
-            $ref: '#/components/schemas/Card'
+            $ref: '#/components/schemas/AbaCard'
           maxItems: 50
           description: >-
             卡列表
@@ -232,113 +232,6 @@ components:
         - totalCount
         - totalPageNumber
         - cardList
-      $defs:
-        Result:
-          type: object
-          properties:
-            resultStatus:
-              type: string
-              description: Status code of the result (e.g., 'S' for success)
-            resultCode:
-              type: string
-            resultMessage:
-              type: string
-          required:
-            - resultStatus
-        Card:
-          type: object
-          properties:
-            assetId:
-              type: string
-              maxLength: 32
-              description: |-
-                卡资产ID。
-                Card asset Id.
-              usage: Antom Data
-            cardNickName:
-              type: string
-              maxLength: 120
-              description: >-
-                由用户定义的卡昵称，可以帮助用户更方便地管理多张卡。
-
-                User-defined card nickname, designed to help users manage
-                multiple cards more conveniently.
-              usage: Antom Data
-            maskedCardNo:
-              type: string
-              maxLength: 32
-              description: |-
-                脱敏卡号。
-                Masked card number.
-              usage: Antom Data
-            cardStatus:
-              type: string
-              maxLength: 32
-              enum:
-                - ACTIVE
-                - FROZEN
-                - CANCEL
-              description: >-
-                卡状态。可取值范围：
-
-                ACTIVE：可正常使用
-
-                FROZEN：已冻结
-
-                CANCEL：已注销
-
-
-                Card Status: Represents the current state of the card. Possible
-                values include:  
-
-                ACTIVE: The card is active and can be used normally.  
-
-                FROZEN: The card has been frozen and cannot be used
-                temporarily.  
-
-                CANCEL: The card has been canceled and is no longer valid.
-              usage: Antom Data
-            cardBrand:
-              type: string
-              maxLength: 32
-              enum:
-                - MASTERCARD
-              description: >-
-                卡品牌。
-
-                可取值范围：
-
-                MASTERCARD
-
-
-                Card Brand: Indicates the brand or network of the card. Possible
-                value:  
-
-                MASTERCARD: The card is part of the Mastercard network.
-              usage: Antom Data
-            createdTime:
-              type: string
-              maxLength: 32
-              format: date-time
-              description: |-
-                Card creation time
-                ISO 8601
-              usage: Antom Data
-            updatedTime:
-              type: string
-              maxLength: 32
-              format: date-time
-              description: |-
-                Card update time
-                ISO 8601
-              usage: Antom Data
-          required:
-            - assetId
-            - maskedCardNo
-            - cardStatus
-            - cardBrand
-            - createdTime
-            - updatedTime
   securitySchemes: {}
 servers:
   - url: https://open-sea-global.alipay.com/ams/api/v1/aba/cards/inquireCard

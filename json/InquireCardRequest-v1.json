@@ -44,7 +44,7 @@
   "webhooks": {},
   "components": {
     "schemas": {
-      "Card": {
+      "AbaCard": {
         "type": "object",
         "properties": {
           "assetId": {
@@ -197,7 +197,7 @@
           "cardList": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Card"
+              "$ref": "#/components/schemas/AbaCard"
             },
             "maxItems": 50,
             "description": "卡列表\n此字段只有当 result.resultStatus = S 时才会按需返回。\n\nCard list\nThis field will only be returned as needed when `result.resultStatus = S`.",
