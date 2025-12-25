@@ -1,23 +1,24 @@
+---
 openapi: 3.1.0
 info:
   title: aba-applyCard
   description: ''
   version: 1.0.0
-tags: [ ]
+tags: []
 paths:
   /ams/api/v1/aba/cards/applyCard:
     get:
       summary: applyCard
       deprecated: false
       description: ''
-      tags: [ ]
-      parameters: [ ]
+      tags: []
+      parameters: []
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AlipayApplyCardRequest'
-            examples: { }
+            examples: {}
       responses:
         '200':
           description: ''
@@ -25,9 +26,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AlipayApplyCardResponse'
-          headers: { }
-      security: [ ]
-webhooks: { }
+          headers: {}
+      security: []
+webhooks: {}
 components:
   schemas:
     CardLimitInfo:
@@ -73,7 +74,7 @@ components:
           type: string
         metadata:
           type: object
-          properties: { }
+          properties: {}
           additionalProperties:
             type: string
         authorizationControl:
@@ -83,9 +84,9 @@ components:
     ResultStatusType:
       type: string
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
     Result:
       type: object
       properties:
@@ -93,19 +94,16 @@ components:
           type: string
           description: The result code.
         resultStatus:
-          description: |-
-            The result status. Valid values are:
-
-            S: indicates that the result status is successful.
-            F: indicates that the result status is failed. 
-            U: indicates that the result status is unknown. 
+          description: "The result status. Valid values are:\n\nS: indicates that\
+            \ the result status is successful.\nF: indicates that the result status\
+            \ is failed. \nU: indicates that the result status is unknown. "
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
           description: The result message.
       required:
-        - resultCode
-        - resultStatus
+      - resultCode
+      - resultStatus
     AlipayApplyCardResponse:
       type: object
       properties:
@@ -126,7 +124,7 @@ components:
         expiredYear:
           type: string
       required:
-        - result
-  securitySchemes: { }
+      - result
+  securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/aba/cards/applyCard

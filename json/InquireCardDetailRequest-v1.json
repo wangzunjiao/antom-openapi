@@ -49,7 +49,7 @@
         "properties": {
           "assetId": {
             "type": "string",
-            "description": "卡资产ID。"
+            "description": "\u5361\u8d44\u4ea7ID\u3002"
           }
         },
         "required": [
@@ -206,15 +206,15 @@
         "type": "object",
         "properties": {
           "remainingLimit": {
-            "description": "剩余额度。\nRemaining available limit.",
+            "description": "\u5269\u4f59\u989d\u5ea6\u3002\nRemaining available limit.",
             "$ref": "#/components/schemas/Amount"
           },
           "rangeLimit": {
-            "description": "剩余额度。\nRemaining available limit.",
+            "description": "\u5269\u4f59\u989d\u5ea6\u3002\nRemaining available limit.",
             "$ref": "#/components/schemas/Amount"
           },
           "usedLimit": {
-            "description": "剩余额度。\nRemaining available limit.",
+            "description": "\u5269\u4f59\u989d\u5ea6\u3002\nRemaining available limit.",
             "$ref": "#/components/schemas/Amount"
           }
         },
@@ -228,19 +228,19 @@
         "type": "object",
         "properties": {
           "perTransactionLimit": {
-            "description": "剩余额度。\nRemaining available limit.",
+            "description": "\u5269\u4f59\u989d\u5ea6\u3002\nRemaining available limit.",
             "$ref": "#/components/schemas/Amount"
           },
           "dailyLimit": {
-            "description": "日最大限额。\nDaily spending maximum limit.",
+            "description": "\u65e5\u6700\u5927\u9650\u989d\u3002\nDaily spending maximum limit.",
             "$ref": "#/components/schemas/Limit"
           },
           "monthlyLimit": {
-            "description": "日最大限额。\nDaily spending maximum limit.",
+            "description": "\u65e5\u6700\u5927\u9650\u989d\u3002\nDaily spending maximum limit.",
             "$ref": "#/components/schemas/Limit"
           },
           "perCardLimit": {
-            "description": "日最大限额。\nDaily spending maximum limit.",
+            "description": "\u65e5\u6700\u5927\u9650\u989d\u3002\nDaily spending maximum limit.",
             "$ref": "#/components/schemas/Limit"
           },
           "dailyLimitMax": {
@@ -352,12 +352,12 @@
           "assetId": {
             "type": "string",
             "maxLength": 32,
-            "description": "卡资产ID。\nCard asset Id."
+            "description": "\u5361\u8d44\u4ea7ID\u3002\nCard asset Id."
           },
           "cardNickName": {
             "type": "string",
             "maxLength": 120,
-            "description": "由用户定义的卡昵称，可以帮助用户更方便地管理多张卡。\nUser-defined card nickname, designed to help users manage multiple cards more conveniently."
+            "description": "\u7531\u7528\u6237\u5b9a\u4e49\u7684\u5361\u6635\u79f0\uff0c\u53ef\u4ee5\u5e2e\u52a9\u7528\u6237\u66f4\u65b9\u4fbf\u5730\u7ba1\u7406\u591a\u5f20\u5361\u3002\nUser-defined card nickname, designed to help users manage multiple cards more conveniently."
           },
           "cardStatus": {
             "type": "string",
@@ -367,12 +367,12 @@
               "FROZEN",
               "CANCEL"
             ],
-            "description": "卡状态。可取值范围：\nACTIVE：可正常使用\nFROZEN：已冻结\nCANCEL：已注销\n\nCard Status: Represents the current state of the card. Possible values include:  \nACTIVE: The card is active and can be used normally.  \nFROZEN: The card has been frozen and cannot be used temporarily.  \nCANCEL: The card has been canceled and is no longer valid."
+            "description": "\u5361\u72b6\u6001\u3002\u53ef\u53d6\u503c\u8303\u56f4\uff1a\nACTIVE\uff1a\u53ef\u6b63\u5e38\u4f7f\u7528\nFROZEN\uff1a\u5df2\u51bb\u7ed3\nCANCEL\uff1a\u5df2\u6ce8\u9500\n\nCard Status: Represents the current state of the card. Possible values include:  \nACTIVE: The card is active and can be used normally.  \nFROZEN: The card has been frozen and cannot be used temporarily.  \nCANCEL: The card has been canceled and is no longer valid."
           },
           "maskedCardNo": {
             "type": "string",
             "maxLength": 32,
-            "description": "脱敏卡号。\nMasked card number."
+            "description": "\u8131\u654f\u5361\u53f7\u3002\nMasked card number."
           },
           "cardBrand": {
             "type": "string",
@@ -380,7 +380,7 @@
             "enum": [
               "MASTERCARD"
             ],
-            "description": "卡品牌。\n可取值范围：\nMASTERCARD\n\nCard Brand: Indicates the brand or network of the card. Possible value:  \nMASTERCARD: The card is part of the Mastercard network."
+            "description": "\u5361\u54c1\u724c\u3002\n\u53ef\u53d6\u503c\u8303\u56f4\uff1a\nMASTERCARD\n\nCard Brand: Indicates the brand or network of the card. Possible value:  \nMASTERCARD: The card is part of the Mastercard network."
           },
           "createdTime": {
             "type": "string",
@@ -434,6 +434,26 @@
           "authorizationControl",
           "cardholderinfo"
         ]
+      },
+      "CardLimitInfo": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string"
+          },
+          "dailyLimitMax": {
+            "type": "string"
+          },
+          "monthlyLimitMax": {
+            "type": "string"
+          },
+          "perTransactionLimitMax": {
+            "type": "string"
+          },
+          "perCardLimitMax": {
+            "type": "string"
+          }
+        }
       }
     },
     "securitySchemes": {}
