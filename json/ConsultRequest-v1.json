@@ -957,6 +957,17 @@
             "additionalProperties": true
           }
         }
+      },
+      "PaymentEvaluation": {
+        "type": "object",
+        "properties": {
+          "paymentMethods": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentMethods"
+            }
+          }
+        }
       }
     },
     "securitySchemes": {}
