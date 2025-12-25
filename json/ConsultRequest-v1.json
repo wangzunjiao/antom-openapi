@@ -468,6 +468,9 @@
       "AlipayPayConsultRequest": {
         "type": "object",
         "properties": {
+          "paymentEvaluation": {
+            "$ref": "#/components/schemas/PaymentEvaluation"
+          },
           "productCode": {
             "$ref": "#/components/schemas/ProductCodeType",
             "description": "Represents the payment product that is being used. The payment product that can be used is stipulated in the contract. The fixed value is:\n\nCASHIER_PAYMENT: Indicates that this API is used for the Cashier Payment scenario.\nMore information:\n\nMaximum length: 32 characters"
