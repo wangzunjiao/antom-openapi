@@ -49,7 +49,7 @@
         "properties": {
           "assetId": {
             "type": "string",
-            "description": "卡资产ID。"
+            "description": "\u5361\u8d44\u4ea7ID\u3002"
           }
         },
         "required": [
@@ -86,39 +86,46 @@
         ]
       },
       "AlipayInquireCardSensitiveInfoResponse": {
-        "type": "object",
         "properties": {
+          "authorizationControl": {
+            "properties": {
+              "cardLimitInfo": {
+                "$ref": "#/components/schemas/CardLimitInfo"
+              }
+            }
+          },
           "result": {
             "description": "Represents the result of the interface call",
             "$ref": "#/components/schemas/Result"
           },
           "assetId": {
             "type": "string",
-            "description": "卡资产ID。\n此字段只有当 result.resultStatus = S 时才会按需返回。\nCard Asset ID.\nThis field will only be returned on demand when result.resultStatus = S."
+            "description": "\u5361\u8d44\u4ea7ID\u3002\n\u6b64\u5b57\u6bb5\u53ea\u6709\u5f53 result.resultStatus = S \u65f6\u624d\u4f1a\u6309\u9700\u8fd4\u56de\u3002\nCard Asset ID.\nThis field will only be returned on demand when result.resultStatus = S."
           },
           "cvv": {
             "type": "string",
             "maxLength": 64,
-            "description": "加密cvv号。\n此字段只有当 result.resultStatus = S 时才会按需返回。\nCVV number.\nThis field will only be returned on demand when result.resultStatus = S."
+            "description": "\u52a0\u5bc6cvv\u53f7\u3002\n\u6b64\u5b57\u6bb5\u53ea\u6709\u5f53 result.resultStatus = S \u65f6\u624d\u4f1a\u6309\u9700\u8fd4\u56de\u3002\nCVV number.\nThis field will only be returned on demand when result.resultStatus = S."
           },
           "cardNo": {
             "type": "string",
             "maxLength": 64,
-            "description": "加密卡号。\n此字段只有当 result.resultStatus = S 时才会按需返回。\ncard number.\nThis field will only be returned on demand when result.resultStatus = S."
+            "description": "\u52a0\u5bc6\u5361\u53f7\u3002\n\u6b64\u5b57\u6bb5\u53ea\u6709\u5f53 result.resultStatus = S \u65f6\u624d\u4f1a\u6309\u9700\u8fd4\u56de\u3002\ncard number.\nThis field will only be returned on demand when result.resultStatus = S."
           },
           "expiredMonth": {
             "type": "string",
             "maxLength": 128,
             "pattern": "^(0[1-9]|1[0-2])$",
-            "description": "卡片过期月份，格式为“MM“，如：”07“。\n此字段只有当 result.resultStatus = S 时才会按需返回。\nCard expiration month, formatted as \"MM,\" e.g., \"07.\"\nThis field will only be returned on demand when result.resultStatus = S."
+            "description": "\u5361\u7247\u8fc7\u671f\u6708\u4efd\uff0c\u683c\u5f0f\u4e3a\u201cMM\u201c\uff0c\u5982\uff1a\u201d07\u201c\u3002\n\u6b64\u5b57\u6bb5\u53ea\u6709\u5f53 result.resultStatus = S \u65f6\u624d\u4f1a\u6309\u9700\u8fd4\u56de\u3002\nCard expiration month, formatted as \"MM,\" e.g., \"07.\"\nThis field will only be returned on demand when result.resultStatus = S."
           },
           "expiredYear": {
             "type": "string",
             "maxLength": 3,
             "pattern": "^[0-9]{2}$",
-            "description": "卡片过期年份，格式为“YY“，取年份后两位数字，如：”29“。\n此字段只有当 result.resultStatus = S 时才会按需返回。\nCard expiration year, formatted as \"YY,\" using the last two digits of the year, e.g., \"29.\"\nThis field will only be returned on demand when result.resultStatus = S."
+            "description": "\u5361\u7247\u8fc7\u671f\u5e74\u4efd\uff0c\u683c\u5f0f\u4e3a\u201cYY\u201c\uff0c\u53d6\u5e74\u4efd\u540e\u4e24\u4f4d\u6570\u5b57\uff0c\u5982\uff1a\u201d29\u201c\u3002\n\u6b64\u5b57\u6bb5\u53ea\u6709\u5f53 result.resultStatus = S \u65f6\u624d\u4f1a\u6309\u9700\u8fd4\u56de\u3002\nCard expiration year, formatted as \"YY,\" using the last two digits of the year, e.g., \"29.\"\nThis field will only be returned on demand when result.resultStatus = S."
           }
         },
+        "type": "object",
         "required": [
           "result"
         ],
