@@ -425,6 +425,21 @@ components:
       - middleName
       - lastName
       - fullName
+    CardBrand:
+      enum:
+      - VISA
+      - MASTERCARD
+      - MAESTRO
+      - AMEX
+      - JCB
+      - DINERS
+      - DISCOVER
+      - CUP
+      - MIR
+      - ELO
+      - HIPERCARD
+      - TROY
+      type: string
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/refund

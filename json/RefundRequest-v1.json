@@ -367,6 +367,23 @@
           "lastName",
           "fullName"
         ]
+      },
+      "CardBrand": {
+        "enum": [
+          "VISA",
+          "MASTERCARD",
+          "MAESTRO",
+          "AMEX",
+          "JCB",
+          "DINERS",
+          "DISCOVER",
+          "CUP",
+          "MIR",
+          "ELO",
+          "HIPERCARD",
+          "TROY"
+        ],
+        "type": "string"
       }
     },
     "securitySchemes": {}
