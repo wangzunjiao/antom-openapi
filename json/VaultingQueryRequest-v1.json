@@ -140,7 +140,6 @@
         ]
       },
       "CardBrand": {
-        "type": "string",
         "enum": [
           "VISA",
           "MASTERCARD",
@@ -154,7 +153,8 @@
           "ELO",
           "HIPERCARD",
           "TROY"
-        ]
+        ],
+        "type": "string"
       },
       "MpiData": {
         "type": "object",

@@ -177,7 +177,6 @@ components:
           type: string
       type: object
     CardBrand:
-      type: string
       enum:
       - VISA
       - MASTERCARD
@@ -191,6 +190,7 @@ components:
       - ELO
       - HIPERCARD
       - TROY
+      type: string
     CardPaymentMethodDetail:
       type: object
       properties:
