@@ -92,6 +92,12 @@ components:
       - CASHIER_PAYMENT
       - AGREEMENT_PAYMENT
       - IN_STORE_PAYMENT
+    RateType:
+      type: string
+      enum:
+        - TRADE
+        - REFERENCE
+        - REFERENCE_TRADE
     CurrencyPair:
       type: object
       properties:
@@ -128,6 +134,8 @@ components:
           type: string
         productCode:
           $ref: '#/components/schemas/ProductCodeType'
+        rateType:
+          $ref: '#/components/schemas/RateType'
     Amount:
       type: object
       properties:

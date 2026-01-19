@@ -103,6 +103,14 @@
           "quotePrice"
         ]
       },
+      "RateType": {
+        "type": "string",
+        "enum": [
+          "TRADE",
+          "REFERENCE",
+          "REFERENCE_TRADE"
+        ]
+      },
       "ProductCodeType": {
         "type": "string",
         "enum": [
@@ -163,6 +171,9 @@
           },
           "productCode": {
             "$ref": "#/components/schemas/ProductCodeType"
+          },
+          "rateType": {
+            "$ref": "#/components/schemas/RateType"
           }
         }
       },
