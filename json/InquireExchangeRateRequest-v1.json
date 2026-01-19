@@ -103,6 +103,14 @@
           "quotePrice"
         ]
       },
+      "RateType": {
+        "type": "string",
+        "enum": [
+          "TRADE",
+          "REFERENCE",
+          "REFERENCE_TRADE"
+        ]
+      },
       "ProductCodeType": {
         "type": "string",
         "enum": [
@@ -163,6 +171,9 @@
           },
           "productCode": {
             "$ref": "#/components/schemas/ProductCodeType"
+          },
+          "rateType": {
+            "$ref": "#/components/schemas/RateType"
           }
         }
       },
@@ -182,6 +193,31 @@
           "currency",
           "value"
         ]
+      },
+      "PaymentQuote": {
+        "type": "object",
+        "properties": {
+          "buyCurrency": {
+            "type": "string",
+            "maxLength": 3,
+            "description": "\u5546\u6237\u89c6\u89d2\u4e0b\u4e70\u5165\u7684\u5e01\u79cd - \u5546\u6237\u8ba2\u5355\u5b9a\u4ef7\u5e01\u79cd"
+          },
+          "sellCurrency": {
+            "type": "string",
+            "maxLength": 3,
+            "description": "\u5546\u6237\u89c6\u89d2\u4e0b\u5356\u51fa\u7684\u5e01\u79cd - \u7528\u6237\u652f\u4ed8\u5e01\u79cd"
+          },
+          "quoteId": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "\u8682\u8681\u4e3a\u6b64\u6b21\u62a5\u4ef7\u9881\u53d1\u7684\u552f\u4e00id"
+          },
+          "exchangeRate": {
+            "type": "number",
+            "format": "decimal",
+            "description": "\u5546\u6237\u53ef\u76f4\u63a5\u7528\u4e8e\u4e58\u6cd5\u8ba1\u7b97\u7684\u6700\u7ec8\u6c47\u7387\u503c\uff0c\u7cbe\u5ea6\u7edf\u4e00\u4e3a15\u4f4ddecimal place"
+          }
+        }
       }
     },
     "securitySchemes": {}
