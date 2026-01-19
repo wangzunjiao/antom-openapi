@@ -141,6 +141,12 @@
           },
           "result": {
             "$ref": "#/components/schemas/Result"
+          },
+          "paymentQuotes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentQuote"
+            }
           }
         },
         "required": [
