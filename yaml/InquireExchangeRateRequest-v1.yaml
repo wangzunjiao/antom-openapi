@@ -150,6 +150,26 @@ components:
       required:
       - currency
       - value
+    PaymentQuote:
+      type: object
+      properties:
+        buyCurrency:
+          type: string
+          maxLength: 3
+          description: 商户视角下买入的币种 - 商户订单定价币种，和quoteCurrencyPair中的顺序无关
+        sellCurrency:
+          type: string
+          maxLength: 3
+          description: 商户视角下卖出的币种 - 用户支付币种，和quoteCurrencyPair中的顺序无关
+        quoteId:
+          type: string
+          maxLength: 64
+          description: 蚂蚁为此次报价颁发的唯一id
+        exchangeRate:
+          type: number
+          format: decimal
+          description: 购买一单位的买入币种需要多少单位的卖出币种
+          precision: 15
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/payments/inquireExchangeRate

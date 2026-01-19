@@ -182,6 +182,32 @@
           "currency",
           "value"
         ]
+      },
+      "PaymentQuote": {
+        "type": "object",
+        "properties": {
+          "buyCurrency": {
+            "type": "string",
+            "maxLength": 3,
+            "description": "\u5546\u6237\u89c6\u89d2\u4e0b\u4e70\u5165\u7684\u5e01\u79cd - \u5546\u6237\u8ba2\u5355\u5b9a\u4ef7\u5e01\u79cd\uff0c\u548cquoteCurrencyPair\u4e2d\u7684\u987a\u5e8f\u65e0\u5173"
+          },
+          "sellCurrency": {
+            "type": "string",
+            "maxLength": 3,
+            "description": "\u5546\u6237\u89c6\u89d2\u4e0b\u5356\u51fa\u7684\u5e01\u79cd - \u7528\u6237\u652f\u4ed8\u5e01\u79cd\uff0c\u548cquoteCurrencyPair\u4e2d\u7684\u987a\u5e8f\u65e0\u5173"
+          },
+          "quoteId": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "\u8682\u8681\u4e3a\u6b64\u6b21\u62a5\u4ef7\u9881\u53d1\u7684\u552f\u4e00id"
+          },
+          "exchangeRate": {
+            "type": "number",
+            "format": "decimal",
+            "description": "\u8d2d\u4e70\u4e00\u5355\u4f4d\u7684\u4e70\u5165\u5e01\u79cd\u9700\u8981\u591a\u5c11\u5355\u4f4d\u7684\u5356\u51fa\u5e01\u79cd",
+            "precision": 15
+          }
+        }
       }
     },
     "securitySchemes": {}
