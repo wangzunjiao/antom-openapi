@@ -261,7 +261,7 @@
             "$ref": "#/components/schemas/Result"
           },
           "totalCount": {
-            "type": "object"
+            "$ref": "#/components/schemas/TotalCount"
           },
           "totalPageNumber": {
             "type": "string"
@@ -274,6 +274,17 @@
           "statementList",
           "result"
         ]
+      },
+      "TotalCount": {
+        "type": "object",
+        "properties": {
+          "totalPageNumber": {
+            "type": "string"
+          },
+          "currentPageNumber": {
+            "type": "string"
+          }
+        }
       },
       "ForeignExchangeQuote": {
         "type": "object",

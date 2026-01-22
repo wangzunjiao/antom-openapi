@@ -180,14 +180,17 @@ components:
         result:
           $ref: '#/components/schemas/Result'
         totalCount:
-          type: object
+          $ref: '#/components/schemas/TotalCount'
+      required:
+      - statementList
+      - result
+    TotalCount:
+      type: object
+      properties:
         totalPageNumber:
           type: string
         currentPageNumber:
           type: string
-      required:
-      - statementList
-      - result
     ForeignExchangeQuote:
       type: object
       properties:
