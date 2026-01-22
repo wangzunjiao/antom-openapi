@@ -122,31 +122,69 @@
       "FundMoveDetail": {
         "type": "object",
         "properties": {
-          "moveType": {
-            "type": "string"
+          "payerName": {
+            "type": "string",
+            "description": "付款人姓名"
           },
-          "sourceAccount": {
-            "type": "string"
+          "payerAccountNo": {
+            "type": "string",
+            "description": "付款人账号"
           },
-          "targetAccount": {
-            "type": "string"
+          "payerChaneelAccountnumber": {
+            "type": "string",
+            "description": "付款渠道账号"
           },
-          "moveTime": {
-            "type": "string"
-          },
-          "memo": {
-            "type": "string"
-          },
-          "referenceTransactionId": {
-            "type": "string"
+          "payerAccountType": {
+            "type": "string",
+            "description": "付款人账户类型"
           },
           "payerAssetId": {
-            "type": "string"
+            "type": "string",
+            "description": "付款人资产ID"
+          },
+          "beneficiaryName": {
+            "type": "string",
+            "description": "受益人姓名"
+          },
+          "beneficiaryAccountType": {
+            "type": "string",
+            "description": "受益人账户类型"
+          },
+          "beneficiaryBankCountry": {
+            "type": "string",
+            "description": "受益人银行所在国家"
+          },
+          "beneficiaryBankName": {
+            "type": "string",
+            "description": "受益人银行名称"
           },
           "beneficiaryAssetId": {
-            "type": "string"
+            "type": "string",
+            "description": "受益人资产ID"
+          },
+          "remarks": {
+            "type": "string",
+            "description": "备注"
+          },
+          "description": {
+            "type": "string",
+            "description": "描述"
+          },
+          "memo": {
+            "type": "string",
+            "description": "备忘录"
+          },
+          "referenceTransactionId": {
+            "type": "string",
+            "description": "参考交易ID"
           }
-        }
+        },
+        "required": [
+          "payerName",
+          "payerAccountNo",
+          "beneficiaryName",
+          "referenceTransactionId"
+        ]
       },
       "Statement": {
         "type": "object",
@@ -279,12 +317,6 @@
           },
           "totalCount": {
             "$ref": "#/components/schemas/TotalCount"
-          },
-          "totalPageNumber": {
-            "type": "string"
-          },
-          "currentPageNumber": {
-            "type": "string"
           }
         },
         "required": [
@@ -316,6 +348,9 @@
             "type": "string"
           },
           "quoteTime": {
+            "type": "string"
+          },
+          "quotePrice": {
             "type": "string"
           }
         }

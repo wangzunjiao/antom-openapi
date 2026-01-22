@@ -123,31 +123,69 @@
       "FundMoveDetail": {
         "type": "object",
         "properties": {
-          "moveType": {
-            "type": "string"
+          "payerName": {
+            "type": "string",
+            "description": "付款人姓名"
           },
-          "sourceAccount": {
-            "type": "string"
+          "payerAccountNo": {
+            "type": "string",
+            "description": "付款人账号"
           },
-          "targetAccount": {
-            "type": "string"
+          "payerChaneelAccountnumber": {
+            "type": "string",
+            "description": "付款渠道账号"
           },
-          "moveTime": {
-            "type": "string"
-          },
-          "memo": {
-            "type": "string"
-          },
-          "referenceTransactionId": {
-            "type": "string"
+          "payerAccountType": {
+            "type": "string",
+            "description": "付款人账户类型"
           },
           "payerAssetId": {
-            "type": "string"
+            "type": "string",
+            "description": "付款人资产ID"
+          },
+          "beneficiaryName": {
+            "type": "string",
+            "description": "受益人姓名"
+          },
+          "beneficiaryAccountType": {
+            "type": "string",
+            "description": "受益人账户类型"
+          },
+          "beneficiaryBankCountry": {
+            "type": "string",
+            "description": "受益人银行所在国家"
+          },
+          "beneficiaryBankName": {
+            "type": "string",
+            "description": "受益人银行名称"
           },
           "beneficiaryAssetId": {
-            "type": "string"
+            "type": "string",
+            "description": "受益人资产ID"
+          },
+          "remarks": {
+            "type": "string",
+            "description": "备注"
+          },
+          "description": {
+            "type": "string",
+            "description": "描述"
+          },
+          "memo": {
+            "type": "string",
+            "description": "备忘录"
+          },
+          "referenceTransactionId": {
+            "type": "string",
+            "description": "参考交易ID"
           }
-        }
+        },
+        "required": [
+          "payerName",
+          "payerAccountNo",
+          "beneficiaryName",
+          "referenceTransactionId"
+        ]
       },
       "Statement": {
         "type": "object",
@@ -199,6 +237,23 @@
         "required": [
           "statementId",
           "fundMoveDetail"
+        ]
+      },
+      "Amount": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string",
+            "description": "The transaction currency, which is a 3-letter currency code that follows the ISO 4217 standard. \n\nMore information:\n\nMaximum length: 3 characters"
+          },
+          "value": {
+            "type": "string",
+            "description": "The value of the amount as a positive integer in the smallest currency unit. For example, if the currency is USD and the amount is $1.00, set the value of this parameter to 100; or if the currency is JPY and the amount is \uffe51, set the value of this parameter to 1.\n\nFor details about the smallest currency unit, see Smallest unit of the currency.\n\nFor details about the minimum payment amount allowed for each payment method, see Minimum amount rules.  \n\nMore information:\n\nValue range: [1, +\u221e)"
+          }
+        },
+        "required": [
+          "currency",
+          "value"
         ]
       },
       "ResultResult": {
@@ -266,6 +321,9 @@
             "type": "string"
           },
           "quoteTime": {
+            "type": "string"
+          },
+          "quotePrice": {
             "type": "string"
           }
         }

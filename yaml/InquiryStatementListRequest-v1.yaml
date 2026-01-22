@@ -83,24 +83,55 @@ components:
       - x-apifox-orders
       - required
     FundMoveDetail:
-      type: object
       properties:
-        moveType:
-          type: string
-        sourceAccount:
-          type: string
-        targetAccount:
-          type: string
-        moveTime:
-          type: string
-        memo:
-          type: string
-        referenceTransactionId:
-          type: string
-        payerAssetId:
+        beneficiaryAccountType:
+          description: 受益人账户类型
           type: string
         beneficiaryAssetId:
+          description: 受益人资产ID
           type: string
+        beneficiaryBankCountry:
+          description: 受益人银行所在国家
+          type: string
+        beneficiaryBankName:
+          description: 受益人银行名称
+          type: string
+        beneficiaryName:
+          description: 受益人姓名
+          type: string
+        description:
+          description: 描述
+          type: string
+        memo:
+          description: 备忘录
+          type: string
+        payerAccountNo:
+          description: 付款人账号
+          type: string
+        payerAccountType:
+          description: 付款人账户类型
+          type: string
+        payerAssetId:
+          description: 付款人资产ID
+          type: string
+        payerChaneelAccountnumber:
+          description: 付款渠道账号
+          type: string
+        payerName:
+          description: 付款人姓名
+          type: string
+        referenceTransactionId:
+          description: 参考交易ID
+          type: string
+        remarks:
+          description: 备注
+          type: string
+      required:
+        - payerName
+        - payerAccountNo
+        - beneficiaryName
+        - referenceTransactionId
+      type: object
     Statement:
       type: object
       properties:
@@ -223,6 +254,8 @@ components:
         targetCurrency:
           type: string
         quoteTime:
+          type: string
+        quotePrice:
           type: string
   securitySchemes: {}
 servers:

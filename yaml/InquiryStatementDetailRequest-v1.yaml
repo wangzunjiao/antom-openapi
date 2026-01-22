@@ -63,24 +63,55 @@ components:
       - result
       - metadata
     FundMoveDetail:
-      type: object
       properties:
-        moveType:
-          type: string
-        sourceAccount:
-          type: string
-        targetAccount:
-          type: string
-        moveTime:
-          type: string
-        memo:
-          type: string
-        referenceTransactionId:
-          type: string
-        payerAssetId:
+        beneficiaryAccountType:
+          description: 受益人账户类型
           type: string
         beneficiaryAssetId:
+          description: 受益人资产ID
           type: string
+        beneficiaryBankCountry:
+          description: 受益人银行所在国家
+          type: string
+        beneficiaryBankName:
+          description: 受益人银行名称
+          type: string
+        beneficiaryName:
+          description: 受益人姓名
+          type: string
+        description:
+          description: 描述
+          type: string
+        memo:
+          description: 备忘录
+          type: string
+        payerAccountNo:
+          description: 付款人账号
+          type: string
+        payerAccountType:
+          description: 付款人账户类型
+          type: string
+        payerAssetId:
+          description: 付款人资产ID
+          type: string
+        payerChaneelAccountnumber:
+          description: 付款渠道账号
+          type: string
+        payerName:
+          description: 付款人姓名
+          type: string
+        referenceTransactionId:
+          description: 参考交易ID
+          type: string
+        remarks:
+          description: 备注
+          type: string
+      required:
+        - payerName
+        - payerAccountNo
+        - beneficiaryName
+        - referenceTransactionId
+      type: object
     Statement:
       type: object
       properties:
@@ -116,6 +147,28 @@ components:
       required:
       - statementId
       - fundMoveDetail
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: "The 3-letter currency code that follows the ISO 4217 standard.\
+            \ \n\nMore information:\n\nMaximum length: 3 characters"
+        value:
+          type: string
+          description: "The value of the amount as a positive integer in the smallest\
+            \ currency unit. For example, if the currency is USD and the amount is\
+            \ $1.00, set the value of this parameter to 100; or if the currency is\
+            \ JPY and the amount is ￥1, set the value of this parameter to 1.  \n\n\
+            For details about the smallest currency unit, see Smallest unit of the\
+            \ currency .\n\nFor details about the minimum payment amount allowed for\
+            \ each payment method, see Minimum amount rules. \n\nNote: Due to the\
+            \ currency practices in Indonesia, when the currency is IDR, round the\
+            \ amount with banker's rounding and fix the last two digits of this parameter\
+            \ as 00.  \n\nMore information:\n\nValue range: 0 - unlimited\n"
+      required:
+        - currency
+        - value
     AlipayInquiryStatementDetailRequest:
       type: object
       properties:
@@ -156,6 +209,8 @@ components:
         targetCurrency:
           type: string
         quoteTime:
+          type: string
+        quotePrice:
           type: string
   securitySchemes: {}
 servers:
