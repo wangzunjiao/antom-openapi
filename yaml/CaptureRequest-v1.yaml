@@ -434,6 +434,11 @@ components:
         flightNumber:
           type: string
           description: Flight number for this leg of the trip.
+        passengerNameRecord:
+          type: string
+          description: Unique record locator for passenger booking
+          maxLength: 32
+          example: NH7K2Z
     Address:
       type: object
       properties:
