@@ -76,6 +76,9 @@ components:
     Statement:
       type: object
       properties:
+        foreignExchangeQuote:
+          $ref: '#/components/schemas/ForeignExchangeQuote'
+          type: object
         statementId:
           type: string
         transactionTime:
@@ -98,8 +101,6 @@ components:
           type: string
         transactionStatus:
           type: string
-        foreignExchangeQuote:
-          type: object
         fundMoveDetail:
           $ref: '#/components/schemas/FundMoveDetail'
         beneficiaryAssetId:

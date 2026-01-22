@@ -139,6 +139,10 @@
       "Statement": {
         "type": "object",
         "properties": {
+          "foreignExchangeQuote": {
+            "$ref": "#/components/schemas/ForeignExchangeQuote",
+            "type": "object"
+          },
           "statementId": {
             "type": "string"
           },
@@ -171,9 +175,6 @@
           },
           "transactionStatus": {
             "type": "string"
-          },
-          "foreignExchangeQuote": {
-            "type": "object"
           },
           "fundMoveDetail": {
             "$ref": "#/components/schemas/FundMoveDetail"
