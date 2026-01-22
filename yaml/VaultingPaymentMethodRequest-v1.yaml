@@ -2,44 +2,46 @@
 components:
   schemas:
     Address:
+      type: object
       properties:
-        address1:
-          description: "Address line 1, for example, the street address, PO box, and\
-            \ company name. \n\nMore information:\n\nMaximum length: 256 characters"
-          type: string
-        address2:
-          description: "Address line 2, for example, the apartment, suite, unit, and\
-            \ building information. \n\nMore information:\n\nMaximum length: 256 characters"
-          type: string
-        city:
-          description: "The city, district, suburb, town, or village name. \n\nMore\
-            \ information:\n\nMaximum length: 32 characters\n"
-          type: string
-        label:
-          type: string
         region:
+          type: string
           description: "The 2-letter country or region code. For more information,\
             \ see the ISO 3166 Country Codes standard. \n\nMore information:\n\nMaximum\
             \ length: 2 characters"
-          type: string
         state:
+          type: string
           description: "The state, country, or province name. \n\nFor card payments,\
             \ if your business entity is in the United States, and the card issuing\
             \ country is Canada, the United States, or the United Kingdom, set the\
             \ value to a region code that consists of two to three characters and\
             \ follows the ISO 3166-2 standard. \n\nMore information:\n\nMaximum length:\
             \ 8 characters"
+        city:
           type: string
+          description: "The city, district, suburb, town, or village name. \n\nMore\
+            \ information:\n\nMaximum length: 32 characters\n"
+        address1:
+          type: string
+          description: "Address line 1, for example, the street address, PO box, and\
+            \ company name. \n\nMore information:\n\nMaximum length: 256 characters"
+        address2:
+          type: string
+          description: "Address line 2, for example, the apartment, suite, unit, and\
+            \ building information. \n\nMore information:\n\nMaximum length: 256 characters"
         zipCode:
+          type: string
           description: "The ZIP or postal code. \n\nFor card payments, if your business\
             \ entity is in the United States, specify this parameter according to\
             \ the following parameter value requirements:\n\nOnly contains numbers,\
             \ letters, hyphens, and spaces.\nMust be within ten characters. \nMore\
             \ information:\n\nMaximum length: 32 characters"
+        label:
+          type: string
+        address3:
           type: string
       required:
       - region
-      type: object
     AlipayVaultingPaymentMethodRequest:
       type: object
       properties:
@@ -178,43 +180,43 @@ components:
       type: object
     CardBrand:
       enum:
-        - AMEX
-        - BC
-        - CARNET
-        - CARTES_BANCAIRES
-        - CITI
-        - CUP
-        - DINERS
-        - DISCOVER
-        - ELO
-        - GWANGJUBANK
-        - HIPERCARD
-        - HYUNDAI
-        - IBK_BC
-        - JCB
-        - JEJUBANK
-        - JEONBUKBANK
-        - KAKAOBANK
-        - KBANK
-        - KDBBANK
-        - KEBHANA
-        - KOOKMIN
-        - LOTTE
-        - MAESTRO
-        - MASTERCARD
-        - MIR
-        - NONGHYUP
-        - POST
-        - SAEMAUL
-        - SAMSUNG
-        - SAVINGBANK
-        - SHINHAN
-        - SHINHYEOP
-        - SUHYEOP
-        - TOSSBANK
-        - TROY
-        - VISA
-        - WOORI
+      - AMEX
+      - BC
+      - CARNET
+      - CARTES_BANCAIRES
+      - CITI
+      - CUP
+      - DINERS
+      - DISCOVER
+      - ELO
+      - GWANGJUBANK
+      - HIPERCARD
+      - HYUNDAI
+      - IBK_BC
+      - JCB
+      - JEJUBANK
+      - JEONBUKBANK
+      - KAKAOBANK
+      - KBANK
+      - KDBBANK
+      - KEBHANA
+      - KOOKMIN
+      - LOTTE
+      - MAESTRO
+      - MASTERCARD
+      - MIR
+      - NONGHYUP
+      - POST
+      - SAEMAUL
+      - SAMSUNG
+      - SAVINGBANK
+      - SHINHAN
+      - SHINHYEOP
+      - SUHYEOP
+      - TOSSBANK
+      - TROY
+      - VISA
+      - WOORI
       type: string
     CardPaymentMethodDetail:
       type: object

@@ -6,18 +6,42 @@ components:
       properties:
         region:
           type: string
+          description: "The 2-letter country or region code. For more information,\
+            \ see the ISO 3166 Country Codes standard. \n\nMore information:\n\nMaximum\
+            \ length: 2 characters"
         state:
           type: string
+          description: "The state, country, or province name. \n\nFor card payments,\
+            \ if your business entity is in the United States, and the card issuing\
+            \ country is Canada, the United States, or the United Kingdom, set the\
+            \ value to a region code that consists of two to three characters and\
+            \ follows the ISO 3166-2 standard. \n\nMore information:\n\nMaximum length:\
+            \ 8 characters"
         city:
           type: string
+          description: "The city, district, suburb, town, or village name. \n\nMore\
+            \ information:\n\nMaximum length: 32 characters\n"
         address1:
           type: string
+          description: "Address line 1, for example, the street address, PO box, and\
+            \ company name. \n\nMore information:\n\nMaximum length: 256 characters"
         address2:
           type: string
+          description: "Address line 2, for example, the apartment, suite, unit, and\
+            \ building information. \n\nMore information:\n\nMaximum length: 256 characters"
         zipCode:
           type: string
+          description: "The ZIP or postal code. \n\nFor card payments, if your business\
+            \ entity is in the United States, specify this parameter according to\
+            \ the following parameter value requirements:\n\nOnly contains numbers,\
+            \ letters, hyphens, and spaces.\nMust be within ten characters. \nMore\
+            \ information:\n\nMaximum length: 32 characters"
         label:
           type: string
+        address3:
+          type: string
+      required:
+      - region
     AgreementInfo:
       type: object
       properties:

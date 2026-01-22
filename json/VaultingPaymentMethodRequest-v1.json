@@ -265,6 +265,9 @@
           },
           "label": {
             "type": "string"
+          },
+          "address3": {
+            "type": "string"
           }
         },
         "required": [
