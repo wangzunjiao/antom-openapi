@@ -160,6 +160,9 @@
       "AlipayInquiryStatementListRequest": {
         "type": "object",
         "properties": {
+          "fuzzyName": {
+            "type": "string"
+          },
           "customerId": {
             "type": "string"
           },
