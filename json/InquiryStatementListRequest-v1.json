@@ -255,6 +255,23 @@
           "statementList",
           "result"
         ]
+      },
+      "ForeignExchangeQuote": {
+        "type": "object",
+        "properties": {
+          "exchangeRate": {
+            "type": "string"
+          },
+          "sourceCurrency": {
+            "type": "string"
+          },
+          "targetCurrency": {
+            "type": "string"
+          },
+          "quoteTime": {
+            "type": "string"
+          }
+        }
       }
     },
     "securitySchemes": {}
