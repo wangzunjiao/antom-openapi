@@ -226,6 +226,20 @@
           "currency",
           "value"
         ]
+      },
+      "foreignExchangeQuote": {
+        "type": "object",
+        "properties": {
+          "quotePrice": {
+            "type": "string"
+          },
+          "transferFromCurrency": {
+            "type": "string"
+          },
+          "transferToCurrency": {
+            "type": "string"
+          }
+        }
       }
     },
     "securitySchemes": {}

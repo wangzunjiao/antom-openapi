@@ -139,6 +139,15 @@ components:
       required:
       - currency
       - value
+    foreignExchangeQuote:
+      type: object
+      properties:
+        quotePrice:
+          type: string
+        transferFromCurrency:
+          type: string
+        transferToCurrency:
+          type: string
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/aba/accounts/inquiryStatementDetail
