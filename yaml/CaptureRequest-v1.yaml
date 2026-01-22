@@ -174,7 +174,7 @@ components:
             \ each payment method, see Minimum amount rules. \n\nNote: Due to the\
             \ currency practices in Indonesia, when the currency is IDR, round the\
             \ amount with banker's rounding and fix the last two digits of this parameter\
-            \ as 00.  \n\nMore information:\n\nValue range: 1 - unlimited\n"
+            \ as 00.  \n\nMore information:\n\nValue range: 0 - unlimited\n"
       required:
       - currency
       - value

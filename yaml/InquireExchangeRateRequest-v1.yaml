@@ -95,9 +95,9 @@ components:
     RateType:
       type: string
       enum:
-        - TRADE
-        - REFERENCE
-        - REFERENCE_TRADE
+      - TRADE
+      - REFERENCE
+      - REFERENCE_TRADE
     CurrencyPair:
       type: object
       properties:

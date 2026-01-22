@@ -1,23 +1,24 @@
+---
 openapi: 3.1.0
 info:
   title: aba-applyCard
   description: ''
   version: 1.0.0
-tags: [ ]
+tags: []
 paths:
   /ams/api/v1/aba/cards/applyCard:
     get:
       summary: applyCard
       deprecated: false
       description: ''
-      tags: [ ]
-      parameters: [ ]
+      tags: []
+      parameters: []
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AlipayApplyCardRequest'
-            examples: { }
+            examples: {}
       responses:
         '200':
           description: ''
@@ -25,9 +26,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AlipayApplyCardResponse'
-          headers: { }
-      security: [ ]
-webhooks: { }
+          headers: {}
+      security: []
+webhooks: {}
 components:
   schemas:
     CardLimitInfo:
@@ -73,7 +74,7 @@ components:
           type: string
         metadata:
           type: object
-          properties: { }
+          properties: {}
           additionalProperties:
             type: string
         authorizationControl:
@@ -83,9 +84,9 @@ components:
     ResultStatusType:
       type: string
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
     Result:
       type: object
       properties:
@@ -93,19 +94,16 @@ components:
           type: string
           description: The result code.
         resultStatus:
-          description: |
-            The result status. Valid values are:
-
-            S: indicates that the result status is successful.
-            F: indicates that the result status is failed. 
-            U: indicates that the result status is unknown. 
+          description: "The result status. Valid values are:\n\nS: indicates that\
+            \ the result status is successful.\nF: indicates that the result status\
+            \ is failed. \nU: indicates that the result status is unknown. \n"
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
           description: The result message.
       required:
-        - resultCode
-        - resultStatus
+      - resultCode
+      - resultStatus
     AlipayApplyCardResponse:
       type: object
       properties:
@@ -126,7 +124,29 @@ components:
         expiredYear:
           type: string
       required:
-        - result
-  securitySchemes: { }
+      - result
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: "The 3-letter currency code that follows the ISO 4217 standard.\
+            \ \n\nMore information:\n\nMaximum length: 3 characters"
+        value:
+          type: string
+          description: "The value of the amount as a positive integer in the smallest\
+            \ currency unit. For example, if the currency is USD and the amount is\
+            \ $1.00, set the value of this parameter to 100; or if the currency is\
+            \ JPY and the amount is ￥1, set the value of this parameter to 1.  \n\n\
+            For details about the smallest currency unit, see Smallest unit of the\
+            \ currency .\n\nFor details about the minimum payment amount allowed for\
+            \ each payment method, see Minimum amount rules. \n\nNote: Due to the\
+            \ currency practices in Indonesia, when the currency is IDR, round the\
+            \ amount with banker's rounding and fix the last two digits of this parameter\
+            \ as 00.  \n\nMore information:\n\nValue range: 0 - unlimited\n"
+      required:
+      - currency
+      - value
+  securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/aba/cards/applyCard
+- url: https://open-sea-global.alipay.com/ams/api/v1/aba/cards/applyCard

@@ -1,3 +1,4 @@
+---
 openapi: 3.1.0
 info:
   title: baa-inquiryStatement
@@ -43,49 +44,45 @@ components:
           description: access token for the relevant antom ABA merchant
         startTime:
           type: string
-          description: >-
-            start time of statement query. The value follows the ISO 8601
-            standard format. The time interval between startTime and endTime
-            cannot be more than 3 months (equivalent to 100 days).
+          description: start time of statement query. The value follows the ISO 8601
+            standard format. The time interval between startTime and endTime cannot
+            be more than 3 months (equivalent to 100 days).
         endTime:
           type: string
-          description: >-
-            end time of statement query. The value follows the ISO 8601 standard
-            format. The time interval between startTime and endTime cannot be
-            more than 3 months (equivalent to 100 days).
+          description: end time of statement query. The value follows the ISO 8601
+            standard format. The time interval between startTime and endTime cannot
+            be more than 3 months (equivalent to 100 days).
         transactionTypeList:
           type: array
           items:
             type: string
             enum:
-              - PAYMENT
-              - PAYMENT_REFUND
-              - TOPUP
-              - SETTLEMENT
-              - WITHDRAW
-              - WITHDRAW_RETURN
-              - TRANSFER
-              - TRANSFER_RETURN
-              - TRANSFER_TO_CHINA
-              - TRANSFER_RECIPIENT
-              - EXCHANGE
-              - CREDIT_LOAN
-              - CREDIT_REPAY
-              - CARD_PAYMENT
-              - CARD_REFUND
+            - PAYMENT
+            - PAYMENT_REFUND
+            - TOPUP
+            - SETTLEMENT
+            - WITHDRAW
+            - WITHDRAW_RETURN
+            - TRANSFER
+            - TRANSFER_RETURN
+            - TRANSFER_TO_CHINA
+            - TRANSFER_RECIPIENT
+            - EXCHANGE
+            - CREDIT_LOAN
+            - CREDIT_REPAY
+            - CARD_PAYMENT
+            - CARD_REFUND
           maxItems: 1
-          description: >-
-            If no value passed, the API shall return all transactions. Antom
-            only supports [0-1] single type for the current time.
+          description: If no value passed, the API shall return all transactions.
+            Antom only supports [0-1] single type for the current time.
         currencyList:
           type: array
           items:
             type: string
             pattern: ^[A-Z]{3}$
-          description: >-
-            If no value passed, the API shall return the defined transaction
-            type with all currencies. The value shall follow the ISO currency
-            standard (e.g., USD, EUR).
+          description: If no value passed, the API shall return the defined transaction
+            type with all currencies. The value shall follow the ISO currency standard
+            (e.g., USD, EUR).
         pageSize:
           type: integer
           minimum: 1
@@ -93,16 +90,14 @@ components:
         pageNumber:
           type: integer
           minimum: 1
-          description: >-
-            Indicates the current page index that contains statement
-            information.
+          description: Indicates the current page index that contains statement information.
       required:
-        - customerId
-        - accessToken
-        - startTime
-        - endTime
-        - pageSize
-        - pageNumber
+      - customerId
+      - accessToken
+      - startTime
+      - endTime
+      - pageSize
+      - pageNumber
     FundMoveDetail:
       type: object
       properties:
@@ -126,8 +121,8 @@ components:
         beneficiaryAssetId:
           type: string
       required:
-        - statementId
-        - fundMoveDetail
+      - statementId
+      - fundMoveDetail
     ResultResult:
       type: object
       properties:
@@ -135,25 +130,22 @@ components:
           type: string
           description: The result code.
         resultStatus:
-          description: |-
-            The result status. Valid values are:
-
-            S: indicates that the result status is successful.
-            F: indicates that the result status is failed. 
-            U: indicates that the result status is unknown. 
+          description: "The result status. Valid values are:\n\nS: indicates that\
+            \ the result status is successful.\nF: indicates that the result status\
+            \ is failed. \nU: indicates that the result status is unknown. "
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
           description: The result message.
       required:
-        - resultCode
-        - resultStatus
+      - resultCode
+      - resultStatus
     ResultStatusType:
       type: string
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
     AlipayInquiryStatementResponse:
       type: object
       properties:
@@ -169,6 +161,28 @@ components:
           type: integer
         currentPageNumber:
           type: integer
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: "The 3-letter currency code that follows the ISO 4217 standard.\
+            \ \n\nMore information:\n\nMaximum length: 3 characters"
+        value:
+          type: string
+          description: "The value of the amount as a positive integer in the smallest\
+            \ currency unit. For example, if the currency is USD and the amount is\
+            \ $1.00, set the value of this parameter to 100; or if the currency is\
+            \ JPY and the amount is ￥1, set the value of this parameter to 1.  \n\n\
+            For details about the smallest currency unit, see Smallest unit of the\
+            \ currency .\n\nFor details about the minimum payment amount allowed for\
+            \ each payment method, see Minimum amount rules. \n\nNote: Due to the\
+            \ currency practices in Indonesia, when the currency is IDR, round the\
+            \ amount with banker's rounding and fix the last two digits of this parameter\
+            \ as 00.  \n\nMore information:\n\nValue range: 0 - unlimited\n"
+      required:
+      - currency
+      - value
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/aba/accounts/inquiryStatement

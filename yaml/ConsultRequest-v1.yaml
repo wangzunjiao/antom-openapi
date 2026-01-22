@@ -168,12 +168,14 @@ components:
       - result
       type: object
     Amount:
+      type: object
       properties:
         currency:
+          type: string
           description: "The 3-letter currency code that follows the ISO 4217 standard.\
             \ \n\nMore information:\n\nMaximum length: 3 characters"
-          type: string
         value:
+          type: string
           description: "The value of the amount as a positive integer in the smallest\
             \ currency unit. For example, if the currency is USD and the amount is\
             \ $1.00, set the value of this parameter to 100; or if the currency is\
@@ -184,11 +186,9 @@ components:
             \ currency practices in Indonesia, when the currency is IDR, round the\
             \ amount with banker's rounding and fix the last two digits of this parameter\
             \ as 00.  \n\nMore information:\n\nValue range: 0 - unlimited\n"
-          type: string
       required:
       - currency
       - value
-      type: object
     AmountLimitInfo:
       properties:
         monthLimit:

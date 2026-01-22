@@ -1,3 +1,4 @@
+---
 openapi: 3.1.0
 info:
   title: aba-updateCard
@@ -33,18 +34,18 @@ components:
     CardLimitDetail:
       type: object
       properties:
-        perTransactionLimit: &ref_1
-          description: |-
-            单笔交易最大限额。
-            Single transaction maximum limit.
+        perTransactionLimit: &id002
+          description: '单笔交易最大限额。
+
+            Single transaction maximum limit.'
           $ref: '#/components/schemas/Amount'
-        dailyLimit: &ref_0
-          description: |-
-            日最大限额。
-            Daily spending maximum limit.
+        dailyLimit: &id001
+          description: '日最大限额。
+
+            Daily spending maximum limit.'
           $ref: '#/components/schemas/Limit'
-        monthlyLimit: *ref_0
-        perCardLimit: *ref_0
+        monthlyLimit: *id001
+        perCardLimit: *id001
         dailyLimitMax:
           type: string
         monthlyLimitMax:
@@ -54,17 +55,16 @@ components:
         perCardLimitMax:
           type: string
       required:
-        - perTransactionLimit
-        - dailyLimit
-        - monthlyLimit
+      - perTransactionLimit
+      - dailyLimit
+      - monthlyLimit
     AuthorizationControl:
       type: object
       properties:
         cardActiveTime:
           type: string
-          description: >-
-            If not present, It will be activated when the card is created.
-            Datetime UTC time: 2018-10-31T00:00:00+0800 ISO 8601
+          description: 'If not present, It will be activated when the card is created.
+            Datetime UTC time: 2018-10-31T00:00:00+0800 ISO 8601'
         cardCancelTime:
           type: string
           description: 'Datetime UTC time: 2018-10-31T00:00:00+0800 ISO 8601'
@@ -73,24 +73,21 @@ components:
           items:
             type: string
           maxItems: 570
-          description: >-
-            Allowed MCC (Merchant Category Code) list. If not set or left empty,
-            all transactions are allowed.
+          description: Allowed MCC (Merchant Category Code) list. If not set or left
+            empty, all transactions are allowed.
         allowedAuthTimes:
           type: integer
           minimum: 0
-          description: >-
-            Indicates the number of allowed authorization times. If not set or
-            left empty, all transactions are allowed.
+          description: Indicates the number of allowed authorization times. If not
+            set or left empty, all transactions are allowed.
         allowedCurrencies:
           type: array
           items:
             type: string
             pattern: ^[A-Z]{3}$
           maxItems: 200
-          description: >-
-            Allowed transaction currencies (ISO 4217 three-letter codes). If not
-            set, no currency restriction applies.
+          description: Allowed transaction currencies (ISO 4217 three-letter codes).
+            If not set, no currency restriction applies.
         cardLimitDetail:
           $ref: '#/components/schemas/CardLimitDetail'
     Amount:
@@ -98,66 +95,53 @@ components:
       properties:
         currency:
           type: string
-          description: >-
-            The transaction currency that is specified in the contract. A
-            3-letter currency code that follows the ISO 4217 standard.
-
-
-            More information:
-
-
-            Maximum length: 3 characters
+          description: "The 3-letter currency code that follows the ISO 4217 standard.\
+            \ \n\nMore information:\n\nMaximum length: 3 characters"
         value:
           type: string
-          description: >-
-            The amount to charge as a positive integer in the smallest currency
-            unit. (That is, 100 cents to charge $1.00, or 100 to charge JPY 100,
-            a 0-decimal currency).
-
-
-            Note: For details about the smallest currency unit, see Smallest
-            unit of the currency. 
-
-
-            More information:
-
-
-            Value range: 1 - unlimited
+          description: "The value of the amount as a positive integer in the smallest\
+            \ currency unit. For example, if the currency is USD and the amount is\
+            \ $1.00, set the value of this parameter to 100; or if the currency is\
+            \ JPY and the amount is ￥1, set the value of this parameter to 1.  \n\n\
+            For details about the smallest currency unit, see Smallest unit of the\
+            \ currency .\n\nFor details about the minimum payment amount allowed for\
+            \ each payment method, see Minimum amount rules. \n\nNote: Due to the\
+            \ currency practices in Indonesia, when the currency is IDR, round the\
+            \ amount with banker's rounding and fix the last two digits of this parameter\
+            \ as 00.  \n\nMore information:\n\nValue range: 0 - unlimited\n"
       required:
-        - currency
-        - value
+      - currency
+      - value
     Limit:
       type: object
       properties:
-        remainingLimit: *ref_1
-        rangeLimit: *ref_1
-        usedLimit: *ref_1
+        remainingLimit: *id002
+        rangeLimit: *id002
+        usedLimit: *id002
       required:
-        - remainingLimit
-        - rangeLimit
-        - usedLimit
+      - remainingLimit
+      - rangeLimit
+      - usedLimit
     AlipayUpdateCardRequest:
       type: object
       properties:
         assetId:
           type: string
           maxLength: 32
-          description: |-
-            卡资产ID。
-            Card asset Id
+          description: '卡资产ID。
+
+            Card asset Id'
         requestId:
           type: string
           maxLength: 32
-          description: >-
-            针对本次申卡请求，由集成商指定的唯一请求号
+          description: '针对本次申卡请求，由集成商指定的唯一请求号
 
-            The unique request number specified by the integrator for this card
-            application request.
+            The unique request number specified by the integrator for this card application
+            request.'
         cardNickName:
           type: string
           maxLength: 256
-          description: >-
-            The nickname of the Card. This parameter is useful for managing
+          description: The nickname of the Card. This parameter is useful for managing
             multiple cards.
         note:
           type: string
@@ -175,8 +159,7 @@ components:
           propertyNames:
             maxLength: 32
           maxProperties: 30
-          description: >-
-            Customer metadata in key-value format.
+          description: 'Customer metadata in key-value format.
 
             - Key max length: 32
 
@@ -184,14 +167,13 @@ components:
 
             - Max number of keys: 30
 
-            - Total JSON string max length: 3096 (application-layer validation
-            required)
+            - Total JSON string max length: 3096 (application-layer validation required)'
           properties: {}
         authorizationControl:
           $ref: '#/components/schemas/AuthorizationControl'
       required:
-        - assetId
-        - requestId
+      - assetId
+      - requestId
     AlipayUpdateCardResponse:
       type: object
       properties:
@@ -202,15 +184,15 @@ components:
         result:
           $ref: '#/components/schemas/Result'
       required:
-        - status
-        - requestId
-        - result
+      - status
+      - requestId
+      - result
     ResultStatusType:
       type: string
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
     Result:
       type: object
       properties:
@@ -218,19 +200,16 @@ components:
           type: string
           description: The result code.
         resultStatus:
-          description: |-
-            The result status. Valid values are:
-
-            S: indicates that the result status is successful.
-            F: indicates that the result status is failed. 
-            U: indicates that the result status is unknown. 
+          description: "The result status. Valid values are:\n\nS: indicates that\
+            \ the result status is successful.\nF: indicates that the result status\
+            \ is failed. \nU: indicates that the result status is unknown. "
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
           description: The result message.
       required:
-        - resultCode
-        - resultStatus
+      - resultCode
+      - resultStatus
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/aba/cards/updateCard
