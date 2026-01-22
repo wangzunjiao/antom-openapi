@@ -76,6 +76,18 @@
       "FundMoveDetail": {
         "type": "object",
         "properties": {
+          "moveType": {
+            "type": "string"
+          },
+          "sourceAccount": {
+            "type": "string"
+          },
+          "targetAccount": {
+            "type": "string"
+          },
+          "moveTime": {
+            "type": "string"
+          },
           "memo": {
             "type": "string"
           },
