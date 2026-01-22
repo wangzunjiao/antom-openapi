@@ -181,6 +181,10 @@ components:
           $ref: '#/components/schemas/Result'
         totalCount:
           type: object
+        totalPageNumber:
+          type: string
+        currentPageNumber:
+          type: string
       required:
       - statementList
       - result
