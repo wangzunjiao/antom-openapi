@@ -182,6 +182,13 @@ components:
           type: string
         transferToCurrency:
           type: string
+    totalCount:
+      type: object
+      properties:
+        totalPageNumber:
+          type: string
+        currentPageNumber:
+          type: string
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/aba/accounts/inquiryStatementList

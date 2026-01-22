@@ -250,6 +250,17 @@
             "type": "string"
           }
         }
+      },
+      "totalCount": {
+        "type": "object",
+        "properties": {
+          "totalPageNumber": {
+            "type": "string"
+          },
+          "currentPageNumber": {
+            "type": "string"
+          }
+        }
       }
     },
     "securitySchemes": {}
