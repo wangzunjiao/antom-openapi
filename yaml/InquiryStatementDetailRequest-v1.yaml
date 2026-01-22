@@ -1,23 +1,24 @@
+---
 openapi: 3.1.0
 info:
   title: aba-inquiryStatementDetail
   description: ''
   version: 1.0.0
-tags: [ ]
+tags: []
 paths:
   /ams/api/v1/aba/accounts/inquiryStatementDetail:
     post:
       summary: inquiryStatementDetail
       deprecated: false
       description: ''
-      tags: [ ]
-      parameters: [ ]
+      tags: []
+      parameters: []
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AlipayInquiryStatementDetailRequest'
-            examples: { }
+            examples: {}
       responses:
         '200':
           description: ''
@@ -25,9 +26,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AlipayInquiryStatementDetailResponse'
-          headers: { }
-      security: [ ]
-webhooks: { }
+          headers: {}
+      security: []
+webhooks: {}
 components:
   schemas:
     AlipayInquiryStatementDetailResponse:
@@ -46,19 +47,32 @@ components:
           maxProperties: 30
           propertyNames:
             maxLength: 32
-          description: |
-            Customer metadata in key-value format.
+          description: 'Customer metadata in key-value format.
+
             - Key max length: 32
+
             - Value max length: 128
+
             - Max number of keys: 30
+
             - Total JSON string max length: 3096
-          properties: { }
+
+            '
+          properties: {}
       required:
-        - result
-        - metadata
+      - result
+      - metadata
     FundMoveDetail:
       type: object
       properties:
+        moveType:
+          type: string
+        sourceAccount:
+          type: string
+        targetAccount:
+          type: string
+        moveTime:
+          type: string
         memo:
           type: string
         referenceTransactionId:
@@ -70,30 +84,51 @@ components:
     Statement:
       type: object
       properties:
-        statementId:
-          type: string
         fundMoveDetail:
           $ref: '#/components/schemas/FundMoveDetail'
+        foreignExchangeQuote:
+          $ref: '#/components/schemas/ForeignExchangeQuote'
+          type: object
+        statementId:
+          type: string
+        transactionTime:
+          type: string
         transactionType:
+          type: string
+        originalTransactionAmount:
+          $ref: '#/components/schemas/Amount'
+        transactionAmount:
+          $ref: '#/components/schemas/Amount'
+        feeAmount:
+          $ref: '#/components/schemas/Amount'
+        netAmount:
+          $ref: '#/components/schemas/Amount'
+        accountBalance:
+          $ref: '#/components/schemas/Amount'
+        transactionId:
+          type: string
+        extTransactionId:
+          type: string
+        transactionStatus:
           type: string
         beneficiaryAssetId:
           type: string
       required:
-        - statementId
-        - fundMoveDetail
+      - statementId
+      - fundMoveDetail
     AlipayInquiryStatementDetailRequest:
       type: object
       properties:
         statementId:
           type: string
       required:
-        - statementId
+      - statementId
     ResultStatusType:
       type: string
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
     Result:
       type: object
       properties:
@@ -101,19 +136,27 @@ components:
           type: string
           description: The result code.
         resultStatus:
-          description: |-
-            The result status. Valid values are:
-
-            S: indicates that the result status is successful.
-            F: indicates that the result status is failed. 
-            U: indicates that the result status is unknown.
+          description: "The result status. Valid values are:\n\nS: indicates that\
+            \ the result status is successful.\nF: indicates that the result status\
+            \ is failed. \nU: indicates that the result status is unknown."
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
           description: The result message.
       required:
-        - resultCode
-        - resultStatus
-  securitySchemes: { }
+      - resultCode
+      - resultStatus
+    ForeignExchangeQuote:
+      type: object
+      properties:
+        exchangeRate:
+          type: string
+        sourceCurrency:
+          type: string
+        targetCurrency:
+          type: string
+        quoteTime:
+          type: string
+  securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/aba/accounts/inquiryStatementDetail
+- url: https://open-sea-global.alipay.com/ams/api/v1/aba/accounts/inquiryStatementDetail

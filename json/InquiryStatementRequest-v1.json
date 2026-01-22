@@ -123,6 +123,18 @@
       "FundMoveDetail": {
         "type": "object",
         "properties": {
+          "moveType": {
+            "type": "string"
+          },
+          "sourceAccount": {
+            "type": "string"
+          },
+          "targetAccount": {
+            "type": "string"
+          },
+          "moveTime": {
+            "type": "string"
+          },
           "memo": {
             "type": "string"
           },
@@ -140,13 +152,44 @@
       "Statement": {
         "type": "object",
         "properties": {
-          "statementId": {
-            "type": "string"
-          },
           "fundMoveDetail": {
             "$ref": "#/components/schemas/FundMoveDetail"
           },
+          "foreignExchangeQuote": {
+            "$ref": "#/components/schemas/ForeignExchangeQuote",
+            "type": "object"
+          },
+          "statementId": {
+            "type": "string"
+          },
+          "transactionTime": {
+            "type": "string"
+          },
           "transactionType": {
+            "type": "string"
+          },
+          "originalTransactionAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "transactionAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "feeAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "netAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "accountBalance": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "transactionId": {
+            "type": "string"
+          },
+          "extTransactionId": {
+            "type": "string"
+          },
+          "transactionStatus": {
             "type": "string"
           },
           "beneficiaryAssetId": {
@@ -209,11 +252,30 @@
             "type": "integer"
           }
         }
+      },
+      "ForeignExchangeQuote": {
+        "type": "object",
+        "properties": {
+          "exchangeRate": {
+            "type": "string"
+          },
+          "sourceCurrency": {
+            "type": "string"
+          },
+          "targetCurrency": {
+            "type": "string"
+          },
+          "quoteTime": {
+            "type": "string"
+          }
+        }
       }
     },
     "securitySchemes": {}
   },
-  "servers": [{
-    "url": "https://open-sea-global.alipay.com/ams/api/v1/aba/accounts/inquiryStatement"
-  }]
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/aba/accounts/inquiryStatement"
+    }
+  ]
 }
