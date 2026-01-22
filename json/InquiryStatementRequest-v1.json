@@ -143,11 +143,41 @@
           "statementId": {
             "type": "string"
           },
-          "fundMoveDetail": {
-            "$ref": "#/components/schemas/FundMoveDetail"
+          "transactionTime": {
+            "type": "string"
           },
           "transactionType": {
             "type": "string"
+          },
+          "originalTransactionAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "transactionAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "feeAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "netAmount": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "accountBalance": {
+            "$ref": "#/components/schemas/Amount"
+          },
+          "transactionId": {
+            "type": "string"
+          },
+          "extTransactionId": {
+            "type": "string"
+          },
+          "transactionStatus": {
+            "type": "string"
+          },
+          "foreignExchangeQuote": {
+            "type": "object"
+          },
+          "fundMoveDetail": {
+            "$ref": "#/components/schemas/FundMoveDetail"
           },
           "beneficiaryAssetId": {
             "type": "string"
@@ -213,7 +243,9 @@
     },
     "securitySchemes": {}
   },
-  "servers": [{
-    "url": "https://open-sea-global.alipay.com/ams/api/v1/aba/accounts/inquiryStatement"
-  }]
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/aba/accounts/inquiryStatement"
+    }
+  ]
 }
