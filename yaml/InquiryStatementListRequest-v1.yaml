@@ -150,6 +150,8 @@ components:
             $ref: '#/components/schemas/Statement'
         result:
           $ref: '#/components/schemas/Result'
+        totalCount:
+          type: object
       required:
       - statementList
       - result

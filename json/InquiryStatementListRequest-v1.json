@@ -216,6 +216,9 @@
           },
           "result": {
             "$ref": "#/components/schemas/Result"
+          },
+          "totalCount": {
+            "type": "object"
           }
         },
         "required": [
