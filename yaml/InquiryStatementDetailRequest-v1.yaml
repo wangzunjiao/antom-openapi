@@ -84,6 +84,8 @@ components:
     Statement:
       type: object
       properties:
+        fundMoveDetail:
+          $ref: '#/components/schemas/FundMoveDetail'
         foreignExchangeQuote:
           $ref: '#/components/schemas/ForeignExchangeQuote'
           type: object
@@ -109,8 +111,6 @@ components:
           type: string
         transactionStatus:
           type: string
-        fundMoveDetail:
-          $ref: '#/components/schemas/FundMoveDetail'
         beneficiaryAssetId:
           type: string
       required:

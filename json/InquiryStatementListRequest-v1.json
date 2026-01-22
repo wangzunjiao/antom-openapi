@@ -151,6 +151,9 @@
       "Statement": {
         "type": "object",
         "properties": {
+          "fundMoveDetail": {
+            "$ref": "#/components/schemas/FundMoveDetail"
+          },
           "foreignExchangeQuote": {
             "$ref": "#/components/schemas/ForeignExchangeQuote",
             "type": "object"
@@ -187,9 +190,6 @@
           },
           "transactionStatus": {
             "type": "string"
-          },
-          "fundMoveDetail": {
-            "$ref": "#/components/schemas/FundMoveDetail"
           },
           "beneficiaryAssetId": {
             "type": "string"
