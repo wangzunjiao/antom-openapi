@@ -1,0 +1,125 @@
+openapi: 3.1.0
+info:
+  title: aba-inquiryBalance
+  description: ''
+  version: 1.0.0
+tags: []
+paths:
+  /ams/v1/aba/accounts/inquiryBalance:
+    post:
+      summary: inquiryBalance
+      deprecated: false
+      description: ''
+      tags: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlipayInquiryBalanceRequest'
+            examples: {}
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlipayInquiryBalanceResponse'
+          headers: {}
+      security: []
+webhooks: {}
+components:
+  schemas:
+    AlipayInquiryBalanceRequest:
+      type: object
+      properties:
+        currencyList:
+          type: array
+          items:
+            type: string
+          description: >-
+            A list containing 3-character ISO-4217 currency codes representing
+            the currency that the merchant queries.
+        accesstoken:
+          type: string
+        customerId:
+          type: string
+      required:
+        - currencyList
+        - customerId
+    Amount:
+      description: >-
+        The payment amount that the merchant requests to receive in the order
+        currency.
+      properties:
+        currency:
+          description: The 3-letter currency code that follows the ISO 4217 standard.
+          maxLength: 3
+          minLength: 3
+          type: string
+        value:
+          type: string
+          description: >-
+            The value of the amount as a positive integer in the smallest
+            currency unit. For example, if the currency is USD and the amount is
+            $1.00, set the value of this parameter to 100; or if the currency is
+            JPY and the amount is ￥1, set the value of this parameter to 1.
+      required:
+        - value
+        - currency
+      type: object
+    AccountBalance:
+      type: object
+      properties:
+        currency:
+          type: string
+        availableBalance: &ref_0
+          $ref: '#/components/schemas/Amount'
+        frozenBalance: *ref_0
+        totalBalance: *ref_0
+      required:
+        - currency
+        - availableBalance
+        - frozenBalance
+        - totalBalance
+    ResultStatusType:
+      type: string
+      enum:
+        - S
+        - F
+        - U
+    Result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The result code.
+        resultStatus:
+          description: |-
+            The result status. Valid values are:
+
+            S: indicates that the result status is successful.
+            F: indicates that the result status is failed. 
+            U: indicates that the result status is unknown. 
+          $ref: '#/components/schemas/ResultStatusType'
+        resultMessage:
+          type: string
+          description: The result message.
+      required:
+        - resultCode
+        - resultStatus
+    AlipayInquiryBalanceResponse:
+      type: object
+      properties:
+        accountBalances:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountBalance'
+        result:
+          $ref: '#/components/schemas/Result'
+      required:
+        - accountBalances
+        - result
+  securitySchemes: {}
+servers:
+  - url: https://open-sea-global.alipay.com/ams/v1/aba/accounts/inquiryBalance

@@ -1,0 +1,98 @@
+openapi: 3.1.0
+info:
+  title: /v1/aba/funds/inquireRate
+  description: ''
+  version: 1.0.0
+tags: []
+paths:
+  /ams/v1/aba/funds/inquireRate:
+    post:
+      summary: inquireRate
+      deprecated: false
+      description: ''
+      tags: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlipayInquiryRateRequest'
+            examples: {}
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlipayInquiryRateResponse'
+          headers: {}
+      security: []
+webhooks: {}
+components:
+  schemas:
+    InquiryRateCondition:
+      type: object
+      properties:
+        buyCurrency:
+          type: string
+        sellCurrency:
+          type: string
+    RateResult:
+      type: object
+      properties:
+        buyCurrency:
+          type: string
+        sellCurrency:
+          type: string
+        exchangeRate:
+          type: string
+    AlipayInquiryRateRequest:
+      type: object
+      properties:
+        rateConditionList:
+          type: array
+          items:
+            $ref: '#/components/schemas/InquiryRateCondition'
+      required:
+        - rateConditionList
+    AlipayInquiryRateResponse:
+      type: object
+      properties:
+        rateResultList:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateResult'
+        result:
+          $ref: '#/components/schemas/Result'
+      required:
+        - rateResultList
+        - result
+    ResultStatusType:
+      type: string
+      enum:
+        - S
+        - F
+        - U
+    Result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The result code.
+        resultStatus:
+          description: |-
+            The result status. Valid values are:
+
+            S: indicates that the result status is successful.
+            F: indicates that the result status is failed. 
+            U: indicates that the result status is unknown. 
+          $ref: '#/components/schemas/ResultStatusType'
+        resultMessage:
+          type: string
+          description: The result message.
+      required:
+        - resultCode
+        - resultStatus
+  securitySchemes: {}
+servers:
+  - url: https://open-sea-global.alipay.com/ams/v1/aba/funds/inquireRate

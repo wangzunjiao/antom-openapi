@@ -1,0 +1,202 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "/v1/aba/funds/createExchange",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/ams/v1/aba/funds/createExchange": {
+      "post": {
+        "summary": "createExchange",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlipayCreateExchangeRequest"
+              },
+              "examples": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlipayCreateExchangeResponse"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "webhooks": {},
+  "components": {
+    "schemas": {
+      "Amount": {
+        "description": "The payment amount that the merchant requests to receive in the order currency.",
+        "properties": {
+          "currency": {
+            "description": "The 3-letter currency code that follows the ISO 4217 standard.",
+            "maxLength": 3,
+            "minLength": 3,
+            "type": "string"
+          },
+          "value": {
+            "type": "string",
+            "description": "The value of the amount as a positive integer in the smallest currency unit. For example, if the currency is USD and the amount is $1.00, set the value of this parameter to 100; or if the currency is JPY and the amount is ￥1, set the value of this parameter to 1."
+          }
+        },
+        "required": [
+          "value",
+          "currency"
+        ],
+        "type": "object"
+      },
+      "Quote": {
+        "type": "object",
+        "properties": {
+          "quoteId": {
+            "type": "string",
+            "description": "The unique ID that is assigned by Antom to identify an exchange rate. \n\nMore information:\n\nMaximum length: 64 characters"
+          },
+          "quoteCurrencyPair": {
+            "type": "string",
+            "description": "The exchange rate between settlement currency and transaction currency. Two currencies are separated with a slash and use the three-letter ISO-4217 currency code.  \n\nMore information:\n\nMaximum length: 16 characters"
+          },
+          "quotePrice": {
+            "type": "string",
+            "description": "The exchange rate used when a currency conversion between settlement currency and transaction currency occurs.  \n\nMore information:\n\nValue range: 1 - unlimited"
+          },
+          "quoteStartTime": {
+            "type": "string",
+            "description": "Effective time of the exchange rate. \n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
+          },
+          "quoteExpiryTime": {
+            "type": "string",
+            "description": "Expiration time of the exchange rate.  \n\nMore information:\n\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
+          },
+          "guaranteed": {
+            "type": "boolean",
+            "description": "Guaranteed exchange rate available for payment.  \n\n"
+          },
+          "exchangeAmount": {
+            "description": "Added field for exchange amount",
+            "$ref": "#/components/schemas/Amount"
+          }
+        },
+        "required": [
+          "quoteCurrencyPair",
+          "quotePrice"
+        ]
+      },
+      "AlipayCreateExchangeRequest": {
+        "type": "object",
+        "properties": {
+          "buyAmount": {
+            "description": "Added field for exchange amount",
+            "$ref": "#/components/schemas/Amount"
+          },
+          "sellAmount": {
+            "description": "Added field for exchange amount",
+            "$ref": "#/components/schemas/Amount"
+          },
+          "exchangeTradeType": {
+            "type": "string",
+            "description": "Foreign exchange delivery type. Possible value range: \n\nSPOT: Real-time exchange rate."
+          },
+          "exchangeRequestId": {
+            "type": "string"
+          },
+          "exchangeMode": {
+            "type": "string",
+            "description": "Foreign exchange delivery model. Possible value range: \n\nAPPOINTED: indicates an exchange rate at the appointed time."
+          }
+        }
+      },
+      "AlipayCreateExchangeResponse": {
+        "type": "object",
+        "properties": {
+          "exchangeRequestId": {
+            "type": "string"
+          },
+          "exchangeTradeType": {
+            "type": "string"
+          },
+          "exchangeMode": {
+            "type": "string"
+          },
+          "quote": {
+            "$ref": "#/components/schemas/Quote"
+          },
+          "buyAmount": {
+            "description": "Added field for exchange amount",
+            "$ref": "#/components/schemas/Amount"
+          },
+          "sellAmount": {
+            "description": "Added field for exchange amount",
+            "$ref": "#/components/schemas/Amount"
+          },
+          "exchangeStartTime": {
+            "type": "string"
+          },
+          "exchangeEndTime": {
+            "type": "string"
+          },
+          "result": {
+            "$ref": "#/components/schemas/Result"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      },
+      "ResultStatusType": {
+        "type": "string",
+        "enum": [
+          "S",
+          "F",
+          "U"
+        ]
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "resultCode": {
+            "type": "string",
+            "description": "The result code."
+          },
+          "resultStatus": {
+            "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
+            "$ref": "#/components/schemas/ResultStatusType"
+          },
+          "resultMessage": {
+            "type": "string",
+            "description": "The result message."
+          }
+        },
+        "required": [
+          "resultCode",
+          "resultStatus"
+        ]
+      }
+    },
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "https://open-sea-global.alipay.com/ams/v1/aba/funds/createExchange"
+    }
+  ]
+}
