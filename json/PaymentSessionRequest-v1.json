@@ -1488,6 +1488,14 @@
           "subscriptionExpiryTime": {
             "type": "string",
             "description": "Expiry time of the subscription in ISO 8601 format"
+          },
+          "allowRetry": {
+            "type": "boolean",
+            "description": "Field is used only in the PIX recurrence scenario.\nWhether to allow a retry in the event that a recurring payment fails due to insufficient balance."
+          },
+          "maxAmountFloor": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "Field is used only in the PIX recurrence scenario.\nMinimum subscription limit. In scenarios where the subscription amount is not fixed, merchants can specify this value, and subsequent user subscription amounts must not be less than this amount."
           }
         }
       },
