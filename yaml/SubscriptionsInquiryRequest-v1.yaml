@@ -37,35 +37,37 @@ components:
           type: string
         subscriptionRequestId:
           type: string
+    PeriodType:
+      type: string
+      enum:
+        - WEEK
+        - MONTH
+        - QUARTER
+        - HALF_YEAR
+        - YEAR
+      description: >-
+        The subscription period type. Valid values are:
+
+        WEEK: indicates that the subscription period is measured in weeks.
+
+        MONTH: indicates that the subscription period is measured in months.
+
+        QUARTER: indicates that the subscription period is measured in
+        quarters.
+
+        HALF_YEAR: indicates that the subscription period is measured in half
+        years.
+
+        YEAR: indicates that the subscription period is measured in years.
     PeriodRule:
       type: object
       properties:
         periodType:
           type: string
-          enum:
-            - WEEK
-            - MONTH
-            - QUARTER
-            - HALF_YEAR
-            - YEAR
           description: >-
-            The subscription period type. Valid values are:
-
-
-            WEEK: indicates that the subscription period is measured in weeks.
-
-            MONTH: indicates that the subscription period is measured in months.
-
-            QUARTER: indicates that the subscription period is measured in
-            quarters.
-
-            HALF_YEAR: indicates that the subscription period is measured in
-            half years.
-
-            YEAR: indicates that the subscription period is measured in years.
+            The subscription period type.
 
             More information:
-
 
             Maximum length: 20 characters
         period:
