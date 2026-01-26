@@ -280,6 +280,14 @@
             "$ref": "#/components/schemas/Amount",
             "description": "The maximum accumulate amount"
           },
+          "allowRetry": {
+            "type": "boolean",
+            "description": "This field is only used in the PIX recurrence scenario.\nDefault = false\nWhether to allow a retry in the event that a recurring payment fails due to insufficient balance."
+          },
+          "maxAmountFloor": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "This field is only used in PIX recurrence scenarios.\nMinimum subscription limit. In scenarios where the subscription amount is not fixed, merchants can specify this value, and subsequent user subscription amounts must not be less than this amount."
+          },
           "subscriptionRequestId": {
             "type": "string",
             "description": "The unique ID assigned by a merchant to identify a subscription request. Antom uses this field for idempotency control.  \n\nMore information:\n\nThis field is an API idempotency field.For subscription requests that are initiated with the same value of subscriptionRequestId and reach a final status of S or F, the same result is to be returned for the request.\nMaximum length: 64 characters"
@@ -392,7 +400,14 @@
         "properties": {
           "periodType": {
             "type": "string",
-            "description": "The subscription period type. Valid values are:\n\nYEAR: indicates that the subscription period is measured in years. \nMONTH: indicates that the subscription period is measured in months. \nWEEK: indicates that the subscription period is measured in weeks. \nDAY: indicates that the subscription period is measured in days.  \nMore information:\n\nMaximum length: 20 characters"
+            "enum": [
+              "WEEK",
+              "MONTH",
+              "QUARTER",
+              "HALF_YEAR",
+              "YEAR"
+            ],
+            "description": "The subscription period type. Valid values are:\n\nWEEK: indicates that the subscription period is measured in weeks.\nMONTH: indicates that the subscription period is measured in months.\nQUARTER: indicates that the subscription period is measured in quarters.\nHALF_YEAR: indicates that the subscription period is measured in half years.\nYEAR: indicates that the subscription period is measured in years.\nMore information:\n\nMaximum length: 20 characters"
           },
           "period": {
             "type": "integer",
