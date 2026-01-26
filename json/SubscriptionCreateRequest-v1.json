@@ -395,19 +395,23 @@
           "result"
         ]
       },
+      "PeriodType": {
+        "type": "string",
+        "enum": [
+          "WEEK",
+          "MONTH",
+          "QUARTER",
+          "HALF_YEAR",
+          "YEAR"
+        ],
+        "description": "The subscription period type. Valid values are:\n\nWEEK: indicates that the subscription period is measured in weeks.\nMONTH: indicates that the subscription period is measured in months.\nQUARTER: indicates that the subscription period is measured in quarters.\nHALF_YEAR: indicates that the subscription period is measured in half years.\nYEAR: indicates that the subscription period is measured in years."
+      },
       "PeriodRule": {
         "type": "object",
         "properties": {
           "periodType": {
             "type": "string",
-            "enum": [
-              "WEEK",
-              "MONTH",
-              "QUARTER",
-              "HALF_YEAR",
-              "YEAR"
-            ],
-            "description": "The subscription period type. Valid values are:\n\nWEEK: indicates that the subscription period is measured in weeks.\nMONTH: indicates that the subscription period is measured in months.\nQUARTER: indicates that the subscription period is measured in quarters.\nHALF_YEAR: indicates that the subscription period is measured in half years.\nYEAR: indicates that the subscription period is measured in years.\nMore information:\n\nMaximum length: 20 characters"
+            "description": "The subscription period type.\n\nMore information:\n\nMaximum length: 20 characters"
           },
           "period": {
             "type": "integer",
