@@ -439,22 +439,31 @@
             "description": "The unique ID to identify the buyer.\n\nNote: Specify this parameter when you want to use the promotion offered by Antom to this order.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "buyerName": {
-            "$ref": "#/components/schemas/UserName"
+            "$ref": "#/components/schemas/UserName",
+            "description": "The name of the recipient. \n\nNote: Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  "
           },
           "buyerPhoneNo": {
-            "type": "string"
+            "type": "string",
+            "description": "The mobile phone number of the buyer.\n\nSpecify this parameter when one of the following conditions is met:\n\nYou require risk control.\nThe value of paymentMethodType is CARD.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates. \n\nMore information:\n\nMaximum length: 24 characters\n"
           },
           "buyerEmail": {
-            "type": "string"
+            "type": "string",
+            "description": "The email of the buyer.\n\nSpecify this parameter:\n\nWhen you require risk control.\nWhen the value of paymentMethodType is CARD.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates. \n\nMore information:\n\nMaximum length: 64 characters"
           },
           "buyerRegistrationTime": {
-            "type": "string"
+            "type": "string",
+            "description": "The time when the buyer registered your account. Specify this parameter if you require risk control. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.  \n\nMore information:\n\nMaximum length: 64 characters\nThe value follows the ISO 8601 standard format. For example, \"2019-11-27T12:01:01+08:00\".\n"
           },
           "isAccountVerified": {
             "type": "boolean"
           },
           "successfulOrderCount": {
             "type": "integer"
+          },
+          "buyerPhoneNoContryCode": {
+            "type": "string",
+            "description": "\u7528\u4e8e\u6307\u5b9a\u4e70\u5bb6\u7535\u8bdd\u53f7\u7801\u7684\u56fd\u5bb6\u4ee3\u7801\uff0c\u5f53\u652f\u4ed8\u65b9\u5f0f\u4e3aSTCPAY\u65f6\u4e3a\u5fc5\u586b\u5b57\u6bb5",
+            "maxLength": 7
           }
         }
       },
