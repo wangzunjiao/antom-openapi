@@ -564,7 +564,7 @@ components:
             '
         guestNames:
           type: array
-          items: &id003
+          items:
             $ref: '#/components/schemas/UserName'
             description: "The name of the recipient. \n\nNote: Specify this parameter\
               \ if you require risk control. Providing this information helps to increase\
@@ -1752,84 +1752,35 @@ components:
           description: 'The unique ID to identify the buyer.
 
 
-            Specify this parameter when one of the following conditions is met:
-
-
-            When you require risk control.
-
-            When the value of paymentMethodType is CARD.
-
-            Providing this information helps to increase the accuracy of anti-money
-            laundering and fraud detection, and increase payment success rates.
+            Note: Specify this parameter when you want to use the promotion offered
+            by Antom to this order.
 
 
             More information:
 
 
             Maximum length: 64 characters'
-        buyerName: *id003
+        buyerName:
+          $ref: '#/components/schemas/UserName'
+          description: "The name of the recipient. \n\nNote: Specify this parameter\
+            \ if you require risk control. Providing this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates.  "
         buyerPhoneNo:
           type: string
-          description: 'The mobile phone number of the buyer.
-
-
-            Specify this parameter when one of the following conditions is met:
-
-
-            When you require risk control.
-
-            When the value of paymentMethodType is CARD.
-
-            When the value of paymentMethodType is KONBINI, BANKTRANSFER_PAYEASY,
-            or ONLINEBANKING_PAYEASY and you need to collect the phone number during
-            the payment process.
-
-            When the value of paymentMethodType is BANCOMATPAY and you need to collect
-            the phone number bound to the Bancomat Pay account during the payment
-            process.
-
-            When the value of paymentMethodType is OVO and you need to collect the
-            phone number bound to the OVO account during the payment process. Here
-            are the guidelines for the phone number format:
-
-            Begin with the number 08 or 8, such as 085775716613 or 85775716613.
-
-            Include the area code without a plus sign and the length should be between
-            9 and 12 digits, such as 62085775716613 or 6285775716613.
-
-            Omit the area code, such as 085775716613 or 85775716613.
-
-            Providing this information helps to increase the accuracy of anti-money
-            laundering and fraud detection, and increase payment success rates.
-
-
-            More information:
-
-
-            Maximum length: 24 characters'
+          description: "The mobile phone number of the buyer.\n\nSpecify this parameter\
+            \ when one of the following conditions is met:\n\nYou require risk control.\n\
+            The value of paymentMethodType is CARD.\nProviding this information helps\
+            \ to increase the accuracy of anti-money laundering and fraud detection,\
+            \ and increase payment success rates. \n\nMore information:\n\nMaximum\
+            \ length: 24 characters\n"
         buyerEmail:
           type: string
-          description: 'The email of the buyer.
-
-
-            Specify this parameter when one of the following conditions is met:
-
-
-            When you require risk control.
-
-            When the value of paymentMethodType is CARD.
-
-            The value of paymentMethodType is KONBINI, BANKTRANSFER_PAYEASY, or ONLINEBANKING_PAYEASY
-            and you collect this information during the payment process.
-
-            Providing this information helps to increase the accuracy of anti-money
-            laundering and fraud detection, and increase payment success rates.
-
-
-            More information:
-
-
-            Maximum length: 64 characters'
+          description: "The email of the buyer.\n\nSpecify this parameter:\n\nWhen\
+            \ you require risk control.\nWhen the value of paymentMethodType is CARD.\n\
+            Providing this information helps to increase the accuracy of anti-money\
+            \ laundering and fraud detection, and increase payment success rates.\
+            \ \n\nMore information:\n\nMaximum length: 64 characters"
         buyerRegistrationTime:
           type: string
           description: "The time when the buyer registered your account. Specify this\
@@ -1842,6 +1793,10 @@ components:
           type: boolean
         successfulOrderCount:
           type: integer
+        buyerPhoneNoContryCode:
+          type: string
+          description: 用于指定买家电话号码的国家代码，当支付方式为STCPAY时为必填字段
+          maxLength: 7
     Discount:
       type: object
       properties:
@@ -1849,9 +1804,9 @@ components:
           type: string
         discountName:
           type: string
-        savingsAmount: &id004
+        savingsAmount: &id003
           $ref: '#/components/schemas/Amount'
-        estimateSavingsAmount: *id004
+        estimateSavingsAmount: *id003
       required:
       - discountName
       - savingsAmount
@@ -2334,10 +2289,17 @@ components:
           description: Expiry time of the subscription in ISO 8601 format
         allowRetry:
           type: boolean
-          description: "Field is used only in the PIX recurrence scenario.\nWhether to allow a retry in the event that a recurring payment fails due to insufficient balance."
+          description: 'Field is used only in the PIX recurrence scenario.
+
+            Whether to allow a retry in the event that a recurring payment fails due
+            to insufficient balance.'
         maxAmountFloor:
           $ref: '#/components/schemas/Amount'
-          description: "Field is used only in the PIX recurrence scenario.\nMinimum subscription limit. In scenarios where the subscription amount is not fixed, merchants can specify this value, and subsequent user subscription amounts must not be less than this amount."
+          description: 'Field is used only in the PIX recurrence scenario.
+
+            Minimum subscription limit. In scenarios where the subscription amount
+            is not fixed, merchants can specify this value, and subsequent user subscription
+            amounts must not be less than this amount.'
     PeriodType:
       type: string
       enum:
@@ -2346,19 +2308,30 @@ components:
       - QUARTER
       - HALF_YEAR
       - YEAR
-      description: "The subscription period type. Valid values are:\n\nWEEK: indicates\
-        \ that the subscription period is measured in weeks.\nMONTH: indicates\
-        \ that the subscription period is measured in months.\nQUARTER: indicates\
-        \ that the subscription period is measured in quarters.\nHALF_YEAR: indicates\
-        \ that the subscription period is measured in half years.\nYEAR: indicates\
-        \ that the subscription period is measured in years."
+      description: 'The subscription period type. Valid values are:
+
+
+        WEEK: indicates that the subscription period is measured in weeks.
+
+        MONTH: indicates that the subscription period is measured in months.
+
+        QUARTER: indicates that the subscription period is measured in quarters.
+
+        HALF_YEAR: indicates that the subscription period is measured in half years.
+
+        YEAR: indicates that the subscription period is measured in years.'
     PeriodRule:
       type: object
       properties:
         periodType:
           type: string
-          description: "The subscription period type.\n\nMore information:\n\nMaximum\
-            \ length: 20 characters"
+          description: 'The subscription period type.
+
+
+            More information:
+
+
+            Maximum length: 20 characters'
         period:
           type: integer
           description: Number of periods

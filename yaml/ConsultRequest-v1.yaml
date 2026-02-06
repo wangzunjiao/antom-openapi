@@ -230,18 +230,10 @@ components:
           type: string
       type: object
     Buyer:
+      type: object
       properties:
-        buyerEmail:
-          type: string
-        buyerName:
-          $ref: '#/components/schemas/UserName'
-        buyerPhoneNo:
-          type: string
-        buyerRegistrationTime:
-          type: string
-        isAccountVerified:
-          type: boolean
         referenceBuyerId:
+          type: string
           description: 'The unique ID to identify the buyer.
 
 
@@ -253,10 +245,43 @@ components:
 
 
             Maximum length: 64 characters'
+        buyerName:
+          $ref: '#/components/schemas/UserName'
+          description: "The name of the recipient. \n\nNote: Specify this parameter\
+            \ if you require risk control. Providing this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates.  "
+        buyerPhoneNo:
           type: string
+          description: "The mobile phone number of the buyer.\n\nSpecify this parameter\
+            \ when one of the following conditions is met:\n\nYou require risk control.\n\
+            The value of paymentMethodType is CARD.\nProviding this information helps\
+            \ to increase the accuracy of anti-money laundering and fraud detection,\
+            \ and increase payment success rates. \n\nMore information:\n\nMaximum\
+            \ length: 24 characters\n"
+        buyerEmail:
+          type: string
+          description: "The email of the buyer.\n\nSpecify this parameter:\n\nWhen\
+            \ you require risk control.\nWhen the value of paymentMethodType is CARD.\n\
+            Providing this information helps to increase the accuracy of anti-money\
+            \ laundering and fraud detection, and increase payment success rates.\
+            \ \n\nMore information:\n\nMaximum length: 64 characters"
+        buyerRegistrationTime:
+          type: string
+          description: "The time when the buyer registered your account. Specify this\
+            \ parameter if you require risk control. Providing this information helps\
+            \ to increase the accuracy of anti-money laundering and fraud detection,\
+            \ and increase payment success rates.  \n\nMore information:\n\nMaximum\
+            \ length: 64 characters\nThe value follows the ISO 8601 standard format.\
+            \ For example, \"2019-11-27T12:01:01+08:00\".\n"
+        isAccountVerified:
+          type: boolean
         successfulOrderCount:
           type: integer
-      type: object
+        buyerPhoneNoContryCode:
+          type: string
+          description: 用于指定买家电话号码的国家代码，当支付方式为STCPAY时为必填字段
+          maxLength: 7
     Discount:
       properties:
         discountName:
