@@ -218,6 +218,9 @@
           },
           "refundSourceAccountNo": {
             "type": "string"
+          },
+          "actualRefundAmount": {
+            "$ref": "#/components/schemas/Amount"
           }
         },
         "required": [
