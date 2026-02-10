@@ -273,6 +273,8 @@ components:
             $ref: '#/components/schemas/RefundDetail'
         refundSourceAccountNo:
           type: string
+        actualRefundAmount:
+          $ref: '#/components/schemas/Amount'
       required:
       - refundRequestId
       - paymentId

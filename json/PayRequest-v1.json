@@ -1401,7 +1401,7 @@
         "properties": {
           "referenceBuyerId": {
             "type": "string",
-            "description": "The unique ID to identify the buyer.\n\nSpecify this parameter when one of the following conditions is met:\n\nWhen you require risk control.\nWhen the value of paymentMethodType is CARD.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 64 characters"
+            "description": "The unique ID to identify the buyer.\n\nNote: Specify this parameter when you want to use the promotion offered by Antom to this order.\n\nMore information:\n\nMaximum length: 64 characters"
           },
           "buyerName": {
             "$ref": "#/components/schemas/UserName",
@@ -1409,11 +1409,11 @@
           },
           "buyerPhoneNo": {
             "type": "string",
-            "description": "The mobile phone number of the buyer.\n\nSpecify this parameter when one of the following conditions is met:\n\nWhen you require risk control.\nWhen the value of paymentMethodType is CARD.\nWhen the value of paymentMethodType is KONBINI, BANKTRANSFER_PAYEASY, or ONLINEBANKING_PAYEASY and you need to collect the phone number during the payment process.\nWhen the value of paymentMethodType is BANCOMATPAY and you need to collect the phone number bound to the Bancomat Pay account during the payment process.\nWhen the value of paymentMethodType is OVO and you need to collect the phone number bound to the OVO account during the payment process. Here are the guidelines for the phone number format:\nBegin with the number 08 or 8, such as 085775716613 or 85775716613.\nInclude the area code without a plus sign and the length should be between 9 and 12 digits, such as 62085775716613 or 6285775716613.\nOmit the area code, such as 085775716613 or 85775716613.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 24 characters"
+            "description": "The mobile phone number of the buyer.\n\nSpecify this parameter when one of the following conditions is met:\n\nYou require risk control.\nThe value of paymentMethodType is CARD.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates. \n\nMore information:\n\nMaximum length: 24 characters\n"
           },
           "buyerEmail": {
             "type": "string",
-            "description": "The email of the buyer.\n\nSpecify this parameter when one of the following conditions is met:\n\nWhen you require risk control.\nWhen the value of paymentMethodType is CARD.\nThe value of paymentMethodType is KONBINI, BANKTRANSFER_PAYEASY, or ONLINEBANKING_PAYEASY and you collect this information during the payment process.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.\n\nMore information:\n\nMaximum length: 64 characters"
+            "description": "The email of the buyer.\n\nSpecify this parameter:\n\nWhen you require risk control.\nWhen the value of paymentMethodType is CARD.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates. \n\nMore information:\n\nMaximum length: 64 characters"
           },
           "buyerRegistrationTime": {
             "type": "string",
@@ -1424,6 +1424,11 @@
           },
           "successfulOrderCount": {
             "type": "integer"
+          },
+          "buyerPhoneNoContryCode": {
+            "type": "string",
+            "description": "\u7528\u4e8e\u6307\u5b9a\u4e70\u5bb6\u7535\u8bdd\u53f7\u7801\u7684\u56fd\u5bb6\u4ee3\u7801\uff0c\u5f53\u652f\u4ed8\u65b9\u5f0f\u4e3aSTCPAY\u65f6\u4e3a\u5fc5\u586b\u5b57\u6bb5",
+            "maxLength": 7
           }
         }
       },

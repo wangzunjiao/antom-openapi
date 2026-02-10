@@ -351,44 +351,58 @@ components:
           type: string
       type: object
     Buyer:
+      type: object
       properties:
-        buyerEmail:
-          description: "The email of the buyer.\n\nSpecify this parameter:\n\nWhen\
-            \ you require risk control.\nWhen the value of paymentMethodType is CARD.\n\
-            Providing this information helps to increase the accuracy of anti-money\
-            \ laundering and fraud detection, and increase payment success rates.\
-            \ \n\nMore information:\n\nMaximum length: 64 characters"
+        referenceBuyerId:
           type: string
+          description: 'The unique ID to identify the buyer.
+
+
+            Note: Specify this parameter when you want to use the promotion offered
+            by Antom to this order.
+
+
+            More information:
+
+
+            Maximum length: 64 characters'
         buyerName:
           $ref: '#/components/schemas/UserName'
+          description: "The name of the recipient. \n\nNote: Specify this parameter\
+            \ if you require risk control. Providing this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates.  "
         buyerPhoneNo:
+          type: string
           description: "The mobile phone number of the buyer.\n\nSpecify this parameter\
             \ when one of the following conditions is met:\n\nYou require risk control.\n\
             The value of paymentMethodType is CARD.\nProviding this information helps\
             \ to increase the accuracy of anti-money laundering and fraud detection,\
             \ and increase payment success rates. \n\nMore information:\n\nMaximum\
             \ length: 24 characters\n"
+        buyerEmail:
           type: string
+          description: "The email of the buyer.\n\nSpecify this parameter:\n\nWhen\
+            \ you require risk control.\nWhen the value of paymentMethodType is CARD.\n\
+            Providing this information helps to increase the accuracy of anti-money\
+            \ laundering and fraud detection, and increase payment success rates.\
+            \ \n\nMore information:\n\nMaximum length: 64 characters"
         buyerRegistrationTime:
+          type: string
           description: "The time when the buyer registered your account. Specify this\
             \ parameter if you require risk control. Providing this information helps\
             \ to increase the accuracy of anti-money laundering and fraud detection,\
             \ and increase payment success rates.  \n\nMore information:\n\nMaximum\
             \ length: 64 characters\nThe value follows the ISO 8601 standard format.\
             \ For example, \"2019-11-27T12:01:01+08:00\".\n"
-          type: string
         isAccountVerified:
           type: boolean
-        referenceBuyerId:
-          description: "The unique ID to identify the buyer.\n\nSpecify this parameter:\n\
-            \nWhen you require risk control.\nWhen the value of paymentMethodType\
-            \ is CARD.\nProviding this information helps to increase the accuracy\
-            \ of anti-money laundering and fraud detection, and increase payment success\
-            \ rates. \n\nMore information:\n\nMaximum length: 64 characters\n"
-          type: string
         successfulOrderCount:
           type: integer
-      type: object
+        buyerPhoneNoContryCode:
+          type: string
+          description: 用于指定买家电话号码的国家代码，当支付方式为STCPAY时为必填字段
+          maxLength: 7
     CardVerificationResult:
       properties:
         authenticationMethod:
@@ -1736,10 +1750,17 @@ components:
           description: Expiry time of the subscription in ISO 8601 format
         allowRetry:
           type: boolean
-          description: "Field is used only in the PIX recurrence scenario.\nWhether to allow a retry in the event that a recurring payment fails due to insufficient balance."
+          description: 'Field is used only in the PIX recurrence scenario.
+
+            Whether to allow a retry in the event that a recurring payment fails due
+            to insufficient balance.'
         maxAmountFloor:
           $ref: '#/components/schemas/Amount'
-          description: "Field is used only in the PIX recurrence scenario.\nMinimum subscription limit. In scenarios where the subscription amount is not fixed, merchants can specify this value, and subsequent user subscription amounts must not be less than this amount."
+          description: 'Field is used only in the PIX recurrence scenario.
+
+            Minimum subscription limit. In scenarios where the subscription amount
+            is not fixed, merchants can specify this value, and subsequent user subscription
+            amounts must not be less than this amount.'
     PeriodType:
       type: string
       enum:
@@ -1748,19 +1769,30 @@ components:
       - QUARTER
       - HALF_YEAR
       - YEAR
-      description: "The subscription period type. Valid values are:\n\nWEEK: indicates\
-        \ that the subscription period is measured in weeks.\nMONTH: indicates\
-        \ that the subscription period is measured in months.\nQUARTER: indicates\
-        \ that the subscription period is measured in quarters.\nHALF_YEAR: indicates\
-        \ that the subscription period is measured in half years.\nYEAR: indicates\
-        \ that the subscription period is measured in years."
+      description: 'The subscription period type. Valid values are:
+
+
+        WEEK: indicates that the subscription period is measured in weeks.
+
+        MONTH: indicates that the subscription period is measured in months.
+
+        QUARTER: indicates that the subscription period is measured in quarters.
+
+        HALF_YEAR: indicates that the subscription period is measured in half years.
+
+        YEAR: indicates that the subscription period is measured in years.'
     PeriodRule:
       type: object
       properties:
         periodType:
           type: string
-          description: "The subscription period type.\n\nMore information:\n\nMaximum\
-            \ length: 20 characters"
+          description: 'The subscription period type.
+
+
+            More information:
+
+
+            Maximum length: 20 characters'
         period:
           type: integer
           description: Number of periods
