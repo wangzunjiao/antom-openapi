@@ -186,6 +186,8 @@ components:
       properties:
         supportedBrands:
           type: array
+          items:
+            type: string
           description: Supported card brands for this payment method
         cardToken:
           type: string
