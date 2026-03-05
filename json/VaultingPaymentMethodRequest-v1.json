@@ -349,7 +349,7 @@
         "type": "object",
         "properties": {
           "supportedBrands": {
-            "type": "string",
+            "type": "array",
             "description": "Supported card brands for this payment method"
           },
           "cardToken": {
