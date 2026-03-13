@@ -197,6 +197,8 @@ components:
         acquirerReasonDescription:
           type: string
           description: The reason description provided by the acquirer
+        ptspTransactionId:
+          type: string
     AlipayVerifyAndCompletePaymentResponse:
       type: object
       properties:

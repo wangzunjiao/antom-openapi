@@ -333,7 +333,7 @@
             "description": "Passenger code or reference number"
           }
         }
-      },
+      },Ï
       "PassengerIdType": {
         "type": "string",
         "enum": [
@@ -858,6 +858,9 @@
           "acquirerReasonDescription": {
             "type": "string",
             "description": "The reason description provided by the acquirer"
+          },
+          "ptspTransactionId": {
+            "type": "string"
           }
         }
       },
