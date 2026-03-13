@@ -64,8 +64,8 @@ components:
         value:
           type: integer
       required:
-      - unit
-      - value
+        - unit
+        - value
     DeliveryEstimate:
       type: object
       properties:
@@ -73,8 +73,8 @@ components:
           $ref: '#/components/schemas/DeliveryEstimateInfo'
         maximum: *id001
       required:
-      - minimum
-      - maximum
+        - minimum
+        - maximum
     Shipping:
       type: object
       properties:
@@ -267,23 +267,23 @@ components:
           type: string
           description: 'test '
       required:
-      - orderAmount
-      - referenceOrderId
-      - orderType
+        - orderAmount
+        - referenceOrderId
+        - orderType
     TransitType:
       type: string
       enum:
-      - FLIGHT
-      - TRAIN
-      - CRUISE
-      - COACH
+        - FLIGHT
+        - TRAIN
+        - CRUISE
+        - COACH
       description: Type of transit
     ClassType:
       type: string
       enum:
-      - FIRSTLEVEL
-      - SECONDLEVEL
-      - THIRDLEVEL
+        - FIRSTLEVEL
+        - SECONDLEVEL
+        - THIRDLEVEL
     Leg:
       type: object
       properties:
@@ -429,15 +429,15 @@ components:
     PassengerIdType:
       type: string
       enum:
-      - PASSPORT
-      - NATIONAL_ID_CARD
-      - DRIVER_LICENSE
-      - MILITARY_ID
-      - GREEN_CARD
-      - TRAVEL_DOCUMENT
-      - ALIEN_REGISTRATION_CARD
-      - BIRTH_CERTIFICATE
-      - OTHERS
+        - PASSPORT
+        - NATIONAL_ID_CARD
+        - DRIVER_LICENSE
+        - MILITARY_ID
+        - GREEN_CARD
+        - TRAVEL_DOCUMENT
+        - ALIEN_REGISTRATION_CARD
+        - BIRTH_CERTIFICATE
+        - OTHERS
       description: Type of passenger identification
     Transit:
       type: object
@@ -691,11 +691,11 @@ components:
           description: 'Additional information required for some specific payment
             methods.  '
       required:
-      - paymentMethodType
+        - paymentMethodType
     CreditPayFeeType:
       type: string
       enum:
-      - PERCENTAGE
+        - PERCENTAGE
     CreditPayPlan:
       type: object
       properties:
@@ -734,7 +734,7 @@ components:
 
             Value range: 0 - 100'
       required:
-      - installmentNum
+        - installmentNum
     PaymentVerificationData:
       type: object
       properties:
@@ -777,8 +777,8 @@ components:
           $ref: '#/components/schemas/Amount'
           description: Added field for exchange amount
       required:
-      - quoteCurrencyPair
-      - quotePrice
+        - quoteCurrencyPair
+        - quotePrice
     PspCustomerInfo:
       type: object
       properties:
@@ -807,14 +807,14 @@ components:
     ChallengeType:
       type: string
       enum:
-      - SMS_OTP
-      - PLAINTEXT_CARD_NO
-      - CARD_EXPIRE_DATE
+        - SMS_OTP
+        - PLAINTEXT_CARD_NO
+        - CARD_EXPIRE_DATE
     ChallengeTriggerSourceType:
       type: string
       enum:
-      - AMS
-      - CHANNEL
+        - AMS
+        - CHANNEL
     ChallengeActionForm:
       type: object
       properties:
@@ -840,16 +840,16 @@ components:
     CodeValueType:
       type: string
       enum:
-      - BARCODE
-      - QRCODE
+        - BARCODE
+        - QRCODE
     DisplayType:
       type: string
       enum:
-      - TEXT
-      - MIDDLEIMAGE
-      - SMALLIMAGE
-      - BIGIMAGE
-      - IMAGE
+        - TEXT
+        - MIDDLEIMAGE
+        - SMALLIMAGE
+        - BIGIMAGE
+        - IMAGE
     CodeDetail:
       type: object
       properties:
@@ -882,9 +882,9 @@ components:
 
             '
       required:
-      - codeValueType
-      - codeValue
-      - displayType
+        - codeValueType
+        - codeValue
+        - displayType
     OrderCodeForm:
       type: object
       properties:
@@ -923,8 +923,8 @@ components:
 
             Maximum length: 2048 characters'
       required:
-      - expireTime
-      - codeDetails
+        - expireTime
+        - codeDetails
     PaymentResultInfo:
       type: object
       properties:
@@ -1122,8 +1122,8 @@ components:
     PromotionType:
       type: string
       enum:
-      - DISCOUNT
-      - INTEREST_FREE
+        - DISCOUNT
+        - INTEREST_FREE
     PromotionResult:
       type: object
       properties:
@@ -1150,7 +1150,7 @@ components:
             Note: This parameter is generated when the buyer applies a promotion during
             the process of placing an order.'
       required:
-      - promotionType
+        - promotionType
     Result:
       type: object
       properties:
@@ -1166,14 +1166,14 @@ components:
           type: string
           description: The result message.
       required:
-      - resultCode
-      - resultStatus
+        - resultCode
+        - resultStatus
     ProductCodeType:
       type: string
       enum:
-      - CASHIER_PAYMENT
-      - AGREEMENT_PAYMENT
-      - IN_STORE_PAYMENT
+        - CASHIER_PAYMENT
+        - AGREEMENT_PAYMENT
+        - IN_STORE_PAYMENT
       x-apifox:
         enumDescriptions:
           CASHIER_PAYMENT: ''
@@ -1199,14 +1199,14 @@ components:
             \ amount with banker's rounding and fix the last two digits of this parameter\
             \ as 00.  \n\nMore information:\n\nValue range: 0 - unlimited\n"
       required:
-      - currency
-      - value
+        - currency
+        - value
     InStorePaymentScenario:
       type: string
       enum:
-      - PaymentCode
-      - OrderCode
-      - EntryCode
+        - PaymentCode
+        - OrderCode
+        - EntryCode
       x-apifox:
         enumDescriptions:
           PaymentCode: User can use paymentcode to pay
@@ -1215,9 +1215,9 @@ components:
     PresentmentMode:
       type: string
       enum:
-      - BUNDLE
-      - TILE
-      - UNIFIED
+        - BUNDLE
+        - TILE
+        - UNIFIED
       x-apifox:
         enumDescriptions:
           BUNDLE: ''
@@ -1280,10 +1280,10 @@ components:
     TerminalType:
       type: string
       enum:
-      - WEB
-      - WAP
-      - APP
-      - MINI_APP
+        - WEB
+        - WAP
+        - APP
+        - MINI_APP
       x-apifox:
         enumDescriptions:
           WEB: ''
@@ -1333,8 +1333,8 @@ components:
     OsType:
       type: string
       enum:
-      - IOS
-      - ANDROID
+        - IOS
+        - ANDROID
       x-apifox:
         enumDescriptions:
           IOS: ''
@@ -1452,7 +1452,7 @@ components:
           type: string
           description: Version of the operation system.
       required:
-      - terminalType
+        - terminalType
     ThreeDSResult:
       type: object
       properties:
@@ -1491,9 +1491,9 @@ components:
     ResultStatusType:
       type: string
       enum:
-      - S
-      - F
-      - U
+        - S
+        - F
+        - U
       x-apifox:
         enumDescriptions:
           S: ''
@@ -1511,10 +1511,10 @@ components:
         fullName:
           type: string
       required:
-      - firstName
-      - middleName
-      - lastName
-      - fullName
+        - firstName
+        - middleName
+        - lastName
+        - fullName
     Address:
       type: object
       properties:
@@ -1555,7 +1555,7 @@ components:
         address3:
           type: string
       required:
-      - region
+        - region
     Store:
       type: object
       properties:
@@ -1577,8 +1577,8 @@ components:
     MerchantType:
       type: string
       enum:
-      - INDIVIDUAL
-      - ENTERPRISE
+        - INDIVIDUAL
+        - ENTERPRISE
       x-apifox:
         enumDescriptions:
           INDIVIDUAL: ''
@@ -1661,7 +1661,7 @@ components:
         merchantType:
           $ref: '#/components/schemas/MerchantType'
       required:
-      - referenceMerchantId
+        - referenceMerchantId
     Goods:
       type: object
       properties:
@@ -1742,8 +1742,8 @@ components:
           $ref: '#/components/schemas/Goods'
           description: Cross-selling goods information.
       required:
-      - referenceGoodsId
-      - goodsName
+        - referenceGoodsId
+        - goodsName
     Buyer:
       type: object
       properties:
@@ -1808,10 +1808,10 @@ components:
           $ref: '#/components/schemas/Amount'
         estimateSavingsAmount: *id003
       required:
-      - discountName
-      - savingsAmount
-      - estimateSavingsAmount
-      - discountTag
+        - discountName
+        - savingsAmount
+        - estimateSavingsAmount
+        - discountTag
     AlipayPayRequest:
       type: object
       properties:
@@ -1991,14 +1991,14 @@ components:
         dualOfflinePayment:
           type: boolean
       required:
-      - productCode
-      - order
-      - paymentAmount
-      - paymentMethod
-      - paymentRedirectUrl
-      - settlementStrategy
-      - env
-      - paymentRequestId
+        - productCode
+        - order
+        - paymentAmount
+        - paymentMethod
+        - paymentRedirectUrl
+        - settlementStrategy
+        - env
+        - paymentRequestId
     AlipayPayResponse:
       type: object
       properties:
@@ -2165,7 +2165,7 @@ components:
             $ref: '#/components/schemas/PromotionResult'
           description: Promotion result.
       required:
-      - result
+        - result
     declaration:
       type: object
       properties:
@@ -2187,17 +2187,17 @@ components:
     DeclarationBizSceneType:
       type: string
       enum:
-      - AIRLINE
-      - HOTEL
+        - AIRLINE
+        - HOTEL
       description: 申报时对应的行业分类。非OTA结汇场景不传，OTA场景必传，且与declarationBeneficiaryId需同时存在。
     FundingType:
       type: string
       enum:
-      - CREDIT
-      - DEBIT
-      - PREPAID
-      - CHARGE
-      - DEFERRED_DEBIT
+        - CREDIT
+        - DEBIT
+        - PREPAID
+        - CHARGE
+        - DEFERRED_DEBIT
       description: The funding source type for the payment method
     AncillaryData:
       type: object
@@ -2303,11 +2303,11 @@ components:
     PeriodType:
       type: string
       enum:
-      - WEEK
-      - MONTH
-      - QUARTER
-      - HALF_YEAR
-      - YEAR
+        - WEEK
+        - MONTH
+        - QUARTER
+        - HALF_YEAR
+        - YEAR
       description: 'The subscription period type. Valid values are:
 
 
@@ -2345,8 +2345,8 @@ components:
             \ is 2, it means that the subscription period is two months.  \n\nMore\
             \ information:\n\nValue range: 1 - unlimited"
       required:
-      - periodType
-      - periodCount
+        - periodType
+        - periodCount
     Trial:
       type: object
       properties:
@@ -2379,9 +2379,9 @@ components:
 
             '
       required:
-      - trialStartPeriod
-      - trialAmount
+        - trialStartPeriod
+        - trialAmount
   securitySchemes: {}
 servers:
-- url: https://open-sea-global.alipay.com/ams/api/v1/payments/pay
-  description: 正式环境
+  - url: https://open-sea-global.alipay.com/ams/api/v1/payments/pay
+    description: 正式环境
