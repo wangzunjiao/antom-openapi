@@ -245,6 +245,9 @@ components:
         billAddress:
           description: The billing address.
           $ref: '#/components/schemas/Address'
+        displayName:
+          type: string
+          description: The name that is displayed on the card
       required:
       - cardHolderName
       - billAddress
