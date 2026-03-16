@@ -1,0 +1,724 @@
+---
+openapi: 3.1.0
+info:
+  title: aba/funds/createDirectPayment
+  description: ''
+  version: 1.0.0
+tags: []
+paths:
+  /ams/aba/funds/createDirectPayment:
+    post:
+      summary: createDirectPayment
+      deprecated: false
+      description: ''
+      tags: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDirectPaymentRequest'
+            example: {}
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDirectPaymentResponses'
+          headers: {}
+      security: []
+webhooks: {}
+components:
+  schemas:
+    CreateDirectPaymentRequest: &ref_0
+      type: object
+      properties:
+        paymentRequestId:
+          type: string
+        memo:
+          type: string
+        remark:
+          type: string
+        order:
+          $ref: '#/components/schemas/Order'
+        paymentNotifyUrl:
+          type: string
+        payToMethod:
+          $ref: '#/components/schemas/PaymentMethod'
+        payToAmount:
+          $ref: '#/components/schemas/Amount'
+        payFromAmount:
+          $ref: '#/components/schemas/Amount'
+      required:
+        - paymentRequestId
+        - order
+        - payToMethod
+        - payToAmount
+        - payFromAmount
+    Order:
+      type: object
+      properties:
+        referenceOrderId:
+          type: string
+          description: >-
+            The unique ID to identify the order on the merchant side, which is
+            assigned by the merchant that provides services or goods directly to
+            the customer. This field is used for user consumption records
+            display and other further actions such as disputes track or handling
+            of customer complaints.
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+        orderDescription:
+          type: string
+          description: >-
+            Summary description of the order, which is used for user consumption
+            records display or other further actions.
+
+
+            More information:
+
+
+            Maximum length: 256 characters
+        orderAmount:
+          description: >-
+            The payment amount that the merchant requests to receive in the
+            order currency.
+          $ref: '#/components/schemas/Amount'
+        orderDiscountAmount:
+          $ref: '#/components/schemas/Amount'
+        subTotalOrderAmount:
+          $ref: '#/components/schemas/Amount'
+        merchant:
+          description: >-
+            Information about the secondary merchant.
+
+
+            Note: Specify this field if you are an acquirer that has secondary
+            merchants.
+          $ref: '#/components/schemas/Merchant'
+        goods:
+          type: array
+          items:
+            $ref: '#/components/schemas/Goods'
+          description: >-
+            Goods information, including the ID, name, price, and quantity of
+            the goods in the order. 
+
+
+            Note: Specify this parameter if you require risk control. Providing
+            this information helps to increase the accuracy of anti-money
+            laundering and fraud detection, and increase payment success rates.
+
+
+            More information:
+
+
+            Maximum size: 100 elements
+        shipping:
+          description: >-
+            Shipping information, including information about the recipient
+            (name, phone number, email, and shipping address), and shipping
+            service provider. 
+
+
+            Specify this parameter when you require risk control. Providing this
+            information helps to increase the accuracy of anti-money laundering
+            and fraud detection, and increase payment success rates.
+          $ref: '#/components/schemas/Shipping'
+        buyer:
+          $ref: '#/components/schemas/Buyer'
+          description: >-
+            Buyer information, including the ID, name, phone number, and email
+            of the buyer.
+
+
+            Specify this parameter when one of the following conditions is met:
+
+
+            You require risk control.
+
+            The value of paymentMethodType is CARD. 
+
+            Providing this information helps to increase the accuracy of
+            anti-money laundering and fraud detection, and increase payment
+            success rates.
+        env:
+          $ref: '#/components/schemas/Env'
+          description: >+
+            Information about the environment where the order is placed.
+
+
+            Note: Specify this parameter when you require risk control.
+            Providing this information helps to increase the accuracy of
+            anti-money laundering and fraud detection, and increase payment
+            success rates.  
+
+        extendInfo:
+          type: string
+          description: >+
+            Extended information data, including information for special use
+            cases.
+
+
+            Note: Specify this field when you need to use the extended
+            information.
+
+        transit:
+          $ref: '#/components/schemas/Transit'
+          description: >+
+            Trip information, including trip modes, legs of trips and passenger
+            information.
+
+
+            Specify this field if you require risk control. Providing this
+            information helps to increase the accuracy of anti-money laundering
+            and fraud detection, and increase payment success rates.
+
+        lodging:
+          $ref: '#/components/schemas/Lodging'
+          description: >-
+            Information about lodging service that was purchased, including
+            hotel name, hotel address, check-in date, check-out date, number of
+            booked rooms, number of booked nights and guest names.
+
+
+            Specify this parameter if you require risk control. Providing this
+            information helps to increase the accuracy of anti-money laundering
+            and fraud detection, and increase payment success rates.
+        gaming:
+          $ref: '#/components/schemas/Gaming'
+          description: >-
+            Information about gaming top-up, including game name, the topped up
+            user name or ID, user email and user phone number.
+
+
+            Specify this parameter if you require risk control. Providing this
+            information helps to increase the accuracy of anti-money laundering
+            and fraud detection, and increase payment success rates.
+        needDeclaration:
+          type: boolean
+        declaration:
+          $ref: '#/components/schemas/Declaration'
+        orderType:
+          type: string
+          description: 'test '
+      required:
+        - orderAmount
+        - referenceOrderId
+        - orderType
+    PaymentMethod: &ref_1
+      type: object
+      properties:
+        paymentMethodType:
+          type: string
+          description: >-
+            The payment method type that is included in payment method options.
+            By specifying the value of this parameter, you can receive the
+            cashier URL of the specified payment method returned by Alipay. See
+            Payment methods to check the valid values.
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+        paymentMethodId:
+          type: string
+          description: >-
+            The unique ID that is used to identify a payment method. The value
+            of this parameter is that of cardToken obtained from the
+            notifyPayment or inquiryPayment API. 
+
+
+            Specify this parameter when the value of paymentMethodType is CARD.
+
+
+            More information:
+
+
+            Maximum length: 128 characters
+        funding:
+          $ref: '#/components/schemas/FundingType'
+        customerId:
+          type: string
+          description: >-
+            The unique ID to identify a buyer.
+
+
+            Note: Specify this field if you have the information. Providing this
+            information helps to increase the accuracy of anti-money laundering
+            and fraud detection, and increase payment success rates.
+        extendInfo:
+          type: string
+          description: >-
+            Extended information.
+
+
+            Note: Specify this field if you need to use the extended
+            information.
+
+
+            More information:
+
+
+            Maximum length: 2048 characters
+        requireIssuerAuthentication:
+          type: boolean
+          description: >-
+            Indicates whether Korean card transactions require authentication
+            from the issuing bank. Valid values are:
+
+
+            true: indicates that Korean card transactions require authentication
+            from the issuing bank.
+
+            false: indicates that Korean card transactions do not require
+            authentication from the issuing bank. The same applies when you do
+            not specify this parameter or the value is empty.
+
+            Specify this parameter when all the following conditions are met:
+
+
+            The value of paymentMethodType is CARD.
+
+            The value of paymentMethodRegion is KR.
+
+            The Korean card transactions require issuer authentication.
+        paymentMethodMetaData:
+          type: object
+          properties: {}
+          additionalProperties:
+            type: object
+          description: 'Additional information required for some specific payment methods.  '
+      required:
+        - paymentMethodType
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: |-
+            The 3-letter currency code that follows the ISO 4217 standard. 
+
+            More information:
+
+            Maximum length: 3 characters
+        value:
+          type: string
+          description: >
+            The value of the amount as a positive integer in the smallest
+            currency unit. For example, if the currency is USD and the amount is
+            $1.00, set the value of this parameter to 100; or if the currency is
+            JPY and the amount is ￥1, set the value of this parameter to 1.  
+
+
+            For details about the smallest currency unit, see Smallest unit of
+            the currency .
+
+
+            For details about the minimum payment amount allowed for each
+            payment method, see Minimum amount rules. 
+
+
+            Note: Due to the currency practices in Indonesia, when the currency
+            is IDR, round the amount with banker's rounding and fix the last two
+            digits of this parameter as 00.  
+
+
+            More information:
+
+
+            Value range: 0 - unlimited
+      required:
+        - currency
+        - value
+    Address:
+      type: object
+      properties:
+        region:
+          type: string
+          description: >-
+            The 2-letter country or region code. For more information, see the
+            ISO 3166 Country Codes standard. 
+
+
+            More information:
+
+
+            Maximum length: 2 characters
+        state:
+          type: string
+          description: >-
+            The state, country, or province name. 
+
+
+            For card payments, if your business entity is in the United States,
+            and the card issuing country is Canada, the United States, or the
+            United Kingdom, set the value to a region code that consists of two
+            to three characters and follows the ISO 3166-2 standard. 
+
+
+            More information:
+
+
+            Maximum length: 8 characters
+        city:
+          type: string
+          description: |
+            The city, district, suburb, town, or village name. 
+
+            More information:
+
+            Maximum length: 32 characters
+        address1:
+          type: string
+          description: >-
+            Address line 1, for example, the street address, PO box, and company
+            name. 
+
+
+            More information:
+
+
+            Maximum length: 256 characters
+        address2:
+          type: string
+          description: >-
+            Address line 2, for example, the apartment, suite, unit, and
+            building information. 
+
+
+            More information:
+
+
+            Maximum length: 256 characters
+        zipCode:
+          type: string
+          description: >-
+            The ZIP or postal code. 
+
+
+            For card payments, if your business entity is in the United States,
+            specify this parameter according to the following parameter value
+            requirements:
+
+
+            Only contains numbers, letters, hyphens, and spaces.
+
+            Must be within ten characters. 
+
+            More information:
+
+
+            Maximum length: 32 characters
+        label:
+          type: string
+        address3:
+          type: string
+      required:
+        - region
+    Store:
+      type: object
+      properties:
+        referenceStoreId:
+          type: string
+        storeName:
+          type: string
+        storeMCC:
+          type: string
+        storeDisplayName:
+          type: string
+        storeTerminalId:
+          type: string
+        storeOperatorId:
+          type: string
+        storeAddress:
+          description: >-
+            Shipping address. 
+
+
+            Specify this parameter when one of the following conditions is met:
+
+
+            The value of paymentMethodType is PAGALEVE.
+
+            You require risk control.
+
+            Providing this information helps to increase the accuracy of
+            anti-money laundering and fraud detection, and increase payment
+            success rates.
+          $ref: '#/components/schemas/Address'
+        storePhoneNo:
+          type: string
+    Merchant:
+      type: object
+      properties:
+        referenceMerchantId:
+          type: string
+          description: >-
+            The ID to identify the merchant that directly provides services or
+            goods to the customer.
+
+
+            More information:
+
+
+            Maximum length: 32 characters
+        merchantMCC:
+          type: string
+          description: >-
+            The secondary merchant category code, which is a 4-digit number
+            listed in MCC codes.
+
+
+            Note: Specify this field if you have the information. Providing this
+            information helps to increase the accuracy of anti-money laundering
+            and fraud detection, and increase payment success rates.
+
+
+            More information:
+
+
+            Maximum length: 32 characters
+        merchantName:
+          type: string
+          description: >
+            The merchant name.
+
+
+            Note: Specify this field if you have the information. Providing this
+            information helps to increase the accuracy of anti-money laundering
+            and fraud detection, and increase payment success rates.
+
+
+            More information:
+
+
+            Maximum length: 256 characters
+        merchantDisplayName:
+          type: string
+          description: >-
+            The merchant name to be displayed.
+
+
+            Note: Specify this field if you have the information. Providing this
+            information helps to increase the accuracy of anti-money laundering
+            and fraud detection, and increase payment success rates.
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+        merchantAddress:
+          description: >-
+            Shipping address. 
+
+
+            Specify this parameter when one of the following conditions is met:
+
+
+            The value of paymentMethodType is PAGALEVE.
+
+            You require risk control.
+
+            Providing this information helps to increase the accuracy of
+            anti-money laundering and fraud detection, and increase payment
+            success rates.
+          $ref: '#/components/schemas/Address'
+        merchantRegisterDate:
+          type: string
+          description: >-
+            Merchant registration date.
+
+
+            Note: Specify this field if you have the information. Providing this
+            information helps to increase the accuracy of anti-money laundering
+            and fraud detection, and increase payment success rates.
+
+
+            More information:
+
+
+            The value follows the ISO 8601 standard format. For example,
+            "2019-11-27T12:01:01+08:00".
+        store:
+          $ref: '#/components/schemas/Store'
+        merchantType:
+          type: string
+          enum:
+            - INDIVIDUAL
+            - ENTERPRISE
+      required:
+        - referenceMerchantId
+    Shipping:
+      type: object
+      properties:
+        shippingName:
+          $ref: '#/components/schemas/UserName'
+          description: >-
+            The name of the recipient. 
+
+
+            Note: Specify this parameter if you require risk control. Providing
+            this information helps to increase the accuracy of anti-money
+            laundering and fraud detection, and increase payment success
+            rates.  
+        shippingAddress:
+          $ref: '#/components/schemas/Address'
+          description: Hotel address.
+        shippingCarrier:
+          type: string
+          description: >-
+            The delivery service provider for shipping a physical product, such
+            as FedEx, UPS, or USPS. 
+
+
+            Specify this parameter if you require risk control. Providing this
+            information helps to increase the accuracy of anti-money laundering
+            and fraud detection, and increase payment success rates.
+
+
+            More information:
+
+
+            Maximum length: 128 characters
+        shippingPhoneNo:
+          type: string
+          description: >-
+            The phone number of a recipient (including extension).
+
+
+            Specify this parameter when you require risk control. Providing this
+            information helps to increase the accuracy of anti-money laundering
+            and fraud detection, and increase payment success rates.
+
+
+            More information:
+
+
+            Maximum length: 16 characters
+        shipToEmail:
+          type: string
+          description: >-
+            The email address where virtual goods are sent.
+
+
+            Specify this parameter when one of the following conditions is met:
+
+
+            if you require risk control.
+
+            if you are a digital and entertainment merchant.
+
+            Providing this information helps to increase fraud and identity
+            theft detection.  
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+        shippingFeeId:
+          type: string
+          description: |-
+            The ID of the shipping fee used for identifying the shipping option.
+
+            More information:
+
+            Maximum length: 64 characters
+        shippingFee:
+          $ref: '#/components/schemas/Amount'
+          description: >-
+            The payment amount that the merchant requests to receive in the
+            order currency.
+        shippingDescription:
+          type: string
+          description: >-
+            Extended information about logistics-related services, including
+            shipping time, logistics companies, etc.
+
+
+            More information:
+
+
+            Maximum length: 64 characters
+        deliveryEstimate:
+          $ref: '#/components/schemas/DeliveryEstimate'
+          description: Estimated shipping time range.
+        shippingNumber:
+          type: string
+          description: Added field for shipping number
+        notes:
+          type: string
+          description: Added field for shipping notes
+    
+    Result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The result code.
+        resultStatus:
+          $ref: '#/components/schemas/ResultStatusType'
+        resultMessage:
+          type: string
+          description: The result message.
+      required:
+        - resultCode
+        - resultStatus
+    FundingType:
+      type: string
+      enum:
+      - CREDIT
+      - DEBIT
+      - PREPAID
+      - CHARGE
+      - DEFERRED_DEBIT
+      description: The funding source type for the payment method
+    ResultStatusType:
+      type:
+      - string
+      - 'null'
+      enum:
+      - S
+      - F
+      - U
+    CreateDirectPaymentResponses:
+      type: object
+      properties:
+        paymentId:
+          type: string
+        paymentRequestId:
+          type: string
+        payToMethod:
+          $ref: '#/components/schemas/PaymentMethod'
+        payFromAmount:
+          $ref: '#/components/schemas/Amount'
+        payToAmount:
+          $ref: '#/components/schemas/Amount'
+        paymentTime:
+          type: string
+        result:
+          $ref: '#/components/schemas/Result'
+      required:
+        - paymentId
+        - paymentRequestId
+        - payToMethod
+        - payFromAmount
+        - payToAmount
+        - paymentTime
+        - result
+    
+  responses: {}
+  securitySchemes: {}
+servers:
+  - url: https://open-sea-global.alipay.com/ams/aba/funds/createDirectPayment
+
+security: []

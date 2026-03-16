@@ -1,0 +1,171 @@
+---
+openapi: 3.1.0
+info:
+  title: aba/funds/createDirectRefund
+  description: ''
+  version: 1.0.0
+tags: []
+paths:
+  /ams/aba/funds/createDirectRefund:
+    post:
+      summary: createDirectRefund
+      deprecated: false
+      description: ''
+      tags: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDirectRefundRequest'
+            examples: {}
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDirectRefundResponses'
+          headers: {}
+      security: []
+webhooks: {}
+components:
+  schemas:
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: |-
+            The 3-letter currency code that follows the ISO 4217 standard. 
+
+            More information:
+
+            Maximum length: 3 characters
+        value:
+          type: string
+          description: >
+            The value of the amount as a positive integer in the smallest
+            currency unit. For example, if the currency is USD and the amount is
+            $1.00, set the value of this parameter to 100; or if the currency is
+            JPY and the amount is ￥1, set the value of this parameter to 1.  
+
+
+            For details about the smallest currency unit, see Smallest unit of
+            the currency .
+
+
+            For details about the minimum payment amount allowed for each
+            payment method, see Minimum amount rules. 
+
+
+            Note: Due to the currency practices in Indonesia, when the currency
+            is IDR, round the amount with banker's rounding and fix the last two
+            digits of this parameter as 00.  
+
+
+            More information:
+
+
+            Value range: 0 - unlimited
+      required:
+        - currency
+        - value
+    RefundFromMethod:
+      type: object
+      properties:
+        grantToken:
+          type: string
+          description: >-
+            Represents the authentication token received from the supplier, used
+            to authorize and securely perform fund deduction operations.
+        refundFromMethodType:
+          type: string
+          description: Represents the payment method type used by merchant during payment
+        customerId:
+          type: string
+          description: >-
+            The payee/supplier represented by ABA customer ID to get the refund
+            from
+      required:
+        - grantToken
+        - refundFromMethodType
+        - customerId
+    CreateDirectRefundRequest:
+      type: object
+      properties:
+        paymentId:
+          type: string
+        refundRequestId:
+          type: string
+        referenceRefundId:
+          type: string
+        refundFromMethod:
+          $ref: '#/components/schemas/RefundFromMethod'
+        refundFromAmount:
+          $ref: '#/components/schemas/Amount'
+        memo:
+          type: string
+        remark:
+          type: string
+        refundReason:
+          type: string
+        refundNotifyUrl:
+          type: string
+      required:
+        - paymentId
+        - refundRequestId
+        - refundFromMethod
+        - refundFromAmount
+    Result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: The result code.
+        resultStatus:
+          type: string
+          enum:
+            - S
+            - F
+            - U
+        resultMessage:
+          type: string
+          description: The result message.
+      required:
+        - resultCode
+        - resultStatus
+    CreateDirectRefundResponses:
+      type: object
+      properties:
+        paymentId:
+          type: string
+        refundId:
+          type: string
+        refundRequestId:
+          type: string
+        refundTime:
+          type: string
+        refundFromMethod:
+          $ref: '#/components/schemas/RefundFromMethod'
+        refundFromAmount:
+          $ref: '#/components/schemas/Amount'
+        refundToAmount:
+          $ref: '#/components/schemas/Amount'
+        result:
+          $ref: '#/components/schemas/Result'
+      required:
+        - paymentId
+        - refundId
+        - refundRequestId
+        - refundTime
+        - refundFromMethod
+        - refundFromAmount
+        - refundToAmount
+        - result
+  responses: {}
+  securitySchemes: {}
+servers:
+  - url: https://open-sea-global.alipay.com/ams/aba/funds/createDirectRefund
+security: []
