@@ -1,0 +1,312 @@
+---
+openapi: 3.1.0
+info:
+  title: aba/funds/inquireDirectPayment
+  description: ''
+  version: 1.0.0
+tags: []
+paths:
+  /ams/aba/funds/inquireDirectPayment:
+    post:
+      summary: inquireDirectPayment
+      deprecated: false
+      description: ''
+      tags: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InquireDirectPaymentRequest'
+            examples: {}
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquireDirectPaymentResponse'
+          headers: {}
+      security: []
+webhooks: {}
+components:
+  schemas:
+    InquireDirectPaymentRequest:
+      type: object
+      properties:
+        paymentId:
+          type: string
+          description: |-
+            The unique ID that is assigned by Antom to identify a payment. paymentRequestId and paymentId cannot both be null. A one-to-one correspondence between paymentId and paymentRequestId exists. If both paymentRequestId and paymentId are specified, paymentId takes precedence.
+
+            More information:
+
+            Maximum length: 64 characters
+        paymentRequestId:
+          type: string
+          description: |-
+            The unique ID that is assigned by a merchant to identify a payment request. paymentRequestId and paymentId cannot both be null. If both paymentRequestId and paymentId are specified, paymentId takes precedence.
+
+            More information:
+
+            Maximum length: 64 characters
+        merchantAccountId:
+          type: string
+          description: |-
+            The unique ID to identify a merchant account.
+
+            Note: Specify this parameter when you use a single client ID across multiple locations.
+
+            More information:
+
+            Maximum length: 32 characters
+      required:
+        - paymentId
+        - paymentRequestId
+    InquireDirectPaymentResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+          description: |-
+            The request result contains information such as status and error codes.
+
+            Note: This field does not indicate the payment result. This field only indicates whether the inquireDirectPayment interface is called successfully.
+        paymentStatus:
+          $ref: '#/components/schemas/TransactionStatusType'
+          description: |-
+            Transaction status. Valid values are:
+
+            SUCCESS: Transaction is successful.
+            FAIL: Transaction failed.
+            PROCESSING: Transaction is being processed.
+            CANCELLED: Transaction is canceled.
+            PENDING: Transaction is pending.
+
+            Note: This field is null when the payment record cannot be found, or result.resultStatus is F or U.
+
+            More information:
+
+            Maximum length: 16 characters
+        paymentResultCode:
+          type: string
+          description: |-
+            The result code for different payment statuses. Possible payment result codes are listed in the Payment result codes table on this page.
+
+            Note: This field is returned when the API is called successfully (the value of result.resultStatus is S).
+
+            More information:
+
+            Maximum length: 64 characters
+        paymentResultMessage:
+          type: string
+          description: |-
+            The result message that explains the payment result code.
+
+            Note: This field is returned when the API is called successfully (the value of result.resultStatus is S).
+
+            More information:
+
+            Maximum length: 256 characters
+        paymentId:
+          type: string
+          description: |-
+            The unique ID that is assigned by Antom to identify a payment. A one-to-one correspondence between paymentId and paymentRequestId exists.
+
+            Note: This field is null when the payment record cannot be found, or result.resultStatus is F or U.
+
+            More information:
+
+            Maximum length: 64 characters
+        paymentRequestId:
+          type: string
+          description: |-
+            The unique ID that is assigned by the merchant to identify a payment request.
+
+            Note: This field is null when the payment record cannot be found, or result.resultStatus is F or U.
+
+            More information:
+
+            Maximum length: 64 characters
+        payToMethod:
+          $ref: '#/components/schemas/PaymentMethod'
+          description: The payment method information.
+        paymentAmount:
+          $ref: '#/components/schemas/Amount'
+          description: |-
+            The payment amount that is initiated by the merchant.
+
+            Note: This field is null when the payment record cannot be found, or result.resultStatus is F or U.
+        payToAmount:
+          $ref: '#/components/schemas/Amount'
+          description: |-
+            The actual amount received.
+
+            Note: This field is null when the payment record cannot be found, or result.resultStatus is F or U.
+        paymentTime:
+          type: string
+          description: |-
+            The date and time when the payment reaches a final state of success on the Antom side.
+
+            Note: This field is returned when the value of paymentStatus is SUCCESS.
+
+            More information:
+
+            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".
+      required:
+        - result
+        - paymentStatus
+        - paymentId
+        - paymentRequestId
+        - paymentTime
+    TransactionStatusType:
+      type: string
+      enum:
+        - SUCCESS
+        - FAIL
+        - PROCESSING
+        - CANCELLED
+        - PENDING
+    ResultStatusType:
+      type: string
+      enum:
+        - S
+        - F
+        - U
+    Result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: |-
+            Result code.
+
+            More information:
+
+            Maximum length: 64 characters
+        resultStatus:
+          $ref: '#/components/schemas/ResultStatusType'
+          description: |-
+            Result status. Valid values are:
+
+            S: Indicates that the result status is successful.
+            F: Indicates that the result status is failed.
+            U: Indicates that the result status is unknown.
+
+            More information:
+
+            Maximum length: 1 character
+        resultMessage:
+          type: string
+          description: |-
+            Result message.
+
+            More information:
+
+            Maximum length: 256 characters
+      required:
+        - resultCode
+        - resultStatus
+        - resultMessage
+    PaymentMethod:
+      type: object
+      properties:
+        paymentMethodType:
+          type: string
+          description: |-
+            The payment method type that is included in payment method options. By specifying the value of this parameter, you can receive the cashier URL of the specified payment method returned by Alipay. See Payment methods to check the valid values.
+
+            More information:
+
+            Maximum length: 64 characters
+        paymentMethodId:
+          type: string
+          description: |-
+            The unique ID that is used to identify a payment method. The value of this parameter is that of cardToken obtained from the notifyPayment or inquiryPayment API.
+
+            Specify this parameter when the value of paymentMethodType is CARD.
+
+            More information:
+
+            Maximum length: 128 characters
+        funding:
+          type: string
+          enum:
+            - CREDIT
+            - DEBIT
+            - PREPAID
+            - CHARGE
+            - DEFERRED_DEBIT
+          description: The funding source type for the payment method.
+        customerId:
+          type: string
+          description: |-
+            The unique ID to identify a buyer.
+
+            Note: Specify this field if you have the information. Providing this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.
+        extendInfo:
+          type: string
+          description: |-
+            Extended information.
+
+            Note: Specify this field if you need to use the extended information.
+
+            More information:
+
+            Maximum length: 2048 characters
+        requireIssuerAuthentication:
+          type: boolean
+          description: |-
+            Indicates whether Korean card transactions require authentication from the issuing bank. Valid values are:
+
+            true: indicates that Korean card transactions require authentication from the issuing bank.
+            false: indicates that Korean card transactions do not require authentication from the issuing bank. The same applies when you do not specify this parameter or the value is empty.
+
+            Specify this parameter when all the following conditions are met:
+
+            The value of paymentMethodType is CARD.
+            The value of paymentMethodRegion is KR.
+            The Korean card transactions require issuer authentication.
+        paymentMethodMetaData:
+          type: object
+          properties: {}
+          additionalProperties:
+            type: object
+          description: Additional information required for some specific payment methods.
+      required:
+        - paymentMethodType
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: |-
+            The 3-letter currency code that follows the ISO 4217 standard.
+
+            More information:
+
+            Maximum length: 3 characters
+        value:
+          type: string
+          description: |-
+            The value of the amount as a positive integer in the smallest currency unit. For example, if the currency is USD and the amount is $1.00, set the value of this parameter to 100; or if the currency is JPY and the amount is ￥1, set the value of this parameter to 1.
+
+            For details about the smallest currency unit, see Smallest unit of the currency.
+
+            For details about the minimum payment amount allowed for each payment method, see Minimum amount rules.
+
+            Note: Due to the currency practices in Indonesia, when the currency is IDR, round the amount with banker's rounding and fix the last two digits of this parameter as 00.
+
+            More information:
+
+            Value range: 0 - unlimited
+      required:
+        - currency
+        - value
+  responses: {}
+  securitySchemes: {}
+servers:
+  - url: https://open-sea-global.alipay.com/ams/aba/funds/inquireDirectPayment
+    description: 正式环境
+security: []
