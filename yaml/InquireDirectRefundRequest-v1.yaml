@@ -26,7 +26,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InquireDirectRefundResponses'
+                $ref: '#/components/schemas/InquireDirectRefundResponse'
           headers: {}
       security: []
 webhooks: {}
@@ -170,7 +170,7 @@ components:
         - resultCode
         - resultStatus
         - resultMessage
-    InquireDirectRefundResponses:
+    InquireDirectRefundResponse:
       type: object
       properties:
         refundStatus:

@@ -26,7 +26,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateDirectRefundResponses'
+                $ref: '#/components/schemas/CreateDirectRefundResponse'
           headers: {}
       security: []
 webhooks: {}
@@ -136,7 +136,7 @@ components:
       required:
         - resultCode
         - resultStatus
-    CreateDirectRefundResponses:
+    CreateDirectRefundResponse:
       type: object
       properties:
         paymentId:

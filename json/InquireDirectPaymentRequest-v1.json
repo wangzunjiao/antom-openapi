@@ -31,7 +31,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/InquireDirectPaymentResponses"
+                  "$ref": "#/components/schemas/InquireDirectPaymentResponse"
                 }
               }
             },
@@ -62,7 +62,7 @@
           "paymentRequestId"
         ]
       },
-      "InquireDirectPaymentResponses": {
+      "InquireDirectPaymentResponse": {
         "type": "object",
         "properties": {
           "paymentStatus": {

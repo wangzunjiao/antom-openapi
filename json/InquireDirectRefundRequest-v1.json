@@ -31,7 +31,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/InquireDirectRefundResponses"
+                  "$ref": "#/components/schemas/InquireDirectRefundResponse"
                 }
               }
             },
@@ -140,7 +140,7 @@
           "PENDING"
         ]
       },
-      "InquireDirectRefundResponses": {
+      "InquireDirectRefundResponse": {
         "type": "object",
         "properties": {
           "refundStatus": {
