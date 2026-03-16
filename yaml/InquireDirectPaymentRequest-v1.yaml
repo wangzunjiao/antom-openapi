@@ -17,7 +17,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/InquireDirectPaymentRequest'
+              $ref: '#/components/schemas/AlipayInquireDirectPaymentRequest'
             examples: {}
         required: true
       responses:
@@ -26,13 +26,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InquireDirectPaymentResponse'
+                $ref: '#/components/schemas/AlipayInquireDirectPaymentResponse'
           headers: {}
       security: []
 webhooks: {}
 components:
   schemas:
-    InquireDirectPaymentRequest:
+    AlipayInquireDirectPaymentRequest:
       type: object
       properties:
         paymentId:
@@ -64,7 +64,7 @@ components:
       required:
         - paymentId
         - paymentRequestId
-    InquireDirectPaymentResponse:
+    AlipayInquireDirectPaymentResponse:
       type: object
       properties:
         result:

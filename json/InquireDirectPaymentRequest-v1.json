@@ -18,7 +18,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InquireDirectPaymentRequest"
+                "$ref": "#/components/schemas/AlipayInquireDirectPaymentRequest"
               },
               "examples": {}
             }
@@ -31,7 +31,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/InquireDirectPaymentResponse"
+                  "$ref": "#/components/schemas/AlipayInquireDirectPaymentResponse"
                 }
               }
             },
@@ -45,7 +45,7 @@
   "webhooks": {},
   "components": {
     "schemas": {
-      "InquireDirectPaymentRequest": {
+      "AlipayInquireDirectPaymentRequest": {
         "type": "object",
         "properties": {
           "paymentId": {
@@ -62,7 +62,7 @@
           "paymentRequestId"
         ]
       },
-      "InquireDirectPaymentResponse": {
+      "AlipayInquireDirectPaymentResponse": {
         "type": "object",
         "properties": {
           "paymentStatus": {

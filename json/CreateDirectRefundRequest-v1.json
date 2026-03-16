@@ -18,7 +18,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateDirectRefundRequest"
+                "$ref": "#/components/schemas/AlipayCreateDirectRefundRequest"
               },
               "examples": {}
             }
@@ -31,7 +31,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateDirectRefundResponse"
+                  "$ref": "#/components/schemas/AlipayCreateDirectRefundResponse"
                 }
               }
             },
@@ -93,7 +93,7 @@
           "customerId"
         ]
       },
-      "CreateDirectRefundRequest": {
+      "AlipayCreateDirectRefundRequest": {
         "type": "object",
         "properties": {
           "paymentId": {
@@ -161,7 +161,7 @@
           "resultStatus"
         ]
       },
-      "CreateDirectRefundResponse": {
+      "AlipayCreateDirectRefundResponse": {
         "type": "object",
         "properties": {
           "paymentId": {

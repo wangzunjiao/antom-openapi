@@ -17,7 +17,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/InquireDirectRefundRequest'
+              $ref: '#/components/schemas/AlipayInquireDirectRefundRequest'
             examples: {}
         required: true
       responses:
@@ -26,13 +26,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InquireDirectRefundResponse'
+                $ref: '#/components/schemas/AlipayInquireDirectRefundResponse'
           headers: {}
       security: []
 webhooks: {}
 components:
   schemas:
-    InquireDirectRefundRequest:
+    AlipayInquireDirectRefundRequest:
       type: object
       properties:
         refundId:
@@ -170,7 +170,7 @@ components:
         - resultCode
         - resultStatus
         - resultMessage
-    InquireDirectRefundResponse:
+    AlipayInquireDirectRefundResponse:
       type: object
       properties:
         refundStatus:

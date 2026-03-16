@@ -18,7 +18,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/InquireDirectRefundRequest"
+                "$ref": "#/components/schemas/AlipayInquireDirectRefundRequest"
               },
               "examples": {}
             }
@@ -31,7 +31,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/InquireDirectRefundResponse"
+                  "$ref": "#/components/schemas/AlipayInquireDirectRefundResponse"
                 }
               }
             },
@@ -45,7 +45,7 @@
   "webhooks": {},
   "components": {
     "schemas": {
-      "InquireDirectRefundRequest": {
+      "AlipayInquireDirectRefundRequest": {
         "type": "object",
         "properties": {
           "refundId": {
@@ -140,7 +140,7 @@
           "PENDING"
         ]
       },
-      "InquireDirectRefundResponse": {
+      "AlipayInquireDirectRefundResponse": {
         "type": "object",
         "properties": {
           "refundStatus": {

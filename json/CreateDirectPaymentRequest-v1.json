@@ -18,7 +18,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateDirectPaymentRequest"
+                "$ref": "#/components/schemas/AlipayCreateDirectPaymentRequest"
               },
               "example": {}
             }
@@ -31,7 +31,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateDirectPaymentResponse"
+                  "$ref": "#/components/schemas/AlipayCreateDirectPaymentResponse"
                 }
               }
             },
@@ -45,7 +45,7 @@
   "webhooks": {},
   "components": {
     "schemas": {
-      "CreateDirectPaymentRequest": {
+      "AlipayCreateDirectPaymentRequest": {
         "type": "object",
         "properties": {
           "paymentRequestId": {
@@ -965,7 +965,7 @@
           "resultStatus"
         ]
       },
-      "CreateDirectPaymentResponse": {
+      "AlipayCreateDirectPaymentResponse": {
         "type": "object",
         "properties": {
           "paymentId": {
