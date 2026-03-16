@@ -1,0 +1,288 @@
+---
+openapi: 3.1.0
+info:
+  title: aba/funds/inquireDirectRefund
+  description: ''
+  version: 1.0.0
+tags: []
+paths:
+  /ams/aba/funds/inquireDirectRefund:
+    post:
+      summary: inquireDirectRefund
+      deprecated: false
+      description: ''
+      tags: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InquireDirectRefundRequest'
+            examples: {}
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InquireDirectRefundResponses'
+          headers: {}
+      security: []
+webhooks: {}
+components:
+  schemas:
+    InquireDirectRefundRequest:
+      type: object
+      properties:
+        refundId:
+          type: string
+          description: |-
+            The unique ID assigned by Antom to identify a refund. refundRequestId and refundId cannot both be null. A one-to-one correspondence between refundId and refundRequestId exists. If both refundRequestId and refundId are specified, refundId takes precedence.
+
+            More information:
+
+            Maximum length: 64 characters
+        refundRequestId:
+          type: string
+          description: |-
+            The unique ID assigned by a merchant to identify a refund request. refundRequestId and refundId cannot both be null. Special characters are not supported. If both refundRequestId and refundId are specified, refundId takes precedence.
+
+            More information:
+
+            Maximum length: 64 characters
+        merchantAccountId:
+          type: string
+          description: |-
+            The unique ID to identify a merchant account.
+
+            Note: Specify this parameter when you use a single client ID across multiple locations.
+
+            More information:
+
+            Maximum length: 32 characters
+    TransactionStatusType:
+      type: string
+      enum:
+        - SUCCESS
+        - FAIL
+        - PROCESSING
+        - CANCELLED
+        - PENDING
+    ResultStatusType:
+      type: string
+      enum:
+        - S
+        - F
+        - U
+    RefundFromMethod:
+      type: object
+      properties:
+        grantToken:
+          type: string
+          description: >-
+            Represents the authentication token received from the supplier, used
+            to authorize and securely perform fund deduction operations.
+        refundFromMethodType:
+          type: string
+          description: Represents the payment method type used by merchant during payment
+        customerId:
+          type: string
+          description: >-
+            The payee/supplier represented by ABA customer ID to get the refund
+            from
+      required:
+        - grantToken
+        - refundFromMethodType
+        - customerId
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: |-
+            The 3-letter currency code that follows the ISO 4217 standard. 
+
+            More information:
+
+            Maximum length: 3 characters
+        value:
+          type: string
+          description: >
+            The value of the amount as a positive integer in the smallest
+            currency unit. For example, if the currency is USD and the amount is
+            $1.00, set the value of this parameter to 100; or if the currency is
+            JPY and the amount is ￥1, set the value of this parameter to 1.  
+
+
+            For details about the smallest currency unit, see Smallest unit of
+            the currency .
+
+
+            For details about the minimum payment amount allowed for each
+            payment method, see Minimum amount rules. 
+
+
+            Note: Due to the currency practices in Indonesia, when the currency
+            is IDR, round the amount with banker's rounding and fix the last two
+            digits of this parameter as 00.  
+
+
+            More information:
+
+
+            Value range: 0 - unlimited
+      required:
+        - currency
+        - value
+    Result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: |-
+            Result code.
+
+            More information:
+
+            Maximum length: 64 characters
+        resultStatus:
+          $ref: '#/components/schemas/ResultStatusType'
+          description: |-
+            Result status. Valid values are:
+
+            S: Indicates that the result status is successful.
+            F: Indicates that the result status is failed.
+            U: Indicates that the result status is unknown.
+
+            More information:
+
+            Maximum length: 1 character
+        resultMessage:
+          type: string
+          description: |-
+            Result message.
+
+            More information:
+
+            Maximum length: 256 characters
+      required:
+        - resultCode
+        - resultStatus
+        - resultMessage
+    InquireDirectRefundResponses:
+      type: object
+      properties:
+        refundStatus:
+          $ref: '#/components/schemas/TransactionStatusType'
+          description: |-
+            Indicates the final status of the Antom refund. Valid values are:
+
+            SUCCESS: Indicates the refund is successful.
+            FAIL: Indicates the refund failed.
+            PROCESSING: Indicates the refund is still under process.
+            CANCELLED: Indicates the refund is canceled.
+            PENDING: Indicates the refund is pending.
+
+            Note: This field is null when the refund record cannot be found, or result.resultStatus is F or U.
+
+            More information:
+
+            Maximum length: 16 characters
+        refundResultCode:
+          type: string
+          description: |-
+            The result code for different refund statuses.
+
+            Note: This field is returned when the API is called successfully (the value of result.resultStatus is S).
+
+            More information:
+
+            Maximum length: 64 characters
+        refundResultMessage:
+          type: string
+          description: |-
+            The result message that explains the refund result code.
+
+            Note: This field is returned when the API is called successfully (the value of result.resultStatus is S).
+
+            More information:
+
+            Maximum length: 256 characters
+        refundId:
+          type: string
+          description: |-
+            The unique ID assigned by Antom to identify a refund. A one-to-one correspondence between refundId and refundRequestId exists.
+
+            Note: This field is null when the refund record cannot be found, or result.resultStatus is F or U.
+
+            More information:
+
+            Maximum length: 64 characters
+        paymentId:
+          type: string
+          description: |-
+            The unique ID assigned by Antom for the original payment to be refunded.
+
+            Note: This field is null when the refund record cannot be found, or result.resultStatus is F or U.
+
+            More information:
+
+            Maximum length: 64 characters
+        refundRequestId:
+          type: string
+          description: |-
+            The unique ID assigned by the merchant to identify a refund request.
+
+            Note: This field is null when the refund record cannot be found, or result.resultStatus is F or U.
+
+            More information:
+
+            Maximum length: 64 characters
+        refundTime:
+          type: string
+          description: |-
+            The date and time when the refund reaches a final state of success on the Antom side.
+
+            Note: This field is returned when the value of refundStatus is SUCCESS.
+
+            More information:
+
+            The value follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".
+        refundFromMethod:
+          $ref: '#/components/schemas/RefundFromMethod'
+          description: The refund from method information.
+        refundToAmount:
+          $ref: '#/components/schemas/Amount'
+          description: |-
+            The actual amount to be refunded to the customer.
+
+            Note: This field is null when the refund record cannot be found, or result.resultStatus is F or U.
+        refundFromAmount:
+          $ref: '#/components/schemas/Amount'
+          description: |-
+            The refund amount that is initiated by the merchant.
+
+            Note: This field is null when the refund record cannot be found, or result.resultStatus is F or U.
+        result:
+          $ref: '#/components/schemas/Result'
+          description: |-
+            The request result contains information such as status and error codes.
+
+            Note: This field does not indicate the refund result. This field only indicates whether the inquireDirectRefund interface is called successfully.
+      required:
+        - refundStatus
+        - refundId
+        - paymentId
+        - refundRequestId
+        - refundTime
+        - refundFromMethod
+        - refundToAmount
+        - refundFromAmount
+        - result
+  responses: {}
+  securitySchemes: {}
+servers:
+  - url: https://open-sea-global.alipay.com/ams/aba/funds/inquireDirectRefund
+security: []
+
