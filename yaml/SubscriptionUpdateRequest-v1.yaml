@@ -77,7 +77,6 @@ components:
       - value
     ProrationSettings:
       type: object
-      description: 差价处理字段。有差价处理需求场景传，否则不用传
       properties:
         prorationMode:
           type: string
