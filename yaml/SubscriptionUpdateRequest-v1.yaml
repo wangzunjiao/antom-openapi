@@ -196,7 +196,6 @@ components:
             purposes such as purchase tracking and regulatory reporting.'
         prorationSettings:
           $ref: '#/components/schemas/ProrationSettings'
-          description: 差价处理字段。有差价处理需求场景传，否则不用传
         nextSubscriptionDate:
           type: string
           description: "商户指定的下次扣款时间。遵循ISO 8601标准。\ \
