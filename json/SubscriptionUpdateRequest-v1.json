@@ -64,6 +64,24 @@
           "resultMessage"
         ]
       },
+      "ProrationSettings": {
+        "type": "object",
+        "description": "差价处理字段。有差价处理需求场景传，否则不用传",
+        "properties": {
+          "prorationMode": {
+            "type": "string",
+            "description": "用于标识\"扣差价\"或者\"退差价\"场景。有差价处理需求场景必传。\n\n取值范围：\n- IMMEDIATE_PAY_CUSTOM_AMOUNT：商户指定金额扣款模式，在这个模式下商户可以用customAmount的指定金额扣差价，差价需要商户提前算好\n- IMMEDIATE_REFUND_CUSTOM_AMOUNT：商户指定金额退款模式，在这个模式下商户可以用customAmount的指定金额来退差价，差价需要商户提前算好",
+            "enum": [
+              "IMMEDIATE_PAY_CUSTOM_AMOUNT",
+              "IMMEDIATE_REFUND_CUSTOM_AMOUNT"
+            ]
+          },
+          "customAmount": {
+            "$ref": "#/components/schemas/Amount",
+            "description": "差价金额object。prorationMode为IMMEDIATE_PAY_CUSTOM_AMOUNT或IMMEDIATE_REFUND_CUSTOM_AMOUNT时必传"
+          }
+        }
+      },
       "Amount": {
         "type": "object",
         "properties": {
@@ -165,6 +183,14 @@
           "orderInfo": {
             "$ref": "#/components/schemas/OrderInfo",
             "description": "The order information of the subscription. This field is used for different purposes:\n\nDuring the payment process, this field is mainly used by Antom for risk control or anti-money laundering.\nAfter the payment is completed, this field is used for recording and reporting purposes such as purchase tracking and regulatory reporting."
+          },
+          "prorationSettings": {
+            "$ref": "#/components/schemas/ProrationSettings",
+            "description": "差价处理字段。有差价处理需求场景传，否则不用传"
+          },
+          "nextSubscriptionDate": {
+            "type": "string",
+            "description": "商户指定的下次扣款时间。遵循ISO 8601标准。\n\n允许更改的时间要在一个周期内。\n\n注意：由于订阅产品会在履约时间24小时前开始尝试扣款，商户指定的下次扣款时间至少要在当前时间的24小时之后。如商户指定的下次扣款时间小于当前时间的24小时，预期订阅升级失败并返回PROCCESS_FAIL错误码。"
           }
         },
         "required": [
