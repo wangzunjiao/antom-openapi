@@ -377,6 +377,9 @@ components:
           description: The reason description provided by the acquirer
         ptspTransactionId:
           type: string
+        acquirerCardToken:
+          type: string
+          description: "The card token assigned by the acquirer for card tokenization.\n\nNote: This parameter is returned if you integrate the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
     PromotionType:
       type: string
       enum:
