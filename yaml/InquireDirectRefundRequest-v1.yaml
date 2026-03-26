@@ -283,6 +283,6 @@ components:
   responses: {}
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/aba/funds/inquireDirectRefund
+  - url: https://open-sea-global.alipay.com/ams/api/v1/aba/funds/inquireDirectRefund
 security: []
 

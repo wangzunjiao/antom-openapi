@@ -167,5 +167,5 @@ components:
   responses: {}
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/aba/funds/createDirectRefund
+  - url: https://open-sea-global.alipay.com/ams/api/v1/aba/funds/createDirectRefund
 security: []

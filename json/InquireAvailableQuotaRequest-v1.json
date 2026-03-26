@@ -124,7 +124,7 @@
   },
   "servers": [
     {
-      "url": "https://open-sea-global.alipay.com/ams/v1/aba/account/inquireAvailableQuota",
+      "url": "https://open-sea-global.alipay.com/ams/api/v1/aba/account/inquireAvailableQuota",
       "description": "\u6b63\u5f0f\u73af\u5883"
     }
   ]

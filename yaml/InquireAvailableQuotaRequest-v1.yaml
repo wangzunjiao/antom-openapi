@@ -96,4 +96,4 @@ components:
         - resultCode
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/v1/aba/account/inquireAvailableQuota
+  - url: https://open-sea-global.alipay.com/ams/api/v1/aba/account/inquireAvailableQuota

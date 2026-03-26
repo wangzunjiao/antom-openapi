@@ -307,6 +307,6 @@ components:
   responses: {}
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/aba/funds/inquireDirectPayment
+  - url: https://open-sea-global.alipay.com/ams/api/v1/aba/funds/inquireDirectPayment
     description: 正式环境
 security: []
