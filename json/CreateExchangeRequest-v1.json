@@ -7,7 +7,7 @@
   },
   "tags": [],
   "paths": {
-    "/ams/v1/aba/funds/createExchange": {
+    "/ams/api/v1/aba/funds/createExchange": {
       "post": {
         "summary": "createExchange",
         "deprecated": false,

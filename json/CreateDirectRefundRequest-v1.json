@@ -7,7 +7,7 @@
   },
   "tags": [],
   "paths": {
-    "/ams/aba/funds/createDirectRefund": {
+    "/ams/api/v1/aba/funds/createDirectRefund": {
       "post": {
         "summary": "createDirectRefund",
         "deprecated": false,

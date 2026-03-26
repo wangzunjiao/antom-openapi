@@ -7,7 +7,7 @@
   },
   "tags": [],
   "paths": {
-    "/ams/aba/funds/inquireDirectPayment": {
+    "/ams/api/v1/aba/funds/inquireDirectPayment": {
       "post": {
         "summary": "inquireDirectPayment",
         "deprecated": false,

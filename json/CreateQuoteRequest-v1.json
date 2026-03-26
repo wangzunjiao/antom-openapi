@@ -7,7 +7,7 @@
   },
   "tags": [],
   "paths": {
-    "/ams/v1/aba/funds/createQuote": {
+    "/ams/api/v1/aba/funds/createQuote": {
       "post": {
         "summary": "createQuote",
         "deprecated": false,

@@ -7,7 +7,7 @@
   },
   "tags": [],
   "paths": {
-    "/ams/v1/aba/funds/inquireExchange": {
+    "/ams/api/v1/aba/funds/inquireExchange": {
       "post": {
         "summary": "inquireExchange",
         "deprecated": false,

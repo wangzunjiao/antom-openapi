@@ -5,7 +5,7 @@ info:
   version: 1.0.0
 tags: []
 paths:
-  /ams/v1/subscriptions/inquiry:
+  /ams/api/v1/subscriptions/inquiry:
     post:
       summary: subscriptions/inquiry
       deprecated: false

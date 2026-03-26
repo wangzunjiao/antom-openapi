@@ -7,7 +7,7 @@
   },
   "tags": [],
   "paths": {
-    "/ams/v1/aba/accounts/inquiryBalance": {
+    "/ams/api/v1/aba/accounts/inquiryBalance": {
       "post": {
         "summary": "inquiryBalance",
         "deprecated": false,

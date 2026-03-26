@@ -7,7 +7,7 @@
   },
   "tags": [],
   "paths": {
-    "/ams/v1/aba/account/inquireAvailableQuota": {
+    "/ams/api/v1/aba/account/inquireAvailableQuota": {
       "post": {
         "summary": "inquireAvailableQuota",
         "deprecated": false,

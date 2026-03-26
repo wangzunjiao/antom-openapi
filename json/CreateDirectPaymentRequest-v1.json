@@ -7,7 +7,7 @@
   },
   "tags": [],
   "paths": {
-    "/ams/aba/funds/createDirectPayment": {
+    "/ams/api/v1/aba/funds/createDirectPayment": {
       "post": {
         "summary": "createDirectPayment",
         "deprecated": false,

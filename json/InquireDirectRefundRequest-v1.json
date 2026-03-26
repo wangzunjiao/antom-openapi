@@ -7,7 +7,7 @@
   },
   "tags": [],
   "paths": {
-    "/ams/aba/funds/inquireDirectRefund": {
+    "/ams/api/v1/aba/funds/inquireDirectRefund": {
       "post": {
         "summary": "inquireDirectRefund",
         "deprecated": false,
