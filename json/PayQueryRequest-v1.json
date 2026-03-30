@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "payments_ inquiryPayment",
-    "description": "",
+    "description": "Use this API to inquire about the transaction status and other information about a previously submitted payment request.\n\n",
     "version": "1.0.0"
   },
   "tags": [],
@@ -150,7 +150,8 @@
         },
         "required": [
           "actionFormType",
-          "redirectUrl"
+          "redirectUrl",
+          "method"
         ]
       },
       "PaymentResultInfo": {
@@ -245,7 +246,7 @@
           },
           "cardCategory": {
             "type": "string",
-            "description": "Added field for card category"
+            "description": "The payment card category. Valid vaules are:\n\nCONSUMER: the personal card\nCOMMERCIAL: the business card"
           },
           "accountNo": {
             "type": "string",
@@ -253,11 +254,11 @@
           },
           "exemptionRequested": {
             "type": "string",
-            "description": "Added field for exemption requested"
+            "description": "The exemption type that Antom requested for in the payment authorization. Valid values are:\n\nlowValue: Transactions below €30 may be exempt from Strong Customer Authentication, if certain cumulative amount and transaction count criteria are met.\ntransactionRiskAnalysis: Transactions considered at low risk of fraud based on the fraud level of the payment provider."
           },
           "credentialTypeUsed": {
             "type": "string",
-            "description": "Added field for credential type used"
+            "description": "Indicates whether the transaction was processed with the primary account number (PAN) or a network token.\n\nPAN: The transaction was processed using the PAN.\nNETWORK_TOKEN: The transaction was processed using a network token provided by the merchant or Antom."
           },
           "rrn": {
             "type": "string",
@@ -390,45 +391,50 @@
         "properties": {
           "threeDSVersion": {
             "type": "string",
-            "description": "The version of 3D Secure protocol"
+            "description": "The version of 3D Secure protocol. Valid values are:\n\n1.0.2\n2.1.0\n2.2.0  "
           },
           "eci": {
             "type": "string",
-            "description": "Electronic Commerce Indicator (ECI) that is returned by the card scheme"
+            "description": "Electronic Commerce Indicator (ECI) that is returned by the card scheme. This parameter is used to indicate the type of cardholder identity authentication. Valid values are:\n\n02 or 05: Indicates fully authenticated transaction.\n01 or 06: Indicates attempted authentication transaction.\n00 or 07: Indicates non-3D Secure transaction.\n04: Indicates 3D Secure data-only transaction. No authentication required (for Mastercard only).\nNote: This parameter is returned when the value of paymentMethodType is CARD and the issuing bank returns this data."
           },
           "cavv": {
             "type": "string",
-            "description": "The cardholder authentication value"
+            "description": "The cardholder authentication value. The value of this parameter can be Cardholder Authentication Verification Value (CAVV) or Authentication Verification Value (AVV).\n\nNote: This parameter is returned when the cardholder passes the 3D Secure authentication."
           },
           "dsTransactionId": {
             "type": "string",
-            "description": "dsTransactionId"
+            "description": "The unique transaction identifier assigned by the Directory Server (DS) for 3D Secure authentication.  \n\nNote: This parameter is returned for 3D Secure 2.0."
           },
           "xid": {
             "type": "string",
-            "description": "The unique transaction identifier assigned by the Directory Server (DS) for 3D Secure authentication"
+            "description": "The unique transaction identifier assigned by the Directory Server (DS) for 3D Secure authentication.   \n\nNote: This parameter is returned for 3D Secure 1.0. "
           },
           "threeDStransactionStatusReason": {
             "type": "string",
-            "description": "Added field for 3DS transaction status reason"
+            "description": "When a transaction is unsuccessful due to 3D Secure authentication failure, you may receive the transaction status reason code returned by this parameter, indicating the reason for the failure."
           },
           "challengeCancel": {
             "type": "string",
-            "description": "Added field for challenge cancel"
+            "description": "Indicator informing the Access Control Server (ACS) and the Directory Server (DS) that the authentication has been cancelled. Possible values are:\n\n01: Cardholder selected cancel.\n02: 3DS Requestor cancelled authentication.\n03: Transaction abandoned.\n04: Transaction timed out at ACS — other timeouts.\n05: Transaction timed out at ACS — the first Client Request not received by ACS.\n06: Transaction error.\n07: Unknown.\n08: Transaction timed out at SDK."
           },
           "challenged": {
             "type": "boolean",
-            "description": "Added field for challenged status"
+            "description": "Indicates whether a 3DS challenge was triggered. Valid values are:\n\ntrue: The transaction has been challenged, and the user is required to complete the 3D Secure authentication process.\nfalse: The transaction is a frictionless process, where the user does not experience the 3D Secure authentication process."
           },
           "exemptionType": {
             "type": "string",
-            "description": "Added field for exemption type"
+            "description": "The exemption type that Antom requested during 3DS authentication, specified through the 3DS requestor challenge indicator. Valid values are:\n\ndataOnly: Transactions where shopper data is shared with the card schemes directly using the 3DS2 infrastructure. This flow is currently only available for Visa and Mastercard outside PSD2 SCA regulated markets.\nlowValue: Transactions below €30 may be exempt from Strong Customer Authentication, if certain cumulative amount and transaction count criteria are met.\ntransactionRiskAnalysis: Transactions considered at low risk of fraud based on the fraud level of the payment provider."
           },
           "threeDSOffered": {
             "type": "boolean",
-            "description": "Added field for 3DS offered"
+            "description": "Indicates whether 3D Secure authentication was triggered for the payment. Valid values are:\n\ntrue: indicates 3D Secure authentication was triggered for the payment. Determine the authentication result by combining the other returned 3D Secure parameters.\nfalse: indicates 3D Secure authentication was not triggered for the payment.\nNote: This parameter may be returned even if the payment fails."
           }
-        }
+        },
+        "required": [
+          "threeDSVersion",
+          "eci",
+          "challenged"
+        ]
       },
       "CardInfo": {
         "type": "object",
@@ -666,7 +672,8 @@
             "description": "The transaction amount. \n\nWhen the transaction type is REFUND, the value of this parameter is identical to refundAmount.\nWhen the transaction type is CAPTURE, the value of this parameter is identical to captureAmount.  "
           },
           "settlementQuote": {
-            "$ref": "#/components/schemas/Quote"
+            "$ref": "#/components/schemas/Quote",
+            "description": "The exchange rate between the settlement currency and transaction currency.\n\nNote: This field is returned when grossSettlementAmount is returned."
           },
           "paymentResultInfo": {
             "$ref": "#/components/schemas/PaymentResultInfo",
@@ -676,7 +683,8 @@
             "$ref": "#/components/schemas/AcquirerInfo"
           },
           "merchantAccountId": {
-            "type": "string"
+            "type": "string",
+            "description": "The unique ID to identify a merchant account.\n\nNote: Specify this parameter when you use a single client ID across multiple locations."
           },
           "promotionResults": {
             "type": "array",

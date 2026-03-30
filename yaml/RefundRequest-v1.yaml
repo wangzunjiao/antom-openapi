@@ -4,19 +4,23 @@ info:
   title: payments_refund
   description: ''
   version: 1.0.0
-tags: []
+tags: [ ]
 paths:
   /ams/api/v1/payments/refund:
     post:
       summary: refund
       deprecated: false
-      description: 'Use this API to get the cashier page address. After getting the
-        cashier page address, you can redirect the user to the cashier page to make
-        a payment.
+      description: '
+      Use this API to initiate a refund against a successful payment. The refund can be full or partial.
+       A transaction can have multiple refunds as long as the total refund amount is less than or equal to the original transaction amount. 
+       If the refund request is out of the refund window determined in the contract, the refund request will be declined.
+
+  Note: Use the same refundRequestId field to retry a refund in case of timeout or when the returned resultStatus is ​U​. The refundRequestId field is designed to be idempotent. 
+
 
         '
-      tags: []
-      parameters: []
+      tags: [ ]
+      parameters: [ ]
       requestBody:
         content:
           application/json:
@@ -30,8 +34,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AlipayRefundResponse'
-          headers: {}
-      security: []
+          headers: { }
+      security: [ ]
 components:
   schemas:
     Quote:
@@ -69,8 +73,8 @@ components:
           $ref: '#/components/schemas/Amount'
           description: Added field for exchange amount
       required:
-      - quoteCurrencyPair
-      - quotePrice
+        - quoteCurrencyPair
+        - quotePrice
     AcquirerInfo:
       type: object
       properties:
@@ -149,16 +153,16 @@ components:
 
             Maximum length: 256 characters'
       required:
-      - resultCode
-      - resultStatus
+        - resultCode
+        - resultStatus
     ResultStatusType:
       type:
-      - string
-      - 'null'
+        - string
+        - 'null'
       enum:
-      - S
-      - F
-      - U
+        - S
+        - F
+        - U
     Amount:
       type: object
       properties:
@@ -179,8 +183,8 @@ components:
             \ amount with banker's rounding and fix the last two digits of this parameter\
             \ as 00.  \n\nMore information:\n\nValue range: 0 - unlimited\n"
       required:
-      - currency
-      - value
+        - currency
+        - value
     AlipayRefundRequest:
       type: object
       properties:
@@ -281,9 +285,9 @@ components:
         actualRefundAmount:
           $ref: '#/components/schemas/Amount'
       required:
-      - refundRequestId
-      - paymentId
-      - refundAmount
+        - refundRequestId
+        - paymentId
+        - refundAmount
     RefundDetail:
       type: object
       properties:
@@ -293,14 +297,14 @@ components:
         refundFrom:
           $ref: '#/components/schemas/RefundFromType'
       required:
-      - refundAmount
-      - refundFrom
+        - refundAmount
+        - refundFrom
     RefundFromType:
       type: string
       enum:
-      - SELLER
-      - MARKETPLACE
-      - UNSETTLED_FUNDS
+        - SELLER
+        - MARKETPLACE
+        - UNSETTLED_FUNDS
     AlipayRefundResponse:
       type: object
       properties:
@@ -388,7 +392,7 @@ components:
 
             Maximum length: 64 characters'
       required:
-      - result
+        - result
     CustomizedInfo:
       type: object
       properties:
@@ -428,12 +432,12 @@ components:
         fullName:
           type: string
       required:
-      - firstName
-      - middleName
-      - lastName
-      - fullName
-  securitySchemes: {}
+        - firstName
+        - middleName
+        - lastName
+        - fullName
+  securitySchemes: { }
 servers:
-- url: https://open-sea-global.alipay.com/ams/api/v1/payments/refund
-  description: 正式环境
-security: []
+  - url: https://open-sea-global.alipay.com/ams/api/v1/payments/refund
+    description: 正式环境
+security: [ ]

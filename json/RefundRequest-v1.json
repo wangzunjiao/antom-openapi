@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "payments_refund",
-    "description": "",
+    "description": "      Use this API to initiate a refund against a successful payment. The refund can be full or partial.\n       A transaction can have multiple refunds as long as the total refund amount is less than or equal to the original transaction amount. \n       If the refund request is out of the refund window determined in the contract, the refund request will be declined.\n\n  Note: Use the same refundRequestId field to retry a refund in case of timeout or when the returned resultStatus is \u200BU\u200B. The refundRequestId field is designed to be idempotent. \n",
     "version": "1.0.0"
   },
   "tags": [],
@@ -68,7 +68,7 @@
           },
           "guaranteed": {
             "type": "boolean",
-            "description": "Guaranteed exchange rate available for payment.  \n\n"
+            "description": "Guaranteed exchange rate available for payment."
           },
           "exchangeAmount": {
             "$ref": "#/components/schemas/Amount",
@@ -176,7 +176,7 @@
           "metadata": {
             "type": "string",
             "maxLength": 2048,
-            "description": "Additional metadata about the refund request"
+            "description": "This parameter is used for submitting metadata, including information for special use cases."
           },
           "customizedInfo": {
             "$ref": "#/components/schemas/CustomizedInfo"
@@ -227,7 +227,8 @@
             "type": "string"
           },
           "actualRefundAmount": {
-            "$ref": "#/components/schemas/Amount"
+            "$ref": "#/components/schemas/Amount",
+            "description": "The refund amount in processing currency, that is, the amount the user actually paid."
           }
         },
         "required": [
@@ -296,7 +297,7 @@
             "$ref": "#/components/schemas/Amount"
           },
           "grossSettlementAmount": {
-            "description": "The refund amount that is initiated by the merchant.",
+            "description": "The refund settlement amount, which equals the refund amount multiplied by the value of settlementQuote. This field is returned when the currency exchange is predetermined and the exchange rate is locked at the time of the transaction.",
             "$ref": "#/components/schemas/Amount"
           },
           "settlementQuote": {

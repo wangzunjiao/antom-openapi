@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "payments_cancel",
-    "description": "",
+    "description": "Use this API to cancel the payment if the payment result is not returned after a long time. The cancellation cannot be performed if being out of the cancellable period specified in the contract. Use the same paymentId or paymentRequestId that is used in the payment API to cancel the payment transaction.",
     "version": "1.0.0"
   },
   "tags": [],
