@@ -11,7 +11,7 @@
       "post": {
         "summary": "inquireVaulting",
         "deprecated": false,
-        "description": "Use this API to get the cashier page address. After getting the cashier page address, you can redirect the user to the cashier page to make a payment.\n",
+        "description": "Use this API to inquire about the vaulting status of a payment method. ",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -47,7 +47,7 @@
         "properties": {
           "resultCode": {
             "type": "string",
-            "description": "The result code."
+            "description": "The result code. The possible result codes are listed in the Result/Error codes table on this page.  "
           },
           "resultStatus": {
             "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
@@ -55,7 +55,7 @@
           },
           "resultMessage": {
             "type": "string",
-            "description": "The result message."
+            "description": "Result message that explains the result code. "
           }
         },
         "required": [
@@ -349,8 +349,9 @@
           }
         },
         "required": [
-          "expiryYear",
-          "expiryMonth"
+          "cardToken",
+          "brand",
+          "maskedCardNo"
         ]
       },
       "ExternalPaymentMethodDetail": {
@@ -488,7 +489,7 @@
           },
           "merchantAccountId": {
             "type": "string",
-            "description": "Merchant account ID for 2C2P integration scenario",
+            "description": "A unique ID to identify a specific merchant account.\n\nNote: Specify this parameter when you use one client ID across multiple locations.",
             "maxLength": 64,
             "example": "21******"
           }

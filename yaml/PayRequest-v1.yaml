@@ -1,4 +1,3 @@
----
 openapi: 3.1.0
 info:
   title: payments_pay
@@ -10,11 +9,9 @@ paths:
     post:
       summary: pay
       deprecated: false
-      description: 'Use this API to get the cashier page address. After getting the
+      description: Use this API to get the cashier page address. After getting the
         cashier page address, you can redirect the user to the cashier page to make
         a payment.
-
-        '
       tags: []
       parameters: []
       requestBody:
@@ -64,17 +61,18 @@ components:
         value:
           type: integer
       required:
-        - unit
-        - value
+      - unit
+      - value
     DeliveryEstimate:
       type: object
       properties:
-        minimum: &id001
+        minimum:
           $ref: '#/components/schemas/DeliveryEstimateInfo'
-        maximum: *id001
+        maximum:
+          $ref: '#/components/schemas/DeliveryEstimateInfo'
       required:
-        - minimum
-        - maximum
+      - minimum
+      - maximum
     Shipping:
       type: object
       properties:
@@ -267,23 +265,23 @@ components:
           type: string
           description: 'test '
       required:
-        - orderAmount
-        - referenceOrderId
-        - orderType
+      - orderAmount
+      - referenceOrderId
+      - orderDescription
     TransitType:
       type: string
       enum:
-        - FLIGHT
-        - TRAIN
-        - CRUISE
-        - COACH
+      - FLIGHT
+      - TRAIN
+      - CRUISE
+      - COACH
       description: Type of transit
     ClassType:
       type: string
       enum:
-        - FIRSTLEVEL
-        - SECONDLEVEL
-        - THIRDLEVEL
+      - FIRSTLEVEL
+      - SECONDLEVEL
+      - THIRDLEVEL
     Leg:
       type: object
       properties:
@@ -429,15 +427,15 @@ components:
     PassengerIdType:
       type: string
       enum:
-        - PASSPORT
-        - NATIONAL_ID_CARD
-        - DRIVER_LICENSE
-        - MILITARY_ID
-        - GREEN_CARD
-        - TRAVEL_DOCUMENT
-        - ALIEN_REGISTRATION_CARD
-        - BIRTH_CERTIFICATE
-        - OTHERS
+      - PASSPORT
+      - NATIONAL_ID_CARD
+      - DRIVER_LICENSE
+      - MILITARY_ID
+      - GREEN_CARD
+      - TRAVEL_DOCUMENT
+      - ALIEN_REGISTRATION_CARD
+      - BIRTH_CERTIFICATE
+      - OTHERS
       description: Type of passenger identification
     Transit:
       type: object
@@ -512,7 +510,7 @@ components:
 
 
             Maximum length: 128 characters'
-        hotelAddress: &id002
+        hotelAddress:
           $ref: '#/components/schemas/Address'
           description: "Shipping address. \n\nSpecify this parameter when one of the\
             \ following conditions is met:\n\nThe value of paymentMethodType is PAGALEVE.\n\
@@ -569,7 +567,7 @@ components:
             description: "The name of the recipient. \n\nNote: Specify this parameter\
               \ if you require risk control. Providing this information helps to increase\
               \ the accuracy of anti-money laundering and fraud detection, and increase\
-              \ payment success rates."
+              \ payment success rates.  "
           description: 'Name of the guest under which the room is reserved.
 
 
@@ -691,11 +689,11 @@ components:
           description: 'Additional information required for some specific payment
             methods.  '
       required:
-        - paymentMethodType
+      - paymentMethodType
     CreditPayFeeType:
       type: string
       enum:
-        - PERCENTAGE
+      - PERCENTAGE
     CreditPayPlan:
       type: object
       properties:
@@ -734,7 +732,7 @@ components:
 
             Value range: 0 - 100'
       required:
-        - installmentNum
+      - installmentNum
     PaymentVerificationData:
       type: object
       properties:
@@ -777,8 +775,8 @@ components:
           $ref: '#/components/schemas/Amount'
           description: Added field for exchange amount
       required:
-        - quoteCurrencyPair
-        - quotePrice
+      - quoteCurrencyPair
+      - quotePrice
     PspCustomerInfo:
       type: object
       properties:
@@ -807,14 +805,14 @@ components:
     ChallengeType:
       type: string
       enum:
-        - SMS_OTP
-        - PLAINTEXT_CARD_NO
-        - CARD_EXPIRE_DATE
+      - SMS_OTP
+      - PLAINTEXT_CARD_NO
+      - CARD_EXPIRE_DATE
     ChallengeTriggerSourceType:
       type: string
       enum:
-        - AMS
-        - CHANNEL
+      - AMS
+      - CHANNEL
     ChallengeActionForm:
       type: object
       properties:
@@ -840,16 +838,16 @@ components:
     CodeValueType:
       type: string
       enum:
-        - BARCODE
-        - QRCODE
+      - BARCODE
+      - QRCODE
     DisplayType:
       type: string
       enum:
-        - TEXT
-        - MIDDLEIMAGE
-        - SMALLIMAGE
-        - BIGIMAGE
-        - IMAGE
+      - TEXT
+      - MIDDLEIMAGE
+      - SMALLIMAGE
+      - BIGIMAGE
+      - IMAGE
     CodeDetail:
       type: object
       properties:
@@ -864,27 +862,17 @@ components:
             \nMaximum length: 2048 characters"
         displayType:
           $ref: '#/components/schemas/DisplayType'
-          description: 'Indicates the way to display the code on the UI. Valid values
-            are:
-
-
-            TEXT: Indicates that the code is directly displayed on the UI as text
-            or a label.
-
-            MIDDLEIMAGE: Indicates that the code is directly displayed on the UI as
-            a small-sized image.
-
-            SMALLIMAGE: Indicates that the code is directly displayed on the UI as
-            a middle-sized image.
-
-            BIGIMAGE: Indicates that the code is directly displayed on the UI as a
-            big-sized image.
-
-            '
+          description: "Indicates the way to display the code on the UI. Valid values\
+            \ are:\n\nTEXT: Indicates that the code is directly displayed on the UI\
+            \ as text or a label.\nMIDDLEIMAGE: Indicates that the code is directly\
+            \ displayed on the UI as a small-sized image.\nSMALLIMAGE: Indicates that\
+            \ the code is directly displayed on the UI as a middle-sized image.\n\
+            BIGIMAGE: Indicates that the code is directly displayed on the UI as a\
+            \ big-sized image. \n"
       required:
-        - codeValueType
-        - codeValue
-        - displayType
+      - codeValueType
+      - codeValue
+      - displayType
     OrderCodeForm:
       type: object
       properties:
@@ -923,8 +911,8 @@ components:
 
             Maximum length: 2048 characters'
       required:
-        - expireTime
-        - codeDetails
+      - expireTime
+      - codeDetails
     PaymentResultInfo:
       type: object
       properties:
@@ -1081,10 +1069,11 @@ components:
           description: 检索参考号，可提供给用户用于跟踪支付/退款/争议的详细信息
         userAuthorizationStatus:
           type: string
-          description: |
-            交易中用户是否授权绑定，当用户使用PAYPAY支付并且指定支付要素smartPaymentEnabled=true的情况下才会返回。
+          description: '交易中用户是否授权绑定，当用户使用PAYPAY支付并且指定支付要素smartPaymentEnabled=true的情况下才会返回。
+
             ● AUTHORIZED - 用户发起交易时时已授权，直接付款
-            ● UNAUTHORIZED - 用户发起交易时未授权，现授权后付款
+
+            ● UNAUTHORIZED - 用户发起交易时未授权，现授权后付款'
     AcquirerInfo:
       type: object
       properties:
@@ -1129,12 +1118,21 @@ components:
           type: string
         acquirerCardToken:
           type: string
-          description: "The card token assigned by the acquirer for card tokenization.\n\nNote: This parameter is returned if you integrate the APO product.\n\nMore information:\n\nMaximum length: 64 characters"
+          description: 'The card token assigned by the acquirer for card tokenization.
+
+
+            Note: This parameter is returned if you integrate the APO product.
+
+
+            More information:
+
+
+            Maximum length: 64 characters'
     PromotionType:
       type: string
       enum:
-        - DISCOUNT
-        - INTEREST_FREE
+      - DISCOUNT
+      - INTEREST_FREE
     PromotionResult:
       type: object
       properties:
@@ -1161,7 +1159,7 @@ components:
             Note: This parameter is generated when the buyer applies a promotion during
             the process of placing an order.'
       required:
-        - promotionType
+      - promotionType
     Result:
       type: object
       properties:
@@ -1171,20 +1169,21 @@ components:
         resultStatus:
           description: "The result status. Valid values are:\n\nS: indicates that\
             \ the result status is successful.\nF: indicates that the result status\
-            \ is failed. \nU: indicates that the result status is unknown."
+            \ is failed. \nU: indicates that the result status is unknown. "
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
           description: The result message.
       required:
-        - resultCode
-        - resultStatus
+      - resultCode
+      - resultStatus
+      - resultMessage
     ProductCodeType:
       type: string
       enum:
-        - CASHIER_PAYMENT
-        - AGREEMENT_PAYMENT
-        - IN_STORE_PAYMENT
+      - CASHIER_PAYMENT
+      - AGREEMENT_PAYMENT
+      - IN_STORE_PAYMENT
       x-apifox:
         enumDescriptions:
           CASHIER_PAYMENT: ''
@@ -1210,14 +1209,14 @@ components:
             \ amount with banker's rounding and fix the last two digits of this parameter\
             \ as 00.  \n\nMore information:\n\nValue range: 0 - unlimited\n"
       required:
-        - currency
-        - value
+      - currency
+      - value
     InStorePaymentScenario:
       type: string
       enum:
-        - PaymentCode
-        - OrderCode
-        - EntryCode
+      - PaymentCode
+      - OrderCode
+      - EntryCode
       x-apifox:
         enumDescriptions:
           PaymentCode: User can use paymentcode to pay
@@ -1226,9 +1225,9 @@ components:
     PresentmentMode:
       type: string
       enum:
-        - BUNDLE
-        - TILE
-        - UNIFIED
+      - BUNDLE
+      - TILE
+      - UNIFIED
       x-apifox:
         enumDescriptions:
           BUNDLE: ''
@@ -1246,7 +1245,7 @@ components:
             \ payment without authorization.  \nUnder the authorization scenario,\
             \ the payment funds are guaranteed and held on the payment method side.\
             \ You can use the capture (Checkout Payment) API to deduct the payment\
-            \ funds."
+            \ funds. "
         inStorePaymentScenario:
           $ref: '#/components/schemas/InStorePaymentScenario'
         presentmentMode:
@@ -1288,13 +1287,15 @@ components:
 
 
             Maximum length: 3 characters'
+      required:
+      - settlementCurrency
     TerminalType:
       type: string
       enum:
-        - WEB
-        - WAP
-        - APP
-        - MINI_APP
+      - WEB
+      - WAP
+      - APP
+      - MINI_APP
       x-apifox:
         enumDescriptions:
           WEB: ''
@@ -1317,7 +1318,7 @@ components:
             true: indicates that the user''s browser is able to run Java.
 
             false: indicates that the user''s browser is unable to run Java. The same
-            applies when the value is empty or you do not specify this parameter.'
+            applies when the value is empty or you do not specify this parameter.  '
         javaScriptEnabled:
           type: boolean
           description: 'Indicates whether the user''s browser is able to run Java.
@@ -1327,7 +1328,7 @@ components:
             true: indicates that the user''s browser is able to run JavaScript.
 
             false: indicates that the user''s browser is unable to run JavaScript.
-            The same applies when the value is empty or you do not specify this parameter.'
+            The same applies when the value is empty or you do not specify this parameter.  '
         language:
           type: string
           description: "The language of the user's browser. The value is obtained\
@@ -1344,8 +1345,8 @@ components:
     OsType:
       type: string
       enum:
-        - IOS
-        - ANDROID
+      - IOS
+      - ANDROID
       x-apifox:
         enumDescriptions:
           IOS: ''
@@ -1463,7 +1464,7 @@ components:
           type: string
           description: Version of the operation system.
       required:
-        - terminalType
+      - terminalType
     ThreeDSResult:
       type: object
       properties:
@@ -1502,9 +1503,9 @@ components:
     ResultStatusType:
       type: string
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
       x-apifox:
         enumDescriptions:
           S: ''
@@ -1522,10 +1523,8 @@ components:
         fullName:
           type: string
       required:
-        - firstName
-        - middleName
-        - lastName
-        - fullName
+      - firstName
+      - lastName
     Address:
       type: object
       properties:
@@ -1566,7 +1565,7 @@ components:
         address3:
           type: string
       required:
-        - region
+      - region
     Store:
       type: object
       properties:
@@ -1582,14 +1581,20 @@ components:
           type: string
         storeOperatorId:
           type: string
-        storeAddress: *id002
+        storeAddress:
+          $ref: '#/components/schemas/Address'
+          description: "Shipping address. \n\nSpecify this parameter when one of the\
+            \ following conditions is met:\n\nThe value of paymentMethodType is PAGALEVE.\n\
+            You require risk control.\nProviding this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates."
         storePhoneNo:
           type: string
     MerchantType:
       type: string
       enum:
-        - INDIVIDUAL
-        - ENTERPRISE
+      - INDIVIDUAL
+      - ENTERPRISE
       x-apifox:
         enumDescriptions:
           INDIVIDUAL: ''
@@ -1652,7 +1657,13 @@ components:
 
 
             Maximum length: 64 characters'
-        merchantAddress: *id002
+        merchantAddress:
+          $ref: '#/components/schemas/Address'
+          description: "Shipping address. \n\nSpecify this parameter when one of the\
+            \ following conditions is met:\n\nThe value of paymentMethodType is PAGALEVE.\n\
+            You require risk control.\nProviding this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates."
         merchantRegisterDate:
           type: string
           description: 'Merchant registration date.
@@ -1672,7 +1683,7 @@ components:
         merchantType:
           $ref: '#/components/schemas/MerchantType'
       required:
-        - referenceMerchantId
+      - referenceMerchantId
     Goods:
       type: object
       properties:
@@ -1753,8 +1764,8 @@ components:
           $ref: '#/components/schemas/Goods'
           description: Cross-selling goods information.
       required:
-        - referenceGoodsId
-        - goodsName
+      - referenceGoodsId
+      - goodsName
     Buyer:
       type: object
       properties:
@@ -1815,20 +1826,25 @@ components:
           type: string
         discountName:
           type: string
-        savingsAmount: &id003
+        savingsAmount:
           $ref: '#/components/schemas/Amount'
-        estimateSavingsAmount: *id003
+        estimateSavingsAmount:
+          $ref: '#/components/schemas/Amount'
       required:
-        - discountName
-        - savingsAmount
-        - estimateSavingsAmount
-        - discountTag
+      - discountName
+      - savingsAmount
+      - estimateSavingsAmount
+      - discountTag
     AlipayPayRequest:
       type: object
       properties:
         metadata:
           type: string
-          description: 用于商户自定义元数据信息，支持JSON格式
+          description: 'Use this parameter to submit metadata, including information
+            for special use cases.
+
+
+            Specify this parameter when you need to add metadata information.'
           maxLength: 2048
         customizedInfo:
           $ref: '#/components/schemas/CustomizedInfo'
@@ -1844,6 +1860,8 @@ components:
           description: Subscription information for recurring payments
         processingAmount:
           $ref: '#/components/schemas/Amount'
+          description: The payment amount that the merchant requests to receive in
+            the order currency.
         productCode:
           $ref: '#/components/schemas/ProductCodeType'
           description: Represents the payment product that is being used, which is
@@ -2002,14 +2020,14 @@ components:
         dualOfflinePayment:
           type: boolean
       required:
-        - productCode
-        - order
-        - paymentAmount
-        - paymentMethod
-        - paymentRedirectUrl
-        - settlementStrategy
-        - env
-        - paymentRequestId
+      - productCode
+      - order
+      - paymentAmount
+      - paymentMethod
+      - paymentRedirectUrl
+      - settlementStrategy
+      - env
+      - paymentRequestId
     AlipayPayResponse:
       type: object
       properties:
@@ -2046,6 +2064,8 @@ components:
             Maximum length: 64 characters'
         paymentAmount:
           $ref: '#/components/schemas/Amount'
+          description: The payment amount that the merchant requests to receive in
+            the order currency.
         paymentData:
           type: string
           description: 'Used by the Antom client SDK to render the checkout page.
@@ -2103,8 +2123,17 @@ components:
             the related information.'
         grossSettlementAmount:
           $ref: '#/components/schemas/Amount'
+          description: The value of this field equals to transaction amount multiplied
+            by the value of settlementQuote. This field is returned when the currency
+            exchange is predetermined and the exchange rate is locked at the time
+            of transaction.
         settlementQuote:
           $ref: '#/components/schemas/Quote'
+          description: 'The exchange rate between the settlement currency and transaction
+            currency.
+
+
+            Note: This field is returned when grossSettlementAmount is returned.'
         extendInfo:
           type: string
         normalUrl:
@@ -2174,23 +2203,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PromotionResult'
-          description: Promotion result.
+          description: 'Promotion result.
+
+
+            Note: This parameter is generated when the buyer applies a promotion during
+            the process of placing an order.'
       required:
-        - result
-    declaration:
-      type: object
-      properties:
-        declarationBizScene:
-          $ref: '#/components/schemas/DeclarationBizSceneType'
-        declarationBeneficiaryId:
-          type: string
-          description: 用于唯一标识用于申报额度累计的三方收款人Id。非OTA结汇场景不传，OTA场景必传，且与declarationBizScene需同时存在。
-          example: SJSOXUSO23211XJSP4IS
+      - result
     Declaration:
       type: object
       properties:
         declarationBizScene:
           $ref: '#/components/schemas/DeclarationBizSceneType'
+          description: 申报时对应的行业分类。非OTA结汇场景不传，OTA场景必传，且与declarationBeneficiaryId需同时存在。
         declarationBeneficiaryId:
           type: string
           description: 用于唯一标识用于申报额度累计的三方收款人Id。非OTA结汇场景不传，OTA场景必传，且与declarationBizScene需同时存在。
@@ -2198,17 +2223,17 @@ components:
     DeclarationBizSceneType:
       type: string
       enum:
-        - AIRLINE
-        - HOTEL
+      - AIRLINE
+      - HOTEL
       description: 申报时对应的行业分类。非OTA结汇场景不传，OTA场景必传，且与declarationBeneficiaryId需同时存在。
     FundingType:
       type: string
       enum:
-        - CREDIT
-        - DEBIT
-        - PREPAID
-        - CHARGE
-        - DEFERRED_DEBIT
+      - CREDIT
+      - DEBIT
+      - PREPAID
+      - CHARGE
+      - DEFERRED_DEBIT
       description: The funding source type for the payment method
     AncillaryData:
       type: object
@@ -2311,14 +2336,19 @@ components:
             Minimum subscription limit. In scenarios where the subscription amount
             is not fixed, merchants can specify this value, and subsequent user subscription
             amounts must not be less than this amount.'
+      required:
+      - subscriptionDescription
+      - subscriptionStartTime
+      - periodRule
+      - subscriptionNotifyUrl
     PeriodType:
       type: string
       enum:
-        - WEEK
-        - MONTH
-        - QUARTER
-        - HALF_YEAR
-        - YEAR
+      - WEEK
+      - MONTH
+      - QUARTER
+      - HALF_YEAR
+      - YEAR
       description: 'The subscription period type. Valid values are:
 
 
@@ -2356,8 +2386,8 @@ components:
             \ is 2, it means that the subscription period is two months.  \n\nMore\
             \ information:\n\nValue range: 1 - unlimited"
       required:
-        - periodType
-        - periodCount
+      - periodType
+      - periodCount
     Trial:
       type: object
       properties:
@@ -2390,9 +2420,9 @@ components:
 
             '
       required:
-        - trialStartPeriod
-        - trialAmount
+      - trialStartPeriod
+      - trialAmount
   securitySchemes: {}
 servers:
-  - url: https://open-sea-global.alipay.com/ams/api/v1/payments/pay
-    description: 正式环境
+- url: https://open-sea-global.alipay.com/ams/api/v1/payments/pay
+  description: 正式环境

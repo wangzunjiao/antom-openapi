@@ -1,179 +1,105 @@
----
+openapi: 3.1.0
+servers:
+- url: https://open-sea-global.alipay.com/ams/api/v1/payments/consult
+info:
+  version: '1'
+  x-publicVersion: true
+  x-publicVersion1: true
+  title: Payment API
+  description: 'Payment API is used for xxx. Refer [doc](https://global.alipay.com/docs/ac/ams/consult)
+
+    # Auth'
+  termsOfService: https://www.antom.com/legal/terms-and-conditions
+  contact:
+    name: Antom Developer Experience team
+    url: https://github.com/Antom/antom-openapi
+tags: []
+paths:
+  /ams/api/v1/payments/consult:
+    post:
+      summary: consult
+      deprecated: false
+      description: 'Use this API to initiate a payment consultation request to Antom.
+        This request is returned to the merchant with information on the different
+        payment methods and its corresponding amount, country, currency, rules, and
+        configuration.
+
+
+        This API enables you to:
+
+
+        Provide consumers with multiple payment methods without bearing any additional
+        costs caused by a change in these payment methods, or managing the logic of
+        selecting and sorting these payment methods.
+
+        Automate the selection and sorting of multiple payment methods.'
+      tags: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlipayPayConsultRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlipayPayConsultResponse'
+          headers: {}
+      security: []
 components:
   schemas:
-    Address:
+    PromotionType:
+      type: string
+      enum:
+      - DISCOUNT
+      - INTEREST_FREE
+    Result:
       type: object
       properties:
-        region:
+        resultCode:
           type: string
-          description: "The 2-letter country or region code. For more information,\
-            \ see the ISO 3166 Country Codes standard. \n\nMore information:\n\nMaximum\
-            \ length: 2 characters"
-        state:
-          type: string
-          description: "The state, country, or province name. \n\nFor card payments,\
-            \ if your business entity is in the United States, and the card issuing\
-            \ country is Canada, the United States, or the United Kingdom, set the\
-            \ value to a region code that consists of two to three characters and\
-            \ follows the ISO 3166-2 standard. \n\nMore information:\n\nMaximum length:\
-            \ 8 characters"
-        city:
-          type: string
-          description: "The city, district, suburb, town, or village name. \n\nMore\
-            \ information:\n\nMaximum length: 32 characters\n"
-        address1:
-          type: string
-          description: "Address line 1, for example, the street address, PO box, and\
-            \ company name. \n\nMore information:\n\nMaximum length: 256 characters"
-        address2:
-          type: string
-          description: "Address line 2, for example, the apartment, suite, unit, and\
-            \ building information. \n\nMore information:\n\nMaximum length: 256 characters"
-        zipCode:
-          type: string
-          description: "The ZIP or postal code. \n\nFor card payments, if your business\
-            \ entity is in the United States, specify this parameter according to\
-            \ the following parameter value requirements:\n\nOnly contains numbers,\
-            \ letters, hyphens, and spaces.\nMust be within ten characters. \nMore\
-            \ information:\n\nMaximum length: 32 characters"
-        label:
-          type: string
-        address3:
-          type: string
-      required:
-      - region
-    AlipayPayConsultRequest:
-      type: object
-      properties:
-        paymentEvaluation:
-          $ref: '#/components/schemas/PaymentEvaluation'
-        productCode:
-          $ref: '#/components/schemas/ProductCodeType'
-          description: 'Represents the payment product that is being used. The payment
-            product that can be used is stipulated in the contract. The fixed value
-            is:
-
-
-            CASHIER_PAYMENT: Indicates that this API is used for the Cashier Payment
-            scenario.
-
-            More information:
-
-
-            Maximum length: 32 characters'
-        paymentAmount:
-          $ref: '#/components/schemas/Amount'
-        merchantRegion:
-          type: string
-          description: "The country or region where the merchant operates the business.\
-            \ The parameter is a 2-letter country or region code that follows ISO\
-            \ 3166 Country Codes standard.\n\nSome possible values are US, SG, HK,\
-            \ PK, JP, CN, BR, AU, and MY.  \n\nNote: This parameter is required when\
-            \ you use the Global Acquirer Gateway (GAGW) product.\n\nMore information:\n\
-            \nMaximum length: 2 characters"
-        allowedPaymentMethodRegions:
-          type: array
-          items:
-            type: string
-          description: "A list of region codes that represent the countries or regions\
-            \ of payment methods. The value of this parameter is a 2-letter ISO country\
-            \ code or GLOBAL. \n\nNote: Specify this parameter if you want available\
-            \ payment methods from specific regions to be returned. For example, if\
-            \ you pass in GLOBAL, global cards Visa and Mastercard are returned. \
-            \ \n\nMore information:\n\nMaximum length: 6 characters"
-        allowedPaymentMethods:
-          type: array
-          items:
-            type: string
-        blockedPaymentMethods:
-          type: array
-          items:
-            type: string
-        region:
-          type: string
-        customerId:
-          type: string
-        referenceUserId:
-          type: string
-        env:
-          $ref: '#/components/schemas/Env'
-          description: Information about the environment where the order is placed,
-            such as the device information.
-        extendInfo:
-          type: string
-        userRegion:
-          type: string
-          description: "The 2-letter country or region code. For more information,\
-            \ see ISO 3166 Country Codes standard. The payment methods will be sorted\
-            \ based on payment method relevance for the given user's region. \n\n\
-            More information:\n\nMaximum length: 2 characters"
-        paymentFactor:
-          $ref: '#/components/schemas/PaymentFactor'
-          description: 'Factors that impact the payment. This field is used to indicate
-            the payment scenario.
-
-
-            Note: Specify this parameter when the value of paymentMethodType is CARD.'
-        settlementStrategy:
-          $ref: '#/components/schemas/SettlementStrategy'
-          description: The settlement strategy.
-        merchant:
-          $ref: '#/components/schemas/Merchant'
-        allowedPspRegions:
-          type: array
-          items:
-            type: string
-        buyer:
-          $ref: '#/components/schemas/Buyer'
-          description: Buyer information.
-        merchantAccountId:
-          type: string
-          description: 'The unique ID to identify a merchant account.
-
-
-            Note: Specify this parameter when you use a single client ID across multiple
-            locations.
+          description: 'The result code.
 
 
             More information:
 
 
-            Maximum length: 32 characters'
-      required:
-      - productCode
-      - paymentAmount
-      - env
-    AlipayPayConsultResponse:
-      properties:
-        extendInfo:
+            Maximum length: 64 characters'
+        resultStatus:
+          description: "The result status. Valid values are:  \n\nS: Indicates that\
+            \ the result status is successful. \nF: Indicates that the result status\
+            \ is failed. \nU: Indicates that the result status is unknown. "
+          $ref: '#/components/schemas/ResultStatusType'
+        resultMessage:
           type: string
-        paymentMethodInfos:
-          items:
-            $ref: '#/components/schemas/PaymentMethodInfo'
-          type: array
-        paymentOptions:
-          description: The payment option list.
-          items:
-            $ref: '#/components/schemas/PaymentOption'
-          type: array
-        result:
-          $ref: '#/components/schemas/Result'
-          description: 'The request result that contains information such as status
-            and error codes.
+          description: 'The result message.
 
 
-            Note: This field doesn''t indicate the payment result. This field only
-            indicates whether the consult API is called successfully.'
+            More information:
+
+
+            Maximum length: 256 characters'
       required:
-      - result
-      type: object
+      - resultCode
+      - resultStatus
+    ProductCodeType:
+      type: string
+      enum:
+      - CASHIER_PAYMENT
+      - AGREEMENT_PAYMENT
+      - IN_STORE_PAYMENT
     Amount:
+      type: object
       properties:
         currency:
+          type: string
           description: "The 3-letter currency code that follows the ISO 4217 standard.\
             \ \n\nMore information:\n\nMaximum length: 3 characters"
-          type: string
         value:
+          type: string
           description: "The value of the amount as a positive integer in the smallest\
             \ currency unit. For example, if the currency is USD and the amount is\
             \ $1.00, set the value of this parameter to 100; or if the currency is\
@@ -184,119 +110,84 @@ components:
             \ currency practices in Indonesia, when the currency is IDR, round the\
             \ amount with banker's rounding and fix the last two digits of this parameter\
             \ as 00.  \n\nMore information:\n\nValue range: 0 - unlimited\n"
-          type: string
       required:
       - currency
       - value
+    InStorePaymentScenario:
+      type: string
+      enum:
+      - PaymentCode
+      - OrderCode
+      - EntryCode
+    PresentmentMode:
+      type: string
+      enum:
+      - BUNDLE
+      - TILE
+      - UNIFIED
+    PaymentFactor:
       type: object
-    AmountLimitInfo:
       properties:
-        monthLimit:
-          $ref: '#/components/schemas/AmountLimit'
-        dayLimit:
-          $ref: '#/components/schemas/AmountLimit'
-        singleLimit:
-          $ref: '#/components/schemas/AmountLimit'
+        isPaymentEvaluation:
+          type: boolean
+        inStorePaymentScenario:
+          $ref: '#/components/schemas/InStorePaymentScenario'
+        presentmentMode:
+          $ref: '#/components/schemas/PresentmentMode'
+          description: 'The presentation mode chosen by the merchant to display the
+            payment methods on the cashier page. Valid values are:
+
+
+            TILE: specify this presentation mode when presenting wallets in a separate
+            list with individual logos. The same applies when the value is empty or
+            when you do not specify this parameter.
+
+            UNIFIED: specify this presentation mode when presenting the unified Alipay+
+            payment method on the checkout page, allowing the buyer to choose a specific
+            wallet at a later page.'
+        captureMode:
+          type: string
+        isAuthorization:
+          type: boolean
+    SettlementStrategy:
       type: object
-    AmountLimit:
       properties:
-        maxAmount:
-          $ref: '#/components/schemas/Amount'
-        minAmount:
-          $ref: '#/components/schemas/Amount'
-        remainAmount:
-          $ref: '#/components/schemas/Amount'
-      required:
-      - maxAmount
-      - minAmount
-      - remainAmount
-      type: object
+        settlementCurrency:
+          type: string
+          description: "The ISO currency code of the currency that the merchant wants\
+            \ to settle against. This field is required if the merchant signed up\
+            \ for multiple settlement currencies. Otherwise, the error code,SETTLE_CONTRACT_NOT_MATCH,\
+            \ will be returned. \n\nMore information:\n\nMaximum length: 3 characters"
+    TerminalType:
+      type: string
+      enum:
+      - WEB
+      - WAP
+      - APP
+      - MINI_APP
     BrowserInfo:
+      type: object
       properties:
         acceptHeader:
+          type: string
           description: The accept header of the user's browser
-          type: string
         javaEnabled:
-          description: Indicates whether the user's browser is able to run Java
           type: boolean
+          description: Indicates whether the user's browser is able to run Java
         javaScriptEnabled:
+          type: boolean
           description: Indicates whether the user's browser is able to run Java
-          type: boolean
         language:
+          type: string
           description: The language of the user's browser
-          type: string
         userAgent:
+          type: string
           description: The user agent of the user's browser
-          type: string
-      type: object
-    Buyer:
-      type: object
-      properties:
-        referenceBuyerId:
-          type: string
-          description: 'The unique ID to identify the buyer.
-
-
-            Note: Specify this parameter when you want to use the promotion offered
-            by Antom to this order.
-
-
-            More information:
-
-
-            Maximum length: 64 characters'
-        buyerName:
-          $ref: '#/components/schemas/UserName'
-          description: "The name of the recipient. \n\nNote: Specify this parameter\
-            \ if you require risk control. Providing this information helps to increase\
-            \ the accuracy of anti-money laundering and fraud detection, and increase\
-            \ payment success rates.  "
-        buyerPhoneNo:
-          type: string
-          description: "The mobile phone number of the buyer.\n\nSpecify this parameter\
-            \ when one of the following conditions is met:\n\nYou require risk control.\n\
-            The value of paymentMethodType is CARD.\nProviding this information helps\
-            \ to increase the accuracy of anti-money laundering and fraud detection,\
-            \ and increase payment success rates. \n\nMore information:\n\nMaximum\
-            \ length: 24 characters\n"
-        buyerEmail:
-          type: string
-          description: "The email of the buyer.\n\nSpecify this parameter:\n\nWhen\
-            \ you require risk control.\nWhen the value of paymentMethodType is CARD.\n\
-            Providing this information helps to increase the accuracy of anti-money\
-            \ laundering and fraud detection, and increase payment success rates.\
-            \ \n\nMore information:\n\nMaximum length: 64 characters"
-        buyerRegistrationTime:
-          type: string
-          description: "The time when the buyer registered your account. Specify this\
-            \ parameter if you require risk control. Providing this information helps\
-            \ to increase the accuracy of anti-money laundering and fraud detection,\
-            \ and increase payment success rates.  \n\nMore information:\n\nMaximum\
-            \ length: 64 characters\nThe value follows the ISO 8601 standard format.\
-            \ For example, \"2019-11-27T12:01:01+08:00\".\n"
-        isAccountVerified:
-          type: boolean
-        successfulOrderCount:
-          type: integer
-        buyerPhoneNoContryCode:
-          type: string
-          description: 用于指定买家电话号码的国家代码，当支付方式为STCPAY时为必填字段
-          maxLength: 7
-    Discount:
-      properties:
-        discountName:
-          description: 'The discount name displayed in the default language.  More
-            information:  Maximum length: 128 characters'
-          type: string
-        discountTag:
-          description: 'The discount tag is displayed as a superscript next to the
-            discount name.  More information:  Maximum length: 64 characters'
-          type: string
-        estimateSavingsAmount:
-          $ref: '#/components/schemas/Amount'
-        savingsAmount:
-          $ref: '#/components/schemas/Amount'
-      type: object
+    OsType:
+      type: string
+      enum:
+      - IOS
+      - ANDROID
     Env:
       type: object
       properties:
@@ -411,94 +302,121 @@ components:
           description: Version of the operation system.
       required:
       - terminalType
-    InStorePaymentScenario:
-      enum:
-      - PaymentCode
-      - OrderCode
-      - EntryCode
+    ResultStatusType:
       type: string
-    Installment:
-      properties:
-        plans:
-          description: The list of installment plans for payment methods that support
-            installments.
-          items:
-            $ref: '#/components/schemas/Plan'
-          type: array
-        supportCardBrands:
-          description: "The list of card brands that support the installment plans.\
-            \  \n\nThis parameter is returned when the value of paymentMethodType\
-            \ is CARD."
-          items:
-            $ref: '#/components/schemas/SupportCardBrand'
-          type: array
-      required:
-      - supportCardBrands
-      - plans
+      enum:
+      - S
+      - F
+      - U
+    UserName:
       type: object
-    InterestFree:
       properties:
-        expireTime:
-          description: 'The promotion expiration time.  More information:  The value
-            follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
+        firstName:
           type: string
-        freePercentage:
-          description: The interest-free percentage. A value of 0 indicates no interest-free,
-            100% indicates the buyer is completely interest-free, while the value
-            between 0-100% indicates partial interest-free.
-          type: integer
-        installmentFreeNums:
-          description: 'The number of interest-free installments.  More information:  Value
-            range: 2-unlimited'
-          items:
-            type: integer
-          type: array
-        maxPaymentAmount:
-          $ref: '#/components/schemas/Amount'
-        minPaymentAmount:
-          $ref: '#/components/schemas/Amount'
-        provider:
-          description: 'Issuing banks or financial institutions that offer interest-free
-            installment plans.  More information:  Maximum length: 128 characters'
+        middleName:
+          type: string
+        lastName:
+          type: string
+        fullName:
           type: string
       required:
-      - provider
-      - expireTime
-      - installmentFreeNums
-      - minPaymentAmount
-      - freePercentage
+      - firstName
+      - middleName
+      - lastName
+      - fullName
+    Address:
       type: object
-    Logo:
       properties:
-        logoName:
-          description: "The logo name of the card brand. See the Card brands to check\
-            \ the valid values. \n\nMore information:\n\nMaximum length: 12 characters"
+        region:
           type: string
-        logoUrl:
-          description: 'The logo URL of the card brand.    More information:  Maximum
-            length: 2048 characters'
+          description: "The 2-letter country or region code. For more information,\
+            \ see the ISO 3166 Country Codes standard. \n\nMore information:\n\nMaximum\
+            \ length: 2 characters"
+        state:
+          type: string
+          description: "The state, country, or province name. \n\nFor card payments,\
+            \ if your business entity is in the United States, and the card issuing\
+            \ country is Canada, the United States, or the United Kingdom, set the\
+            \ value to a region code that consists of two to three characters and\
+            \ follows the ISO 3166-2 standard. \n\nMore information:\n\nMaximum length:\
+            \ 8 characters"
+        city:
+          type: string
+          description: "The city, district, suburb, town, or village name. \n\nMore\
+            \ information:\n\nMaximum length: 32 characters\n"
+        address1:
+          type: string
+          description: "Address line 1, for example, the street address, PO box, and\
+            \ company name. \n\nMore information:\n\nMaximum length: 256 characters"
+        address2:
+          type: string
+          description: "Address line 2, for example, the apartment, suite, unit, and\
+            \ building information. \n\nMore information:\n\nMaximum length: 256 characters"
+        zipCode:
+          type: string
+          description: "The ZIP or postal code. \n\nFor card payments, if your business\
+            \ entity is in the United States, specify this parameter according to\
+            \ the following parameter value requirements:\n\nOnly contains numbers,\
+            \ letters, hyphens, and spaces.\nMust be within ten characters. \nMore\
+            \ information:\n\nMaximum length: 32 characters"
+        label:
+          type: string
+        address3:
           type: string
       required:
-      - logoName
+      - region
+    Store:
       type: object
-    Merchant:
       properties:
-        merchantAddress:
+        referenceStoreId:
+          type: string
+        storeName:
+          type: string
+        storeMCC:
+          type: string
+        storeDisplayName:
+          type: string
+        storeTerminalId:
+          type: string
+        storeOperatorId:
+          type: string
+        storeAddress:
           $ref: '#/components/schemas/Address'
-        merchantDisplayName:
+        storePhoneNo:
+          type: string
+      required:
+      - storeName
+      - storeMCC
+      - storeDisplayName
+      - storeTerminalId
+      - storeOperatorId
+      - storeAddress
+      - storePhoneNo
+      - referenceStoreId
+    MerchantType:
+      type: string
+      enum:
+      - INDIVIDUAL
+      - ENTERPRISE
+    Merchant:
+      type: object
+      properties:
+        referenceMerchantId:
           type: string
         merchantMCC:
           type: string
         merchantName:
           type: string
-        merchantRegisterDate:
+        merchantDisplayName:
           type: string
-        merchantType:
-          $ref: '#/components/schemas/MerchantType'
-        referenceMerchantId:
+        merchantAddress:
+          $ref: '#/components/schemas/Address'
+        merchantRegisterDate:
           type: string
         store:
           $ref: '#/components/schemas/Store'
+        merchantType:
+          $ref: '#/components/schemas/MerchantType'
       required:
       - referenceMerchantId
       - merchantMCC
@@ -508,42 +426,179 @@ components:
       - merchantRegisterDate
       - merchantType
       - store
+    Buyer:
       type: object
-    MerchantType:
-      enum:
-      - INDIVIDUAL
-      - ENTERPRISE
-      type: string
-    OsType:
-      enum:
-      - IOS
-      - ANDROID
-      type: string
-    PaymentFactor:
       properties:
-        captureMode:
+        referenceBuyerId:
           type: string
-        inStorePaymentScenario:
-          $ref: '#/components/schemas/InStorePaymentScenario'
-        isAuthorization:
+          description: 'The unique ID to identify the buyer.
+
+
+            Note: Specify this parameter when you want to use the promotion offered
+            by Antom to this order.
+
+
+            More information:
+
+
+            Maximum length: 64 characters'
+        buyerName:
+          $ref: '#/components/schemas/UserName'
+          description: "The name of the recipient. \n\nNote: Specify this parameter\
+            \ if you require risk control. Providing this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates.  "
+        buyerPhoneNo:
+          type: string
+          description: "The mobile phone number of the buyer.\n\nSpecify this parameter\
+            \ when one of the following conditions is met:\n\nYou require risk control.\n\
+            The value of paymentMethodType is CARD.\nProviding this information helps\
+            \ to increase the accuracy of anti-money laundering and fraud detection,\
+            \ and increase payment success rates. \n\nMore information:\n\nMaximum\
+            \ length: 24 characters\n"
+        buyerEmail:
+          type: string
+          description: "The email of the buyer.\n\nSpecify this parameter:\n\nWhen\
+            \ you require risk control.\nWhen the value of paymentMethodType is CARD.\n\
+            Providing this information helps to increase the accuracy of anti-money\
+            \ laundering and fraud detection, and increase payment success rates.\
+            \ \n\nMore information:\n\nMaximum length: 64 characters"
+        buyerRegistrationTime:
+          type: string
+          description: "The time when the buyer registered your account. Specify this\
+            \ parameter if you require risk control. Providing this information helps\
+            \ to increase the accuracy of anti-money laundering and fraud detection,\
+            \ and increase payment success rates.  \n\nMore information:\n\nMaximum\
+            \ length: 64 characters\nThe value follows the ISO 8601 standard format.\
+            \ For example, \"2019-11-27T12:01:01+08:00\".\n"
+        isAccountVerified:
           type: boolean
-        isPaymentEvaluation:
-          type: boolean
-        presentmentMode:
-          $ref: '#/components/schemas/PresentmentMode'
-          description: 'The presentation mode chosen by the merchant to display the
-            payment methods on the cashier page. Valid values are:
-
-
-            TILE: specify this presentation mode when presenting wallets in a separate
-            list with individual logos. The same applies when the value is empty or
-            when you do not specify this parameter.
-
-            UNIFIED: specify this presentation mode when presenting the unified Alipay+
-            payment method on the checkout page, allowing the buyer to choose a specific
-            wallet at a later page.'
+        successfulOrderCount:
+          type: integer
+        buyerPhoneNoContryCode:
+          type: string
+          description: 用于指定买家电话号码的国家代码，当支付方式为STCPAY时为必填字段
+          maxLength: 7
+    Discount:
       type: object
+      properties:
+        discountTag:
+          type: string
+          description: 'The discount tag is displayed as a superscript next to the
+            discount name.  More information:  Maximum length: 64 characters'
+        discountName:
+          type: string
+          description: 'The discount name displayed in the default language.  More
+            information:  Maximum length: 128 characters'
+        savingsAmount:
+          $ref: '#/components/schemas/Amount'
+        estimateSavingsAmount:
+          $ref: '#/components/schemas/Amount'
+    AlipayPayConsultRequest:
+      type: object
+      properties:
+        paymentEvaluation:
+          $ref: '#/components/schemas/PaymentEvaluation'
+        productCode:
+          $ref: '#/components/schemas/ProductCodeType'
+          description: 'Represents the payment product that is being used. The payment
+            product that can be used is stipulated in the contract. The fixed value
+            is:
+
+
+            CASHIER_PAYMENT: Indicates that this API is used for the Cashier Payment
+            scenario.
+
+            More information:
+
+
+            Maximum length: 32 characters'
+        paymentAmount:
+          $ref: '#/components/schemas/Amount'
+          description: The payment amount that the merchant requests to receive in
+            the order currency.
+        merchantRegion:
+          type: string
+          description: "The country or region where the merchant operates the business.\
+            \ The parameter is a 2-letter country or region code that follows ISO\
+            \ 3166 Country Codes standard.\n\nSome possible values are US, SG, HK,\
+            \ PK, JP, CN, BR, AU, and MY.  \n\nNote: This parameter is required when\
+            \ you use the Global Acquirer Gateway (GAGW) product.\n\nMore information:\n\
+            \nMaximum length: 2 characters"
+        allowedPaymentMethodRegions:
+          type: array
+          items:
+            type: string
+          description: "A list of region codes that represent the countries or regions\
+            \ of payment methods. The value of this parameter is a 2-letter ISO country\
+            \ code or GLOBAL. \n\nNote: Specify this parameter if you want available\
+            \ payment methods from specific regions to be returned. For example, if\
+            \ you pass in GLOBAL, global cards Visa and Mastercard are returned. \
+            \ \n\nMore information:\n\nMaximum length: 6 characters"
+        allowedPaymentMethods:
+          type: array
+          items:
+            type: string
+        blockedPaymentMethods:
+          type: array
+          items:
+            type: string
+        region:
+          type: string
+        customerId:
+          type: string
+        referenceUserId:
+          type: string
+        env:
+          $ref: '#/components/schemas/Env'
+          description: Information about the environment where the order is placed,
+            such as the device information.
+        extendInfo:
+          type: string
+        userRegion:
+          type: string
+          description: "The 2-letter country or region code. For more information,\
+            \ see ISO 3166 Country Codes standard. The payment methods will be sorted\
+            \ based on payment method relevance for the given user's region. \n\n\
+            More information:\n\nMaximum length: 2 characters"
+        paymentFactor:
+          $ref: '#/components/schemas/PaymentFactor'
+          description: 'Factors that impact the payment. This field is used to indicate
+            the payment scenario.
+
+
+            Note: Specify this parameter when the value of paymentMethodType is CARD.'
+        settlementStrategy:
+          $ref: '#/components/schemas/SettlementStrategy'
+          description: The settlement strategy.
+        merchant:
+          $ref: '#/components/schemas/Merchant'
+        allowedPspRegions:
+          type: array
+          items:
+            type: string
+        buyer:
+          $ref: '#/components/schemas/Buyer'
+          description: Buyer information.
+        merchantAccountId:
+          type: string
+          description: 'The unique ID to identify a merchant account.
+
+
+            Note: Specify this parameter when you use a single client ID across multiple
+            locations.
+
+
+            More information:
+
+
+            Maximum length: 32 characters'
+      required:
+      - productCode
+      - paymentAmount
+      - env
     PaymentMethodCategoryType:
+      type: string
       enum:
       - ALIPAY_PLUS
       - WALLET
@@ -552,20 +607,203 @@ components:
       - ONLINE_BANKING
       - CARD
       - OTC
-      type: string
-    PaymentMethodInfo:
+    Logo:
+      type: object
       properties:
+        logoName:
+          type: string
+          description: "The logo name of the card brand. See the Card brands to check\
+            \ the valid values. \n\nMore information:\n\nMaximum length: 12 characters"
+        logoUrl:
+          type: string
+          description: 'The logo URL of the card brand.    More information:  Maximum
+            length: 2048 characters'
+      required:
+      - logoName
+    SupportCardBrand:
+      type: object
+      properties:
+        cardBrand:
+          type: string
+          description: "The name of the card brand. Valid values are:\n\nVISA: indicates\
+            \ Visa. \nMASTERCARD: indicates Mastercard.  \nAMEX: indicates American\
+            \ Express (Amex).\nHIPERCARD: indicates Hipercard.\nELO: indicates Elo."
+        logo:
+          $ref: '#/components/schemas/Logo'
+          description: 'The logo of the card brand. '
+      required:
+      - cardBrand
+      - logo
+    SupportBank:
+      type: object
+      properties:
+        bankIdentifierCode:
+          type: string
+          description: 'The unique code of the bank. See the Bank list to check the
+            valid values. '
+        bankShortName:
+          type: string
+          description: 'The short name of the bank. The unique code of the bank. See
+            the Bank list to check the valid values. '
+        bankLogo:
+          $ref: '#/components/schemas/Logo'
+          description: 'The logo of the card brand. '
+    PaymentOptionDetail:
+      type: object
+      properties:
+        supportCardBrands:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupportCardBrand'
+          description: "The list of supported card brands.  \n\nNote: This parameter\
+            \ is returned when the value of paymentMethodType is ​CARD​."
+        funding:
+          type: array
+          items:
+            type: string
+          description: "The funding type of the card. Valid values are: \n\nCREDIT:\
+            \ indicates a credit card. \nDEBIT: indicates a debit card. \nPREPAID:\
+            \ indicates a prepaid card\nCHARGE: indicates a charge card\nDEFERRED_DEBIT:\
+            \ indicates a deferred debit card\nThis parameter is returned when all\
+            \ the following conditions are met:\n\nThe value of paymentMethodType\
+            \ is CARD.\nThe value of cardNo is valid.\nThe information is available\
+            \ in the Antom card database."
+        supportBanks:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupportBank'
+          description: "The list of supported banks. \n\nThis parameter is returned\
+            \ when the value of paymentMethodType is ​P24​ or ONLINEBANKING_FPX.\n\
+            \n"
+        interactionTypes:
+          type: array
+          items:
+            type: string
+          description: 表示支付方式支持的交互类型，有效取值包括QR(扫码支付)和REDIRECT(重定向支付)
+          example:
+          - REDIRECT
+          - QR
+      required:
+      - supportCardBrands
+      - supportBanks
+    Plan:
+      type: object
+      properties:
+        interestRate:
+          type: string
+          description: "The interest rate the customer is charged on the installments.\
+            \  \n\nMore information:\n\nMaximum length: 8 characters"
+        minInstallmentAmount:
+          $ref: '#/components/schemas/Amount'
+        maxInstallmentAmount:
+          $ref: '#/components/schemas/Amount'
+        installmentNum:
+          type: string
+          description: 'The number of installment payments. The valid value is from
+            2 to 12.    More information:  Maximum length: 8 characters'
+        interval:
+          type: string
+          description: 'The interval of each installment payment. The valid value
+            is MONTH.   More information:  Maximum length: 16 characters'
         enabled:
           type: boolean
-        extendInfo:
-          type: string
-        paymentMethodDetail:
-          type: string
-        paymentMethodType:
-          type: string
-        preferred:
-          type: boolean
+          description: 'Indicates whether the installment payment is available. '
+      required:
+      - minInstallmentAmount
+      - maxInstallmentAmount
+      - installmentNum
+      - interval
+      - enabled
+    Installment:
       type: object
+      properties:
+        supportCardBrands:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupportCardBrand'
+          description: "The list of card brands that support the installment plans.\
+            \  \n\nThis parameter is returned when the value of paymentMethodType\
+            \ is CARD. "
+        plans:
+          type: array
+          items:
+            $ref: '#/components/schemas/Plan'
+          description: 'The list of installment plans for payment methods that support
+            installments. '
+      required:
+      - supportCardBrands
+      - plans
+    InterestFree:
+      type: object
+      properties:
+        provider:
+          type: string
+          description: 'Issuing banks or financial institutions that offer interest-free
+            installment plans.  More information:  Maximum length: 128 characters'
+        expireTime:
+          type: string
+          description: 'The promotion expiration time.  More information:  The value
+            follows the ISO 8601 standard format. For example, "2019-11-27T12:01:01+08:00".'
+        installmentFreeNums:
+          type: array
+          items:
+            type: integer
+          description: 'The number of interest-free installments.  More information:  Value
+            range: 2-unlimited'
+        minPaymentAmount:
+          $ref: '#/components/schemas/Amount'
+        maxPaymentAmount:
+          $ref: '#/components/schemas/Amount'
+        freePercentage:
+          type: integer
+          description: The interest-free percentage. A value of 0 indicates no interest-free,
+            100% indicates the buyer is completely interest-free, while the value
+            between 0-100% indicates partial interest-free.
+      required:
+      - provider
+      - expireTime
+      - installmentFreeNums
+      - minPaymentAmount
+      - freePercentage
+    PromotionInfo:
+      type: object
+      properties:
+        promotionType:
+          $ref: '#/components/schemas/PromotionType'
+          description: 'Promotion type. Valid values are:  DISCOUNT: a deduction from
+            the regular price.  INTEREST_FREE: payment in interest-free installments.  More
+            information:  Maximum length: 32 characters'
+        discount:
+          $ref: '#/components/schemas/Discount'
+          description: 'Discount information.  Note: This parameter is returned when
+            the payment method offers a promotion to the buyer.'
+        interestFree:
+          $ref: '#/components/schemas/InterestFree'
+          description: The information about interest-free installment plans.
+      required:
+      - promotionType
+    AmountLimitInfo:
+      type: object
+      properties:
+        singleLimit:
+          $ref: '#/components/schemas/AmountLimit'
+        dayLimit:
+          $ref: '#/components/schemas/AmountLimit'
+        monthLimit:
+          $ref: '#/components/schemas/AmountLimit'
+    AmountLimit:
+      type: object
+      properties:
+        maxAmount:
+          $ref: '#/components/schemas/Amount'
+        minAmount:
+          $ref: '#/components/schemas/Amount'
+        remainAmount:
+          $ref: '#/components/schemas/Amount'
+      required:
+      - maxAmount
+      - minAmount
+      - remainAmount
     PaymentOption:
       type: object
       properties:
@@ -656,231 +894,43 @@ components:
       required:
       - paymentMethodType
       - enabled
-    PaymentOptionDetail:
+    PaymentMethodInfo:
       type: object
       properties:
-        supportCardBrands:
-          type: array
-          items:
-            $ref: '#/components/schemas/SupportCardBrand'
-          description: "The list of supported card brands.  \n\nNote: This parameter\
-            \ is returned when the value of paymentMethodType is ​CARD​."
-        funding:
-          type: array
-          items:
-            type: string
-          description: "The funding type of the card. Valid values are: \n\nCREDIT:\
-            \ indicates a credit card. \nDEBIT: indicates a debit card. \nPREPAID:\
-            \ indicates a prepaid card\nCHARGE: indicates a charge card\nDEFERRED_DEBIT:\
-            \ indicates a deferred debit card\nThis parameter is returned when all\
-            \ the following conditions are met:\n\nThe value of paymentMethodType\
-            \ is CARD.\nThe value of cardNo is valid.\nThe information is available\
-            \ in the Antom card database."
-        supportBanks:
-          type: array
-          items:
-            $ref: '#/components/schemas/SupportBank'
-          description: "The list of supported banks. \n\nThis parameter is returned\
-            \ when the value of paymentMethodType is ​P24​ or ONLINEBANKING_FPX.\n\
-            \n"
-        interactionTypes:
-          type: array
-          items:
-            type: string
-          description: 表示支付方式支持的交互类型，有效取值包括QR(扫码支付)和REDIRECT(重定向支付)
-          example:
-          - REDIRECT
-          - QR
-      required:
-      - supportCardBrands
-      - supportBanks
-    Plan:
-      properties:
+        paymentMethodType:
+          type: string
+        paymentMethodDetail:
+          type: string
         enabled:
-          description: 'Indicates whether the installment payment is available. '
           type: boolean
-        installmentNum:
-          description: 'The number of installment payments. The valid value is from
-            2 to 12.    More information:  Maximum length: 8 characters'
+        preferred:
+          type: boolean
+        extendInfo:
           type: string
-        interestRate:
-          description: "The interest rate the customer is charged on the installments.\
-            \  \n\nMore information:\n\nMaximum length: 8 characters"
-          type: string
-        interval:
-          description: 'The interval of each installment payment. The valid value
-            is MONTH.   More information:  Maximum length: 16 characters'
-          type: string
-        maxInstallmentAmount:
-          $ref: '#/components/schemas/Amount'
-        minInstallmentAmount:
-          $ref: '#/components/schemas/Amount'
-      required:
-      - minInstallmentAmount
-      - maxInstallmentAmount
-      - installmentNum
-      - interval
-      - enabled
+    AlipayPayConsultResponse:
       type: object
-    PresentmentMode:
-      enum:
-      - BUNDLE
-      - TILE
-      - UNIFIED
-      type: string
-    ProductCodeType:
-      enum:
-      - CASHIER_PAYMENT
-      - AGREEMENT_PAYMENT
-      - IN_STORE_PAYMENT
-      type: string
-    PromotionInfo:
       properties:
-        discount:
-          $ref: '#/components/schemas/Discount'
-          description: 'Discount information.  Note: This parameter is returned when
-            the payment method offers a promotion to the buyer.'
-        interestFree:
-          $ref: '#/components/schemas/InterestFree'
-          description: The information about interest-free installment plans.
-        promotionType:
-          $ref: '#/components/schemas/PromotionType'
-          description: 'Promotion type. Valid values are:  DISCOUNT: a deduction from
-            the regular price.  INTEREST_FREE: payment in interest-free installments.  More
-            information:  Maximum length: 32 characters'
-      required:
-      - promotionType
-      type: object
-    PromotionType:
-      enum:
-      - DISCOUNT
-      - INTEREST_FREE
-      type: string
-    Result:
-      properties:
-        resultCode:
-          description: 'The result code.
+        result:
+          $ref: '#/components/schemas/Result'
+          description: 'The request result that contains information such as status
+            and error codes.
 
 
-            More information:
-
-
-            Maximum length: 64 characters'
-          type: string
-        resultMessage:
-          description: 'The result message.
-
-
-            More information:
-
-
-            Maximum length: 256 characters'
-          type: string
-        resultStatus:
-          $ref: '#/components/schemas/ResultStatusType'
-          description: "The result status. Valid values are:  \n\nS: Indicates that\
-            \ the result status is successful. \nF: Indicates that the result status\
-            \ is failed. \nU: Indicates that the result status is unknown."
-      required:
-      - resultCode
-      - resultStatus
-      type: object
-    ResultStatusType:
-      enum:
-      - S
-      - F
-      - U
-      type:
-      - string
-      - 'null'
-    SettlementStrategy:
-      properties:
-        settlementCurrency:
-          description: "The ISO currency code of the currency that the merchant wants\
-            \ to settle against. This field is required if the merchant signed up\
-            \ for multiple settlement currencies. Otherwise, the error code,SETTLE_CONTRACT_NOT_MATCH,\
-            \ will be returned. \n\nMore information:\n\nMaximum length: 3 characters"
-          type: string
-      type: object
-    Store:
-      properties:
-        referenceStoreId:
-          type: string
-        storeAddress:
-          $ref: '#/components/schemas/Address'
-        storeDisplayName:
-          type: string
-        storeMCC:
-          type: string
-        storeName:
-          type: string
-        storeOperatorId:
-          type: string
-        storePhoneNo:
-          type: string
-        storeTerminalId:
+            Note: This field doesn''t indicate the payment result. This field only
+            indicates whether the consult API is called successfully. '
+        paymentOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentOption'
+          description: The payment option list.
+        paymentMethodInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentMethodInfo'
+        extendInfo:
           type: string
       required:
-      - storeName
-      - storeMCC
-      - storeDisplayName
-      - storeTerminalId
-      - storeOperatorId
-      - storeAddress
-      - storePhoneNo
-      - referenceStoreId
-      type: object
-    SupportBank:
-      properties:
-        bankIdentifierCode:
-          description: The unique code of the bank. See the Bank list to check the
-            valid values.
-          type: string
-        bankLogo:
-          $ref: '#/components/schemas/Logo'
-          description: 'The logo of the card brand. '
-        bankShortName:
-          description: The short name of the bank. The unique code of the bank. See
-            the Bank list to check the valid values.
-          type: string
-      type: object
-    SupportCardBrand:
-      properties:
-        cardBrand:
-          description: "The name of the card brand. Valid values are:\n\nVISA: indicates\
-            \ Visa. \nMASTERCARD: indicates Mastercard.  \nAMEX: indicates American\
-            \ Express (Amex).\nHIPERCARD: indicates Hipercard.\nELO: indicates Elo."
-          type: string
-        logo:
-          $ref: '#/components/schemas/Logo'
-          description: 'The logo of the card brand. '
-      required:
-      - cardBrand
-      - logo
-      type: object
-    TerminalType:
-      enum:
-      - WEB
-      - WAP
-      - APP
-      - MINI_APP
-      type: string
-    UserName:
-      properties:
-        firstName:
-          type: string
-        fullName:
-          type: string
-        lastName:
-          type: string
-        middleName:
-          type: string
-      required:
-      - firstName
-      - middleName
-      - lastName
-      - fullName
-      type: object
+      - result
     InteractionType:
       type: string
       enum:
@@ -983,46 +1033,4 @@ components:
       - DEFERRED_DEBIT
       description: The funding source type for the payment method
   securitySchemes: {}
-info:
-  contact:
-    name: Antom Developer Experience team
-    url: https://github.com/Antom/antom-openapi
-  description: 'Payment API is used for xxx. Refer [doc](https://global.alipay.com/docs/ac/ams/consult)
-
-    # Auth'
-  termsOfService: https://www.antom.com/legal/terms-and-conditions
-  title: Payment API
-  version: '1'
-  x-publicVersion: true
-  x-publicVersion1: true
-openapi: 3.1.0
-paths:
-  /ams/api/v1/payments/consult:
-    post:
-      deprecated: false
-      description: 'Use this API to get the cashier page address. After getting the
-        cashier page address, you can redirect the user to the cashier page to make
-        a payment.
-
-        '
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AlipayPayConsultRequest'
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AlipayPayConsultResponse'
-          description: ''
-          headers: {}
-      security: []
-      summary: consult
-      tags: []
 security: []
-servers:
-- url: https://open-sea-global.alipay.com/ams/api/v1/payments/consult
-tags: []

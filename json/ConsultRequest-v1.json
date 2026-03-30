@@ -23,7 +23,7 @@
       "post": {
         "summary": "consult",
         "deprecated": false,
-        "description": "Use this API to get the cashier page address. After getting the cashier page address, you can redirect the user to the cashier page to make a payment.\n",
+        "description": "Use this API to initiate a payment consultation request to Antom. This request is returned to the merchant with information on the different payment methods and its corresponding amount, country, currency, rules, and configuration.\n\nThis API enables you to:\n\nProvide consumers with multiple payment methods without bearing any additional costs caused by a change in these payment methods, or managing the logic of selecting and sorting these payment methods.\nAutomate the selection and sorting of multiple payment methods.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -497,7 +497,8 @@
             "description": "Represents the payment product that is being used. The payment product that can be used is stipulated in the contract. The fixed value is:\n\nCASHIER_PAYMENT: Indicates that this API is used for the Cashier Payment scenario.\nMore information:\n\nMaximum length: 32 characters"
           },
           "paymentAmount": {
-            "$ref": "#/components/schemas/Amount"
+            "$ref": "#/components/schemas/Amount",
+            "description": "The payment amount that the merchant requests to receive in the order currency."
           },
           "merchantRegion": {
             "type": "string",

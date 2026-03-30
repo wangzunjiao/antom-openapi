@@ -1,4 +1,3 @@
----
 openapi: 3.1.0
 info:
   title: payments_capture
@@ -10,7 +9,12 @@ paths:
     post:
       summary: capture
       deprecated: false
-      description: ''
+      description: "This API is used to capture the funds of an authorized payment\
+        \ from a user's account, and then transfer the specified payment amount to\
+        \ the merchant's account. Depending on different scenarios, the authorized\
+        \ payment can be captured in one of the following ways: \n\nFull capture:\
+        \ Capture the total payment amount. \nPartial capture: Capture the partial\
+        \ payment amount.  \n"
       tags: []
       parameters: []
       requestBody:
@@ -32,7 +36,7 @@ paths:
                   type: string
                   description: "The unique ID that is assigned by Antom to identify\
                     \ a payment.  \n\nMore information:\n\nMaximum length: 64 characters"
-                captureAmount: &id001
+                captureAmount:
                   description: The capture amount that the merchant requests to receive
                     in the transaction currency.
                   $ref: '#/components/schemas/Amount'
@@ -51,8 +55,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  result: &id002
+                  result:
                     $ref: '#/components/schemas/Result'
+                    description: 'The result of the API call. '
                   captureRequestId:
                     type: string
                     description: 'The unique ID that is assigned by a merchant to
@@ -95,7 +100,10 @@ paths:
 
 
                       Maximum length: 64 characters'
-                  captureAmount: *id001
+                  captureAmount:
+                    description: The capture amount that the merchant requests to
+                      receive in the transaction currency.
+                    $ref: '#/components/schemas/Amount'
                   captureTime:
                     type: string
                     description: "The time when Antom captures the payment. \n\nNote:\
@@ -181,7 +189,8 @@ components:
     AlipayCaptureResponse:
       type: object
       properties:
-        result: *id002
+        result:
+          $ref: '#/components/schemas/Result'
         captureRequestId:
           type: string
           description: 'The unique ID that is assigned by a merchant to identify a
@@ -219,7 +228,10 @@ components:
 
 
             Maximum length: 64 characters'
-        captureAmount: *id001
+        captureAmount:
+          description: The capture amount that the merchant requests to receive in
+            the transaction currency.
+          $ref: '#/components/schemas/Amount'
         captureTime:
           type: string
           description: "The time when Antom captures the payment. \n\nNote: This parameter\

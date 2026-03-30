@@ -1,4 +1,3 @@
----
 openapi: 3.1.0
 info:
   title: vaults_inquireVaulting
@@ -10,11 +9,8 @@ paths:
     post:
       summary: inquireVaulting
       deprecated: false
-      description: 'Use this API to get the cashier page address. After getting the
-        cashier page address, you can redirect the user to the cashier page to make
-        a payment.
-
-        '
+      description: 'Use this API to inquire about the vaulting status of a payment
+        method. '
       tags: []
       parameters: []
       requestBody:
@@ -38,7 +34,8 @@ components:
       properties:
         resultCode:
           type: string
-          description: The result code.
+          description: 'The result code. The possible result codes are listed in the
+            Result/Error codes table on this page.  '
         resultStatus:
           description: "The result status. Valid values are:\n\nS: indicates that\
             \ the result status is successful.\nF: indicates that the result status\
@@ -46,7 +43,7 @@ components:
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
-          description: The result message.
+          description: 'Result message that explains the result code. '
       required:
       - resultCode
       - resultStatus
@@ -62,9 +59,7 @@ components:
       - currency
       - value
     ResultStatusType:
-      type:
-      - string
-      - 'null'
+      type: string
       enum:
       - S
       - F
@@ -362,8 +357,9 @@ components:
         mpiData:
           $ref: '#/components/schemas/MpiData'
       required:
-      - expiryYear
-      - expiryMonth
+      - cardToken
+      - brand
+      - maskedCardNo
     ExternalPaymentMethodDetail:
       type: object
       properties:
@@ -380,7 +376,7 @@ components:
       properties:
         discountId:
           type: string
-        availableAmount: &id001
+        availableAmount:
           $ref: '#/components/schemas/Amount'
         discountName:
           type: string
@@ -393,7 +389,8 @@ components:
       properties:
         couponId:
           type: string
-        availableAmount: *id001
+        availableAmount:
+          $ref: '#/components/schemas/Amount'
         couponName:
           type: string
         couponDescription:
@@ -478,7 +475,11 @@ components:
             Maximum length: 64 characters'
         merchantAccountId:
           type: string
-          description: Merchant account ID for 2C2P integration scenario
+          description: 'A unique ID to identify a specific merchant account.
+
+
+            Note: Specify this parameter when you use one client ID across multiple
+            locations.'
           maxLength: 64
           example: 21******
       required:

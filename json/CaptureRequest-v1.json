@@ -11,7 +11,7 @@
       "post": {
         "summary": "capture",
         "deprecated": false,
-        "description": "",
+        "description": "This API is used to capture the funds of an authorized payment from a user's account, and then transfer the specified payment amount to the merchant's account. Depending on different scenarios, the authorized payment can be captured in one of the following ways: \n\nFull capture: Capture the total payment amount. \nPartial capture: Capture the partial payment amount.  \n",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -55,7 +55,8 @@
                   "type": "object",
                   "properties": {
                     "result": {
-                      "$ref": "#/components/schemas/Result"
+                      "$ref": "#/components/schemas/Result",
+                      "description": "The result of the API call. "
                     },
                     "captureRequestId": {
                       "type": "string",

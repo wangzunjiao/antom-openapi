@@ -9,7 +9,8 @@ paths:
     post:
       summary: fetchNonce
       deprecated: false
-      description: ''
+      description: Use this API to collect card information when you do not have PCI
+        qualifications.
       tags: []
       parameters: []
       requestBody:
@@ -35,7 +36,8 @@ components:
       properties:
         resultCode:
           type: string
-          description: The result code.
+          description: Result code. The result code that might be returned are listed
+            in the Result/Error codes table on this page.
         resultStatus:
           description: "The result status. Valid values are:\n\nS: indicates that\
             \ the result status is successful.\nF: indicates that the result status\
@@ -43,89 +45,113 @@ components:
           $ref: '#/components/schemas/ResultStatusType'
         resultMessage:
           type: string
-          description: The result message.
+          description: Result message that explains the result code.
       required:
-        - resultCode
-        - resultStatus
+      - resultCode
+      - resultStatus
+      - resultMessage
     ResultStatusType:
-      type:
-        - string
-        - 'null'
+      type: string
       enum:
-        - S
-        - F
-        - U
+      - S
+      - F
+      - U
     UserName:
       type: object
       properties:
         firstName:
           type: string
-          description: |-
-            First name.
+          description: 'The cardholder''s first name.
+
 
             More information:
 
-            Maximum length: 32 characters
+
+            Maximum length: 32 characters'
         middleName:
           type: string
-          description: |-
-            Middle name
+          description: 'Middle name
+
 
             More information:
 
-            Maximum length: 32 characters
+
+            Maximum length: 32 characters'
         lastName:
           type: string
-          description: |-
-            Last name
+          description: 'The cardholder''s last name.
+
 
             More information:
 
-            Maximum length: 32 characters
+
+            Maximum length: 32 characters'
         fullName:
           type: string
-          description: |-
-            Full name
+          description: 'Full name
+
 
             More information:
 
-            Maximum length: 128 characters
+
+            Maximum length: 128 characters'
+      required:
+      - firstName
+      - lastName
     Card:
       type: object
       properties:
         cardNo:
           type: string
+          description: The card number.
         cvv:
           type: string
+          description: The card verification value (CVV), which is also known as a
+            card security code (CSC) or a card verification code (CVC).Specify this
+            parameter when the value of paymentMethodRegion is GLOBAL, BR, CL, MX,
+            or PE.
         expiryYear:
           type: string
+          description: The year the card expires. Pass in the last two digits of the
+            year number. For example, if the expiry year is 2025, the value of this
+            parameter is ​25​.
         expiryMonth:
           type: string
+          description: The month the card expires. Pass in two digits representing
+            the month. For example, if the expiry month is February, the value of
+            this parameter is ​02​.
         cardholderName:
           $ref: '#/components/schemas/UserName'
+          description: 'The cardholder''s name.
+
+            Specify this parameter when the value of paymentMethodRegion is BR, CL,
+            MX, or PE.'
       required:
-        - cardNo
-        - cvv
-        - expiryYear
-        - expiryMonth
-        - cardholderName
+      - cardNo
+      - expiryYear
+      - expiryMonth
     AlipayVaultsFetchNonceRequest:
       type: object
       properties:
         card:
           $ref: '#/components/schemas/Card'
+          description: The card information.
       required:
-        - card
+      - card
     AlipayVaultsFetchNonceResponse:
       type: object
       properties:
         cardToken:
           type: string
+          description: The token of the card. The value of this parameter is used
+            by paymentMethodId in the pay (One-time Payments) API when initiating
+            payments.
         result:
           $ref: '#/components/schemas/Result'
+          description: The result of the API call.
       required:
-        - cardToken
-        - result
+      - cardToken
+      - result
   securitySchemes: {}
 servers:
 - url: https://open-sea-global.alipay.com/ams/api/v1/vaults/fetchNonce

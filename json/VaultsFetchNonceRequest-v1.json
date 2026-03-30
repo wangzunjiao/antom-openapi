@@ -11,7 +11,7 @@
       "post": {
         "summary": "fetchNonce",
         "deprecated": false,
-        "description": "",
+        "description": "Use this API to collect card information when you do not have PCI qualifications.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -49,7 +49,7 @@
         "properties": {
           "resultCode": {
             "type": "string",
-            "description": "The result code."
+            "description": "Result code. The result code that might be returned are listed in the Result/Error codes table on this page."
           },
           "resultStatus": {
             "description": "The result status. Valid values are:\n\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
@@ -57,12 +57,13 @@
           },
           "resultMessage": {
             "type": "string",
-            "description": "The result message."
+            "description": "Result message that explains the result code."
           }
         },
         "required": [
           "resultCode",
-          "resultStatus"
+          "resultStatus",
+          "resultMessage"
         ]
       },
       "ResultStatusType": {
@@ -78,7 +79,7 @@
         "properties": {
           "firstName": {
             "type": "string",
-            "description": "First name.\n\nMore information:\n\nMaximum length: 32 characters"
+            "description": "The cardholder's first name.\n\nMore information:\n\nMaximum length: 32 characters"
           },
           "middleName": {
             "type": "string",
@@ -86,46 +87,54 @@
           },
           "lastName": {
             "type": "string",
-            "description": "Last name\n\nMore information:\n\nMaximum length: 32 characters"
+            "description": "The cardholder's last name.\n\nMore information:\n\nMaximum length: 32 characters"
           },
           "fullName": {
             "type": "string",
             "description": "Full name\n\nMore information:\n\nMaximum length: 128 characters"
           }
-        }
+        },
+        "required": [
+          "firstName",
+          "lastName"
+        ]
       },
       "Card": {
         "type": "object",
         "properties": {
           "cardNo": {
-            "type": "string"
+            "type": "string",
+            "description": "The card number."
           },
           "cvv": {
-            "type": "string"
+            "type": "string",
+            "description": "The card verification value (CVV), which is also known as a card security code (CSC) or a card verification code (CVC).Specify this parameter when the value of paymentMethodRegion is GLOBAL, BR, CL, MX, or PE."
           },
           "expiryYear": {
-            "type": "string"
+            "type": "string",
+            "description": "The year the card expires. Pass in the last two digits of the year number. For example, if the expiry year is 2025, the value of this parameter is \u200B25\u200B."
           },
           "expiryMonth": {
-            "type": "string"
+            "type": "string",
+            "description": "The month the card expires. Pass in two digits representing the month. For example, if the expiry month is February, the value of this parameter is \u200B02\u200B."
           },
           "cardholderName": {
-            "$ref": "#/components/schemas/UserName"
+            "$ref": "#/components/schemas/UserName",
+            "description": "The cardholder's name.\nSpecify this parameter when the value of paymentMethodRegion is BR, CL, MX, or PE."
           }
         },
         "required": [
           "cardNo",
-          "cvv",
           "expiryYear",
-          "expiryMonth",
-          "cardholderName"
+          "expiryMonth"
         ]
       },
       "AlipayVaultsFetchNonceRequest": {
         "type": "object",
         "properties": {
           "card": {
-            "$ref": "#/components/schemas/Card"
+            "$ref": "#/components/schemas/Card",
+            "description": "The card information."
           }
         },
         "required": [
@@ -136,10 +145,12 @@
         "type": "object",
         "properties": {
           "cardToken": {
-            "type": "string"
+            "type": "string",
+            "description": "The token of the card. The value of this parameter is used by paymentMethodId in the pay (One-time Payments) API when initiating payments."
           },
           "result": {
-            "$ref": "#/components/schemas/Result"
+            "$ref": "#/components/schemas/Result",
+            "description": "The result of the API call."
           }
         },
         "required": [

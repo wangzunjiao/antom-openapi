@@ -1,6 +1,271 @@
----
+openapi: 3.1.0
+info:
+  title: vaults_vaultPaymentMethod
+  description: ''
+  version: 1.0.0
+tags: []
+paths:
+  /ams/api/v1/vaults/vaultPaymentMethod:
+    post:
+      summary: vaultPaymentMethod
+      deprecated: false
+      description: Use this API to vault a payment method prior to initiating a payment.
+        From the API response, you can obtain cardToken or one or more of normalUrl,
+        schemeUrl, or applinkUrl. cardToken is used to initiate payments using the
+        pay (One-time Payments) API, while the URLs can be used to redirect the user
+        to complete the vaulting.
+      tags: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlipayVaultingPaymentMethodRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlipayVaultingPaymentMethodResponse'
+          headers: {}
+      security: []
 components:
   schemas:
+    Result:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: 'The result code. The possble result codes are listed in the
+            Result/Error codes table on this page. '
+        resultStatus:
+          description: "The result status. Valid values are:\nS: indicates that the\
+            \ result status is successful.\nF: indicates that the result status is\
+            \ failed. \nU: indicates that the result status is unknown. "
+          $ref: '#/components/schemas/ResultStatusType'
+        resultMessage:
+          type: string
+          description: 'Result message that explains the result code. '
+      required:
+      - resultCode
+      - resultStatus
+      - resultMessage
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+        value:
+          type: string
+      required:
+      - currency
+      - value
+    TerminalType:
+      type: string
+      enum:
+      - WEB
+      - WAP
+      - APP
+      - MINI_APP
+    BrowserInfo:
+      type: object
+      properties:
+        acceptHeader:
+          type: string
+          description: The accept header of the user's browser
+        javaEnabled:
+          type: boolean
+          description: Indicates whether the user's browser is able to run Java
+        javaScriptEnabled:
+          type: boolean
+          description: Indicates whether the user's browser is able to run Java
+        language:
+          type: string
+          description: The language of the user's browser
+        userAgent:
+          type: string
+          description: The user agent of the user's browser
+    OsType:
+      type: string
+      enum:
+      - IOS
+      - ANDROID
+    Env:
+      type: object
+      properties:
+        terminalType:
+          $ref: '#/components/schemas/TerminalType'
+          description: 'Terminal type to which the merchant service applies. Valid
+            values are:
+
+
+            WEB: The client-side terminal type is a website, which is opened via a
+            PC browser.
+
+            WAP: The client-side terminal type is a mobile website (H5 page), which
+            is opened via a mobile browser.
+
+            APP: The client-side terminal type is a mobile application.
+
+            MINI_APP: The terminal type of the merchant side is a mini program on
+            the mobile phone.  '
+        osType:
+          $ref: '#/components/schemas/OsType'
+          description: 'Type of the operation system. Valid values are:
+
+
+            IOS: indicates the operation system is Apple''s iOS.
+
+            ANDROID: indicates the operation system is Google''s Android.
+
+            Note: Specify this field when terminalType is not WEB.  '
+        userAgent:
+          type: string
+        deviceTokenId:
+          type: string
+          description: "The token identifier of the device.\n\nNote: Specify this\
+            \ parameter if you integrate with the Antom Device Fingerprint client,\
+            \ which is an SDK or JavaScript library that is used to collect device-related\
+            \ information, such as osType, deviceLanguage, deviceId, websiteLanguage,\
+            \ and userAgent. The device-related information helps to increase the\
+            \ accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates. For more information about the Antom Device Fingerprint\
+            \ client, contact Antom Technical Support.  \n\nMore information:\n\n\
+            Maximum length: 64 characters"
+        clientIp:
+          type: string
+          description: 'The IP address of the client device.
+
+
+            Note: Specify this parameter when one of the following conditions is met:
+
+
+            You require risk control.
+
+            The value of paymentMethodType is CARD.
+
+            Providing this information helps to increase the accuracy of anti-money
+            laundering and fraud detection, and increase payment success rates.'
+          example: 127.0.0.1
+        cookieId:
+          type: string
+        extendInfo:
+          type: string
+          description: "Extended information.\n\nSpecify this field if you need to\
+            \ use the extended information.  \n\nMore information:\n\nMaximum length:\
+            \ 2048 characters"
+        storeTerminalId:
+          type: string
+        storeTerminalRequestTime:
+          type: string
+        browserInfo:
+          $ref: '#/components/schemas/BrowserInfo'
+          description: "The information about the browser environment where the order\
+            \ is placed. \n\nNote: Specify this parameter when you collect this information\
+            \ during the payment process.  "
+        colorDepth:
+          type: string
+          description: "The color depth of the user's browser in bits per pixel. The\
+            \ value is obtained by using the browser's screen.colorDepth property.\
+            \ Valid values are 1, 4, 8, 15, 16, 24, 30, 32, or 48. For example, 8\
+            \ means 8-bit color depth.  \n\nMore information:\n\nValue range: 0 -\
+            \ unlimited"
+        screenHeight:
+          type: string
+          description: "The screen height of the user's device in pixels.  \n\nNote:\
+            \ Specify this parameter if you require risk control. Providing this information\
+            \ helps to increase the accuracy of anti-money laundering and fraud detection,\
+            \ and increase payment success rates.  \n\nMore information:\n\nValue\
+            \ range: 1 - unlimited"
+        screenWidth:
+          type: string
+          description: "The screen width of the user's device in pixels.  \n\nNote:\
+            \ Specify this parameter if you require risk control. Providing this information\
+            \ helps to increase the accuracy of anti-money laundering and fraud detection,\
+            \ and increase payment success rates.  \n\nMore information:\n\nValue\
+            \ range: 1 - unlimited"
+        timeZoneOffset:
+          type: integer
+          description: 'The time difference between UTC time and the local time of
+            the user''s browser, in minutes. The value is obtained by using the getTimezoneOffset()
+            property. For example, if the local time of the user''s browser is UTC+2,
+            the value of this parameter is -120.
+
+
+            Note: Specify this parameter if you require risk control. Providing this
+            information helps to increase the accuracy of anti-money laundering and
+            fraud detection, and increase payment success rates.
+
+
+            More information:
+
+
+            Value range: -720 - 720'
+        deviceBrand:
+          type: string
+          description: "The brand of the user's device. \n\nNote: Specify this parameter\
+            \ if you require risk control. Providing this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates.  \n\nMore information:\n\nMaximum length: 64\
+            \ characters"
+        deviceModel:
+          type: string
+          description: "The model of the user's device. \n\nNote: Specify this parameter\
+            \ if you require risk control. Providing this information helps to increase\
+            \ the accuracy of anti-money laundering and fraud detection, and increase\
+            \ payment success rates.  \n\nMore information:\n\nMaximum length: 128\
+            \ characters"
+        deviceLanguage:
+          type: string
+          description: 'The language of the device where the user places an order.
+
+
+            Note: Specify this parameter if you require risk control. Providing this
+            information helps to identify black-market behavior.  '
+          example: zh_CN
+        deviceId:
+          type: string
+          description: 'The unique ID of the device the user places an order with.
+
+
+            Note: Specify this parameter if you require risk control. This parameter
+            can be used to build a trusted relationship between users and commonly
+            used devices, thereby reducing risk control interruptions and increasing
+            the payment success rate.  '
+          example: eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****
+        osVersion:
+          type: string
+          description: Version of the operation system.
+      required:
+      - terminalType
+    ResultStatusType:
+      type: string
+      enum:
+      - S
+      - F
+      - U
+    UserName:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: "The cardholder's first name. \n\nMore information:\n\nMaximum\
+            \ length: 32 characters\n"
+        middleName:
+          type: string
+          description: "The cardholder's middle name. \n\nMore information:\n\nMaximum\
+            \ length: 32 characters"
+        lastName:
+          type: string
+          description: 'The cardholder''s last name. '
+        fullName:
+          type: string
+          description: "The cardholder's full name. \n\nMore information:\n\nMaximum\
+            \ length: 128 characters"
+      required:
+      - firstName
+      - lastName
     Address:
       type: object
       properties:
@@ -42,142 +307,13 @@ components:
           type: string
       required:
       - region
-    AlipayVaultingPaymentMethodRequest:
-      type: object
-      properties:
-        merchantAccountId:
-          type: string
-          maxLength: 64
-          description: 一点集成场景使用
-        metadata:
-          type: string
-          maxLength: 2048
-          description: 商户使用，Json Format，用于提交元数据信息
-        vaultingRequestId:
-          type: string
-          description: "The unique ID that is assigned by a merchant to identify a\
-            \ card vaulting request. \n\nMore information:\n\nThis field is an API\
-            \ idempotency field.For vaulting requests that are initiated with the\
-            \ same value of vaultingRequestId and reach a final status of S or F,\
-            \ the same result is to be returned for the request.\nMaximum length:\
-            \ 64 characters"
-        vaultingNotificationUrl:
-          type: string
-          description: "The URL that is used to receive the vaulting result notification.\
-            \ \n\nMore information:\n\nMaximum length: 2048 characters"
-        redirectUrl:
-          type: string
-          description: 'The merchant page URL that the buyer is redirected to after
-            the vaulting process is completed.
-
-
-            More information:
-
-
-            Maximum length: 2048 characters
-
-            '
-        merchantRegion:
-          type: string
-          description: "The country or region where the merchant operates the business.\
-            \ The value of this parameter is a 2-letter country or region code based\
-            \ on the ISO 3166 Country Codes standard. \n\nSome possible values are\
-            \ US, SG, HK, PK, JP, CN, BR, AU, and MY.\n\nNote: Specify this parameter\
-            \ when you use the Global Acquirer Gateway (GAGW) product.\n\nMore information:\n\
-            \nMaximum length: 2 characters"
-        paymentMethodDetail:
-          $ref: '#/components/schemas/PaymentMethodDetail'
-          description: "The details about the payment method that needs to be vaulted.\
-            \ \n\n"
-        env:
-          $ref: '#/components/schemas/Env'
-          description: 'Information about the environment where the order is placed,
-            such as the device information.  '
-        vaultingCurrency:
-          type: string
-        customizedInfo:
-          $ref: '#/components/schemas/CustomizedInfo'
-      required:
-      - vaultingRequestId
-      - vaultingNotificationUrl
-      - redirectUrl
-      - paymentMethodDetail
-      - env
-    AlipayVaultingPaymentMethodResponse:
-      properties:
-        applinkUrl:
-          description: 'The URL that redirects the user to open an app when the target
-            app is installed, or to open a WAP page when the target app is not installed.
-
-
-            More information:
-
-
-            Maximum length: 2048 characters'
-          type: string
-        normalUrl:
-          description: "The URL that redirects the user to a WAP or WEB page in the\
-            \ default browser or the embedded WebView.\n\nNote:\n\nWhen the value\
-            \ of result.resultCode is VERIFICATION_IN_PROCESS, one or more of the\
-            \ following URLs may be returned: schemeUrl, appLinkUrl, and normalUrl.\n\
-            When the value of paymentMethodType is CARD, the user is required to complete\
-            \ the 3DS authentication on the page accessed through this URL.  \nMore\
-            \ information:\n\nMaximum length: 2048 characters"
-          type: string
-        paymentMethodDetail:
-          $ref: '#/components/schemas/PaymentMethodDetail'
-          description: "The details about the payment method that needs to be vaulted.\
-            \ \n\n"
-        result:
-          $ref: '#/components/schemas/Result'
-          description: 'The result of the API call. '
-        schemeUrl:
-          description: 'The URL scheme that redirects the user to open an app in an
-            Android or iOS system when the target app is installed.
-
-
-            More information:
-
-
-            Maximum length: 2048 characters'
-          type: string
-        vaultingRequestId:
-          description: "The unique ID that is assigned by a merchant to identify a\
-            \ card vaulting request.  \n\nMore information:\n\nMaximum length: 64\
-            \ characters"
-          type: string
-      required:
-      - result
-      - vaultingRequestId
-      type: object
-    Amount:
-      properties:
-        currency:
-          type: string
-        value:
-          type: string
-      required:
-      - currency
-      - value
-      type: object
-    BrowserInfo:
-      properties:
-        acceptHeader:
-          description: The accept header of the user's browser
-          type: string
-        javaEnabled:
-          description: Indicates whether the user's browser is able to run Java
-          type: boolean
-        javaScriptEnabled:
-          description: Indicates whether the user's browser is able to run Java
-          type: boolean
-        language:
-          description: The language of the user's browser
-          type: string
-        userAgent:
-          description: The user agent of the user's browser
-          type: string
-      type: object
+    PaymentMethodDetailType:
+      type: string
+      enum:
+      - CARD
+      - EXTERNALACCOUNT
+      - COUPON
+      - DISCOUNT
     CardBrand:
       enum:
       - AMEX
@@ -218,6 +354,19 @@ components:
       - VISA
       - WOORI
       type: string
+    MpiData:
+      type: object
+      properties:
+        threeDSVersion:
+          type: string
+        eci:
+          type: string
+        cavv:
+          type: string
+        dsTransactionId:
+          type: string
+        credentialType:
+          type: string
     CardPaymentMethodDetail:
       type: object
       properties:
@@ -228,9 +377,9 @@ components:
           description: Supported card brands for this payment method
         cardToken:
           type: string
-          description: "The token of the card. The value of this parameter is used\
-            \ by paymentMethodId in the pay (Checkout Payment) API when initiating\
-            \ payments. \n\nMore information:\n\nMaximum length: 2048 characters"
+          description: 'The token of the card. The value of this parameter is used
+            by paymentMethodId in the pay (One-time Payments) API when initiating
+            payments. '
         cardNo:
           type: string
           description: "The card number. \n\nMore information:\n\nMaximum length:\
@@ -240,7 +389,13 @@ components:
           description: Deprecated. Use selectedCardBrand instead.
         selectedCardBrand:
           $ref: '#/components/schemas/CardBrand'
-          description: Deprecated. Use selectedCardBrand instead.
+          description: 'The card brand that the user used for payment. See Card brands
+            to check the valid values.
+
+
+            Note: Specify this parameter when the card is a co-badged card. If you
+            do not specify this parameter, Antom decides which card brand the user
+            uses to pay based on the payment success rate and other factors.'
         cardIssuer:
           type: string
         countryIssue:
@@ -295,6 +450,7 @@ components:
           type: string
         cardholderName:
           $ref: '#/components/schemas/UserName'
+          description: 'The cardholder''s name. '
         cvv:
           type: string
           description: "The card verification value (CVV), which is also known as\
@@ -399,287 +555,48 @@ components:
         mpiData:
           $ref: '#/components/schemas/MpiData'
       required:
+      - cardNo
       - expiryYear
       - expiryMonth
-    CouponPaymentMethodDetail:
-      properties:
-        availableAmount:
-          $ref: '#/components/schemas/Amount'
-        couponDescription:
-          type: string
-        couponExpireTime:
-          type: string
-        couponId:
-          type: string
-        couponName:
-          type: string
-        paymentMethodDetailMetadata:
-          type: string
-      type: object
-    CustomizedInfo:
-      type: object
-      properties:
-        customizedField1:
-          type: string
-          description: Customized field 1
-        customizedField2:
-          type: string
-          description: Customized field 2
-        customizedField3:
-          type: string
-          description: Customized field 3
-        customizedField4:
-          type: string
-          description: Customized field 4
-        customizedField5:
-          type: string
-          description: Customized field 5
-    DiscountPaymentMethodDetail:
-      properties:
-        availableAmount:
-          $ref: '#/components/schemas/Amount'
-        discountDescription:
-          type: string
-        discountId:
-          type: string
-        discountName:
-          type: string
-        paymentMethodDetailMetadata:
-          type: string
-      type: object
-    Env:
-      type: object
-      properties:
-        terminalType:
-          $ref: '#/components/schemas/TerminalType'
-          description: 'Terminal type used by the merchant. Valid values are:'
-        osType:
-          $ref: '#/components/schemas/OsType'
-          description: 'Type of the operation system. Valid values are:
-
-
-            IOS: indicates the operation system is Apple''s iOS.
-
-            ANDROID: indicates the operation system is Google''s Android.
-
-            Note: Specify this field when terminalType is not WEB.  '
-        userAgent:
-          type: string
-        deviceTokenId:
-          type: string
-          description: "The token identifier of the device.\n\nNote: Specify this\
-            \ parameter if you integrate with the Antom Device Fingerprint client,\
-            \ which is an SDK or JavaScript library that is used to collect device-related\
-            \ information, such as osType, deviceLanguage, deviceId, websiteLanguage,\
-            \ and userAgent. The device-related information helps to increase the\
-            \ accuracy of anti-money laundering and fraud detection, and increase\
-            \ payment success rates. For more information about the Antom Device Fingerprint\
-            \ client, contact Antom Technical Support.  \n\nMore information:\n\n\
-            Maximum length: 64 characters"
-        clientIp:
-          type: string
-          description: Client IP address of the device.
-          example: 127.0.0.1
-        cookieId:
-          type: string
-        extendInfo:
-          type: string
-          description: "Extended information.\n\nSpecify this field if you need to\
-            \ use the extended information.  \n\nMore information:\n\nMaximum length:\
-            \ 2048 characters"
-        storeTerminalId:
-          type: string
-        storeTerminalRequestTime:
-          type: string
-        browserInfo:
-          $ref: '#/components/schemas/BrowserInfo'
-          description: "The information about the browser environment where the order\
-            \ is placed. \n\nNote: Specify this parameter when you collect this information\
-            \ during the payment process.  "
-        colorDepth:
-          type: string
-          description: "The color depth of the user's browser in bits per pixel. The\
-            \ value is obtained by using the browser's screen.colorDepth property.\
-            \ Valid values are 1, 4, 8, 15, 16, 24, 30, 32, or 48. For example, 8\
-            \ means 8-bit color depth.  \n\nMore information:\n\nValue range: 0 -\
-            \ unlimited"
-        screenHeight:
-          type: string
-          description: "The screen height of the user's device in pixels.  \n\nNote:\
-            \ Specify this parameter if you require risk control. Providing this information\
-            \ helps to increase the accuracy of anti-money laundering and fraud detection,\
-            \ and increase payment success rates.  \n\nMore information:\n\nValue\
-            \ range: 1 - unlimited"
-        screenWidth:
-          type: string
-          description: "The screen width of the user's device in pixels.  \n\nNote:\
-            \ Specify this parameter if you require risk control. Providing this information\
-            \ helps to increase the accuracy of anti-money laundering and fraud detection,\
-            \ and increase payment success rates.  \n\nMore information:\n\nValue\
-            \ range: 1 - unlimited"
-        timeZoneOffset:
-          type: integer
-          description: 'The time difference between UTC time and the local time of
-            the user''s browser, in minutes. The value is obtained by using the getTimezoneOffset()
-            property. For example, if the local time of the user''s browser is UTC+2,
-            the value of this parameter is -120.
-
-
-            Note: Specify this parameter if you require risk control. Providing this
-            information helps to increase the accuracy of anti-money laundering and
-            fraud detection, and increase payment success rates.
-
-
-            More information:
-
-
-            Value range: -720 - 720'
-        deviceBrand:
-          type: string
-          description: "The brand of the user's device. \n\nNote: Specify this parameter\
-            \ if you require risk control. Providing this information helps to increase\
-            \ the accuracy of anti-money laundering and fraud detection, and increase\
-            \ payment success rates.  \n\nMore information:\n\nMaximum length: 64\
-            \ characters"
-        deviceModel:
-          type: string
-          description: "The model of the user's device. \n\nNote: Specify this parameter\
-            \ if you require risk control. Providing this information helps to increase\
-            \ the accuracy of anti-money laundering and fraud detection, and increase\
-            \ payment success rates.  \n\nMore information:\n\nMaximum length: 128\
-            \ characters"
-        deviceLanguage:
-          type: string
-          description: Device language of the user.
-          example: zh_CN
-        deviceId:
-          type: string
-          description: Device ID of the user.
-          example: eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****
-        osVersion:
-          type: string
-          description: Version of the operation system.
-      required:
-      - terminalType
     ExternalPaymentMethodDetail:
+      type: object
       properties:
-        accountDisplayName:
-          type: string
         assetToken:
+          type: string
+        accountDisplayName:
           type: string
         disableReason:
           type: string
         paymentMethodDetailMetadata:
           type: string
-      type: object
-    MpiData:
+    DiscountPaymentMethodDetail:
       type: object
       properties:
-        threeDSVersion:
+        discountId:
           type: string
-        eci:
+        availableAmount:
+          $ref: '#/components/schemas/Amount'
+        discountName:
           type: string
-        cavv:
+        discountDescription:
           type: string
-        dsTransactionId:
+        paymentMethodDetailMetadata:
           type: string
-        credentialType:
-          type: string
-    OsType:
-      enum:
-      - IOS
-      - ANDROID
-      type: string
-    PaymentMethodDetail:
-      properties:
-        card:
-          $ref: '#/components/schemas/CardPaymentMethodDetail'
-          description: "The card information. \n\nSpecify this parameter when all\
-            \ the following conditions are met:\n\nYou are PCI compliant.\nThe value\
-            \ of paymentMethodType is CARD."
-        coupon:
-          $ref: '#/components/schemas/CouponPaymentMethodDetail'
-        discount:
-          $ref: '#/components/schemas/DiscountPaymentMethodDetail'
-        extendInfo:
-          type: string
-        externalAccount:
-          $ref: '#/components/schemas/ExternalPaymentMethodDetail'
-        interactionType:
-          type: string
-        paymentMethodDetailType:
-          $ref: '#/components/schemas/PaymentMethodDetailType'
-        paymentMethodType:
-          description: "The type of payment method to be vaulted. The value of this\
-            \ parameter is fixed to CARD.  \n\nMore information:\n\nMaximum length:\
-            \ 64 characters"
-          type: string
-        wallet:
-          $ref: '#/components/schemas/Wallet'
-      required:
-      - paymentMethodType
+    CouponPaymentMethodDetail:
       type: object
-    PaymentMethodDetailType:
-      enum:
-      - CARD
-      - EXTERNALACCOUNT
-      - COUPON
-      - DISCOUNT
-      type: string
-    Result:
       properties:
-        resultCode:
-          description: The result code.
+        couponId:
           type: string
-        resultMessage:
-          description: The result message.
+        availableAmount:
+          $ref: '#/components/schemas/Amount'
+        couponName:
           type: string
-        resultStatus:
-          $ref: '#/components/schemas/ResultStatusType'
-          description: "The result status. Valid values are:\nS: indicates that the\
-            \ result status is successful.\nF: indicates that the result status is\
-            \ failed. \nU: indicates that the result status is unknown. "
-      required:
-      - resultCode
-      - resultStatus
-      - resultMessage
-      type: object
-    ResultStatusType:
-      enum:
-      - S
-      - F
-      - U
-      type:
-      - string
-      - 'null'
-    TerminalType:
-      enum:
-      - WEB
-      - WAP
-      - APP
-      - MINI_APP
-      type: string
-    UserName:
-      properties:
-        firstName:
-          description: "The cardholder's first name. \n\nMore information:\n\nMaximum\
-            \ length: 32 characters\n"
+        couponDescription:
           type: string
-        fullName:
-          description: "The cardholder's full name. \n\nMore information:\n\nMaximum\
-            \ length: 128 characters"
+        couponExpireTime:
           type: string
-        lastName:
-          description: 'The cardholder''s last name. '
+        paymentMethodDetailMetadata:
           type: string
-        middleName:
-          description: "The cardholder's middle name. \n\nMore information:\n\nMaximum\
-            \ length: 32 characters"
-          type: string
-      required:
-      - firstName
-      - lastName
-      type: object
     Wallet:
       type: object
       properties:
@@ -703,40 +620,173 @@ components:
         tokenExpiryTime:
           type: string
           description: Added field for token expiry time
-  securitySchemes: {}
-info:
-  description: ''
-  title: vaults_vaultPaymentMethod
-  version: 1.0.0
-openapi: 3.1.0
-paths:
-  /ams/api/v1/vaults/vaultPaymentMethod:
-    post:
-      deprecated: false
-      description: 'Use this API to get the cashier page address. After getting the
-        cashier page address, you can redirect the user to the cashier page to make
-        a payment.
+    PaymentMethodDetail:
+      type: object
+      properties:
+        paymentMethodDetailType:
+          $ref: '#/components/schemas/PaymentMethodDetailType'
+          description: 'The type of payment method to be vaulted. The value of this
+            parameter is fixed to CARD. '
+        card:
+          $ref: '#/components/schemas/CardPaymentMethodDetail'
+          description: "The card information. \n\nSpecify this parameter when all\
+            \ the following conditions are met:\n\nYou are PCI compliant.\nThe value\
+            \ of paymentMethodType is CARD."
+        externalAccount:
+          $ref: '#/components/schemas/ExternalPaymentMethodDetail'
+        discount:
+          $ref: '#/components/schemas/DiscountPaymentMethodDetail'
+        coupon:
+          $ref: '#/components/schemas/CouponPaymentMethodDetail'
+        paymentMethodType:
+          type: string
+          description: "The type of payment method to be vaulted. The value of this\
+            \ parameter is fixed to CARD.  \n\nMore information:\n\nMaximum length:\
+            \ 64 characters"
+        extendInfo:
+          type: string
+        wallet:
+          $ref: '#/components/schemas/Wallet'
+        interactionType:
+          type: string
+      required:
+      - paymentMethodType
+    CustomizedInfo:
+      type: object
+      properties:
+        customizedField1:
+          type: string
+          description: Customized field 1
+        customizedField2:
+          type: string
+          description: Customized field 2
+        customizedField3:
+          type: string
+          description: Customized field 3
+        customizedField4:
+          type: string
+          description: Customized field 4
+        customizedField5:
+          type: string
+          description: Customized field 5
+    AlipayVaultingPaymentMethodRequest:
+      type: object
+      properties:
+        merchantAccountId:
+          type: string
+          maxLength: 64
+          description: 'A unique ID to identify a specific merchant account.
 
-        '
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AlipayVaultingPaymentMethodRequest'
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AlipayVaultingPaymentMethodResponse'
-          description: ''
-          headers: {}
-      security: []
-      summary: vaultPaymentMethod
-      tags: []
-security: []
+
+            Note: Specify this parameter when you use one client ID across multiple
+            locations.'
+        metadata:
+          type: string
+          maxLength: 2048
+          description: 'This parameter is used for submitting metadata, including
+            information for special use cases.
+
+
+            Specify this parameter when you need to add metadata information.'
+        vaultingRequestId:
+          type: string
+          description: "The unique ID that is assigned by a merchant to identify a\
+            \ card vaulting request. \n\nMore information:\n\nThis field is an API\
+            \ idempotency field.For vaulting requests that are initiated with the\
+            \ same value of vaultingRequestId and reach a final status of S or F,\
+            \ the same result is to be returned for the request.\nMaximum length:\
+            \ 64 characters"
+        vaultingNotificationUrl:
+          type: string
+          description: "The URL that is used to receive the vaulting result notification.\
+            \ \n\nMore information:\n\nMaximum length: 2048 characters"
+        redirectUrl:
+          type: string
+          description: 'The merchant page URL that the buyer is redirected to after
+            the vaulting process is completed.
+
+
+            More information:
+
+
+            Maximum length: 2048 characters
+
+            '
+        merchantRegion:
+          type: string
+          description: "The country or region where the merchant operates the business.\
+            \ The value of this parameter is a 2-letter country or region code based\
+            \ on the ISO 3166 Country Codes standard. \n\nSome possible values are\
+            \ US, SG, HK, PK, JP, CN, BR, AU, and MY.\n\nNote: Specify this parameter\
+            \ when you use the Global Acquirer Gateway (GAGW) product.\n\nMore information:\n\
+            \nMaximum length: 2 characters"
+        paymentMethodDetail:
+          $ref: '#/components/schemas/PaymentMethodDetail'
+          description: "The details about the payment method that needs to be vaulted.\
+            \ \n\n"
+        env:
+          $ref: '#/components/schemas/Env'
+          description: 'Information about the environment where the order is placed,
+            such as the device information.  '
+        vaultingCurrency:
+          type: string
+        customizedInfo:
+          $ref: '#/components/schemas/CustomizedInfo'
+      required:
+      - vaultingRequestId
+      - vaultingNotificationUrl
+      - redirectUrl
+      - paymentMethodDetail
+      - env
+    AlipayVaultingPaymentMethodResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+          description: 'The result of the API call. '
+        vaultingRequestId:
+          type: string
+          description: "The unique ID that is assigned by a merchant to identify a\
+            \ card vaulting request.  \n\nMore information:\n\nMaximum length: 64\
+            \ characters"
+        paymentMethodDetail:
+          $ref: '#/components/schemas/PaymentMethodDetail'
+          description: "The details about the payment method that needs to be vaulted.\
+            \ \n\n"
+        normalUrl:
+          type: string
+          description: "The URL that redirects the user to a WAP or WEB page in the\
+            \ default browser or the embedded WebView.\n\nNote:\n\nWhen the value\
+            \ of result.resultCode is VERIFICATION_IN_PROCESS, one or more of the\
+            \ following URLs may be returned: schemeUrl, appLinkUrl, and normalUrl.\n\
+            When the value of paymentMethodType is CARD, the user is required to complete\
+            \ the 3DS authentication on the page accessed through this URL.  \nMore\
+            \ information:\n\nMaximum length: 2048 characters"
+        schemeUrl:
+          type: string
+          description: 'The URL scheme that redirects the user to open an app in an
+            Android or iOS system when the target app is installed.
+
+
+            More information:
+
+
+            Maximum length: 2048 characters'
+        applinkUrl:
+          type: string
+          description: 'The URL that redirects the user to open an app when the target
+            app is installed, or to open a WAP page when the target app is not installed.
+
+
+            More information:
+
+
+            Maximum length: 2048 characters'
+      required:
+      - result
+      - vaultingRequestId
+  securitySchemes: {}
 servers:
-- description: 正式环境
-  url: https://open-sea-global.alipay.com/ams/api/v1/vaults/vaultPaymentMethod
-tags: []
+- url: https://open-sea-global.alipay.com/ams/api/v1/vaults/vaultPaymentMethod
+  description: 正式环境
+security: []

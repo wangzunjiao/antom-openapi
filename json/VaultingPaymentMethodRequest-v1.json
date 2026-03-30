@@ -11,7 +11,7 @@
       "post": {
         "summary": "vaultPaymentMethod",
         "deprecated": false,
-        "description": "Use this API to get the cashier page address. After getting the cashier page address, you can redirect the user to the cashier page to make a payment.\n",
+        "description": "Use this API to vault a payment method prior to initiating a payment. From the API response, you can obtain cardToken or one or more of normalUrl, schemeUrl, or applinkUrl. cardToken is used to initiate payments using the pay (One-time Payments) API, while the URLs can be used to redirect the user to complete the vaulting.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -47,7 +47,7 @@
         "properties": {
           "resultCode": {
             "type": "string",
-            "description": "The result code."
+            "description": "The result code. The possble result codes are listed in the Result/Error codes table on this page. "
           },
           "resultStatus": {
             "description": "The result status. Valid values are:\nS: indicates that the result status is successful.\nF: indicates that the result status is failed. \nU: indicates that the result status is unknown. ",
@@ -55,7 +55,7 @@
           },
           "resultMessage": {
             "type": "string",
-            "description": "The result message."
+            "description": "Result message that explains the result code. "
           }
         },
         "required": [
@@ -125,7 +125,7 @@
         "properties": {
           "terminalType": {
             "$ref": "#/components/schemas/TerminalType",
-            "description": "Terminal type used by the merchant. Valid values are:"
+            "description": "Terminal type to which the merchant service applies. Valid values are:\n\nWEB: The client-side terminal type is a website, which is opened via a PC browser.\nWAP: The client-side terminal type is a mobile website (H5 page), which is opened via a mobile browser.\nAPP: The client-side terminal type is a mobile application.\nMINI_APP: The terminal type of the merchant side is a mini program on the mobile phone.  "
           },
           "osType": {
             "$ref": "#/components/schemas/OsType",
@@ -140,7 +140,7 @@
           },
           "clientIp": {
             "type": "string",
-            "description": "Client IP address of the device.",
+            "description": "The IP address of the client device.\n\nNote: Specify this parameter when one of the following conditions is met:\n\nYou require risk control.\nThe value of paymentMethodType is CARD.\nProviding this information helps to increase the accuracy of anti-money laundering and fraud detection, and increase payment success rates.",
             "example": "127.0.0.1"
           },
           "cookieId": {
@@ -186,12 +186,12 @@
           },
           "deviceLanguage": {
             "type": "string",
-            "description": "Device language of the user.",
+            "description": "The language of the device where the user places an order.\n\nNote: Specify this parameter if you require risk control. Providing this information helps to identify black-market behavior.  ",
             "example": "zh_CN"
           },
           "deviceId": {
             "type": "string",
-            "description": "Device ID of the user.",
+            "description": "The unique ID of the device the user places an order with.\n\nNote: Specify this parameter if you require risk control. This parameter can be used to build a trusted relationship between users and commonly used devices, thereby reducing risk control interruptions and increasing the payment success rate.  ",
             "example": "eYOIkvFpZzztgO0Yu6USdprBQZCWxDhiUAHCiK8K/cH9mT6wMaMO****"
           },
           "osVersion": {
@@ -357,7 +357,7 @@
           },
           "cardToken": {
             "type": "string",
-            "description": "The token of the card. The value of this parameter is used by paymentMethodId in the pay (Checkout Payment) API when initiating payments. \n\nMore information:\n\nMaximum length: 2048 characters"
+            "description": "The token of the card. The value of this parameter is used by paymentMethodId in the pay (One-time Payments) API when initiating payments. "
           },
           "cardNo": {
             "type": "string",
@@ -369,7 +369,7 @@
           },
           "selectedCardBrand": {
             "$ref": "#/components/schemas/CardBrand",
-            "description": "Deprecated. Use selectedCardBrand instead."
+            "description": "The card brand that the user used for payment. See Card brands to check the valid values.\n\nNote: Specify this parameter when the card is a co-badged card. If you do not specify this parameter, Antom decides which card brand the user uses to pay based on the payment success rate and other factors."
           },
           "cardIssuer": {
             "type": "string"
@@ -433,7 +433,8 @@
             "type": "string"
           },
           "cardholderName": {
-            "$ref": "#/components/schemas/UserName"
+            "$ref": "#/components/schemas/UserName",
+            "description": "The cardholder's name. "
           },
           "cvv": {
             "type": "string",
@@ -453,7 +454,7 @@
           },
           "cpf": {
             "type": "string",
-            "description": "The Cadastro Pessoal de Pessoa F\u00edsica (CPF) is the tax ID of the Brazilian individual taxpayer.\n\nNote: Specify this parameter when the card issuing bank is in Brazil.\n\nMore information:\n\nMaximum length: 11 characters"
+            "description": "The Cadastro Pessoal de Pessoa Física (CPF) is the tax ID of the Brazilian individual taxpayer.\n\nNote: Specify this parameter when the card issuing bank is in Brazil.\n\nMore information:\n\nMaximum length: 11 characters"
           },
           "payerEmail": {
             "type": "string",
@@ -481,6 +482,7 @@
           }
         },
         "required": [
+          "cardNo",
           "expiryYear",
           "expiryMonth"
         ]
@@ -578,7 +580,8 @@
         "type": "object",
         "properties": {
           "paymentMethodDetailType": {
-            "$ref": "#/components/schemas/PaymentMethodDetailType"
+            "$ref": "#/components/schemas/PaymentMethodDetailType",
+            "description": "The type of payment method to be vaulted. The value of this parameter is fixed to CARD. "
           },
           "card": {
             "$ref": "#/components/schemas/CardPaymentMethodDetail",
@@ -642,12 +645,12 @@
           "merchantAccountId": {
             "type": "string",
             "maxLength": 64,
-            "description": "\u4e00\u70b9\u96c6\u6210\u573a\u666f\u4f7f\u7528"
+            "description": "A unique ID to identify a specific merchant account.\n\nNote: Specify this parameter when you use one client ID across multiple locations."
           },
           "metadata": {
             "type": "string",
             "maxLength": 2048,
-            "description": "\u5546\u6237\u4f7f\u7528\uff0cJson Format\uff0c\u7528\u4e8e\u63d0\u4ea4\u5143\u6570\u636e\u4fe1\u606f"
+            "description": "This parameter is used for submitting metadata, including information for special use cases.\n\nSpecify this parameter when you need to add metadata information."
           },
           "vaultingRequestId": {
             "type": "string",

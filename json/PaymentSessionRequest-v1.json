@@ -11,7 +11,7 @@
       "post": {
         "summary": "createPaymentSession",
         "deprecated": false,
-        "description": "Use this API to get the cashier page address. After getting the cashier page address, you can redirect the user to the cashier page to make a payment.\n",
+        "description": "The API is used to create a payment session for client-side SDK integration. Through this API response, Antom returns encrypted session data. You use the session data to initiate the client-side SDK. The SDK helps you complete the payment process and eliminate intermediate page redirections throughout the entire payment process.  \n\n",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -77,15 +77,15 @@
         "properties": {
           "merchantAccountId": {
             "type": "string",
-            "description": "The merchant account ID"
+            "description": "A unique ID to identify a specific merchant account.\n\nNote: Specify this parameter when you use one client ID across multiple locations."
           },
           "metadata": {
             "type": "string",
-            "description": "Additional metadata for the payment session"
+            "description": "This parameter is used for submitting metadata, including information for special use cases.\n\nSpecify this parameter when you need to add metadata information."
           },
           "allowedPaymentMethodRegions": {
             "type": "string",
-            "description": "Allowed payment method regions"
+            "description": "A list of region codes that represent the countries or regions of payment methods. The value of this parameter is a 2-letter ISO country code or GLOBAL. \n\nNote: Specify this parameter if you want available payment methods from specific regions to be returned. For example, if you pass in GLOBAL, global cards Visa and Mastercard are returned.  "
           },
           "customizedInfo": {
             "$ref": "#/components/schemas/CustomizedInfo",
@@ -211,7 +211,6 @@
           "paymentRequestId",
           "paymentAmount",
           "settlementStrategy",
-          "paymentMethod",
           "paymentRedirectUrl",
           "productCode"
         ]
@@ -548,10 +547,7 @@
             "type": "string",
             "description": "Version of the operation system."
           }
-        },
-        "required": [
-          "terminalType"
-        ]
+        }
       },
       "BrowserInfo": {
         "type": "object",
@@ -612,7 +608,10 @@
             "type": "integer",
             "description": "This field is determined by the sellers' liability. For example, 0 indicates the seller is not liable for any fee. 100 indicates the seller pays 100% of the fee.\n\nNote: Specify this field when the value of creditPayFeeType is PERCENTAGE.\n\nMore information:\n\nValue range: 0 - 100"
           }
-        }
+        },
+        "required": [
+          "installmentNum"
+        ]
       },
       "CreditPayFeeType": {
         "type": "string",
@@ -796,7 +795,7 @@
         "required": [
           "orderAmount",
           "referenceOrderId",
-          "orderType"
+          "orderDescription"
         ]
       },
       "Gaming": {
@@ -874,9 +873,7 @@
         },
         "required": [
           "firstName",
-          "middleName",
-          "lastName",
-          "fullName"
+          "lastName"
         ]
       },
       "Address": {
@@ -1065,7 +1062,10 @@
             "maxLength": 32,
             "example": "NH7K2Z"
           }
-        }
+        },
+        "required": [
+          "departureAirportCode"
+        ]
       },
       "ClassType": {
         "type": "string",
@@ -1503,7 +1503,13 @@
             "$ref": "#/components/schemas/Amount",
             "description": "Field is used only in the PIX recurrence scenario.\nMinimum subscription limit. In scenarios where the subscription amount is not fixed, merchants can specify this value, and subsequent user subscription amounts must not be less than this amount."
           }
-        }
+        },
+        "required": [
+          "subscriptionDescription",
+          "subscriptionStartTime",
+          "periodRule",
+          "subscriptionNotifyUrl"
+        ]
       },
       "PeriodType": {
         "type": "string",
